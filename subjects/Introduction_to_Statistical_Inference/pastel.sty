@@ -1,0 +1,66 @@
+% pastel.sty
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{pastel}
+
+\RequirePackage[most]{tcolorbox}
+\RequirePackage{xcolor}
+\RequirePackage{etoolbox}
+
+% === Customize these for each subject ===
+\definecolor{pastelblue}{HTML}{C9DAF8}
+\definecolor{pastelgreen}{HTML}{D9EAD3}
+\definecolor{pastelyellow}{HTML}{FFF2CC}
+\definecolor{pastelpink}{HTML}{F4CCCC}
+\definecolor{pastellavender}{HTML}{EAD1DC}
+
+% === Choose one color per subject ===
+\newcommand{\subjectcolor}{pastelyellow}
+
+% === Box styling for theorems ===
+\tcbset{
+  pastelbox/.style={
+    colback=\subjectcolor!40!white,
+    colframe=\subjectcolor!80!black,
+    fonttitle=\bfseries,
+    boxrule=0.5pt,
+    arc=3pt,
+    left=6pt,
+    right=6pt,
+    top=6pt,
+    bottom=6pt,
+    enhanced,
+    breakable,
+    underlay={
+        % Top-left triangle
+        \path[fill=\subjectcolor!80!black] 
+            (frame.north west) -- ++(-0.05,0.05) -- ++(0.5,0) -- ++(-0.5,-0.5) -- ++(0,0.5) -- cycle;
+
+        % Bottom-right triangle
+        \path[fill=\subjectcolor!80!black] 
+            (frame.south east) -- ++(0.05,-0.05) -- ++(-0.5,0) -- ++(0.5,0.5) -- ++(0,-0.5) -- cycle;
+    },
+    shadow={0mm}{-0.5mm}{1mm}{\subjectcolor!30!black},
+  }
+}
+
+% === Automatically wrap theorems in boxes ===
+\AtBeginEnvironment{theorem}{\begin{tcolorbox}[pastelbox, title=]}
+\AtEndEnvironment{theorem}{\end{tcolorbox}}
+
+\AtBeginEnvironment{definition}{\begin{tcolorbox}[pastelbox, title=]}
+\AtEndEnvironment{definition}{\end{tcolorbox}}
+
+\AtBeginEnvironment{lemma}{\begin{tcolorbox}[pastelbox, title=]}
+\AtEndEnvironment{lemma}{\end{tcolorbox}}
+
+\AtBeginEnvironment{proposition}{\begin{tcolorbox}[pastelbox, title=]}
+\AtEndEnvironment{proposition}{\end{tcolorbox}}
+
+\AtBeginEnvironment{corollary}{\begin{tcolorbox}[pastelbox, title=]}
+\AtEndEnvironment{corollary}{\end{tcolorbox}}
+
+\AtBeginEnvironment{remark}{\begin{tcolorbox}[pastelbox, title=]}
+\AtEndEnvironment{remark}{\end{tcolorbox}}
+
+\AtBeginEnvironment{example}{\begin{tcolorbox}[pastelbox, title=]}
+\AtEndEnvironment{example}{\end{tcolorbox}}

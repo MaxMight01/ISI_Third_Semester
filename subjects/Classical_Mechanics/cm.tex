@@ -18,6 +18,9 @@
 \usepackage{caption} % For better control over captions
 \usepackage{float} % Fine control over figure/table placement
 \usepackage{imakeidx} % For index
+\usepackage[contents={},placement=page]{background} % For bands
+\usepackage{pastel} % For color
+\usepackage{etoolbox}
 
 % Custom Theorem Styles
 \newtheorem{theorem}{Theorem}[chapter]
@@ -78,24 +81,44 @@
 
 \titlespacing*{\chapter}{0pt}{20pt}{100pt}
 
+% === Colored header/footer bands ===
+\backgroundsetup{
+  scale=1,
+  angle=0,
+  opacity=1,
+  contents={
+    % Top band
+    \begin{tikzpicture}[remember picture,overlay]
+      \fill[\subjectcolor!40!white]
+        (current page.north west) rectangle ([yshift=-2.2cm]current page.north east);
+    \end{tikzpicture}
+    % Bottom band
+    \begin{tikzpicture}[remember picture,overlay]
+      \fill[\subjectcolor!40!white]
+        ([yshift=2.1cm]current page.south west) rectangle (current page.south east);
+    \end{tikzpicture}
+  }
+}
+
+
 \begin{document}
 
 \pagestyle{empty}
 
 \begin{titlepage}
+    \begin{tikzpicture}[remember picture, overlay]
+        \fill[\subjectcolor!60!white] 
+            (current page.south west) rectangle (current page.north east);
+    \end{tikzpicture}
+
     \begin{center}
-    \vspace*{\fill}
-    % Title in all caps
-    {\Huge \textbf{\MakeUppercase{Classical Mechanics}}\par}
-
-    \vspace{0.5cm} % Adjust vertical spacing between title and subtitle
-    % Subtitle in normal text, slightly enlarged
-    {\Large Prabuddha Chakraborty, notes by Ramdas Singh\par}
-
-    \vspace{0.5cm} % Additional spacing before the author
-    % Author information
-    {\large Third Semester\par}
-    \vspace*{\fill}
+        \vspace*{\fill}
+        {\Huge\bfseries\color{black!90} \MakeUppercase{Classical Mechanics}\par}
+        \vspace{0.5cm}
+        {\Large\color{black!90} Prabuddha Chakraborty, notes by Ramdas Singh\par}
+        \vspace{0.5cm}
+        {\large\color{black!90} Third Semester\par}
+        \vspace*{\fill}
     \end{center}
 \end{titlepage}
 
