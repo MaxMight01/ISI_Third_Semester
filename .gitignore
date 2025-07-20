@@ -1,0 +1,11 @@
+test_folder/
+*.aux
+*.idx
+*.ilg
+*.ind
+*.log
+*.toc
+*.fls
+*.fdb_latexmk
+*.gz
+*.synctex(busy)
