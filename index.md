@@ -22,31 +22,31 @@ Welcome to the **Third Semester** notes site. This repository contains compiled 
 
 <div class="subject-block">
 <h3>1. <strong>Analysis of Several Variables</strong></h3>
-📄 <a href="./subjects/Analysis_of_Several_Variables/aosv.pdf">Notes (PDF)</a><br>
+📄 <a href="./subjects/Analysis_of_Several_Variables/aosv.pdf?v=2">Notes (PDF)</a><br>
 🧾 <a href="https://www.isibang.ac.in/~adean/infsys/database/Bmath/ASV.html">Course Info</a>
 </div>
 
 <div class="subject-block">
 <h3>2. <strong>Classical Mechanics</strong></h3>
-📄 <a href="./subjects/Classical_Mechanics/cm.pdf">Notes (PDF)</a><br>
+📄 <a href="./subjects/Classical_Mechanics/cm.pdf?v=2">Notes (PDF)</a><br>
 🧾 <a href="https://www.isibang.ac.in/~adean/infsys/database/Bmath/CM.html">Course Info</a>
 </div>
 
 <div class="subject-block">
 <h3>3. <strong>Discrete Mathematics I</strong></h3>
-📄 <a href="./subjects/Discrete_Math_I/dm1.pdf">Notes (PDF)</a><br>
+📄 <a href="./subjects/Discrete_Math_I/dm1.pdf?v=2">Notes (PDF)</a><br>
 🧾 <a href="https://www.isibang.ac.in/~adean/infsys/database/Bmath/DM1.html">Course Info</a>
 </div>
 
 <div class="subject-block">
 <h3>4. <strong>Group Theory</strong></h3>
-📄 <a href="./subjects/Group_Theory/gt.pdf">Notes (PDF)</a><br>
+📄 <a href="./subjects/Group_Theory/gt.pdf?v=2">Notes (PDF)</a><br>
 🧾 <a href="https://www.isibang.ac.in/~adean/infsys/database/Bmath/GTh.html">Course Info</a>
 </div>
 
 <div class="subject-block">
 <h3>5. <strong>Introduction to Statistical Inference</strong></h3>
-📄 <a href="./subjects/Introduction_to_Statistical_Inference/itsi.pdf">Notes (PDF)</a><br>
+📄 <a href="./subjects/Introduction_to_Statistical_Inference/itsi.pdf?v=2">Notes (PDF)</a><br>
 🧾 <a href="https://www.isibang.ac.in/~adean/infsys/database/Bmath/ISI.html">Course Info</a>
 </div>
 
