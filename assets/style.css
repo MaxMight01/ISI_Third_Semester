@@ -50,6 +50,11 @@ a:hover {
   margin-bottom: 0.2rem; /* optional: tweak link spacing */
 }
 
+.subject-block:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
 /* --- Code styling --- */
 code {
   background: #eee;
