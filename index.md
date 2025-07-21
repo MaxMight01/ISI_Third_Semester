@@ -1,10 +1,17 @@
 ---
 title: "Third Semester at ISI, Bangalore"
 ---
+<div style="text-align: right; margin-bottom: 1em;">
+  <label class="switch">
+    <input type="checkbox" id="dark-mode-toggle">
+    <span class="slider"></span>
+  </label>
+</div>
+<link rel="stylesheet" href="./assets/style.css">
 
 # 🎓 Third Semester at ISI, Bangalore
 
-[![LaTeX](https://img.shields.io/badge/Built%20With-LaTeX-47A141.svg?logo=latex)](https://www.latex-project.org/)  
+[![LaTeX](https://img.shields.io/badge/Built%20With-LaTeX-47A141.svg?logo=latex)](https://www.latex-project.org/)
 ![Last Updated](https://img.shields.io/badge/Last%20Updated-July%202025-orange)
 
 Welcome to the **Third Semester** notes site. This repository contains compiled lecture notes and resources for courses from the third semester of the Bachelor of Mathematics (Hons.) program at the Indian Statistical Institute, Bangalore — academic year **2025–2026**.
@@ -13,27 +20,36 @@ Welcome to the **Third Semester** notes site. This repository contains compiled 
 
 ## 📚 Subjects
 
-### 1. **Analysis of Several Variables**
-- 📄 [Notes (PDF)](./subjects/Analysis_of_Several_Variables/aosv.pdf)  
-- 🧾 [Course Info](https://www.isibang.ac.in/~adean/infsys/database/Bmath/ASV.html)
+<div class="subject-block">
+<h3>1. <strong>Analysis of Several Variables</strong></h3>
+📄 <a href="./subjects/Analysis_of_Several_Variables/aosv.pdf">Notes (PDF)</a><br>
+🧾 <a href="https://www.isibang.ac.in/~adean/infsys/database/Bmath/ASV.html">Course Info</a>
+</div>
 
-### 2. **Classical Mechanics**
-- 📄 [Notes (PDF)](./subjects/Classical_Mechanics/cm.pdf)  
-- 🧾 [Course Info](https://www.isibang.ac.in/~adean/infsys/database/Bmath/CM.html)
+<div class="subject-block">
+<h3>2. <strong>Classical Mechanics</strong></h3>
+📄 <a href="./subjects/Classical_Mechanics/cm.pdf">Notes (PDF)</a><br>
+🧾 <a href="https://www.isibang.ac.in/~adean/infsys/database/Bmath/CM.html">Course Info</a>
+</div>
 
-### 3. **Discrete Mathematics I**
-- 📄 [Notes (PDF)](./subjects/Discrete_Math_I/dm1.pdf)  
-- 🧾 [Course Info](https://www.isibang.ac.in/~adean/infsys/database/Bmath/DM1.html)
+<div class="subject-block">
+<h3>3. <strong>Discrete Mathematics I</strong></h3>
+📄 <a href="./subjects/Discrete_Math_I/dm1.pdf">Notes (PDF)</a><br>
+🧾 <a href="https://www.isibang.ac.in/~adean/infsys/database/Bmath/DM1.html">Course Info</a>
+</div>
 
-### 4. **Group Theory**
-- 📄 [Notes (PDF)](./subjects/Group_Theory/gt.pdf)  
-- 🧾 [Course Info](https://www.isibang.ac.in/~adean/infsys/database/Bmath/GTh.html)
+<div class="subject-block">
+<h3>4. <strong>Group Theory</strong></h3>
+📄 <a href="./subjects/Group_Theory/gt.pdf">Notes (PDF)</a><br>
+🧾 <a href="https://www.isibang.ac.in/~adean/infsys/database/Bmath/GTh.html">Course Info</a>
+</div>
 
-### 5. **Introduction to Statistical Inference**
-- 📄 [Notes (PDF)](./subjects/Introduction_to_Statistical_Inference/itsi.pdf)  
-- 🧾 [Course Info](https://www.isibang.ac.in/~adean/infsys/database/Bmath/ISI.html)
+<div class="subject-block">
+<h3>5. <strong>Introduction to Statistical Inference</strong></h3>
+📄 <a href="./subjects/Introduction_to_Statistical_Inference/itsi.pdf">Notes (PDF)</a><br>
+🧾 <a href="https://www.isibang.ac.in/~adean/infsys/database/Bmath/ISI.html">Course Info</a>
+</div>
 
----
 
 ## 🤝 Contributions
 
@@ -42,13 +58,10 @@ Contributions may be made via pull requests at the GitHub repository:
 
 Minor edits, corrections, or suggestions for clarity are welcome.
 
----
-
 ## ✏️ Usage
 
 All materials are freely available for educational use. Attribution is optional but appreciated.
 
----
 
 ## 📬 Contact
 
@@ -60,4 +73,23 @@ All materials are freely available for educational use. Attribution is optional 
 
 ---
 
-<sub>This site is auto-generated using GitHub Pages from the `gh-pages` branch.</sub>
+<sub>This site is auto-generated using GitHub Pages from the <code>gh-pages</code> branch.</sub>
+
+<script>
+  const toggle = document.getElementById('dark-mode-toggle');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const saved = localStorage.getItem('theme');
+
+  // Initialize
+  if (saved === 'dark' || (saved === null && prefersDark)) {
+    document.documentElement.classList.add('dark');
+    toggle.checked = true;
+  }
+
+  toggle.addEventListener('change', () => {
+    const isDark = toggle.checked;
+    document.documentElement.classList.toggle('dark', isDark);
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+  });
+</script>
+
