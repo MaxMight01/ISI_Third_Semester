@@ -1,4 +1,16 @@
 /* --- Base page --- */
+
+:root {
+  --card-bg: #ffffff;
+  --text-color: #1d1d1d;
+  --accent-color: #7e9fe9;
+}
+
+.dark {
+  --card-bg: #2e2e2e;
+  --text-color: #e0e0e0;
+  --accent-color: #ffdc6e;
+}
 body {
   font-family: 'Segoe UI', sans-serif;
   background-color: #f5f5f0;
@@ -29,6 +41,7 @@ a:hover {
 
 /* --- Subject blocks --- */
 .subject-block {
+  display: block;
   background-color: var(--card-bg);
   color: var(--text-color);
   border-radius: 10px;
@@ -37,9 +50,10 @@ a:hover {
   box-shadow: 0 3px 8px rgba(0,0,0,0.05);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   line-height: 1.6; /* improves spacing between lines */
-  border-left: 5px solid #7e9fe9; /* accent color */
+  border-left: 5px solid var(--accent-color); /* accent color */
   padding-left: 1.2rem;           /* space from border */
   position: relative; /* for hover effects */
+  will-change: transform;
 }
 
 .subject-block h3 {
@@ -79,6 +93,7 @@ code {
   height: 0;
 }
 .slider {
+  display: inline-block;
   position: absolute;
   cursor: pointer;
   top: 1px; left: 1px;
@@ -103,6 +118,18 @@ code {
 .switch input:checked + .slider::before {
   transform: translateX(24px);
 }
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.theme-label {
+  font-weight: 500;
+  color: var(--text-color);
+  font-size: 0.95rem;
+}
 
 /* --- Dark mode overrides --- */
 .dark body {
@@ -119,7 +146,6 @@ code {
   background-color: #2e2e2e;
   border-left-color: #ffdc6e;
   box-shadow: 0 4px 12px rgba(255,255,255,0.05);
-  border-left: 5px solid #ffdc6e; /* warm yellow for dark mode */
 }
 .dark code {
   background: #333;
@@ -131,4 +157,18 @@ footer, sub {
   font-size: 0.8em;
   color: #777;
   margin-top: 2em;
+}
+
+/* --- Emoji blocks --- */
+.emoji-block {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.8em;
+  height: 1.8em;
+  background-color: var(--accent-color);
+  border-radius: 0.4em;
+  font-size: 1.2em;
+  margin-right: 0.4em;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
