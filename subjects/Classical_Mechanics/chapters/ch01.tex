@@ -1,0 +1,87 @@
+\chapter{THE LAWS OF MOTION AND CONSERVATION}
+
+
+\section{An Introduction}
+\subsection{Standard Conventions}
+\textit{July 21st}
+
+We will be using the convention of $\hat{e}_{x} \times \hat{e}_{y} = \hat{e}_{z}$, where $\times$ denotes the \eax{cross product}, and $\hat{e}_{w}$ is the unit vector along the $w$ axis. For two general vectors $\vec{A}$ and $\vec{B}$, the $i^{\text{th}}$ component of the cross product $\vec{C} = \vec{A} \times \vec{B}$ is given as
+\begin{equation}
+    [\vec{C}]_{i} = \sum_{j,k} \epsilon_{ijk} [\vec{A}]_{j} [\vec{B}]_{k},
+\end{equation}
+where $\epsilon_{ijk}$ is the \eax{Levi-Civita symbol}, which is simply the sign of the permutation of the indices $ijk$. A \eax{dot product} between the two vectors is defined as
+\begin{equation}
+    \vec{A} \cdot \vec{B} = \sum_{i} A_{i}B_{i}.
+\end{equation}
+Along with the Levi-Civita symbol, we will also be using the \eax{Kronecker delta} $\delta_{ij}$, which is defined as $\delta_{ij} = 1$ if $i = j$ and $0$ otherwise. It can be shown that
+\begin{equation}
+    \epsilon_{ijk}\epsilon_{ilm} = \delta_{jl}\delta_{km} - \delta_{km} \delta_{kl}.
+\end{equation}
+
+\begin{example}
+    The following are some examples of the above notation:
+    \begin{itemize}
+        \item \eax{Angular momentum}: $\vec{L} = \vec{r} \times \vec{p} \implies L_{i} = \epsilon_{ijk} r_{j}p_{k}$ where $\vec{p}$ is the momentum vector and $\vec{r}$ is the position vector.
+        \item \eax{Kinetic energy}: $T = \frac{1}{2} m \vec{v} \cdot \vec{v} = \sum_{i} \frac{1}{2} m v_{i}v_{i} = \sum_{i} \frac{p_{i}p_{i}}{2m}$, where $\vec{v}$ is the velocity vector.
+        \item \eax{Torque}: $\vec{\tau} = \vec{r} \times \vec{F} \implies \tau_{i} = \epsilon_{ijk} r_{j}F_{k}$, where $\vec{F}$ is the force vector.
+    \end{itemize}
+\end{example}
+
+\subsubsection{Gradient, Divergence, and Curl}
+\begin{definition}
+    The \eax{gradient} of a scalar field $f$ is defined as
+    \begin{equation}
+        \vec{\nabla} f \defeq  \frac{\partial f}{\partial x} \hat{e}_{x} + \frac{\partial f}{\partial y} \hat{e}_{y} + \frac{\partial f}{\partial z} \hat{e}_{z}.
+    \end{equation}
+    The gradient points in the direction of the steepest ascent of the function $f$. The gradient operator $\vec{\nabla}$ is also defined as
+    \begin{equation}
+        \vec{\nabla} \defeq \frac{\partial}{\partial x} \hat{e}_{x} + \frac{\partial}{\partial y} \hat{e}_{y} + \frac{\partial}{\partial z} \hat{e}_{z}.
+    \end{equation}
+    This definition can be extended to higher dimensions as well.
+\end{definition}
+The above definition only works really on a \eax{scalar field}, a function from the 3 dimensional space to the real numbers. However, one encounters vector fields as well, which calls for another definition. A \eax{vector field}, in simple terms, is a function that assigns a vector to every point in space. 
+\begin{definition}
+    The \eax{divergence} of a vector field $\vec{v}(\vec{r}) = v_{x}(x,y,z) \hat{e}_{x} + v_{y}(x,y,z) \hat{e_{y}} + v_{z}(x,y,z) \hat{e}_{z}$, where $v_{i}$ is a scalar field, is defined as
+    \begin{equation}
+        \vec{\nabla} \cdot \vec{v} \defeq \frac{\partial v_{x}}{\partial x} + \frac{\partial v_{y}}{\partial y} + \frac{\partial v_{z}}{\partial z}.
+    \end{equation}
+    The operator carries over from the previous definition.
+\end{definition}
+In Einstein's notation, the components can be rewritten as $\frac{\partial v_{i}}{\partial x_{i}} = \partial_{i} v_{i}$. A cross product may also be performed on vector fields, leading to the following definition.
+\begin{definition}
+    The \eax{curl} of a vector field $\vec{v}(\vec{r})$ is defined as
+    \begin{equation}
+        \vec{\nabla} \times \vec{v} \defeq \left( \frac{\partial v_{z}}{\partial y} - \frac{\partial v_{y}}{\partial z} \right) \hat{e}_{x} + \left( \frac{\partial v_{x}}{\partial z} - \frac{\partial v_{z}}{\partial x} \right) \hat{e}_{y} + \left( \frac{\partial v_{y}}{\partial x} - \frac{\partial v_{x}}{\partial y} \right) \hat{e}_{z}.
+    \end{equation}
+    The operator carries over from the previous definitions.
+\end{definition}
+In Einstein's notation, the components can be rewritten as $[\vec{\nabla} \times \vec{v}]_{i} = \epsilon_{ijk} \partial_{j} v_{k}$, where $j$ and $k$ are cycled over.
+
+\subsection{The Laws}
+We first discuss the third law of action-reaction pairs. Simply stated, every action has an equal and opposite reaction. It is important to note that the two action-reaction forces never act on the same body, and hence do not cancel each other out. If a human stands on a spring scale in an elevator, the human exerts a normal force $N_{h/s}$ on the spring, and the spring exerts a normal force $N_{s/h}$ on the human. The spring scale actually measures the force $N_{s/h}$. If the elevator were to accelrate upwards, then the force $N_{h/s}$ remains the same, yet the force $N_{s/h}$ increases, leading to a higher reading on the scale. One must also note that equal in mangnitude and opposite direction does not necessarily mean that they act along the same line. The second law of motion states $\vec{F} = m \vec{a}$, where $\vec{F}$ is the net force acting on a body, $m$ is the mass of the body, and $\vec{a}$ is the acceleration of the body.\\
+
+To formalize this, we discuss the mechanics of a single particle. The particle is at position vector $\vec{r}$, and moves with the velocity vector $\vec{v} = \frac{d\vec{r}}{dt}$. The \eax{momentum} of the particle is defined as $\vec{p} \defeq m \vec{v}$. The net force acting on the particle is defined as $\vec{F} \defeq \frac{d\vec{p}}{dt}$. If the mass is constant, \textit{i.e.}, independent of time, then we can write
+\begin{equation}
+    \vec{F} = m \frac{d\vec{v}}{dt} = m \vec{a} = m \frac{d^{2}\vec{r}}{dt^{2}}.
+\end{equation}
+We call our reference frame an \eax{inertial frame} if $\vec{F} = \frac{d \vec{p}}{dt}$ holds true when independently measured. If the net force acting on the particle is zero, then $\frac{d\vec{p}}{dt} = 0$, implying that the momentum $\vec{p}$ is conserved. This is one of the conservation laws.
+
+The \eax{angular momentum} of the particle is defined as $\vec{L} \defeq \vec{r} \times \vec{p}$. The net \eax{torque} acting on the particle is defined as $\vec{\tau} \defeq \vec{r} \times \vec{F} = \vec{r} \times \frac{d}{dt}(m\vec{v})$. If we again assume that the mass is constant, we then have
+\begin{equation}
+    \frac{d\vec{L}}{dt} = \frac{d}{dt}(\vec{r} \times \vec{p}) = \vec{r} \times \frac{d\vec{p}}{dt} = \vec{r} \times \vec{F} = \vec{\tau}.
+\end{equation}
+Thus, if $\vec{\tau} = 0$, then $\vec{L}$ is conserved. This is another conservation law. Note that in both the conservation laws, the mass is taken to be constant.\\
+
+Now, suppose that the particle moves from position $i$, for initial, to position $f$, for final, taking $d\vec{s}$ steps, and gets acted upon by a force $\vec{F}$ for time $dt$. The \eax{work} done by the force is defined as $W \defeq \int_{i}^{f} \vec{F} \cdot d\vec{s}$. If the mass is constant, then we have
+\begin{equation}
+    W = \int_{i}^{f} m \vec{a} \cdot d\vec{s} = m \int_{i}^{f} \frac{d\vec{v}}{dt} \cdot \vec{v} dt = \frac{m}{2} \int_{i}^{f} dt \frac{d}{dt}(\vec{v} \cdot \vec{v}) = \frac{m}{2} \left( v_{f}^{2} - v_{i}^{2} \right) = T_{f} - T_{i},
+\end{equation}
+where $T$ denotes the \eax{kinetic energy} of the particle. This is, roughly stated, the \eax{work-energy theorem}. Again, note that the mass is taken to be constant. If the exeternal work done $W$ is zero, then $T$ is conserved. This is our third conservation law. If the work done between two positions is independent of the path taken, then the force is termed a \eax{conservative force}. If the path starts and ends at the same point, then the work done is zero in case of a conservative force. Thus, $\oint_{\cC}\vec{F} \cdot d\vec{s} = 0$, where $\cC$ is a closed path. The opposite is also true; a necessary and sufficient condition for a force to be conservative is $\vec{F} = -\vec{\nabla} V$, where $V$ is a scalar field called the \eax{potential energy}. In this case,
+\begin{equation}
+    W = \oint_{\cC} \vec{F} \cdot d\vec{S} = -\oint_{\cC} \vec{\nabla} V \cdot d\vec{s} = -\oint_{\cC} dV = 0.
+\end{equation}
+By the work-energy theorem, for an open path, we have
+\begin{equation}
+    \int_{i}^{f} \vec{F} \cdot d\vec{s} = -\int_{i}^{f} \vec{\nabla} V \cdot d\vec{s} = -(V_{f}-V_{i}) = T_{f} - T_{i} \implies T_{f} + V_{f} = T_{i} + V_{i}.
+\end{equation}
+Thus, the quantity $T+V$ is always conserved in a conservative field; this quantity is termed the \eax{total energy}, $E = T+V$.
