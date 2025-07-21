@@ -118,18 +118,6 @@ code {
 .switch input:checked + .slider::before {
   transform: translateX(24px);
 }
-.theme-toggle {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  margin-bottom: 1.5rem;
-}
-
-.theme-label {
-  font-weight: 500;
-  color: var(--text-color);
-  font-size: 0.95rem;
-}
 
 /* --- Dark mode overrides --- */
 .dark body {
@@ -157,18 +145,4 @@ footer, sub {
   font-size: 0.8em;
   color: #777;
   margin-top: 2em;
-}
-
-/* --- Emoji blocks --- */
-.emoji-block {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.8em;
-  height: 1.8em;
-  background-color: var(--accent-color);
-  border-radius: 0.4em;
-  font-size: 1.2em;
-  margin-right: 0.4em;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }

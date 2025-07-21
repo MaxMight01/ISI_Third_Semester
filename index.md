@@ -1,10 +1,9 @@
 ---
 title: "Third Semester at ISI, Bangalore"
 ---
-<div class="theme-toggle">
-  <span class="theme-label">☀️ Light / Dark 🌙</span>
+<div style="text-align: right; margin-bottom: 1em;">
   <label class="switch">
-    <input type="checkbox" id="mode-toggle">
+    <input type="checkbox" id="dark-mode-toggle">
     <span class="slider"></span>
   </label>
 </div>
