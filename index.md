@@ -1,44 +1,52 @@
+---
+title: "Third Semester at ISI, Bangalore"
+---
+
 # 🎓 Third Semester at ISI, Bangalore
 
-[![LaTeX](https://img.shields.io/badge/Built%20With-LaTeX-47A141.svg?logo=latex)](https://www.latex-project.org/)
+[![LaTeX](https://img.shields.io/badge/Built%20With-LaTeX-47A141.svg?logo=latex)](https://www.latex-project.org/)  
 ![Last Updated](https://img.shields.io/badge/Last%20Updated-July%202025-orange)
 
-Welcome to the **Third Semester** repository. This site hosts compiled notes and resources for the following courses from the third semester of the Bachelor of Mathematics (Hons.) program at the Indian Statistical Institute, Bangalore, for the academic year **2025–2026**.
+Welcome to the **Third Semester** notes site. This repository contains compiled lecture notes and resources for courses from the third semester of the Bachelor of Mathematics (Hons.) program at the Indian Statistical Institute, Bangalore — academic year **2025–2026**.
 
 ---
 
 ## 📚 Subjects
 
-### 1. [Analysis of Several Variables](./subjects/Analysis_of_Several_Variables/aosv.pdf)
-> [Course Info](https://www.isibang.ac.in/~adean/infsys/database/Bmath/ASV.html)
+### 1. **Analysis of Several Variables**
+- 📄 [Notes (PDF)](./subjects/Analysis_of_Several_Variables/aosv.pdf)  
+- 🧾 [Course Info](https://www.isibang.ac.in/~adean/infsys/database/Bmath/ASV.html)
 
-### 2. [Classical Mechanics](./subjects/Classical_Mechanics/cm.pdf)
-> [Course Info](https://www.isibang.ac.in/~adean/infsys/database/Bmath/CM.html)
+### 2. **Classical Mechanics**
+- 📄 [Notes (PDF)](./subjects/Classical_Mechanics/cm.pdf)  
+- 🧾 [Course Info](https://www.isibang.ac.in/~adean/infsys/database/Bmath/CM.html)
 
-### 3. [Discrete Mathematics I](./subjects/Discrete_Math_I/dm1.pdf)
-> [Course Info](https://www.isibang.ac.in/~adean/infsys/database/Bmath/DM1.html)
+### 3. **Discrete Mathematics I**
+- 📄 [Notes (PDF)](./subjects/Discrete_Math_I/dm1.pdf)  
+- 🧾 [Course Info](https://www.isibang.ac.in/~adean/infsys/database/Bmath/DM1.html)
 
-### 4. [Group Theory](./subjects/Group_Theory/gt.pdf)
-> [Course Info](https://www.isibang.ac.in/~adean/infsys/database/Bmath/GTh.html)
+### 4. **Group Theory**
+- 📄 [Notes (PDF)](./subjects/Group_Theory/gt.pdf)  
+- 🧾 [Course Info](https://www.isibang.ac.in/~adean/infsys/database/Bmath/GTh.html)
 
-### 5. [Introduction to Statistical Inference](./subjects/Introduction_to_Statistical_Inference/itsi.pdf)
-> [Course Info](https://www.isibang.ac.in/~adean/infsys/database/Bmath/ISI.html)
+### 5. **Introduction to Statistical Inference**
+- 📄 [Notes (PDF)](./subjects/Introduction_to_Statistical_Inference/itsi.pdf)  
+- 🧾 [Course Info](https://www.isibang.ac.in/~adean/infsys/database/Bmath/ISI.html)
 
 ---
 
 ## 🤝 Contributions
 
-Pull requests are welcome! You can contribute by:
+Contributions may be made via pull requests at the GitHub repository:  
+👉 [github.com/MaxMight01/ISI_Third_Semester](https://github.com/MaxMight01/ISI_Third_Semester)
 
-- Fixing typos or notation inconsistencies
-- Improving clarity or adding examples
-- Suggesting supplementary material
+Minor edits, corrections, or suggestions for clarity are welcome.
 
 ---
 
 ## ✏️ Usage
 
-All material is open and free to use for educational purposes. Readers are encouraged to fork, share, and build upon these notes. Attribution is appreciated but not required.
+All materials are freely available for educational use. Attribution is optional but appreciated.
 
 ---
 
@@ -52,4 +60,4 @@ All material is open and free to use for educational purposes. Readers are encou
 
 ---
 
-_This site is auto-generated using GitHub Pages._
+<sub>This site is auto-generated using GitHub Pages from the `gh-pages` branch.</sub>
