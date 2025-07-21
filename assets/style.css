@@ -29,19 +29,25 @@ a:hover {
 
 /* --- Subject blocks --- */
 .subject-block {
-  position: relative;
-  border-left: 4px solid #5b8ef0;
-  padding: 0em 1em;      /* reduced top/bottom padding */
-  margin: 1.2em 0;
-  background-color: #eef4ff;
-  border-radius: 8px;
+  background-color: var(--card-bg);
+  color: var(--text-color);
+  border-radius: 10px;
+  padding: 1rem 1.5rem;
+  margin: 1rem 0;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.05);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  display: block;          /* ensure hover works */
+  line-height: 1.6; /* improves spacing between lines */
 }
 
-.subject-block:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+.subject-block h3 {
+  margin-top: 0;
+  margin-bottom: 0.3rem; /* reduces excessive space below the title */
+  font-size: 1.2rem;
+}
+
+.subject-block a {
+  display: inline-block;
+  margin-bottom: 0.2rem; /* optional: tweak link spacing */
 }
 
 /* --- Code styling --- */
