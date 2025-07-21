@@ -16,7 +16,6 @@ title: "Third Semester at ISI, Bangalore"
 
 Welcome to the **Third Semester** notes site. This repository contains compiled lecture notes and resources for courses from the third semester of the Bachelor of Mathematics (Hons.) program at the Indian Statistical Institute, Bangalore — academic year **2025–2026**.
 
----
 
 ## 📚 Subjects
 
@@ -71,9 +70,8 @@ All materials are freely available for educational use. Attribution is optional 
 - **GitHub:** [MaxMight01](https://github.com/MaxMight01)  
 - **LinkedIn:** [Ramdas Singh](https://www.linkedin.com/in/ramdas-max-singh/)
 
----
 
-<sub>This site is auto-generated using GitHub Pages from the <code>gh-pages</code> branch.</sub>
+<sub>This site is auto-generated using GitHub Pages from the <code>main</code> branch.</sub>
 
 <script>
   const toggle = document.getElementById('dark-mode-toggle');

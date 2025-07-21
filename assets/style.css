@@ -37,6 +37,9 @@ a:hover {
   box-shadow: 0 3px 8px rgba(0,0,0,0.05);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   line-height: 1.6; /* improves spacing between lines */
+  border-left: 5px solid #7e9fe9; /* accent color */
+  padding-left: 1.2rem;           /* space from border */
+  position: relative; /* for hover effects */
 }
 
 .subject-block h3 {
@@ -52,7 +55,7 @@ a:hover {
 
 .subject-block:hover {
   transform: translateY(-4px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
 }
 
 /* --- Code styling --- */
@@ -116,6 +119,7 @@ code {
   background-color: #2e2e2e;
   border-left-color: #ffdc6e;
   box-shadow: 0 4px 12px rgba(255,255,255,0.05);
+  border-left: 5px solid #ffdc6e; /* warm yellow for dark mode */
 }
 .dark code {
   background: #333;
