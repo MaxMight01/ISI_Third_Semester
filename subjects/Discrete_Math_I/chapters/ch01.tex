@@ -1,0 +1,54 @@
+\chapter{DISCRETE STRUCTURES}
+
+\section{A Brief Introduction}
+\textit{July 22nd.}
+
+Discrete mathematics is primarily the study of tools for reasoning precisely the systematically about digital systems, logical problems, and combinatorial structures such as the integers, graphs, logical statements, and finite automata. Furthermore, combinatorics is the mathematics of counting and configuration; the counting, organizing, and analyzing discrete structures. 
+
+\eax{Bloch's principle}, or Bloch's heuristics, states that every proposition on whose statement the actual infinity occurs can always be considered as a consequence of a proposition where it does not occur as a proposition on finite terms. The \eax{Ramsey principle} states that complete disorder is impossible. In any sufficiently large structure, order or regularity must emerge. These two principles may be considered complimentary to each other.
+
+\section{Useful Methods}
+The method of \eax{double counting} can be thought of a creative device or trick. Before strictly showing the statement, we utilise some examples.
+\begin{example}
+    Suppose we wish to show that $\sum_{k=0}^{n} \binom{n}{k} = 2^{n}$. We first ask how many ways can a subset be chosen from $\{1,2,\ldots,n\}$. The first method is to build a subset by deciding whether we want $i$ to be a part of our subset for $i \in \{1,2,...,n\}$. The second method is find the number of subsets of caridnality $i$ for $i \in \{1,2,\ldots,n\}$ and add up all the results. This leads us to conclude $2^{n} = \sum_{k=0}^{n} \binom{n}{k}$ after equating the answers from both methods.
+\end{example}
+
+\begin{theorem}[The \eax{q-binomial theorem}]
+    We use the following notation:
+    \begin{equation}
+        \binom{n}{k}_{q} = \frac{(q^{n}-1) \cdots (q^{n-k+1}-1)}{(q^{k}-1) \cdots (q-1)}.
+    \end{equation}
+    Simply stated, the $q$-binomial theorem is
+    \begin{equation}
+        \sum_{k=0}^{n} q^{\binom{k}{2}} \binom{n}{k}_{q} z^{k} = \prod_{i=0}^{n-1} (1+q^{i}z).
+    \end{equation}
+\end{theorem}
+The proof of the above theorem is performed by double counting; counting the number of pairs $(U,B)$ where $U$ is a $k$-dimensional subspace of $\F^{n}_{q}$ and $B$ is the flag of nested subspaces of $U$.
+
+\subsection{Reccurrence Relations and Generating Functions}
+Perhaps, the most important example of a recurrence relation is the Fibonacci sequence, where the terms in the sequence are defined as $F_{0} = 0$, $F_{1} = 1$, $F_{n+2} = F_{n+1} + F_{n}$ for all $n \geq 0$. Let us find the \eax{generating function} of this sequence; we start by creating
+\begin{equation}
+    F(t) = F_{0} + F_{1}t + F_{2}t^{2} + F_{3}t^{3} + \cdots,
+\end{equation}
+the generating function of $(F_{n})_{n=0}^{\infty}$. We can then work as follows---
+\begin{align}
+    tF(t) &= F_{0}t + F_{1}t^{2} + \cdots,\notag\\
+    t^{2}F(t) &= F_{0}t^{2} + \cdots,\notag\\
+    \implies (1-t-t^{2})F(t) &= t \implies F(t) = \frac{-t}{t^{2}+t-1}.
+\end{align}
+
+If we look at $F_{n+1} = 1 \cdot F_{n} + 1 \cdot F_{n-1}$ and $F_{n} = 1 \cdot F_{n} + 0 \cdot F_{n-1}$, we may notice a matrix as $\begin{bmatrix}
+    F_{n+1} \\ F_{n}
+\end{bmatrix} = \begin{bmatrix}
+    1 & 1 \\ 1 & 0
+\end{bmatrix} \begin{bmatrix}
+    F_{n} \\ F_{n-1}
+\end{bmatrix}$. Back substituting multiple times leads us to conclude $\begin{bmatrix}
+    F_{n+1} \\ F_{n}
+\end{bmatrix} = \begin{bmatrix}
+    1 & 1 \\ 1 & 0
+\end{bmatrix}^{n} \begin{bmatrix}
+    1 \\ 0
+\end{bmatrix}$. We can then diagonalize the centre matrix to decompose it as $P \begin{bmatrix}
+    (1+\sqrt{5})^{n}/2^{n} & 0 \\ 0 & (1-\sqrt{5})^{n}/2^{n}
+\end{bmatrix} P^{-1}$; thus, the terms of the sequence are really linear combinations of the diagonal elements that appear.
