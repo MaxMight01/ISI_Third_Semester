@@ -1,0 +1,115 @@
+\chapter{INTRODUCTION TO GROUP THEORY}
+
+\section{Set Theory}
+\textit{July 22nd.}
+
+We begin with some basic assumptions to introduce set theory. The symbol $\in$ is used to denote membership in a set. A statement using this in set theory may be stated as $x \in y$, which can be either true or false. Once we have developed this language to discuss sets, we can introduce some axioms.
+\begin{axiom}
+    There exists a set with no elements, the \eax{empty set} $\emptyset$.
+\end{axiom}
+Formally, the above axiom is $\exists x (\forall y (y \notin x))$.
+\begin{axiom}
+    Two sets are equal if they have the same elements.
+\end{axiom}
+From the above two axioms, we can infer a unique empty set. A notion of subsets may also be declared.
+\begin{definition}
+    We say the set $A$ is a \eax{subset} of the set $B$, denoted $A \subseteq B$, if every element of $A$ is also an element of $B$.
+\end{definition}
+We also have a bunch of similarity axioms stated below.
+\begin{axiom}[Similarity axioms]
+    We have the following:
+    \begin{enumerate}
+        \item If $x, y$ are sets, then $\{x, y\} \Rightarrow \{x, \{x, y\}\}$ (not an ordered pair).
+        \item If $A$ is a set, then $\bigcup A = \{x \mid \exists y \in A,\ x \in y\}$ is a set.
+        \item There exists a \eax{power set} for every set; given a set $A$, there exists a set $P(A)$ such that for all $B \subseteq A$, $B \in P(A)$. Formally, $\forall A \exists P(A) (\forall B \subseteq A, B \in P(A))$.
+        \item The \eax{infinite axiom}: Formally, $\exists I (\emptyset \in I \wedge \forall y \in I (P(y) \in I))$.
+        \item If $A$ and $B$ are sets, then $A \times B = \{(x,y) \mid x \in A, y \in B\}$ is a set.
+    \end{enumerate}
+\end{axiom}
+Before discussing the last axiom, we define a relation on sets.
+\begin{definition}
+    A \eax{relation} $R$ on a set $A$ is a subset $R \subseteq A \times A$. If $(x,y) \in R$, we write $xRy$.
+\end{definition}
+\begin{axiom}[The \eax{axiom of choice}]
+    Let $A$ be a collection of non-empty and disjoint sets. Then there exists a set $C$ consisting of exactly one element from each set in $A$.
+\end{axiom}
+
+
+\begin{definition}
+    A relation $R$ on a set $A$ is said to be:
+    \begin{itemize}
+        \item \eax{reflexive} if $xRx \forall x \in A$,
+        \item \eax{symmetric} if $xRy \Rightarrow yRx$,
+        \item \eax{transitive} if $xRy \wedge yRz \Rightarrow xRz$,
+        \item \eax{antisymmetric} if $xRy \wedge yRx \Rightarrow x = y$.
+    \end{itemize}
+\end{definition}
+
+\begin{definition}
+    A \eax{partial order} on a set $A$ is a reflexive, transitive, and antisymmetric relation on $A$.
+\end{definition}
+Some examples of partially ordered sets include $(R, \leq)$, $(P(\R), \subseteq)$.
+
+\begin{definition}
+    A \eax{total order} $R$ on a set $A$ is a partial order such that for all $x,y \in A$, either $xRy$ or $yRx$.
+\end{definition}
+Again, $(R, \leq)$ is a totally ordered set, but not $(P(\R), \subseteq)$.
+\begin{definition}
+    A total order $\leq$ on a set $A$ is said to be a \eax{well-order} if given any non-empty subset $B \subseteq A$, there exists $x \in B$ such that for all $y \in B$, $x \leq y$.
+\end{definition}
+
+The below theorem may be derived from the above definitions and axioms.
+
+\begin{theorem}[The \eax{well-ordering principle}]
+    Every set can be well-ordered.
+\end{theorem}
+We may note that the well-ordering principle and the axiom of choice are equivalent.
+
+\begin{definition}
+    A \eax{chain} in partially ordered set $A$, with relation $\prec$, is a subset of $A$ which is totally ordered with respect to $\prec$.
+\end{definition}
+\begin{definition}
+    Let $C \subseteq A$ be a subset in a partially ordered set $(A, \prec)$. An element $x \in A$ is an upper bound of $C$ if for all $y \in C$, $y \prec x$.
+\end{definition}
+\begin{definition}
+    An element $x \in A$ is a \eax{maximal element} of a partially ordered set $(A, \prec)$ if for all $y \in A$, $x \prec y \Rightarrow x = y$.
+\end{definition}
+\begin{lemma}[\eax{Zorn's lemma}]
+    Let $A$ be a set and let $\prec$ be a partial order on $A$ such that every chain in $A$ has an upper bound. Then $A$ has a maximal element.
+\end{lemma}
+
+\begin{theorem}
+    The following are equialent:
+    \begin{enumerate}
+        \item The axiom of choice,
+        \item The well-ordering principle,
+        \item Zorn's lemma.
+    \end{enumerate}
+\end{theorem}
+
+\begin{definition}
+    A relation $R$ on a set $A$ is said to be an \eax{equivalence relation} if it is reflexive, symmetric, and transitive. Let $x \in A$. Then $[x] = \{yRx \mid y \in A\} \subseteq A$ is called the \eax{equivalence class} of $x$.
+\end{definition}
+
+We note that $\bigcup_{x \in A} [x] = A$ and for $x,y \in A$, either $[x] \cap [y] = \emptyset$ or $[x] = [y]$. Thus, we get a partition of $A$ into equivalence classes.
+
+Let $I$ be an indexing set, and let $A_{i}$ be sets for all $i \in I$. Then the existence of $\text{X}_{i \in I} A_{i} = \{f:I \to \overset{\cdot}{\bigsqcup} A_{i} \mid f(i) \in A_{i} \text{ for all } i \in I\}$ is another way of stating the axiom of choice.
+
+\begin{theorem}[The \eax{principle of induction}]
+    Let $S(n)$ be statements about the naturals $n \in \N$. Suppose $S(1)$ holds and for all $k \in \N$, $S(k) \Rightarrow S(k+1)$. Then $S(n)$ holds true for all $n \in \N$.
+\end{theorem}
+
+Let $I$ be a well-ordered set and let $S(i)$ be statements for all $i \in I$. Suppose that if $S(j)$ holds for all $j < i$, then $S(i)$ holds. Then $S(i)$ holds for all $i \in I$. This is the \eax{principle of transfinite induction}, which is also equivalent to the axiom of choice. We now properly introduce the theory of groups.
+
+\section{Groups}
+We first define a group.
+\begin{definition}
+    A \eax{group} is a triple $(G, \cdot, e)$ where $G$ is a set, $\cdot: G \times G \to G$ is a binary operation on $G$, and $e \in G$ is an element of $G$ satisfying the following axioms:
+    \begin{itemize}
+        \item The property of \eax{associativity}: For $a,b,c \in G$, $(a \cdot b) \cdot c = a \cdot (b \cdot c)$.
+        \item The property of the \eax{identity element}: For all $a \in G$, $a \cdot e = e \cdot a = a$. $e$ is referred to as the identity element.
+        \item The existence and property of the \eax{inverse element}: For all $a \in G$, there exists $b \in G$ such that $a \cdot b = b \cdot a = e$. $b$ is referred to as the inverse of $a$ and is denoted by $a^{-1}$.
+    \end{itemize}
+    In addition, $(G,\cdot,e)$ is also termed an \eax{abelian group} if for all $a,b \in G$, $a \cdot b = b \cdot a$, that is, commutativity holds.
+\end{definition}
+Some examples include $(\Z, +), (\Q, +), (\R, +), (\C, +)$. The set $(\Q, \cdot)$ is not a group since $0$ does not have an inverse. However, $(\Q^{\ast}, \cdot)$ is a group, where $\Q^{\ast} = \Q\setminus\{0\}$. All these groups are also abelian. An example of a non-abelian group is $S_{n}$, the set of all bijections from $\{1,2,\ldots,n\}$ to itself, under the binary operation of composition of functions. Another non-abelian group is $(GL_{n}(\R), \cdot)$, for $n \geq 2$, the set of all invertible real matrices.
