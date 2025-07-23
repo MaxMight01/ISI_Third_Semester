@@ -3,7 +3,7 @@
 
 \section{An Introduction}
 \subsection{Standard Conventions}
-\textit{July 21st}
+\textit{July 21st.}
 
 We will be using the convention of $\hat{e}_{x} \times \hat{e}_{y} = \hat{e}_{z}$, where $\times$ denotes the \eax{cross product}, and $\hat{e}_{w}$ is the unit vector along the $w$ axis. For two general vectors $\vec{A}$ and $\vec{B}$, the $i^{\text{th}}$ component of the cross product $\vec{C} = \vec{A} \times \vec{B}$ is given as
 \begin{equation}
@@ -57,7 +57,7 @@ In Einstein's notation, the components can be rewritten as $\frac{\partial v_{i}
 \end{definition}
 In Einstein's notation, the components can be rewritten as $[\vec{\nabla} \times \vec{v}]_{i} = \epsilon_{ijk} \partial_{j} v_{k}$, where $j$ and $k$ are cycled over.
 
-\subsection{The Laws}
+\subsection{The Laws: Mechanics of a Particle}
 We first discuss the third law of action-reaction pairs. Simply stated, every action has an equal and opposite reaction. It is important to note that the two action-reaction forces never act on the same body, and hence do not cancel each other out. If a human stands on a spring scale in an elevator, the human exerts a normal force $N_{h/s}$ on the spring, and the spring exerts a normal force $N_{s/h}$ on the human. The spring scale actually measures the force $N_{s/h}$. If the elevator were to accelrate upwards, then the force $N_{h/s}$ remains the same, yet the force $N_{s/h}$ increases, leading to a higher reading on the scale. One must also note that equal in mangnitude and opposite direction does not necessarily mean that they act along the same line. The second law of motion states $\vec{F} = m \vec{a}$, where $\vec{F}$ is the net force acting on a body, $m$ is the mass of the body, and $\vec{a}$ is the acceleration of the body.\\
 
 To formalize this, we discuss the mechanics of a single particle. The particle is at position vector $\vec{r}$, and moves with the velocity vector $\vec{v} = \frac{d\vec{r}}{dt}$. The \eax{momentum} of the particle is defined as $\vec{p} \defeq m \vec{v}$. The net force acting on the particle is defined as $\vec{F} \defeq \frac{d\vec{p}}{dt}$. If the mass is constant, \textit{i.e.}, independent of time, then we can write
@@ -78,10 +78,45 @@ Now, suppose that the particle moves from position $i$, for initial, to position
 \end{equation}
 where $T$ denotes the \eax{kinetic energy} of the particle. This is, roughly stated, the \eax{work-energy theorem}. Again, note that the mass is taken to be constant. If the exeternal work done $W$ is zero, then $T$ is conserved. This is our third conservation law. If the work done between two positions is independent of the path taken, then the force is termed a \eax{conservative force}. If the path starts and ends at the same point, then the work done is zero in case of a conservative force. Thus, $\oint_{\cC}\vec{F} \cdot d\vec{s} = 0$, where $\cC$ is a closed path. The opposite is also true; a necessary and sufficient condition for a force to be conservative is $\vec{F} = -\vec{\nabla} V$, where $V$ is a scalar field called the \eax{potential energy}. In this case,
 \begin{equation}
-    W = \oint_{\cC} \vec{F} \cdot d\vec{S} = -\oint_{\cC} \vec{\nabla} V \cdot d\vec{s} = -\oint_{\cC} dV = 0.
+    W = \oint_{\cC} \vec{F} \cdot d\vec{s} = -\oint_{\cC} \vec{\nabla} V \cdot d\vec{s} = -\oint_{\cC} dV = 0.
 \end{equation}
 By the work-energy theorem, for an open path, we have
 \begin{equation}
     \int_{i}^{f} \vec{F} \cdot d\vec{s} = -\int_{i}^{f} \vec{\nabla} V \cdot d\vec{s} = -(V_{f}-V_{i}) = T_{f} - T_{i} \implies T_{f} + V_{f} = T_{i} + V_{i}.
 \end{equation}
 Thus, the quantity $T+V$ is always conserved in a conservative field; this quantity is termed the \eax{total energy}, $E = T+V$.
+\subsubsection{Galilean Transformation}
+\textit{July 23rd.}
+
+Suppose one observer sits at a frame of reference $O$ and another obsever sits at a frame of reference $O'$, which is moving away from $O$ with a constant velocity $\vec{v}$. In this case, the positions of the two observers can be related as $\vec{r'} = \vec{r} - \vec{v}t$. However, this is based on the assumption that $t' = t$; time is experienced the same by both the observers. Newton made this assumption without any justification and it seemed right at the time. It is still important to note that Newton's form of $\vec{F} = m \frac{d^{2} \vec{r}}{dt^{2}}$ holds true in both cases--- it is independent of the frame of reference. Unless the velocity $\vec{v}$ is much, much higher (comparable to the speed of light), we can make confidently make the assumption $t = t'$ and work with Newton's equations. A transformation of coordinates between two frames of reference which differ only by constant relative motion is termed a \eax{Galilean transformation}.\\
+
+All in all, \textit{this} is where mechanics ends of a single particle mass. Note that we have not introduced the notion of internal or external forces. For much more complicated bodies made up of many more particles, more theory has to be introduced. We now discuss a system of particles.
+
+\subsection{The Laws: System of Particles}
+The first step is to choose a frame of reference and a coordinate system, and stick to it. Every particle is then assigned a position in time $\vec{r}_{i}$, a velocity $\dot{\vec{r}}_{i}$, and its acceleration $\ddot{\vec{r}}_{i}$. Along with this, each particle experiences an external force $\vec{F}_{i}^{\text{ext}}$ and forces by the other particles $\vec{F}_{ji}$ for $j \neq i$; we make the assumption that no particle exerts a force on itself. By Newton's second law, we obtain
+\begin{equation}
+    \vec{F}_{i}^{\text{tot}} = \vec{F}_{i}^{\text{ext}} + \sum_{j \neq i} \vec{F}_{ji} = \frac{d\vec{p}_{i}}{dt}.
+\end{equation}
+If $N_{p}$ dentes the number of particles, and we assume that $m_{i}(t) \equiv m_{i}$, summing over all particles leads to
+\begin{equation}
+    \sum_{i=1}^{N_{p}} \sum_{j=1,j\neq i}^{N_{p}} \vec{F}_{ji} + \sum_{i=1}^{N_{p}} \vec{F}_{i}^{\text{ext}} = \sum_{i=1}^{N_{p}} \frac{d}{dt} (m_{i}\vec{v}_{i}) = \frac{d^{2}}{dt^{2}} \left( \sum_{i=1}^{N_{p}} m_{i}\vec{r}_{i} \right).
+\end{equation}
+We invoke the weak form of Newton's third law, which states $\vec{F}_{ji} + \vec{F}_{ij} = 0$ for all pairs $i \neq j$. With this, it is easy to see that the first summation term of the above equations drops out. Let us denote the total mass of the system by $M_{\text{tot}}$. Thus, we then have
+\begin{align}
+    \implies \sum_{i=1}^{N_{p}} \vec{F}_{i}^{\text{ext}} &= \frac{d^{2}}{dt^{2}} \left( \frac{\sum_{i=1}^{N_{p}} m_{i}\vec{r}_{i}}{\sum_{i=1}^{N_{p}} m_{i}} \cdot M_{\text{tot}} \right) \\
+    \implies \vec{F}_{\text{tot}}^{\text{ext}} &= M_{\text{tot}} \cdot \frac{d^{2}}{dt^{2}} \left( \frac{\sum_{i=1}^{N_{p}} m_{i}\vec{r}_{i}}{\sum_{i=1}^{N_{p}} m_{i}} \right) = M_{\text{tot}} \ddot{\vec{R}}_{CM}
+\end{align}
+where the quantity $\vec{R}_{CM}$ is termed the \eax{center of mass} of the system. For the total momentum of the system, we work roughly the same---
+\begin{align}
+    \vec{P}_{\text{tot}} = \sum_{i=1}^{N_{p}} \vec{p}_{i} = M_{\text{tot}} \cdot \frac{d}{dt} \left( \frac{\sum_{i=1}^{N_{p}}m_{i}\vec{r}_{i}}{M_{\text{tot}}} \right) = M_{\text{tot}} \dot{\vec{R}}_{CM}.
+\end{align}
+Differentiating the above with respect to time gives us Newton's second law of motion for a system of particles.
+\begin{align}
+    \frac{d\vec{P}_{\text{tot}}}{dt} = M_{\text{tot}} \frac{d^{2}\vec{R}_{CM}}{dt^{2}} = \vec{F}_{\text{tot}}^{\text{ext}}.
+\end{align}
+Thus, $\vec{P}_{\text{tot}}$ is conserved if the total external force is zero. This is our conservation of momentum law for a system of particles. Similarly, we can derive the law of conservation of angular momentum by defining $\vec{L}_{i} = \vec{r}_{i} \times \vec{p}_{i}$, and $\vec{L}_{\text{tot}} = \sum_{i=1}^{N_{p}} \vec{L}_{i}$. Noting that $\frac{d\vec{r}}{dt} \times \vec{p} = \vec{v} \times m\vec{v} = 0$, we get
+\begin{align}
+    \frac{d\vec{L}_{\text{tot}}}{dt} &= \frac{d}{dt} \left( \sum_{i=1}^{N_{p}} \vec{r}_{i} \times \vec{p}_{i} \right) = \sum_{i=1}^{N_{p}} \vec{r}_{i} \times \frac{d\vec{p}_{i}}{dt} = \sum_{i=1}^{N_{p}} \vec{r}_{i} \times \vec{F}_{i}^{\text{ext}} + \sum_{i,j=1, j \neq i}^{N_{p}} \vec{r}_{i} \times \vec{F}_{ji} \\
+    \implies \frac{d\vec{L}_{\text{tot}}}{dt} &= \sum_{i=1}^{N_{p}} \vec{r}_{i} \times \vec{F}_{i}^{\text{ext}} = \sum_{i=1}^{N_{p}} = \vec{\tau}_{i}^{\text{ext}} = \vec{\tau}_{\text{tot}}^{\text{ext}}.
+\end{align}
+In the above, we have made use of the strong form of Newton's third law, which states that the opposite and equal forces also act on the same line joining them. If the total external torque vanishes, then the total angular momentum is conserved.
