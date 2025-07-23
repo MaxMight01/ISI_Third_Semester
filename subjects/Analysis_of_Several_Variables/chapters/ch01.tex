@@ -1,6 +1,7 @@
 \chapter{INTRODUCTION TO $\R^{n}$}
 
-\section{Placeholder}
+\section{Translation into Higher Dimensions}
+\textit{July 21st.}
 
 We begin with a definition.
 \begin{definition}
@@ -82,3 +83,125 @@ We now bring the notion of convergence of sequences.
 \begin{definition}
     Let $\{x_{m}\} \subseteq \R^{n}$ be a sequence and $x \in \R^{n}$. We say that $\{x_{m}\}$ \eax{converges} to $x$ if for every $\varepsilon > 0$, there exists a natural $N$ such that $\norm{x_{m}-x} < \varepsilon$ for all $m \geq N$.
 \end{definition}
+
+\textit{July 23rd.}
+
+\begin{definition}
+    Let $S \subseteq \R^{n}$ and $a \in \R^{n}$. We say that $a$ is a \eax{limit point} of $S$ if $S \cap (B_{r}(a)\setminus\{a\})$ is non-empty for all $r > 0$.
+\end{definition}
+
+We introduce more notation; for all $i = 1,2,\ldots,n$, the mapping $\Pi_{i}:\R^{n} \to \R$ is called the \eax{$i^{\text{th}}$ projection} where $\Pi_{i}(x) = x_{i}$. Note that $x = (x_{1},x_{2},\ldots,x_{n}) = (\Pi_{1}(x),\Pi_{2}(x),\ldots,\Pi_{n}(x))$. This notation allows us to formulate the following useful fact a little more neatly.
+
+\begin{theorem}
+    Let $\{x_{m}\} \subseteq \R^{n}$ be a sequence and $x \in \R^{n}$. Then $x_{m} \to x$ if and only if $\Pi_{i}(x_{m}) \to \Pi_{i}(x)$ for all $i = 1,2,\ldots,n$.
+\end{theorem}
+\begin{proof}
+    Suppose $x_{m} \to x$. Then for all $\varepsilon > 0$, there exists a natural $N$ such that $\norm{x_{m}-x} < \varepsilon$ for all $N \geq N$. Restating, we have
+    \begin{align}
+        \sum_{i=1}^{n} (\Pi_{i}(x_{m})-\Pi_{i}(x))^{2} &< \varepsilon^{2} \text{ for all } n \geq N \\
+        \implies \text{For all $i$, } \abs{\Pi_{i}(x_{m})-\Pi_{i}(x)} &< \varepsilon^{2} \text{ for all } n \geq N.
+    \end{align}
+    For the converse, we simply work backwards with $\varepsilon/\sqrt{n}$ as our choice of epsilon.
+\end{proof}
+
+For example, the sequence $\{(\frac{1}{n},\frac{1}{2n+3})\}_{n=1}^{\infty}$ converges to $(0,0)$. However, the sequence $\{(\frac{1}{n},n^{2})\}_{n=1}^{\infty}$ does not.
+
+\begin{definition}
+    Let $S \subseteq \R^{n}$. $a \in S$ is termed an \eax{interior point} of $S$ if for some $r > 0$, $B_{r}(a) \subseteq S$ holds. Thus, a set $S$ is open if $a$ is an interior point for all $a \in S$. The \eax{interior} of set $S$ is defined as $\intr S \defeq \{a \in S \mid a \text{ is an interior point.}\}$.
+
+    If $a \in \intr(S^{c})$, then $a$ is termed an \eax{exterior point} of $S$. $a$ is termed a \eax{boundary point} if $B_{r}(a)$ meets both $S$ and $S^{c}$ for all $r > 0$. The set of \eax{boundary points} of $S$ is denoted as $\partial S$.
+\end{definition}
+
+We also term a set $S \subseteq \R^{n}$ as a \eax{closed set} if $\R^{n} \setminus S$ is open. The following facts will only be stated and will be left as an exercise to the reader:
+\begin{itemize}
+    \item A set $C \subseteq \R^{n}$ is closed if and only if for all sequences $\{x_{m}\}_{m=1}^{\infty} \subseteq C$ that converge to $x$ implies $x \in C$.
+    \item The open ball $B_{r}(a)$ is an open set.
+    \item The intersection of an arbitrary collection of closed sets is closed; likewise, the union of an arbitrary collection of open sets is open.
+    \item The set $S \subseteq \R^{n}$ is open if and only if $S = \intr S$.
+\end{itemize}
+Fix $O \subseteq \R^{n}$.
+\begin{itemize}
+    \item $O$ is open if and only if $O \cap \partial O = \emptyset$.
+    \item $O$ is closed if and only if $\partial O \subseteq O$.
+\end{itemize}
+For $S \subseteq \R^{n}$, we define the \eax{closure} of set $S$ as $\overline{S} = \intr S \cup \partial S$.
+\begin{itemize}
+    \item $S \subseteq \R^{n}$ is closed if and only if $\overline{S} = S$.
+    \item Let $C_{i} \subseteq R$ be closed sets and $O_{i} \subseteq \R$ be open sets, for $i = 1,2,\ldots,n$. Then $C_{1} \times C_{2} \times \cdots \times C_{n} \subseteq \R^{n}$ is a closed set, and $O_{1} \times O_{2} \times \cdots \times O_{n} \subseteq \R^{n}$ is an open set.
+    \item The \eax{$n$ dimensional unit sphere} $S^{n-1} \defeq \{x \in \R^{n} : \norm{x} = 1\}$ is closed in $\R^{n}$.
+\end{itemize}
+
+\begin{definition}
+    For $S \subseteq \R^{n}$ and $a \in \R^{n}$, $a$ is termed an \eax{isolated point} if $a$ is \textit{not} a limit points; that there exists an $r > 0$ such that $S \cap (B_{r}(a) \setminus \{a\}) = \emptyset$.
+\end{definition}
+
+With the pesky definitions and translation of one dimensional concept into being defined over several variables, we come to limits and continuity.
+
+\section{Limit and Continuity}
+Recall that given $f:(a,b)\setminus\{c\} \to \R$, we say that $\lim_{x \to c}f(x) = b$ if for every $\varepsilon  0$, there exists a $\delta > 0$ such that $\abs{f(x)-b} < \varepsilon$ for all $x$ satisfying $0 < \abs{x-c} < \delta$. Note that in this definition of the limit, we have $f(x) \in B_{\varepsilon}(b)$ and $x \in B_{\delta}(c) \setminus \{c\}$; this can easily be rewritten as $f(B_{\delta}(c)\setminus\{c\}) \subseteq B_{\varepsilon}(b)$. However, for our definition we would not require $f$ to be defined on an open set. We defind it over any arbitrary set.
+
+\begin{definition}
+    Let $a \in S \subseteq \R^{n}$ be a limit point of $S$ and let $f:S\setminus\{a\} \to \R^{m}$ be a function and $b \in \R^{m}$. We say $\lim_{x \to a} f(x) = b$ if for every $\varepsilon > 0$, there exists a $\delta > 0$ such that $f((B_{\delta}(a)\setminus\{a\}) \cap S) \subseteq B_{\varepsilon}(b)$. Again, this is equivalent to saying that $\norm{f(x)-b} < \varepsilon$ for all $x \in S\setminus\{a\}$ satisfying $\norm{x-a} < \delta$.
+\end{definition}
+
+It is important to get accustomed to the definition that works with open balls.
+\begin{remark}
+    In the above definition, if we instead write $x - a = h$, then $\lim_{x \to a} f(x) = b$ is equivalent to saying that for every $\varepsilon > 0$, there exists a $\delta > 0$ such that $\norm{f(a+h)-b} < \varepsilon$ for all $\norm{h} < \delta$. We can further rewrite to get the usual notation of
+    \begin{align}
+        \lim_{\norm{h} \to 0} \norm{f(a+h)-b} = 0.
+    \end{align}
+    Note that the above limit is in the real numbers, making it eaiser to deal with.
+\end{remark}
+
+A notion of continuity also comes in handy.
+\begin{definition}
+    For $S \subseteq \R^{n}$, let $f:S \to R^{m}$ with $a \in S$. We say $f$ is \eax{continuous} at $a$ if $\lim_{x \to a} f(x) = f(a)$. In other words, for every $\varepsilon > 0$, there exists a $\delta > 0$ such that
+    \begin{align}
+        \norm{f(x)-f(a)} < \varepsilon \text{ for all } x  \in S \text{ satisfying } \norm{x-a} < \delta
+    \end{align}
+    or
+    \begin{align}
+        f(B_{\delta}(a) \cap S) \subseteq B_{\varepsilon}(f(a)).
+    \end{align}
+\end{definition}
+Note that if $a$ is an isolated point of $S$, then any $f:S \to \R^{m}$ is continuous at $a$ since $f(\{a\}) \subseteq B_{\varepsilon}(f(a))$ holds true, trivially.
+
+\begin{remark}
+    Similar to the previous remark, $f$ is continuous at $a$ if and only if
+    \begin{align}
+        \lim_{\norm{h} \to 0} \norm{f(a+h)-f(a)} = 0.
+    \end{align}
+\end{remark}
+
+Functions defined on $S \subseteq \R^{n}$ can be broken down into components; given $f :S \to R^{m}$, define $f_{j} \defeq \Pi_{j} \circ f$ for all $j = 1,2,\ldots,m$. Thus, $f$ can be rewritten as $(f_{1},f_{2},\ldots,f_{m})$. We can conclude that $f$ is continuous at $a \in S$ if and only if $f_{j}:S \to \R$ is continuous at $a$ for all $j = 1,2,\ldots,m$. The proof of this observation is left as an exercise to the reader.
+
+\begin{theorem}
+    Let $a \in \R^{n}$ be a limit point of a set $S \subseteq \R^{n}$, with $b \in \R^{m}$ and $f:S \to R^{m}$ a function. Then, the following are equivalent---
+    \begin{enumerate}
+        \item $\lim_{x \to a}f(x) = b$.
+        \item If $\{x_{p}\} \subseteq S\setminus\{a\}$ and $x_{p} \to a$, then $f(x_{p}) \to b$.
+        \item $\lim_{x \to a} \norm{f(x)-b} = 0$.
+    \end{enumerate}
+\end{theorem}
+The proof of this theorem is left as an exercise to the reader.
+
+\begin{definition}
+    For a set $S \subseteq \R^{n}$, a function $f:S \to \R^{m}$ is termed a continuous function if $f$ is continuous at $a$ for all $a \in S$.
+\end{definition}
+
+\begin{theorem}
+    Let $f:S \to \R^{m}$ be a function, where $S \subseteq \R^{n}$. The following are, then, equivalent---
+    \begin{enumerate}
+        \item $f$ is continuous.
+        \item For all $a \in S$ and $\{x_{n}\} \subseteq S$ with $x_{n} \to a$, we have $f(x_{n}) \to f(a)$.
+        \item For all open sets $O \subseteq \R^{m}$, the set $f^{-1}(O) \subseteq S$ is also open.
+        \item For all closed sets $C \subseteq \R^{m}$, the set $f^{-1}(C) \subseteq S$ is also closed.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    For 1.~implies 3.~, let $O \subseteq \R^{m}$ be open. Pick some $a \in f^{-1}(O)$. Then, since $f(a) \in O$, there exists $r > 0$ such that $B_{r}(f(a)) \subseteq O$. Also, $f$ is continuous at $a$; for $\frac{r}{2} > 0$, there exists $\delta > 0$ such that 
+    \begin{align}
+        f(B_{\delta}(a)) \subseteq B_{\frac{r}{2}}(f(a)) \subseteq B_{r}(f(a)) \implies a \in B_{\delta}(a) \subseteq f^{-1}(B_{r}(f(a))) \subseteq f^{-1}(O).
+    \end{align}
+    Thus, $f^{-1}(O)$ is open. For 3.~implies 1.~, let $a \in S$. Fix $\varepsilon > 0$. Then the set $f^{-1}(B_{\varepsilon}(f(a)))$ is open; there exists a $\delta > 0$ such that $B_{\delta}(a) \subseteq f^{-1}(B_{\varepsilon}(f(a)))$.
+\end{proof}
