@@ -25,7 +25,7 @@ The method of \eax{double counting} can be thought of a creative device or trick
 \end{theorem}
 The proof of the above theorem is performed by double counting; counting the number of pairs $(U,B)$ where $U$ is a $k$-dimensional subspace of $\F^{n}_{q}$ and $B$ is the flag of nested subspaces of $U$.
 
-\subsection{Reccurrence Relations and Generating Functions}
+\subsubsection{Reccurrence Relations and Generating Functions}
 Perhaps, the most important example of a recurrence relation is the Fibonacci sequence, where the terms in the sequence are defined as $F_{0} = 0$, $F_{1} = 1$, $F_{n+2} = F_{n+1} + F_{n}$ for all $n \geq 0$. Let us find the \eax{generating function} of this sequence; we start by creating
 \begin{equation}
     F(t) = F_{0} + F_{1}t + F_{2}t^{2} + F_{3}t^{3} + \cdots,
@@ -52,3 +52,131 @@ If we look at $F_{n+1} = 1 \cdot F_{n} + 1 \cdot F_{n-1}$ and $F_{n} = 1 \cdot F
 \end{bmatrix}$. We can then diagonalize the centre matrix to decompose it as $P \begin{bmatrix}
     (1+\sqrt{5})^{n}/2^{n} & 0 \\ 0 & (1-\sqrt{5})^{n}/2^{n}
 \end{bmatrix} P^{-1}$; thus, the terms of the sequence are really linear combinations of the diagonal elements that appear.
+
+\subsubsection{Principle of Inclusion-Exclusion}
+\textit{July 24th.}
+
+Simply stated, for sets $A$ and $B$, $\# (A \cup B) = \# A + \# B + \# (A \cap B)$. For three sets $A, B$ and $C$, we have
+$\# (A \cup B \cup C) = \# A + \# B + \# C - \# (A \cap B) - \# (B \cap C) - \# (A \cap C) + \# (A \cap B \cap C)$. This can be extended to any finite number of finite sets.
+
+\begin{theorem}[The \eax{principle of inclusion-exclusion}]
+    Let $S$ be an $N$-set ($\#S = N$), and let $E_{1},E_{2},\ldots,E_{r}$ be, not necessarily distinct, subsets of $S$. For any subset $M$ of the indexing set $\{1,2,\ldots,r\}$, let $N(M)$ denote the number of elements of $S$ in $\bigcap_{i \in M} E_{i}$, and for $0 \leq j \leq r$, define
+    \begin{align}
+        N_{j} = \sum_{\# M = j} N(M).
+    \end{align}
+    Then the number of elements of $S$ not in any of the $E_{i}$'s is
+    \begin{align}
+        \#(S \setminus \bigcup_{i = 1}^{r} E_{i}) = N - N_{1} + N_{2} - N_{3} + \cdots + (-1)^{r} N_{r}.
+    \end{align}
+\end{theorem}
+\begin{proof}
+    For $x \in S$, define $M:S \to \{0,1\}$ as $M(x) = 1$ if $x \in \bigcap_{i \in M} E_{i}$ and $0$ otherwise. Thus,
+    \begin{align}
+        \sum_{x \in S} M(x) = \# (\bigcap_{i \in M} E_{i}) = N(M) \implies N_{j} = \sum_{\# M = j} \sum_{x \in S} M(x) = \sum_{x \in S} \sum_{\# M = j} M(x).
+    \end{align}
+    The alternating sum then becomes
+    \begin{align}
+        \sum_{x \in S} 1 - \sum_{x \in S} \sum_{\# M = 1} M(x) + \cdots + (-1)^{r} \sum_{x \in S} \sum_{\# M = r} M(x) = \sum_{x \in S} \left( 1 - \sum_{\# M = 1} M(x) + \cdots + (-1)^{r} \sum_{\# M = r} M(x) \right).
+    \end{align}
+    Call the term within the parentheses as $F(x)$. We deal with cases; if $x \notin \bigcup_{i=1}^{r} E_{i}$, then $F(x) = 1$. If $x$ is in exactly $k \geq 1$ of the sets $E_{1},E_{2},\ldots,E_{r}$, then
+    \begin{align}
+        F(x) = 1 - \binom{k}{1} + \binom{k}{2} - \binom{k}{3} + \cdots + (-1)^{k} \binom{k}{k} = (1-1)^{k} = 0.
+    \end{align}
+    This is independent of $k$; we conclude that the alternating sum reduces to the number of elements in $S$ not in any of the $E_{i}$'s.
+\end{proof}
+
+\begin{corollary}
+    Retaining notation from the previous theorem, if $S = \bigcup_{i=1}^{r} E_{r}$, then
+    \begin{align}
+        N = N_{1} - N_{2} + \cdots + (-1)^{r-1} N_{r}.
+    \end{align}
+\end{corollary}
+
+We look at some examples of the principle in use.
+\begin{example}
+    Let $d_{n}$ be the number of permutations $\pi$ of the set $\{1,2,\ldots,n\}$ such that $\pi(i) \neq i$ for all $1 \leq i \leq n$. Such a permutation is called a \eax{derangement}, where no point is fixed. We wish to count all such permutations. Let the set of all permutations of the set be $S$. Let $E_{i}$ denote the set of all permutations that fix $i$, for $1 \leq i \leq n$. Thus, $S$ without $\bigcup_{i=1}^{n} E_{i}$ would then denote the set of all derangements. Making use of the principle, we have
+    \begin{align}
+        \#(S \setminus \bigcup_{i=1}^{n} E_{i}) = n! - \binom{n}{1}(n-1)! + \binom{n}{2} (n-2)! - \cdots = n! \left( 1-\frac{1}{1!} + \frac{1}{2!} - \frac{1}{3!} + \cdots + (-1)^{n} \frac{1}{n!} \right)
+    \end{align}
+    which is approximately $\frac{n!}{e}$ for larger $n$. Thus, the probability of choosing a derangemnet is $e^{-1}$.
+\end{example}
+
+\begin{example}
+    Suppose we have two sets $X$ and $Y$ with $\# X = n$ and $\# Y = k$. We ask how many surjective maps exists from $X$ to $Y$. The set $S$, this time, is the set of all functions from $X$ to $Y$, being $Y^{X}$. $E_{i}$ denotes the set of functions from $X$ to $Y$ such that $y_{i}$ is not in the image of $X$. The elments within $S$ not in any of the $E_{i}$'s are surjective maps. Clearly, $N_{i} = \binom{k}{i} (k-i)^{n}$, and the cardinality of $S \setminus \bigcup_{i=1}^{k} E_{i}$ is then
+    \begin{align}
+        \sum_{i=0}^{k} (-1)^{i} \binom{k}{i} (k-i)^{n}.
+    \end{align}
+\end{example}
+
+\begin{example}
+    We wish to show that the expression $\sum_{i=0}^{n} (-1)^{i} \binom{n}{i} \binom{m+n-i}{k-i}$ evaluates to $\binom{m}{k}$ if $m \geq k$, and $0$ otherwise. To this end, fix $X = \{x_{1},\ldots,x_{n}\}$ and $Y = \{y_{1},\ldots,y_{m}\}$ and set $Z = X \cup Y$. We now ask how many $k$-subsets of $Z$ consist of only points form $Y$. Let $S$ be the set of all $k$-subsets of $Z$, and denote $E_{i}$ to be the set of $k$-subsets of $Z$ containing $x_{i}$ for $1 \leq i \leq n$. The left hand side of our inclusion-exclusion principle evaluates to $\binom{m+n}{k}$. Each $N_{i}$ evaluates to $\binom{n}{i} \binom{m+n-i}{k-i}$, proving our expression above.
+\end{example}
+
+The next example relates to the Euler totient function.
+
+\begin{example}
+    Recall that, from the \eax{fundamental theorem of arithmetic}, each natural number may be expressed uniquely (upto order) as the product of distinct primes raised to values, that is, $n = p_{1}^{a_{1}} \cdots p_{r}^{a_{r}}$. The \eax{Euler totient function} $\phi: \N \to \C$ acts on the naturals and returns $\phi(n)$, the number of positive integers $k \leq n$ such that $\gcd (k,n) = 1$. Certainly, $\phi(p) = p-1$ for a prime $p$. Our task is to find a closed form formula for $\phi(n)$.
+
+    Set $S = \{1,2,\ldots,n\}$, and set $E_{i}$ to be the set of integers in $S$ divisible by $p_{i}$ for $1 \leq i \leq r$. Clearly, the value $\# (S \setminus \bigcup_{i=1}^{r} E_{i})$ returns the set of all numbers in $\{1,2,\ldots,n\}$ coprime to $n$. Note that $N = n$. The value of $N_{1}$ is $\sum_{i=1}^{r} \frac{n}{p_{i}}$ , the value of $N_{2}$ is is $\sum_{1 \leq i \leq j \leq r} \frac{n}{p_{i}p_{j}}$. The cloesd form formula then becomes
+    \begin{align}
+        \phi(n) = \# (S \setminus \bigcup_{i=1}^{r} E_{i}) = n - n \sum_{i=1}^{r} \frac{1}{p_{i}} + n \sum_{1 \leq i \leq j \leq r} \frac{1}{p_{i}p_{j}} + \cdots = n\left( 1-\frac{1}{p_{1}} \right)\left( 1-\frac{1}{p_{2}} \right) \cdots \left( 1-\frac{1}{p_{r}} \right).
+    \end{align}
+\end{example}
+
+
+\subsubsection{Number Theory}
+We continue with the Euler totient function.
+\begin{theorem}
+    $\sum \limits_{d \mid n} \phi(d) = n$.
+\end{theorem}
+\begin{proof}
+    For each integer $m \in \{1, 2, \ldots, n\}$, the value $\gcd(m, n)$ is a divides $n$. Fix a divisor $d$ of $n$. The number of integers $m$ such that $\gcd(m, n) = d$ is equal to the number of integers $m$ such that $\gcd\left(\frac{m}{d}, \frac{n}{d}\right) = 1$, where $\frac{m}{d}$ runs over integers between $1$ and $\frac{n}{d}$.
+    Therefore, the number of such $m$ is $\phi\left(\frac{n}{d}\right)$. Summing over all divisors $d$ of $n$, we get:
+    \[
+        n = \sum_{d \mid n} \phi\left(\frac{n}{d}\right)
+    \]
+    which is the same as $\sum_{d \mid n} \phi(d)$.
+\end{proof}
+
+The \eax{M\"obius function} is defined as
+\begin{equation}
+    \mu(d) \defeq \begin{cases}
+        1, &\text{ if } d \text{ is a product of even number of distinct primes},\\
+        -1, &\text{ if } d \text{ is a product of odd number of distinct primes},\\
+        0, &\text{ if otherwise; the number } d \text{ is square-free.}
+    \end{cases}
+\end{equation}
+
+\begin{theorem}
+    \begin{align}
+        \sum_{d \mid n} \mu(d) = \begin{cases}
+            1, &\text{ if } n = 1,\\
+            0, &\text{ if otherwise.}
+        \end{cases}
+    \end{align}
+\end{theorem}
+
+\begin{proof}
+    For $n = 1$, it is clear. For $n > 1$, rewriting $n$ as $p_{1}^{a_{1}} \cdots p_{r}^{a_{r}}$ helps us see that
+    \begin{align}
+        \sum_{d \mid n} \mu(d) = 1 - \binom{r}{1} + \binom{r}{2} - \binom{r}{3} + \cdots = (1-1)^{r} = 0.
+    \end{align}
+\end{proof}
+
+This property of the M\"obius function proves to be useful.
+
+\begin{theorem}[The \eax{M\"obius inversion formula}]
+    Suppose we have two function $f: \N \to \R$ and $g:\N \to \R$ which relate as
+    \begin{align}
+        f(n) = \sum_{d \mid n} g(d).
+    \end{align}
+    Then the function $g$ satisfies
+    \begin{align}
+        g(n) = \sum_{d \mid n} \mu\left( \frac{n}{d} \right)f(d).
+    \end{align}
+\end{theorem}
+The proof of this is left as an exercise to the reader.
+
+\begin{example}
+    Let $N_{n}$ denote the number of circular sequences of $n$ $0$'s and $1$'s, modulo rotation. Let us explicitly find out $N_{n}$.
+\end{example}
