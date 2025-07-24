@@ -69,7 +69,7 @@ We may note that the well-ordering principle and the axiom of choice are equival
     A \eax{chain} in partially ordered set $A$, with relation $\prec$, is a subset of $A$ which is totally ordered with respect to $\prec$.
 \end{definition}
 \begin{definition}
-    Let $C \subseteq A$ be a subset in a partially ordered set $(A, \prec)$. An element $x \in A$ is an upper bound of $C$ if for all $y \in C$, $y \prec x$.
+    Let $C \subseteq A$ be a subset in a partially ordered set $(A, \prec)$. An element $x \in A$ is an \eax{upper bound} of $C$ if for all $y \in C$, $y \prec x$.
 \end{definition}
 \begin{definition}
     An element $x \in A$ is a \eax{maximal element} of a partially ordered set $(A, \prec)$ if for all $y \in A$, $x \prec y \Rightarrow x = y$.
@@ -86,6 +86,32 @@ We may note that the well-ordering principle and the axiom of choice are equival
         \item Zorn's lemma.
     \end{enumerate}
 \end{theorem}
+
+\begin{proof}
+    We begin with 2.~implies 3.; let $A$ be a non-empty set. Consider 
+    \begin{align}
+        \cC = \{(B,\leq) \mid B \subseteq A \text{ and }\leq \text{ is a well-order on } B\}.
+    \end{align}
+    We note that $\cC$ is non-empty since if we pick $B = \{x\}$ for some $x \in A$, then $x \leq x$ and $(B,\leq) \in \cC$. Let $(B,\leq), (C,\leq') \in \cC$. We say $(B, \leq) \preceq (C,\leq')$ if there exists $y \in C$ such that 
+    \begin{align}
+        \text{$B = \{x \in C \mid x \lneq' y\}$ $(=I(c,y))$ and $\leq = \leq'\mid_{B}$, or $(B,\leq) = (C,\leq')$}
+    \end{align}
+    Note that $\preceq$ is a partial order on $\cC$ and is clearly reflexive.
+    
+    For transitivity, if we take $B \preceq C$ and $C \preceq D$, then $B = C$ or $B = I(C,y)$ for some $y \in C$, and $C = D$ or $C = I(D,z)$ for some $z \in D$. If equality holds in either case, then clearly $B \preceq D$. If $B = I(C,y)$ and $C = I(D,z)$. Clearly, $B = I(D,y)$.
+    
+    Now let $T$ $=(\{(B_{i},\leq_{i}) \mid i \in I\})$ be a chain in $\cC$. Let $B = \bigcup_{i \in I} B_{i}$, and $\leq = \bigcup_{i \in I} \leq_{i}$. Note that this makes sense since if $x \in B_{i}$ and $y \in B_{j}$ with $B_{i} \preceq B_{j}$, then $x,y \in B_{j}$. So, we assign $x \leq y$ if $x \leq_{j} y$. Now let $C \subseteq B$ be non-empty. Also let $x \in C$; then $x \in B_{i}$ for some $i \in I$. Let $w = \min (B_{i} \cap C)$. We claim that $w = \min C$. For $y \in C$, if $y \in B_{i}$ then $w \leq y$. If $y \notin B_{i}$ then $y \in B_{j} \in T$. Since $T$ is a chain, either $B_{i} \preceq B_{j}$ or $B_{j} \preceq B_{i}$; the latter is not possible since $y \notin B_{i}$. Thus, $B_{i} = I(B_{j},z)$, for some $z \in B_{j}$, and for any $x \in B_{i}$, $w \leq x \leq y$. 
+
+    So $(B,\leq) \in \cC$ and it is an upper bound of $T$; to realize it is an upper bound, we show that $B_{i} \preceq B$ for all valid $i$. If $B_{i} = B$, we are done. Otherwise, let $x = \min (B \setminus B_{i})$. Then $B_{i} = I(B,x)$, and $B_{i} \preceq B$. Thus, by Zorn's lemma, $\cC$ has a maximal element--- cal it $(M, \leq)$.
+
+    We now claim that $M = A$. If $M \subsetneq A$, then let $a \in A \setminus M$. If we let $\hat{M} = (M \cup \{a\}, \leq')$ where $x \leq' a$ for all $x \in M$, then $M = I(\hat{M},a)$ but this is a contradiction to the fact that $(M,\leq)$ is a maximal element. Thus, $A = M$.\\
+
+    Next comes 1.~implies 3. Let $X$ be a partially ordered set such that every chain has an upper bound. Suppose $X$ has no maximal element; we will utilise the axiom of choice to arise at a contradiction. For every chain $T$ in $X$, there exists a strict upper bound $c_{T}$. Define a function $f$ sending chains $T$ in $X$ to $X$ as $f(T) = c_{T} \notin T$. Such a function $f$ exists by the axiom of choice. A subset $A \subseteq X$ is called a \eax{conforming subset} if $A$ is well-ordered, with respect to order on $X$, and for all $x \in A$, $f(I(A,x)) = x$. We claim that if $A$ and $B$ are conforming subsets of $X$, then $A = B$ or one is the initial segment of the other. For now, let us take this claim to be true. We shall prove it later.
+
+    If $f(\emptyset) = x$ then $A = \{x\}$. Note that $A$ is conforming. But $I(A,x) = \emptyset \implies f(I(A,x)) = x$. Let $U$ be the union of all conforming subsets of $X$. Then $U$ is conforming since if $x \in U$ then $x \in B$ for some $B$ conforming and $x = f(I(B,x)) = f(I(U,x))$. Let $f(U) = w$. Define a new set $\tilde{U} = U \sqcup \{w\}$, which is well-ordered and conforming. Then $U = I(\tilde{U},w)$, which is a contradiction.
+
+    Coming back to the claim, suppose $x \in A \setminus B$. We wish to show that $B = I(A,x)$ for some $x \in A$. Let $x = \min(A\setminus B)$. We claim that this $x$ works. $I(A,x) \subseteq B$ holds since if $y \in A$ and $y < x$ then $y \in B$, or else $x \neq \min (A\setminus B)$. Suppose, now, that the equality does not hold. Take $y = \min (B \setminus I(A,x))$ and $z = \min (A \setminus I(B,y))$. We claim that $I(A,z) = I(B,y)$. Take $v \in I(A,z)$; then $v < z$ implies $v \in I(B,y)$ since $z = \min(A\setminus I(B,y))$. Taking $u \in I(B,y)$, we have $u \in I(A,x) \implies u < x$ since $y = \min(B\setminus I(A,x))$. If $z \leq u$, then $z \in I(A,x) \subseteq B \implies z \in I(B,y)$ contrading the fact that $z = \min (A\setminus I(B,y))$. Thus, $z > u$ and $y \in I(A,z)$. Finally, $z = f(I(A,z)) = f(I(B,y)) = y$ implies $z = x = y$. But this a contradiction since $x \in A\setminus B$ and $y \in B$.
+\end{proof}
 
 \begin{definition}
     A relation $R$ on a set $A$ is said to be an \eax{equivalence relation} if it is reflexive, symmetric, and transitive. Let $x \in A$. Then $[x] = \{yRx \mid y \in A\} \subseteq A$ is called the \eax{equivalence class} of $x$.
@@ -108,8 +134,36 @@ We first define a group.
     \begin{itemize}
         \item The property of \eax{associativity}: For $a,b,c \in G$, $(a \cdot b) \cdot c = a \cdot (b \cdot c)$.
         \item The property of the \eax{identity element}: For all $a \in G$, $a \cdot e = e \cdot a = a$. $e$ is referred to as the identity element.
-        \item The existence and property of the \eax{inverse element}: For all $a \in G$, there exists $b \in G$ such that $a \cdot b = b \cdot a = e$. $b$ is referred to as the inverse of $a$ and is denoted by $a^{-1}$.
+        \item The existence and property of the \eax{inverse element}: For all $a \in G$, there exists $b \in G$ such that $a \cdot b = b \cdot a = e$.
     \end{itemize}
     In addition, $(G,\cdot,e)$ is also termed an \eax{abelian group} if for all $a,b \in G$, $a \cdot b = b \cdot a$, that is, commutativity holds.
 \end{definition}
-Some examples include $(\Z, +), (\Q, +), (\R, +), (\C, +)$. The set $(\Q, \cdot)$ is not a group since $0$ does not have an inverse. However, $(\Q^{\ast}, \cdot)$ is a group, where $\Q^{\ast} = \Q\setminus\{0\}$. All these groups are also abelian. An example of a non-abelian group is $S_{n}$, the set of all bijections from $\{1,2,\ldots,n\}$ to itself, under the binary operation of composition of functions. Another non-abelian group is $(GL_{n}(\R), \cdot)$, for $n \geq 2$, the set of all invertible real matrices.
+Some examples include $(\Z, +), (\Q, +), (\R, +), (\C, +)$. The set $(\Q, \cdot)$ is not a group since $0$ does not have an inverse. However, $(\Q^{\ast}, \cdot)$ is a group, where $\Q^{\ast} = \Q\setminus\{0\}$. All these groups are also abelian. An example of a non-abelian group is $S_{n}$, the set of all bijections from $\{1,2,\ldots,n\}$ to itself, under the binary operation of composition of functions. Another non-abelian group is $(GL_{n}(\R), \cdot)$, for $n \geq 2$, the set of all invertible real $n \times n$ matrices.
+
+\subsection{Some Basic Properties}
+\textit{July 24th.}
+
+From the axioms, arise basic properties related to groups.
+\begin{proposition}
+    Let $(G,\cdot,e)$ be a group.
+    \begin{enumerate}
+        \item Let $a \in G$ be such that $a \cdot b = b$ for all $b \in G$. Then $a = e$; the identity element is unique.
+        \item Each element $a \in G$ has a unique inverse. Thus, the inverse of $a$ is then termed $a^{-1}$.
+        \item $(a^{-1})^{-1} = a$ holds for all $a \in G$.
+        \item For all $a,b \in G$, $(a \cdot b)^{-1} = b^{-1} \cdot a^{-1}$.
+        \item  Let $a \in G$ be such that $a \cdot b = b$ for some $b \in G$. Then $a = e$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    \begin{enumerate}
+        \item Choose $b$ to be $e$. Then $a \cdot e = e$ by hypothesis, and $a \cdot e = a$ by the property of the identity element. Thus, $a = e$.
+        
+        \item Let $a \in G$ and $b \in G$ be such that $a \cdot b = b \cdot a = e$. Let $c \in G$ be also such that $c \cdot a = e$. Thus, $(c \cdot a) \cdot b = e \cdot b \Rightarrow c \cdot (a \cdot b) = e \cdot b \Rightarrow c \cdot e = b \Rightarrow c = b$.
+        
+        \item Easy to see since $a^{-1} \cdot a = a \cdot a^{-1} = e$ which just means that the inverse of $a^{-1}$ is $a$.
+        
+        \item Also easy since $(a \cdot b) \cdot (b^{-1} \cdot a^{-1}) = (b^{-1} \cdot a^{-1}) \cdot (a \cdot b) = e$.
+        
+        \item Finally, right multiplying $b^{-1}$ leads to $a = a \cdot b \cdot b^{-1} = b \cdot b^{-1} = e$.
+    \end{enumerate}
+\end{proof}
