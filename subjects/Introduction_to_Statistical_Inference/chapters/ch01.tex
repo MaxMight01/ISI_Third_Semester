@@ -1,0 +1,146 @@
+\chapter{SUFFICIENCY}
+
+\section{Introduction to Sufficient Statistics}
+We start by defining terms for the sake of completion, whilst assuming the most basic definitions.
+\begin{definition}
+    An \eax{estimator} is any function of the random sample which is used to estimate the unknown value of the given paramteric function $g(\theta)$.
+\end{definition}
+If $\underline{X} = (X_{1},\ldots,X_{n})$ is a random sample from a population with a probability distribution $P_{\theta}$, a function $d(X)$ used for estimating $g(\theta$) is known as an estimator. Let $\underline{x} = (x_{1},\ldots,x_{n})$ be a realization of $\underline{X} = (X_{1},\ldots,X_{n})$. Then $d(\underline{x})$ is called an \eax{estimate}.
+
+\begin{definition}
+    The \eax{parameter space} is the set of all possible values of a parameter.
+\end{definition}
+
+For example, the normal distribution $N(\mu,\sigma^{2})$ has the parameter space $\mu \in \R$ and $\sigma^{2} > 0$. Similarly, the binomial distribution $\Bin(n,p)$ has the constraints $n \in \N$ and $p \in [0,1]$.
+
+Throughout this course, we will assume any data, otherwise stated, will be \eax{independent and identically distributed}; the are separate datapoints that follow the same probability distribution and are indepedent.
+
+\begin{definition}
+    Let $X_{1}, \ldots, X_{n}$ be a random sample from a population $P_{\theta}$, where $\theta \in \Theta$. A statistic $T = T(X_{1}, \ldots, X_{n}) = T(\underline{X})$ is said to be a \eax{sufficient statistic} for the family $\cP = \{P_{\theta} : \theta \in \Theta\}$ if the conditional distribution of $X_{1}, \ldots, X_{n}$ given $T = t$ is independent of $\theta$.
+\end{definition}
+
+We shall look at some examples.
+
+\begin{example}
+    Let $X_{1},\ldots,X_{n}$ be a random sample from the Bernoulli distribution with parameter $p \in (0,1)$. We claim that $T = \sum_{i=1}^{n} X_{i}$ is sufficient for $\{\Ber(p) \mid 0 < p < 1\}$. To show this, we simply have
+    \begin{align}
+        P(X_{i} = x_{i} \text{ for all } i | T = t) &= \frac{P(X_{1} = x_{1}, \ldots, X_{n-1} = x_{n-1}, X_{n} = t - \sum_{i=1}^{n-1} x_{i} )}{P(\sum_{i=1}^{n} X_{i} = t)} \\
+        &= \frac{P(X_{1}=x_{1}) \cdots P(X_{n-1}=x_{n-1}) \cdot P(X_{n} = t - \sum_{i=1}^{n-1} x_{i})}{\binom{n}{t} p^{t} (1-p)^{n-t}} \notag\\
+        &= \frac{p^{x_{1}}(1-p)^{1-x_{1}} \cdots p^{x_{n-1}}(1-p)^{1-x_{n-1}}p^{t-\sum x_{i}}(1-p)^{1-t+\sum x_{i}}}{\binom{n}{t} p^{t}(1-p)^{n-t}} \notag \\
+        &= \frac{1}{\binom{n}{t}}.
+    \end{align}
+    Thus, the statistic $T$ is sufficient. The above expression is valid when $\sum_{i=1}^{n} x_{i} = t$, and the probability evaluates to 0 if $\sum_{i=1}^{n} x_{i} \neq t$.
+\end{example}
+
+\begin{example}
+    Let $X_{1},\ldots,X_{n}$ be a random sample from $\Poi(\lambda)$ for $\lambda > 0$. We claim that the statistic $T = \sum_{i=1}^{n} X_{i}$ is sufficient. Recall that the probability mass function is $f(x,\lambda) = \frac{e^{-\lambda} \lambda^{x}}{x!}$ where $x$ is a non-negative integer, and $\lambda > 0$. We have
+    \begin{align}
+        P(X_{i} = x_{i} \mid T = t) &= \frac{P(X_{1}=x_{1}) \cdots P(X_{n-1}=x_{n-1}) \cdot P(X_{n} = t- \sum_{i=1}^{n-1}x_{i})}{P\left(\sum_{i=1}^{n} X_{i} = t\right)} \\
+        &= \frac{\frac{e^{-\lambda} \lambda^{x_{1}}}{x_{1}!} \cdots \frac{e^{-\lambda} \lambda^{x_{n-1}}}{x_{n-1}!} \cdot \frac{e^{-\lambda} \lambda^{t-\sum x_{i}}}{(t-\sum x_{i})!}}{\frac{e^{-n\lambda} (n\lambda)^{t}}{t!}} \notag\\
+        &= \frac{e^{-n\lambda} \lambda^{t}}{x_{1}!\cdots x_{n-1}! (t - \sum_{i=1}^{n-1} x_i)!} \cdot \frac{t!}{e^{-n\lambda} (n\lambda)^t} \notag\\
+        &= \frac{t!}{x_{1}! \cdots x_{n-1}! \left(t - \sum_{i=1}^{n-1} x_{i} \right)!} \cdot \frac{1}{n^t} \notag\\
+        &= \binom{t}{x_{1},x_{2},\ldots,x_{n}} \cdot \frac{1}{n^{t}}.
+    \end{align}
+    This shows that the conditional distribution of $(X_{1},\ldots,X_{n})$ given $T = t$ does not depend on $\lambda$, so by the definition of sufficiency, $T$ is a sufficient statistic for $\lambda$.
+\end{example}
+
+\begin{definition}
+    A \eax{regular model} may be one of two things.
+    \begin{enumerate}
+        \item All $P_{\theta}$ are continuous with probability density function $f(x \mid \theta)$.
+        \item All $P_{\theta}$ are discrete with prbability mass function $p(x \mid \theta)$, and there exists a countable set $S = \{x_{1},x_{2},\ldots\}$ independent of $\theta$ such that $\sum_{i=1}^{\alpha} p(x_{i} | \theta) = 1$.
+    \end{enumerate}
+\end{definition}
+
+
+\section{Factorization Theorems}
+The following theorem proves to be useful for finding sufficiency.
+\begin{theorem}[The \eax{Neyman-Fisher factorization theorem}]
+    Let $f(\underline{x}\mid \theta)$ be the density of $\underline{X}$ under the probability model $P_{\theta}$ for $\theta \in \Theta$. Then if the model is regular, a statistic $T(\underline{X})$ is sufficient for $\theta$ if and only if there exist functions $g$ and $h$ such that
+    \begin{align}
+        f(\underline{x} \mid \theta) = g(T(\underline{x}), \theta) h(\underline{x}).
+    \end{align}
+    Note that the functions are defined with $T:\R^{n} \to I \subseteq \R^{k}$ (for $k \leq n$), $g:I \times \Theta \to \R_{\geq 0}$, and $h:\R^{n} \to R_{\geq 0}$. The functions $g$ and $h$ need not be unique.
+\end{theorem}
+A little less formally, the theorem basically states this: let $X$ be a random variable with probability mass/density function $f(x,\theta)$ for $\theta \in \Theta$. Then $T(X)$ is sufficient if and only if $f(x,\theta) = g(T(x),\theta)h(x)$ for all $\theta \in \Theta$.
+
+\begin{example}
+    Let $X_{1},\ldots,X_{n}$ be independent and identically distributed $N(\mu,\sigma^{2})$ random variables, with $\mu \in \R$ and $\sigma^{2} > 0$. Let us find a sufficient test statistic. We look at cases; the first case being when $\sigma^{2}$ is known ($\sigma^{2}=1$). Since these are independent, we have the joint probability density funciton of these random variables as
+    \begin{align}
+        f(x_{1},\ldots,x_{n} \mid \mu, \sigma^{2}) &= \prod_{i=1}^{n} \frac{1}{\sqrt{2\pi}\sigma} e^{-\dfrac{(x_{i}-\mu)^{2}}{2\sigma^{2}}} = \frac{1}{(2\pi)^{n/2}} e^{\displaystyle -\sum_{i=1}^{n} (x_{i}-\mu)^{2}} \\
+        &= \frac{1}{(2\pi)^{n/2}}\exp \left(-\frac{1}{2} \left( \sum_{i=1}^{n} x_{i}^{2} - 2\mu\sum_{i=1}^{n} x_{i} + n\mu^{2} \right)  \right) \notag \\
+        &= \frac{1}{(2\pi)^{n/2}} e^{\displaystyle -\frac{1}{2}\sum_{i=1}^{n} x_{i}^{2}} \times e^{\displaystyle -\frac{1}{2} (-2\mu \sum_{i=1}^{n} x_{i} + n\mu^{2})}.
+    \end{align}
+    Make the former term $h(x)$ and the latter term $g(\sum_{i=1}^{n} x_{i}, \mu)$ with $T(x) = \sum_{i=1}^{n} x_{i}$. The second case now involves $\mu$ being known, and we set it to $\mu = 0$ to get $T(x) = \sum_{i=1}^{n} x_{i}^{2}$, $h(x) = 1/(2\pi)^{n/2}$, and $g(T(x),\sigma^{2}) = \sigma^{-n} e^{-T(x)/2\sigma^{2}}$.
+\end{example}
+
+We move on to another factorization theorem.
+
+\begin{definition}
+    The family of distributions $\{P_{\theta} \mid \theta \in \Theta\}$ is said ot be a \eax{single parameter exponential family} if there eixst real valued functions $c(\theta),d(\theta)$ on $\Theta$ and $T(x),S(x)$ on $\R^{n}$ and a set $A \subset \R^{n}$ such that
+    \begin{align}
+        f(\underline{x} \mid \theta) = \exp(c(\theta)T(\underline{x}) + d(\theta) + S(x)) \1_{A}(x)
+    \end{align}
+    where $A$ must not depend on $\theta$.
+\end{definition}
+
+\begin{example}
+    Suppose $X \sim \Poi(\lambda)$ for $\lambda > 0$. With $A = \{0,1,2,\ldots\}$, we have
+    \begin{align}
+        f(x \mid \lambda) = \exp(x\log(\lambda) - \lambda-\log(x!)) \1_{A}(x_)
+    \end{align}
+    with $T(x) = x$, $c(\lambda) = \log(\lambda)$, $d(\lambda) = -\lambda$, and $S(x) = -\log(x!)$.
+\end{example}
+
+Consider $X_{1},\ldots,X_{n}$ independent and identically distributed random variables following the distribution $P_{\theta}$, and suppose that $\{P_{\theta} \mid \theta \in \Theta\}$ is an exponential family, that is, $f(x \mid \theta) = \exp(c(\theta) T(x_{i}) + d(\theta) + S(x))\1_{A}(x)$. Then,
+\begin{align}
+    f_{x_{1},\ldots,x_{n}}(x_{1},\ldots,x_{n} \mid \theta) &= \prod_{i=1}^{n} \exp(c(\theta)T(x_{i}) + d(\theta) + S(x_{i}))\1_{A}(x_{i}) \\
+    &= \exp(c(\theta) \sum_{i=1}^{n} T(x_{i}) + md(\theta) + \sum_{i=1}^{n} S(x_{i}))\1_{A^{n}}(x_{1},\ldots,x_{n}).
+\end{align}
+$(x_{1},\ldots,x_{n})$ has distribution belonging to a single parameter exponential family. Thus, if $\{P_{\theta} \mid \theta \in \Theta\}$ is a single parameter family with density $f(x,\theta) = \exp(c(\theta)T(x) + d(\theta) + S(x)) \1_{A}(x)$, then $T(x)$ is sufficient for $\theta$.
+
+\begin{corollary}
+    If $x_{1},\ldots,x_{n}$ are independent and indentically distributed random variables following the distribution $P_{\theta}$ with density $f(x \mid \theta) = \exp(c(\theta)T(x) + d(\theta) + S(x))\1_{A}(x)$, then $\sum_{i=1}^{n} T(X_{i})$ is sufficient for $\theta$.
+\end{corollary}
+
+
+The exponential family is expanded.
+\begin{definition}
+    A family of distributions $\{P_{\theta} : \theta \in \Theta\}$ with density $f(x \mid \theta)$ is called a \eax{$k$-parameter exponential family} if there exists real valued functions $c_{1}(\theta),\ldots,c_{k}(\theta),d(\theta)$ on $\Theta$ and $T_{1}(\underline{x}),\ldots,T_{k}(\underline{x}),S(x)$ on $\R^{n}$, and a set $A \subset \R^{n}$ such that
+    \begin{align}
+        f(\underline{x} \mid \theta) = \left( \exp(\sum_{j=1}^{n} c_{j}(\theta) T_{j}(\underline{x}) + d(\theta) + S(\underline{x})) \right)  \1_{A}(\underline{x}).
+    \end{align}
+    Here, $(T_{1},\ldots,T_{k})$ is a $k$-dimensional sufficient statistic for $\theta$. Note that the parameter here is $\theta$ and not $(c_{1}(\theta),\ldots,c_{k}(\theta))$.
+\end{definition}
+
+We look at more examples.
+
+\begin{example}
+    For a normal distribution with $\sigma^{2} = 1$, we have
+    \begin{align}
+        f(x \mid \theta) = \frac{1}{\sqrt{2\pi}} e^{-\dfrac{(x-\theta)^{2}}{2}} \1_{A}(x) = \exp \left( -\frac{1}{2} \log (2\pi) - \frac{x^{2}}{2} + x\theta - \frac{\theta^{2}}{2} \right) \1_{A}(x).
+    \end{align}
+    Here, $c(\theta) = \theta$, $T(x) = x$, $S(x) = -\frac{x^{2}}{2}-\frac{1}{2}\log(2\pi)$, and $d(\theta) = -\frac{\theta^{2}}{2}$.
+\end{example}
+
+\begin{remark}
+    \begin{enumerate}
+        \item The Neyman-Fisher factorization theorem holds if $\underline{\theta}$ and $\underline{T}$ are vectors. Their dimensions need not be equal.
+        
+        \item If $T$ is sufficient and $T$ is a function of $U$, then $U$ is also sufficient.
+        
+        \item If $V$ is a function of $T$, then $V$ need not be sufficient. But if $V$ is one-to-one with $T$, then $V$ is also sufficient. $V = B(T)$ and $T = B^{-1}(V)$ shows that $g(T,\theta) = g(B^{-1}(V),\theta) = g^{\ast}(V,\theta)$.
+    \end{enumerate}
+\end{remark}
+
+\section{Minimal Sufficiency}
+Again, we being with a few definitions.
+\begin{definition}
+    A \eax{partition} of a space $\cH$ is a collection $\{E_{i}\}$ of subsets of $\cH$ such that
+    \begin{align}
+        \bigcup_{n \geq 1} E_{i} = \cH \text{ and } E_{i} \cap E_{j} = \emptyset \text{ for } i \neq j.
+    \end{align}
+    The $E_{i}$'s are called \eax{partition set}s. Let $T: \cH \to \cJ$. The partition of $\cH$ induced by the function $T$ is the collection of the sets $T_{y} = \{x \mid T(x) = y\}$ for $y \in \cJ$.
+\end{definition}
+
+We say that $\cP_{2}$ is a \eax{reduction} of $\cP_{1}$ if each partition set of $\cP_{2}$ is the union of the same members of $\cP_{1}$.
