@@ -119,4 +119,76 @@ Thus, $\vec{P}_{\text{tot}}$ is conserved if the total external force is zero. T
     \frac{d\vec{L}_{\text{tot}}}{dt} &= \frac{d}{dt} \left( \sum_{i=1}^{N_{p}} \vec{r}_{i} \times \vec{p}_{i} \right) = \sum_{i=1}^{N_{p}} \vec{r}_{i} \times \frac{d\vec{p}_{i}}{dt} = \sum_{i=1}^{N_{p}} \vec{r}_{i} \times \vec{F}_{i}^{\text{ext}} + \sum_{i,j=1, j \neq i}^{N_{p}} \vec{r}_{i} \times \vec{F}_{ji} \\
     \implies \frac{d\vec{L}_{\text{tot}}}{dt} &= \sum_{i=1}^{N_{p}} \vec{r}_{i} \times \vec{F}_{i}^{\text{ext}} = \sum_{i=1}^{N_{p}} = \vec{\tau}_{i}^{\text{ext}} = \vec{\tau}_{\text{tot}}^{\text{ext}}.
 \end{align}
-In the above, we have made use of the strong form of Newton's third law, which states that the opposite and equal forces also act on the same line joining them. If the total external torque vanishes, then the total angular momentum is conserved.
+In the above, we have made use of the strong form of Newton's third law, which states that the opposite and equal forces also act on the same line joining them. If the total external torque vanishes, then the total angular momentum is conserved.\\ \\
+\textit{July 28th.}
+
+For the $i^{\text{th}}$ particle, its position vector and the positive vector of the center of mass are related as $\vec{r}_{i} = \vec{R}_{CM} + \vec{r}'_{i}$, where $\vec{r}'_{i}$ is the relative position between them. Taking the time derivative gives us $\vec{v}_{i} = \vec{v}_{CM} + \vec{v}'_{i}$, giving the instantaneous relative velocity between them. Using this, we rewrite as
+\begin{align}
+    \vec{L}_{\text{tot}} = \sum_{i=1}^{N_{p}} m_{i}(\vec{r}'_{i} + \vec{R}_{CM}) \times (\vec{v}'_{i} + \vec{v}_{CM}).
+\end{align}
+Looking at the center of mass terms ($\vec{R}_{CM}$ and $\vec{v}_{CM}$), we have
+\begin{align}
+    T_{1} = \left( \sum_{i=1}^{N_{p}} m_{i} \right) \vec{R}_{CM} \times \vec{v}_{CM} = \vec{R}_{CM} \times (M_{\text{tot}}\vec{v}_{CM}) = \vec{R}_{CM \times \vec{P}_{\text{tot}}} = \vec{L}_{CM,\text{O}},
+\end{align}
+where $\vec{L}_{CM,\text{O}}$ denotes the angular momentum of the center of mass about the chosen origin. Looking at the relative terms $(\vec{r}'_{i}$ and $\vec{v}'_{i}$), we have
+\begin{align}
+    T_{2} = \sum_{i=1}^{N_{p}} m_{i} \vec{r}'_{i} \times \vec{v}'_{i} = \sum_{i=1}^{N_{p}} \vec{r}'_{i} \times \vec{p}'_{i} = \sum_{i=1}^{N_{p}} \vec{L}_{i,CM},
+\end{align}
+where $\vec{L}_{i,CM}$ denotes the angular momentum of the $i^{\text{th}}$ particle about the center of mass. Looking at the terms $\vec{r}'_{i}$ and $\vec{v}_{CM}$ leads to an evaluation of zero. Similarly, looking at the terms $\vec{R}_{CM}$ and $\vec{v}'_{i}$ also results to an evaluation of zero. Thus, with all terms taken care of, we have
+\begin{align}
+    \vec{L}_{\text{tot}} = \vec{L}_{CM,\text{O}} + \sum_{i=1}^{N_{p}} \vec{L}_{i,CM}.
+\end{align}
+
+Recall that $W_{if} = T_{f} - T_{i}$ holds regardless of the nature of the force. If the force is conservative, then potential is introduced and $T_{f} + V_{f} = T_{i} + V_{i}$ holds true even when $W_{if}$ is non-zero. We translate this for a system of particles.
+\begin{align}
+    W_{i \mapsto f} = \int_{i}^{f} \sum_{i=1}^{N_{p}} \vec{F}_{i} \cdot d\vec{S}_{i},
+\end{align}
+where $\vec{F}_{i} = \vec{F}_{i}^{\text{ext}} + \sum_{j=1, j \neq i}^{N_{p}} \vec{F}_{ji}$ (\textit{Note that the $i$ in the integral bound represents the initial state and has no relation to the indexing $i$.}). Thus, we have
+\begin{align}
+    W_{i \mapsto f} = \int_{i}^{f} \sum_{i=1}^{N_{p}} \vec{F}_{i}^{\text{ext}} d\vec{S}_{i} + \int_{i}^{f} \sum_{i=1}^{N_{p}} \left( \sum_{j=1, i \neq j}^{N_{p}} \vec{F}_{ji} \cdot d\vec{S}_{i} \right).
+\end{align}
+Let us focus on the first term for now.
+\begin{align}
+    \int_{i}^{f} \sum_{i=1}^{N_{p}} \vec{F}_{i}^{\text{ext}} d\vec{S}_{i} &= \int_{i}^{f} \sum_{i=1}^{N_{p}} m_{i} \dot{\vec{v}}_{i} \cdot \vec{v}_{i} dt = \sum_{i=1}^{N_{p}} \int_{i}^{f} d \left( \frac{1}{2} m_{i}v_{i}^{2} \right) = \sum_{i=1}^{N_{p}} \int_{i}^{f} dT_{i}.
+\end{align}
+If we define $T_{\text{tot}} = \sum_{i=1}^{N_{p}} T_{i}$, we get
+\begin{align}
+    W_{i \mapsto f} = T_{\text{tot},f} - T_{\text{tot},i}.
+\end{align}
+This equation is the work-energy theorem for a system of particles. Before dealing with the second term, let us try to alter the kinetic energies to relate to the center of mass instead. We have
+\begin{align}
+    T_{\text{tot}} = \frac{1}{2} \sum_{i=1}^{N_{p}} m_{i}(\vec{v}_{CM} + \vec{v}'_{i}) \cdot (\vec{v}_{CM} + \vec{v}'_{i}) = \frac{1}{2}M_{\text{tot}}\abs{\vec{v}_{CM}}^{2} + \frac{1}{2} \sum_{i=1}^{M_{p}} m_{i} \abs{\vec{v}'_{i}}^{2}.
+\end{align}
+We now make our first assumption: \textit{the external forces are conservative}. Thus,
+\begin{align}
+    \int_{i}^{f} \sum_{i=1}^{N_{p}} \vec{F}_{i}^{\text{ext}} \cdot d\vec{S}_{i} = - \int_{i}^{f} \vec{\nabla}_{i} V_{i}^{\text{ext}} \cdot d\vec{S}_{i} = \sum_{i=1}^{N_{p}} \left( - \int_{i}^{f} \vec{\nabla}_{i} V_{i}^{\text{ext}} \cdot d\vec{S}_{i} \right)
+\end{align}
+Our next assumption is that the force $\vec{F}_{ij}$, for all $i \neq j$, is conservative. This implies that for all pairs $i \neq j$, there exists $V_{ij}$ such that $\vec{F}_{ij} = -\vec{\nabla}_{j}V_{ij}$. Another assumption we make is the fact that $\vec{F}_{ij}$ is central; that the potential $V_{ij}$ between the $i^{\text{th}}$ and $j^{\text{th}}$ particles must only depend on the absolute distance between them. That is, $V_{ij} = V_{ij}(\abs{\vec{r}_{i}-\vec{r}_{j}}) = V_{ji}(\abs{\vec{r}_{i}-\vec{r}_{j}})$. Thus, from both these assumptions, we get $\vec{F}_{ij} = -\vec{\nabla}_{j}V_{ij} \Leftrightarrow \vec{F}_{ji} = -\vec{\nabla}_{i}V_{ij}$. This then shows that $\vec{F}_{ji} = -\vec{F}_{ij}$, so our assumptions are valid. Also, it can be shown that the gradient can be rewritten as
+\begin{align}
+    \vec{\nabla}_{j} V_{ij}(\abs{\vec{r}_{i}-\vec{r}_{j}}) = (\vec{r}_{i}-\vec{r}_{j})f(\vec{r}_{ij}).
+\end{align}
+Let $\vec{r} = \vec{r}_{i} = \vec{r}_{j}$. Then, the $j^{\text{th}}$ component is
+\begin{align}
+    \left[\vec{\nabla}_{j} V_{ij}(\abs{\vec{r}})\right]_{j} = \frac{\partial V_{ij}}{\partial r} \left[ \vec{\nabla}_{j} r \right]_{j} = \frac{\partial}{\partial x_{j}} \left( (x_{i}-x_{j})^{2} + (y_{i}-y_{j})^{2} + (z_{i}-z_{j})^{2} \right)^{1/2} = \frac{-(x_{i}-x_{j})}{r}.
+\end{align}
+Therefore,
+\begin{align}
+    \vec{\nabla}_{j} V_{ij}(\abs{\vec{r}}) = \left( -\frac{1}{r}\frac{\partial V_{ij}}{\partial r} \right) \left( (x_{i}-x_{j})\hat{e}_{x} + (y_{i}-y_{j})\hat{e}_{y} + (z_{i}-z_{j})\hat{e}_{z} \right) = f(\vec{r}_{ij}) (\vec{r}_{i}-\vec{r}_{j})
+\end{align}
+as desired. Coming back to the second term of the work equation, we now have
+\begin{align}
+    \sum_{i,j=1;i \neq j}^{N_{p}} \int_{i}^{f} \vec{F}_{ji} \cdot d\vec{S}_{i} = \sum_{1 \leq i < j \leq N_{p}} \int_{i}^{f} \left( F_{ij} \cdot d\vec{S}_{j} + \vec{F}_{ji} \cdot d\vec{S}_{i} \right).
+\end{align}
+Focusing on just the integral for now gives us
+\begin{align}
+    \int_{i}^{f} \left( F_{ij} \cdot d\vec{S}_{j} + \vec{F}_{ji} \cdot d\vec{S}_{i} \right) = -\int_{i}^{f} \left( (\vec{\nabla}_{j}V_{ij}) \cdot d\vec{S}_{j} + (\vec{\nabla}_{i} V_{ij}) \cdot d\vec{S}_{i} \right) = -\int_{i}^{f} \vec{\nabla}_{ij} V_{ij} \cdot d\vec{S}_{ij}
+\end{align}
+where $d\vec{S}_{ij} = d\vec{S}_{i} - d\vec{S}_{j}$. Thus, the second term is finally
+\begin{align}
+    -\sum_{i,j=1;i \neq j}^{N_{p}} \frac{1}{2} \int_{i}^{f} \vec{\nabla}_{ij} V_{ij} \cdot d\vec{S}_{ij}
+\end{align}
+which gives us
+\begin{align}
+    T_{\text{tot},f} - T_{\text{tot},i} = -\sum_{i=1}^{N_{p}} \left( V_{i,\text{final}}^{\text{ext}} - V_{i,\text{init}}^{\text{ext}} \right) + (-\frac{1}{2}) \sum_{i,j=1;i \neq j}^{N_{p}} (V_{ij}^{\text{final}}-V_{ij}^{\text{init}}) = -(V_{\text{tot}},\text{init}^{\text{sys}} - V_{\text{tot},\text{final}}^{\text{sys}}).
+\end{align}
+We conclude that the total energy, $E_{\text{sys}}^{\text{tot}} = T_{\text{tot}}^{\text{sys}} + V_{\text{tot}}^{\text{sys}}$ is conserved.
