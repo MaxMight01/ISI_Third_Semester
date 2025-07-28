@@ -137,7 +137,7 @@ For $S \subseteq \R^{n}$, we define the \eax{closure} of set $S$ as $\overline{S
 
 With the pesky definitions and translation of one dimensional concept into being defined over several variables, we come to limits and continuity.
 
-\section{Limit and Continuity}
+\section{Limits and Continuity}
 Recall that given $f:(a,b)\setminus\{c\} \to \R$, we say that $\lim_{x \to c}f(x) = b$ if for every $\varepsilon  0$, there exists a $\delta > 0$ such that $\abs{f(x)-b} < \varepsilon$ for all $x$ satisfying $0 < \abs{x-c} < \delta$. Note that in this definition of the limit, we have $f(x) \in B_{\varepsilon}(b)$ and $x \in B_{\delta}(c) \setminus \{c\}$; this can easily be rewritten as $f(B_{\delta}(c)\setminus\{c\}) \subseteq B_{\varepsilon}(b)$. However, for our definition we would not require $f$ to be defined on an open set. We defind it over any arbitrary set.
 
 \begin{definition}
@@ -205,3 +205,122 @@ The proof of this theorem is left as an exercise to the reader.
     \end{align}
     Thus, $f^{-1}(O)$ is open. For 3.~implies 1.~, let $a \in S$. Fix $\varepsilon > 0$. Then the set $f^{-1}(B_{\varepsilon}(f(a)))$ is open; there exists a $\delta > 0$ such that $B_{\delta}(a) \subseteq f^{-1}(B_{\varepsilon}(f(a)))$.
 \end{proof}
+\noindent\textit{July 28th.}
+
+We look at a few examples.
+\begin{example}
+    Let $f:\R^{2}\setminus\{(0,0)\} \to \R$ be defind as $f(x,y) = \frac{2xy}{x^{2}+y^{2}}$. We find the limit $\lim_{(x,y) \to (0,0)} f(x,y)$. Let us approach from different directions, starting with the line $L_{1}$ defined as $y = 0$ with $x > 0$. Then $\lim_{(x,y) \to (0,0);(x,y) \in L_{1}} f(x,y) = \lim_{(x,y) \to (0,0)} 0 = 0$. However, along the line $L_{2}$ defned as $\{(x,y) \mid x = y\; x,y > 0\}$, we have $\lim_{(x,y) \to (0,0);(x,y) \in L_{2}} f(x,y) = 1$. We conclude that this limit cannot exist. Going along the line $y = mx$ gives several possible values for the limit.
+\end{example}
+The above method is good only for showing that the limit does not exist; if the limit does exist, we need to use theory.
+
+\begin{example}
+    We compute the limit $\lim_{(x,y) \to (0,0)} \frac{x^{3}}{x^{2}+y^{2}}$. Here, we can prove that the limit exists as follows:
+    \begin{align}
+        \abs{\frac{x^{3}}{x^{2}+y^{2}}} \leq \abs{\frac{x^{3}}{x^{2}}} = \abs{x} \to 0 \implies \lim_{(x,y)\to(0,0)} \frac{x^{3}}{x^{2}+y^{2}} = 0.
+    \end{align}
+\end{example}
+
+\begin{example}
+    We solve the limit $\lim_{(x,y) \to (0,0)} \frac{\sin(x^{2}+y^{2})}{x^{2}+y^{2}}$. Simply rewriting $z = x^{2}+y^{2}$ gives us $z \to 0$ as $(x,y) \to (0,0)$, so $\lim_{z \to 0} \frac{\sin z}{z} = 1$.
+\end{example}
+
+Before the next example, we write down a few properties. Let $S \subseteq \R^{n}$, let $f,g:S \to \R$ be functions, and let $a \in \R^{n}$ be a limit point of $S$. Suppose $\lim_{x \to a} f(x) = \alpha$ and $\lim_{x \to b} g(x) = \beta$. Then,
+\begin{enumerate}
+    \item $\lim_{x \to a} (cf(x)+g(x)) = c \alpha + \beta$ for all $c \in \R$,
+    \item $\lim_{x \to a}f(x)g(x) = \alpha\beta$,
+    \item $\lim_{x \to a} \frac{f(x)}{g(x)} = \frac{\alpha}{\beta}$, provided that $\beta \neq 0$,
+    \item if $f(x) \leq h(x) \leq g(x)$ for all $x \in S$ and if $\alpha = \beta$, then $\lim_{x \to a} h(x)$ exists and equals $\alpha$.
+\end{enumerate}
+
+A similar set of corresponding statements also hold true for continuous functions. Note that the function $\Pi_{i}:\R^{n} \to \R$ is also continuous.
+
+\begin{example}
+    The function $f(x,y) = \frac{\sin(x^{2}+y^{2})}{x^{2}+y^{2}}$ for $(x,y) \neq (0,0)$ and $f(x,y) = 1$ otherwise is a continuous function since it has been assigned its limit at $(x,y) = (0,0)$. However, the function $f(x,y) = \frac{2xy}{x^{2}+y^{2}}$ for $(x,y) \neq (0,0)$ and $f(x,y) = \alpha$ otherwise is continuous only at $\R^{2}\setminus\{(0,0)\}$ for all $\alpha \in \R$.
+\end{example}
+
+\begin{example}
+    We look at the continuity of the function
+    \begin{align}
+        f(x,y) = \begin{cases}
+            \frac{xy}{\sqrt{x^{2}+y^{2}}} &\text{ if } (x,y) \neq (0,0),\\
+            0 &\text{ if } (x,y) = (0,0).
+        \end{cases}
+    \end{align}
+    Then, we have
+    \begin{align}
+        \abs{\frac{xy}{\sqrt{x^{2}+y^{2}}}} \leq \frac{1}{2} \cdot \frac{x^{2}+y^{2}}{\sqrt{x^{2}+y^{2}}} = \frac{1}{2}\norm{(x,y)}
+    \end{align}
+    which shows that $\lim_{(x,y) \to (0,0)} f(x,y) = 0 = f(0,0)$. Thus, $f$ is continuous on $\R^{2}$.
+\end{example}
+
+\begin{example}
+    Set $\cD = \{(x,y) \in \R^{2} \mid y \neq 0\}$. Since $\cD = (\Pi_{2}^{-1}(\{0\}))^{c}$, $\cD$ is an open set. Define $f:\cD \to \R$ by $f(x,y) = x \sin \frac{1}{y}$. Here, we simply work as
+    \begin{align}
+        \abs{f(x,y)} = \abs{x \sin \frac{1}{y}} \leq \abs{x} \text{ on } \cD.
+    \end{align}
+    Thus, the limit becomes $f(x,y)$.
+\end{example}
+
+Hereforth, $O_{n}$ denotes an open subset of $\R^{n}$.
+\begin{remark}
+    Let $(a,b) \in \R^{2}$ be a limit point of $O_{2}$. Suppose $\lim_{(x,y)\to(a,b)} f(x,y)$ exists and equals $\alpha \in \R$. It is natural to ask whether
+    \begin{align}
+        \alpha = \lim_{y \to b} \lim_{x \to a} f(x,y) = \lim_{x \to a} \lim_{y \to b} f(x,y).
+    \end{align}
+    For someone looking at multivariable limits for the first time, it is tempting to believe this holds true always. We leave this question unanswered for now, and come back to it later.
+\end{remark}
+
+A notion of uniform continuity may also be explored.
+\begin{definition}
+    A function $f:S \to \R$, for $S \subseteq \R^{n}$, is said to be a \eax{uniformly continuous} function if for every $\varepsilon > 0$ there exists $\delta > 0$ such that
+    \begin{align}
+        \norm{f(x)-f(y)} < \varepsilon \text{ for all } \norm{x-y} < \delta \text{ in } S.
+    \end{align}
+\end{definition}
+
+We urge the reader to compute examples for uniformly continuous functions. The exercise of uniform contiuity implying continuity but not the other way around is left as an exercise to the reader.
+
+\section{Differentiability}
+
+As a little convention, for any $f:O_{n} \to \R^{m}$, we prefer to rewrite it as $f = (f_{1},\ldots,f_{n})$ where $f_{j} = \Pi_{j} f$. We now ask the question of derivatives; what does it mean for the derivative of a function $f:O_{n} \to \R^{m}$? What about $f'(a)$ for some $a \in O_{n}$?
+
+For the case of $n=m=1$, we recall that $f$ is termed differentiable at $a$ if and only if $\lim_{h \to 0} \frac{f(a+h)-f(a)}{h}$ exists. If the limit is $\lambda$, then this limit exists if and only if $\lim_{h \to 0} \frac{f(a+h)-f(a)-h\lambda}{h}$, which is really a function of $h$. Thus, the function $h \mapsto \lambda h$ matters the most, that is, $L:\R \to \R$ where $Lh = \lambda h$. So, we can twist our words a little and say that $f$ is differentiable at $a$ if and only if there exists a linear map $L:\R \to \R$ such that 
+\begin{align}
+    \lim_{h \to 0} \frac{f(a+h) - f(a) - Lh}{h} = 0.
+\end{align}
+In this case, $f'(a) = L1 = \lambda$. We translate this exact idea into higher dimensions.
+
+\begin{definition}
+    Let $f:O_{n} \to \R^{m}$. We say that $f$ is \eax{differentiable} at $a \in O_{n}$ if there exists a linear map $L:\R^{n} \to \R^{m}$, that depends on $a$, such that
+    \begin{align}
+        \lim_{h \to 0} \frac{1}{\norm{h}}\left( f(a+h) - f(a) - Lh \right) = 0.
+    \end{align}
+    In this case, we write $Df(a) = L$ and call it the \text{total derivative} of $f$ at $a$. We say $f$ is differentiable on $O_{n}$ if $f$ is differentiable at $a$ for all $a \in O_{n}$.
+\end{definition}
+Observe that the above limit is equivalent to saying that $\lim_{h \to 0} \frac{1}{\norm{h}}\norm{f(a+h)-f(a)-Lh} = 0$. Note that $Df(a) = L$ is unique. To show this, suppose there exists another linear map $\tilde{L}:\R^{n} \to \R^{m}$ such that $\lim_{h \to 0} \frac{1}{\norm{h}} \norm{f(a+h)-f(a)-\tilde{L}h} = 0$. Let there exist $h_{0} \in \R^{n}$ such that $Lh_{0} \neq \tilde{L}h_{0}$ and $\norm{h_{0}} = 1$. Define $h:\R\to\R^{n}$ by $ht = th_{0}$. Then as $t \to 0$, $ht \to 0$. Therefore,
+\begin{align}
+    \norm{L(h(t))-\tilde{L}(h(t))} &\leq \norm{f(a+h)-f(a)-Lh(t)} + \norm{f(a+h)-f(a)-\tilde{L}h(t)} \\
+    \implies \lim_{t \to 0} \frac{\norm{Lh(t) - \tilde{L}h(t)}}{\norm{h(t)}} &= 0 \implies \lim_{t \to 0} \frac{1}{\abs{t}} \abs{t} \cdot \norm{Lh_{0}-\tilde{L}h_{0}} = 0 \implies Lh_{0} = \tilde{L}h_{0}
+\end{align}
+which is a contradiction.
+
+\begin{example}
+    Let $f:\R^{n} \to \R^{m}$ be a linear map. In this case, $\frac{f(a+h)-f(a)-f(h)}{\norm{h}} \to 0$ as $\norm{h} \to 0$. Thus, $f$ is differentiable at $a$ and $Df(a) = f$ for all $a \in \R^{n}$.
+\end{example}
+
+\begin{example}
+    Suppose $f:\R^{n} \to \R^{m}$ be defined as $f(x) = c$ for all $x \in \R^{n}$. Then, we simply have $Df(a) = 0$, the null linear mapping.
+\end{example}
+
+We now truly ask how to compute $Df(a)$. Observe that $Df(a):\R^{n}\to\R^{m}$ is a linear map. Then, one can represent it as a matrix $Df(a) \in M_{m \times n}(R)$.
+
+\begin{theorem}
+    Let $f:O_{n} \to \R^{m}$ be a function. Then $f$ is differentiable at $a \in O_{n}$ if and only if $f_{i}:O_{n} \to \R$ is differentiable at $a$ for all $i = 1,2,\ldots,n$. Moreover, in this case, 
+    \begin{align}
+        [Df(a)]_{m \times n} = \begin{bmatrix}
+            [Df_{1}(a)]_{1 \times n} \\ \vdots \\ [Df_{m}(a)]_{1 \times n}
+        \end{bmatrix}_{m \times n}.
+    \end{align}
+\end{theorem}
+
+From the above theorem it is clear that $D\Pi_{i}f = \Pi_{i}Df$.
