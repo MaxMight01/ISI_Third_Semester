@@ -138,9 +138,8 @@ We first define a group.
     \end{itemize}
     In addition, $(G,\cdot,e)$ is also termed an \eax{abelian group} if for all $a,b \in G$, $a \cdot b = b \cdot a$, that is, commutativity holds.
 \end{definition}
-Some examples include $(\Z, +), (\Q, +), (\R, +), (\C, +)$. The set $(\Q, \cdot)$ is not a group since $0$ does not have an inverse. However, $(\Q^{\ast}, \cdot)$ is a group, where $\Q^{\ast} = \Q\setminus\{0\}$. All these groups are also abelian. An example of a non-abelian group is $S_{n}$, the set of all bijections from $\{1,2,\ldots,n\}$ to itself, under the binary operation of composition of functions. Another non-abelian group is $(GL_{n}(\R), \cdot)$, for $n \geq 2$, the set of all invertible real $n \times n$ matrices.
+A group may also be rewritten as $(G,\cdot)$, or just $G$. Some examples include $(\Z, +), (\Q, +), (\R, +), (\C, +)$. The set $(\Q, \cdot)$ is not a group since $0$ does not have an inverse. However, $(\Q^{\ast}, \cdot)$ is a group, where $\Q^{\ast} = \Q\setminus\{0\}$. All these groups are also abelian. An example of a non-abelian group is $S_{n}$, the set of all bijections from $\{1,2,\ldots,n\}$ to itself, under the binary operation of composition of functions. Another non-abelian group is $(GL_{n}(\R), \cdot)$, for $n \geq 2$, the set of all invertible real $n \times n$ matrices.
 
-\subsection{Some Basic Properties}
 \textit{July 24th.}
 
 From the axioms, arise basic properties related to groups.
@@ -166,4 +165,197 @@ From the axioms, arise basic properties related to groups.
         
         \item Finally, right multiplying $b^{-1}$ leads to $a = a \cdot b \cdot b^{-1} = b \cdot b^{-1} = e$.
     \end{enumerate}
+\end{proof}
+
+\noindent \textit{July 29th.}
+
+\begin{definition}
+    The \eax{order of a group} $G$ is the cardinality of the set $G$, and is denoted by $\abs{G}$, $o(G)$, or $\ord(G)$. If $\abs{G}$ is finite, we say $G$ is a \eax{finite group}.
+\end{definition}
+
+We provide some examples.
+
+\begin{example}
+    \begin{itemize}
+        \item The \eax{trivial group} is $G = \{e\}$, with $e \cdot e = e$. Here, $\abs{G} = 1$, and it is the smallest possible finite group. Similarly, one can form a group with two elements as $G = \{e,a\}$, with $a \cdot a = e$ and $a \cdot e = e \cdot a = a$.
+        
+        \item Another important example is the set of all bijections of a set $X$, denoted by $S(X)$. It forms a group under composition. Here, if $f,g \in S(X)$, then $f \circ g \in S(X)$. Similarly, the bijection $\id_{X}(x) = x$ for all $x \in X$ is the identity element of $S(X)$. Associativity also holds, and the inverse of $f \in S(X)$ is simply the inverse mapping $f^{-1} \in S(X)$ to get $f \circ f^{-1} = f^{-1} \circ f = \id_{X}$. If $X = \{1,2,\ldots,n\}$, then $S(X)$ is also denoted by $S_{n}$, with $\abs{S_{n}} = n!$. If the set $X$ is infinite, then so is $S(X)$.
+        
+        \item The set $\sfrac{\Z}{n\Z}$ is a group when equipped with the binary operation of addition $(+)$. Here, $\abs{\sfrac{\Z}{n\Z}} = n$.
+        
+        \item The set $\mu_{n} = \{e^{2\pi im/n} \mid 1 \leq m \leq n\}$ is a group with respect to multiplication. Again, $\abs{\mu_{n}} = n$.
+    \end{itemize}
+\end{example}
+
+Order is also defined for elements.
+
+\begin{definition}
+    Let $(G,\cdot,e)$ be a group. The \eax{order of an element} $a \in G$, denoted $o(a)$, $\ord(a)$, or $\abs{a}$, is the least $n \geq 1$ such that $a^{n} = e$. If no such $n$ exists, then we term $\abs{a} = \infty$.
+\end{definition}
+
+Examples follow.
+
+\begin{example}
+    \begin{itemize}
+        \item In $\mu_{n}$, $o(e^{2\pi i/n}) = n$.
+        
+        \item Similarly, in $\sfrac{\Z}{n\Z}$, $o([1]_{n}) = n$. For a general element $[a]_{n} \in \sfrac{\Z}{n\Z}$, the order is $o([a]_{n}) = \frac{n}{\gcd(a,n)}$.
+    \end{itemize}
+\end{example}
+
+\begin{proposition}
+    Let $G$ be a finite group. For all $a \in G$, $o(a)$ is finite.
+\end{proposition}
+\begin{proof}
+    Let $a \in G$. We look at $a,a^{2},a^{3},\ldots \in G$. Since $G$ is finite, not all are distinct; there exists $m > n$ such that $a^{m} = a^{n}$. Multiplying by $a^{-n}$, we have $a^{m-n} = a^{n-n} = e$, and the order of $a$ is finite.
+\end{proof}
+
+\subsection{The $S_{n}$ Group}
+To understand the order better, we look specifically at $S_{3}$.
+
+\begin{example}
+    The elements in $S_{3}$ are
+    \begin{align}
+        \begin{pmatrix}
+            1 & 2 & 3 \\ 1 & 2 & 3
+        \end{pmatrix}, 
+        \begin{pmatrix}
+            1 & 2 & 3 \\ 2 & 1 & 3
+        \end{pmatrix}, 
+        \begin{pmatrix}
+            1 & 2 & 3 \\ 1 & 3 & 2
+        \end{pmatrix}, 
+        \begin{pmatrix}
+            1 & 2 & 3 \\ 3 & 2 & 1
+        \end{pmatrix}, 
+        \begin{pmatrix}
+            1 & 2 & 3 \\ 2 & 3 & 1
+        \end{pmatrix}, \text{ and }
+        \begin{pmatrix}
+            1 & 2 & 3 \\ 3 & 1 & 2
+        \end{pmatrix}.
+    \end{align}
+    Alternatively, the elements may be (correspondingly) written as
+    \begin{align}
+        e, \begin{pmatrix}
+        1 & 2
+        \end{pmatrix}, 
+        \begin{pmatrix}
+        2 & 3
+        \end{pmatrix}, 
+        \begin{pmatrix}
+        1 & 3
+        \end{pmatrix}, 
+        \begin{pmatrix}
+        1 & 2 & 3
+        \end{pmatrix}, \text{ and }
+        \begin{pmatrix}
+        3 & 2 & 1
+        \end{pmatrix}.
+    \end{align}
+    It is easy to see that the orders of $e, \begin{pmatrix}
+        1 & 2
+    \end{pmatrix}, \begin{pmatrix}
+        1 & 2 & 3
+    \end{pmatrix}$ are $1,2,3$, respectively. The elements $\begin{pmatrix}
+        1 & 2
+        \end{pmatrix}, 
+        \begin{pmatrix}
+        2 & 3
+        \end{pmatrix}, \text{ and }
+        \begin{pmatrix}
+        1 & 3
+        \end{pmatrix}$ are termed transpositions.
+    In general, an element $\sigma \in S_{n}$ is called a \eax{transposition} if there exists $1 \leq a \neq b \leq n$ such that $\sigma(a) = b$ and $\sigma(b) = a$, but $\sigma(x) = x$ for all $x \notin \{a,b\}$.
+
+    An element $\sigma \in S_{n}$ is called a \eax{cycle} if there exists distinct $1 \leq a_{1},a_{2},\ldots,a_{m} \leq n$ such that $\sigma(a_{i}) = a_{i+1}$ for $1 \leq i \leq m-1$, $\sigma(a_{m}) = a_{1}$, and $\sigma(x) = x$ for all $x \notin \{a_{1},a{2},\ldots,a_{m}\}$. Thus, a transposition is really just a cycle of length 2. If $\sigma$ is a cycle of length $m$, then $o(\sigma) = m$.
+
+    In the above, $\sigma^{i}(a_{1}) = a_{i+1}$ if $i < m$. Thus, $\sigma^{i} \neq e$ for $i < m$. But for $m$-times composition, we have $\sigma^{m}(a_{i}) = a_{i}$ for all $1 \leq i \leq m$. Hence, the order of $\sigma$ is really $m$.
+\end{example}
+
+Note that $S_{3}$ is non-abelian since $\begin{pmatrix}
+    1 & 2
+\end{pmatrix} \begin{pmatrix}
+    1 & 3
+\end{pmatrix} = \begin{pmatrix}
+    1 & 3 & 2
+\end{pmatrix}$, but $\begin{pmatrix}
+    1 & 3
+\end{pmatrix} \begin{pmatrix}
+    1 & 2
+\end{pmatrix} = \begin{pmatrix}
+    1 & 2 & 3
+\end{pmatrix}$.
+
+\begin{definition}
+    Let $\sigma, \tau \in S_{n}$ be cycles. They are called \eax{disjoint cycles} if $\sigma = (a_{1},\ldots,a_{m})$ and $\tau = (b_{1},\ldots,b_{k})$, and $\{a_{1},\ldots,a_{m}\} \cap \{b_{1},\ldots,b_{k}\} = \emptyset$.
+\end{definition}
+
+If $\sigma$ and $\tau$ are disjoint cycles then they commute; that is, $\sigma \circ \tau = \tau \circ \sigma$.
+
+\begin{proposition}
+    Every element of $S_{n}$ can be written as a product of disjoint cycles.
+\end{proposition}
+
+\begin{proof}
+    Let $\sigma \in S_{n}$, and let $k$ be the least positive integer such that $\sigma^{k}(1) = 1$. Then let $\tau_{1} = \begin{pmatrix}
+        1 & \sigma(1) & \sigma^{2}(1) & \cdots & \sigma^{k-1}(1)
+    \end{pmatrix}$. Let $S'_{1}$ be the \eax{support} of $\tau_{1}$, defined as $\supp (\tau_{1}) = \{1,\sigma(1),\ldots,\sigma^{k-1}(1)\}$. If $S'_{1} = \{1,2,\ldots,n\}$, we are done. Otherwise, let $a_{2} = \min (\{1,2,\ldots,n\}\setminus S'_{1})$. Let $k_{2}$ be the least positive integer such that $\sigma^{k_{2}}(a_{2}) = a_{2}$, and then let $\tau_{2} = \begin{pmatrix}
+        a_{2} & \sigma(a_{2}) & \cdots & \sigma^{k_{2}-1}(a_{2})
+    \end{pmatrix}$. Then $\tau_{2}$ is a cycle of length of $k_{2}$. Again, let $S_{2}' = \supp(\tau_{2})$. We claim that $S_{1}' \cap S_{2}' = \emptyset$.
+
+    If $\sigma(a_{2})$ were in $S_{1}'$, then we would have $\sigma^{i}(i) = a_{2} \in S_{1}'$, but $a_{2}$ was taken from $\{1,2,\ldots,n\}\setminus S_{1}'$. Similarly, if $\sigma^{j}(a_{2}) \in S_{1}'$, then a similar problem arises. Thus, the sets have to be disjoint.
+
+    Continue this way to get $\tau_{1},\tau_{2},\ldots,\tau_{l}$ until $S_{1}' \cup S_{2}' \cup \cdots \cup S_{k}' = \{1,2,\ldots,n\}$. The process stops since $S_{1}',S_{2}',\ldots,S_{k}'$ are non-empty. Thus, we conclude that $\tau_{1} \circ \tau_{2} \circ \cdots \circ \tau_{l}$ is the disjoint cycle decomposition of $\sigma$.
+\end{proof}
+
+For ease of notation, we will write $\sigma \circ \tau$ as $\sigma\tau$.
+
+\begin{proposition}
+    Let $\sigma \in S_{n}$ and $\sigma = \tau_{1}\tau_{2}\cdots\tau_{k}$ be a disjoint cycle decomposition of $\sigma$. Then, $\abs{\sigma} = \lcm (\abs{\tau_{1}}, \abs{\tau_{2}},\ldots,\abs{\tau_{k}})$.
+\end{proposition}
+
+\begin{proof}
+    The proof of this proposition is left as an exercise to the reader.
+\end{proof}
+
+
+\section{Subgroups}
+
+We begin with the definition.
+
+\begin{definition}
+    A non-empty subset $H$ of a group $(G,\cdot)$ is called a \eax{subgroup} if the following properties hold.
+    \begin{enumerate}
+        \item For all $a,b \in H$, $a \cdot b \in H$.
+        \item For all $a \in H$, $a^{-1} \in H$.
+    \end{enumerate}
+    In such a scenario, we write $H \leqslant G$.
+\end{definition}
+
+More properties of a subgroup can be inferred.
+
+\begin{proposition}
+    The following properties hold true for a subgroup $H \leqslant G$, where $(G,\cdot,e)$ is a group.
+    \begin{enumerate}
+        \item $e \in G$.
+        \item $(H,\cdot,e)$ is a group.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item $H$ is non-empty, so there exists $a \in G$ such that $a \in H$. From the definition, $a^{-1} \in H$ also. Since $H$ is closed under the binary operation, we have $a \cdot a^{-1} = e \in H$.
+        
+        \item We show that $(H,\cdot,e)$ satisfies the group axioms. From definition, $\cdot$ is an associative binary operaion on $H$. Also, $e$ is the identity element in $H$. Again, from the definition, each $a \in H$ has an inverse $a^{-1} \in H$.
+    \end{enumerate}
+\end{proof}
+
+Equivalently, $H$ is a subgroup if the following holds.
+
+\begin{theorem}
+    Let $G$ be a group and $H \subseteq G$ be non-empty. Then $H$ is a subgroup of $G$ if and only if $a \cdot b^{-1} \in H$ for all $a,b \in H$.
+\end{theorem}
+\begin{proof}
+    The forward implication is left as an exercise to the reader. If $a \in H$ then $a \cdot a^{-1} \in H$ shows that $e \in H$. Since $e,a \in H$, $e \cdot a^{-1} = a^{-1} \in H$. If $a,b \in H$, then $a,b^{-1} \in H \implies a \cdot (b^{-1})^{-1} \in H \implies ab \in H$
 \end{proof}
