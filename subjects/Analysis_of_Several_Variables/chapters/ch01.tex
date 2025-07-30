@@ -312,7 +312,8 @@ which is a contradiction.
     Suppose $f:\R^{n} \to \R^{m}$ be defined as $f(x) = c$ for all $x \in \R^{n}$. Then, we simply have $Df(a) = 0$, the null linear mapping.
 \end{example}
 
-We now truly ask how to compute $Df(a)$. Observe that $Df(a):\R^{n}\to\R^{m}$ is a linear map. Then, one can represent it as a matrix $Df(a) \in M_{m \times n}(R)$.
+We now truly ask how to compute $Df(a)$. Observe that $Df(a):\R^{n}\to\R^{m}$ is a linear map. Then, one can represent it as a matrix $Df(a) \in M_{m \times n}(R)$.\\ \\
+\textit{July 30th.}
 
 \begin{theorem}
     Let $f:O_{n} \to \R^{m}$ be a function. Then $f$ is differentiable at $a \in O_{n}$ if and only if $f_{i}:O_{n} \to \R$ is differentiable at $a$ for all $i = 1,2,\ldots,n$. Moreover, in this case, 
@@ -323,4 +324,84 @@ We now truly ask how to compute $Df(a)$. Observe that $Df(a):\R^{n}\to\R^{m}$ is
     \end{align}
 \end{theorem}
 
-From the above theorem it is clear that $D\Pi_{i}f = \Pi_{i}Df$.
+From the above theorem it is clear that $D\Pi_{i}f = \Pi_{i}Df$. We now provide a proof.
+\begin{proof}
+    For the forward implication, let $f$ be differentiable at $a \in O_{n}$. Set $L \defeq Df(a)$ and $L_{i} \defeq \Pi_{i}Df(a)$. Note that $L_{i}:\R^{n} \to \R$ since $Df(a):\R^{n}\to\R^{m}$ and $\Pi_{i}:\R^{m} \to \R$. Observe
+    \begin{align}
+        f(a+h) - f(a) - Df(a)h = (\tilde{f}_{1}(h),\tilde{f}_{2}(h),\ldots,\tilde{f}_{m}(h))
+    \end{align}
+    where $\tilde{f}_{i}(h) = f_{i}(a+h)-f_{i}(a)-L_{i}h$ for $i = 1,2,\ldots,m$. Thus, for all $i = 1,2,\ldots,m$,
+    \begin{align}
+        \abs{\tilde{f}_{i}(h)} \leq \left( \sum_{j=1}^{m} \abs{\tilde{f}_{j}(h)}^{2} \right)^{1/2} = \norm{f(a+h)-f(a)-Lh}.
+    \end{align}
+    Dividing by $\norm{h}$ and taking $h \to 0$, we have
+    \begin{align}
+        \lim_{h \to 0} \frac{\abs{\tilde{f}_{i}(h)}}{\norm{h}} = 0
+    \end{align}
+    which shows that $f_{i}$ is differentiable with $Df_{i}(a) = L_{i}$ $(=\Pi_{i}Df(a))$.
+
+    For the converse, let $f_{i}$ be differentiable at $a$ for all $i = 1,2,\ldots,m$ and set $L_{i} = Df_{i}(a):\R^{n}\to\R$. Set $L = \begin{bmatrix}
+        L_{1} \\ \vdots \\ L_{m}
+    \end{bmatrix}:\R^{n} \to \R^{m}$, a linear map. Therefore,
+    \begin{align}
+        \frac{1}{\norm{h}} \norm{f(a+h)-f(a)-Lh} = \frac{1}{\norm{h}} \left( \sum_{j=1}^{m} \abs{\tilde{f}_{i}(h)}^{2} \right)^{1/2} \to 0.
+    \end{align}
+    where $\tilde{f}_{i}(h) = f_{i}(a+h) - f_{i}(a) - L_{i}h$ for all $i$.
+\end{proof}
+
+\begin{corollary}
+    Let $f:O_{1} \to \R^{m}$ be a function. $f$ is, then, differentiable at $a in O_{1}$ if and only if $f_{i}$ is differentiable at $a$ for all $1 \leq i \leq m$. Moreover, in this case,
+    \begin{align}
+        Df(a) = \begin{bmatrix}
+            f_{1}'(a) \\ \cdots \\ f_{m}'(a)
+        \end{bmatrix}.
+    \end{align}
+\end{corollary}
+This is just a special case when $n = 1$.
+
+\begin{remark}
+    Let $f:O_{n} \to \R^{m}$ be differentiable at $a$. Then $f$ is continuous at $a$.
+\end{remark}
+\begin{proof}
+    We have
+    \begin{align}
+        \norm{f(x)-f(a)} &\leq \norm{f(x)-f(a)-(Df(a))(x-a)} + \norm{(Df(a))(x-a)} \notag \\
+        &\leq \frac{1}{\norm{x-a}} \norm{f(x)-f(a)-(Df(a))(x-a)} \cdot \norm{x-a} + M\norm{x-a} \to 0
+    \end{align}
+    as $x \to a$. Note that such an $M > 0$ exists because $Df(a)$ is a linear map.
+\end{proof}
+
+\subsection{Chain Rule}
+
+To simplify our study of derivatives in highder dimensions, we look at the so called chain rule. This will prove to be a very important tool to study the differentiability of any function of several variables.
+
+\begin{theorem}[The \eax{chain rule}]
+    Let $f:O_{n} \to O_{m}$ be differentiable at $a \in O_{n}$, and $g:O_{m} \to \R^{p}$ be differentiable at $b = f(a) \in O_{m}$. Then $g \circ f:O_{n} \to \R^{p}$ is differentiable at $a \in O_{n}$, and
+    \begin{align}
+        (D g \circ f)(a) = Dg(f(a)) \circ Df(a).
+    \end{align}
+\end{theorem}
+
+For the proof, we will denote $A \defeq Df(a)$ and $B \defeq Dg(f(a))$, and $b = f(a)$. Moreover, we will write $r_{f}(x) \defeq f(x)-f(a)+Df(a)(x-a)$.
+
+\begin{proof}
+    There exists $r_{f}$ in the neighbourhood of $a$ and $r_{g}$ in the neighbourhood of $b$ such that $r_{f}(x) = f(x)-f(a)-A(x-a)$ and $r_{g}(y) = g(y)-g(b)-B(y-b)$. Now set
+    \begin{align}
+        r(x) = g(f(x)) - g(b) - BA(x-a).
+    \end{align}
+    We claim that $\lim_{x \to a} \frac{r(x)}{\norm{x-a}} = 0$. We know that $\lim_{x \to a} \frac{\norm{r_{f}(x)}}{\norm{x-a}} = 0 = \lim_{y \to b} \frac{\norm{r_{g}(y)}}{\norm{y-b}}$. Now,
+    \begin{align}
+        r(x) &= g(f(x))-g(b)-B(A(x-a)) = g(f(x)) - g(b) + B(r_{f}(x)-f(x)+f(a)) \notag\\
+        &= \left( g(f(x)) - g(f(a)) - B(f(x)-f(a)) \right) + Br_{f}(x) \notag = r_{g}(f(x)) + Br_{f}(x).
+    \end{align}
+    We show that both terms on the right hand side, when divided by $\norm{x-a}$, tend to zero. Now,
+    \begin{align}
+        \frac{\norm{Br_{f}(x)}}{\norm{x-a}} \leq M\frac{\norm{r_{f}(x)}}{\norm{x-a}} \to 0.
+    \end{align}
+    For the remaining term, we work as follows: for $\varepsilon > 0$ fixed, there exists a $\delta > 0$ such that $\norm{r_{g}(y)} < \varepsilon\norm{y-b}$ for all $0 < \norm{y-b} < \delta$. By continuity of $f$ at $a$, there exists a $\tilde{\delta} > 0$ such that $\norm{f(x)-f(a)} < \delta$ for all $\norm{x-a} < \tilde{\delta}$. Thus, for all $0 < \norm{x-a} < \tilde{\delta}$, we have
+    \begin{align}
+        \norm{r_{g}(f(x))} &< \varepsilon \norm{f(x)-f(a)} < \varepsilon \norm{r_{f}(x)+A(x-a)} \\
+        \implies \norm{r_{g}(f(x))} &< \varepsilon \left( \norm{r_{f}(x)} + \norm{A(x-a)} \right) < \varepsilon \left( \norm{r_{f}(x)} + \tilde{M} \norm{x-a} \right) \notag \\
+        \implies \frac{\norm{r_{g}(f(x))}}{\norm{x-a}} &\to 0 \text{ as } x \to a.
+    \end{align}
+\end{proof}
