@@ -192,3 +192,57 @@ which gives us
     T_{\text{tot},f} - T_{\text{tot},i} = -\sum_{i=1}^{N_{p}} \left( V_{i,\text{final}}^{\text{ext}} - V_{i,\text{init}}^{\text{ext}} \right) + (-\frac{1}{2}) \sum_{i,j=1;i \neq j}^{N_{p}} (V_{ij}^{\text{final}}-V_{ij}^{\text{init}}) = -(V_{\text{tot}},\text{init}^{\text{sys}} - V_{\text{tot},\text{final}}^{\text{sys}}).
 \end{align}
 We conclude that the total energy, $E_{\text{sys}}^{\text{tot}} = T_{\text{tot}}^{\text{sys}} + V_{\text{tot}}^{\text{sys}}$ is conserved.
+
+\section{The Laws: Rigid Bodies}
+\textit{July 30th.}
+
+We now extensively study the mechanics of rigid bodies. By a \eax{rigid body}, we mean one where the distance between any pair of particles remains constant; for all $i,j$, we have
+\begin{align}
+    \abs{\vec{r}_{i}(t)-\vec{r}_{j}(t)}^{2} = c_{ij}^{2}.
+\end{align}
+Now comes the question of the coordinate system. For a rigid body, the cartesian coordinate system may not always be the nicest to work with. For example, suppose we have a particle always travelling on the surface of a sphere of radius $R$. Then its coordinates are always related as $x^{2}(t)+y^{2}(t)+z^{2}(t) = R^{2}$. To come up with a more suitable coordinate system, we look at 2 dimensions first.
+
+
+\subsection{Coordinate Systems}
+If a particle is at $(x,y)$, then we can rewrite its coordinates as $(r,\phi)$, where $r$ is the distance from the origin, and $\phi$ is the counter-clockwise angle made with the positive $x$-axis. Here, they are related as $x = r \cos \phi$ and $y = r \sin \phi$. If the particle moves around in a circle, then choosing the latter coordinate system, known as the \eax{polar coordinate system}, proves to be useful since $\dot{r}(t) = 0$ and only the analysis on $\phi$ is to be done.
+
+Extending this idea into three dimensions, we first assign a new unit vector $\hat{e}_{r}$ that points in the same direction as $\vec{r}$. $\theta$ is an angle measured from the positive $z$-axis, and takes the values $[0,\pi]$, with $\theta = 0$ at the north pole and $\theta = \pi$ at the south pole. The unit vector associated with $\theta$ is $\hat{e}_{\theta}$ which points tangentially along the longitude from the north to the south. Next, $\phi$ is termed the angle the positive $x$-axis makes with the projection of $\vec{r}$ onto the $xy$-plane in a counter-clockwise manner. Thus, $\phi \in [0,2\pi]$. The unit vector associated with $\phi$ is $\vec{e}_{\phi}$ in such a way that $\hat{e}_{r} \times \hat{e}_{\theta} = \hat{e}_{\phi}$. This is the \eax{spherical coordinate system}. It is important to note that the unit vectors are \textit{not} fixed and are, in fact, functions of $r$, $\theta$, and $\phi$.
+
+\begin{remark}
+    The cartesian coordinates and the spherical coordinates are related as
+    \begin{align}
+        x(t) &= r(t) \sin\theta(t) \cos\phi(t),\\
+        y(t) &= r(t) \sin\theta(t) \sin\phi(t),\\
+        z(t) &= r(t) \cos\theta(t).
+    \end{align}
+    If $r(t) = R$ is fixed, then $x^{2}+y^{2}+z^{2} = R^{2}$ and, thus,
+    \begin{align}
+        \dot{x}(t) &= R \dot{\theta}(t) \cos\theta(t) \cos\phi(t) - R\dot{\phi}(t) \sin\theta(t) \sin\phi(t),\\
+        \dot{y}(t) &= R \dot{\theta}(t) \cos\theta(t) \sin\phi(t) + R\dot{\phi}(t) \sin\theta(t) \cos\phi(t),\\
+        \dot{z}(t) &= -R\dot{\theta}(t) \sin\theta(t).
+    \end{align}
+\end{remark}
+
+Our next goal is to derive expressions for gradient, divergence, and curl in the coordinates $(r,\theta,\phi)$. For any function $f$ of $(x,y,z)$, it can also be a function $f$ of $(r,\theta,\phi)$. One might be tempted to think that the gradient, or divergence or curl, can simply be found by replacing $x,y,z,\hat{e}_{x},\hat{e}_{y},\hat{e}_{z}$ with $r,\theta,\phi,\hat{e}_{r},\hat{e}_{\theta},\hat{e}_{\phi}$ in the equation(s), but then one has the problem of dimensions. Figuring out the exact equations is left as an exercise the reader.\\
+
+In the \eax{cyclindrical coordinate system}, one has $(\rho,\phi,z)$, where $\phi$ and $z$ retain their usual meaning from the spherical and cartesian coordinates respectively, and $\rho$ is the distance of the coordinate from the $z$-axis. In this case, the unit vector associated with $\rho$ satisfies $\hat{e}_{\rho} \times \hat{e}_{\phi} = \hat{e}_{z}$. The reader is urged to formulate the relationships between the three coordinate systems.
+
+\subsection{Generalized Coordinates}
+
+Coming back the rigid body mechanics, the inter-particle distance equation can be rewritten as
+\begin{align}
+    (x-x_{C}(t))^{2} + (y-y_{C}(t))^{2} + (z-z_{C}(t))^{2} - R^{2} = 0.
+\end{align}
+
+Such an equation which can be written in the form
+\begin{align}
+    f(\vec{r}_{1},\vec{r}_{2},\ldots,\vec{r}_{N_{p}},t) = 0
+\end{align}
+is termed a \eax{holonomic constraint}. These are again of two types; amechanical system is \eax{rheonomous} if its equations of constraints contain time as an explicit variable. These are hard to deal with. On the other hand, a mechanical system is \eax{scleronomous} if the equations of constraints do not contain the time as an explicit variable.
+
+We now discuss the notion of \eax{generalized coordinates}, starting with $N_{p}$ particles in $d$ dimensions. Thus, we will have $dN_{p}$ independent coordinates to deal with. For now, we deal with $d = 3$. Suppose we also have $k$ equations of constraints which are holonomic in nature. Combining, we than have
+\begin{align}
+    (3N_{p}-k) \text{ independent `generalized' coordinates}
+\end{align}
+which are termed $\{q_{j}\}$.
+
