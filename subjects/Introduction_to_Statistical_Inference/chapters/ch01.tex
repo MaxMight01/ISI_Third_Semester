@@ -60,9 +60,35 @@ The following theorem proves to be useful for finding sufficiency.
     \begin{align}
         f(\underline{x} \mid \theta) = g(T(\underline{x}), \theta) h(\underline{x}).
     \end{align}
-    Note that the functions are defined with $T:\R^{n} \to I \subseteq \R^{k}$ (for $k \leq n$), $g:I \times \Theta \to \R_{\geq 0}$, and $h:\R^{n} \to R_{\geq 0}$. The functions $g$ and $h$ need not be unique.
+    Note that the functions are defined with $T:\R^{n} \to I \subseteq \R^{k}$ (for $k \leq n$), $g:I \times \Theta \to \R_{\geq 0}$, and $h:\R^{n} \to \R_{\geq 0}$. The functions $g$ and $h$ need not be unique.
 \end{theorem}
-A little less formally, the theorem basically states this: let $X$ be a random variable with probability mass/density function $f(x,\theta)$ for $\theta \in \Theta$. Then $T(X)$ is sufficient if and only if $f(x,\theta) = g(T(x),\theta)h(x)$ for all $\theta \in \Theta$.
+A little less formally, the theorem basically states this: let $X$ be a random variable with probability mass/density function $f(x,\theta)$ for $\theta \in \Theta$. Then $T(X)$ is sufficient if and only if $f(x,\theta) = g(T(x),\theta)h(x)$ for all $\theta \in \Theta$. We now provide a proof.
+
+\begin{proof}
+    We show only for the discrete case. Let us first assume such a faztorization exists. With
+    \begin{align}
+        P_{\theta}(X=x' \mid T(X) = t) = \begin{cases}
+            \frac{P_{\theta}(X=x',T(X)=t)}{P_{\theta}(T(X)=t)} &\text{ if } T(x') = t,\\
+            0 &\text{ if } T(x') \neq t,
+        \end{cases}
+    \end{align}
+    we then have
+    \begin{align}
+        P_{\theta}(T(x) = t) = \sum_{\{x \mid T(x) = t\}} f_{\theta}(x \mid \theta) = g(T(x),\theta) \sum_{\{x \mid T(x) = t\}} h(x).
+    \end{align}
+    Thus, using the above, and the fact that $\{X = x\} \subseteq \{T(X) = T(x)\}$, gives us
+    \begin{align}
+        \frac{P_{\theta}(X=x',T(X)=t)}{P_{\theta}(T(X)=t)} = \frac{P_{\theta}(X=x')}{g(T(x),\theta) \sum_{\{x \mid T(x) = t\}} h(x)} = \frac{g(t,\theta)h(x')}{g(T(x),\theta) \sum_{\{x \mid T(x) = t\}} h(x)} =  \frac{h(x')}{\sum_{\{x \mid T(x) = t\}} h(x)}.
+    \end{align}
+    We now suppose that $T(X)$ is sufficient for $\theta$. Let $g(t,\theta) = P_{\theta}(T=t)$. Then,
+    \begin{align}
+        g(t,\theta) = P_{\theta}(T=t) = P_{\theta}(T(X)=T(x')) \text{ where } T(x') = t.
+    \end{align}
+    Also set $h(x) = P_{\theta}(X = x' \mid T(X) = T(x'))$, which is independent of $\theta$ since $T$ is sufficient. Therefore, we have
+    \begin{align}
+        f_{X}(x'\mid \theta) = P_{\theta}(X=x') = P_{\theta}(T(X)=T(x')) \cdot P_{\theta}(X=x' \mid T(X) = T(x')) = g(T(x),\theta) h(x).
+    \end{align}
+\end{proof}
 
 \begin{example}
     Let $X_{1},\ldots,X_{n}$ be independent and identically distributed $N(\mu,\sigma^{2})$ random variables, with $\mu \in \R$ and $\sigma^{2} > 0$. Let us find a sufficient test statistic. We look at cases; the first case being when $\sigma^{2}$ is known ($\sigma^{2}=1$). Since these are independent, we have the joint probability density funciton of these random variables as
@@ -123,24 +149,127 @@ We look at more examples.
     Here, $c(\theta) = \theta$, $T(x) = x$, $S(x) = -\frac{x^{2}}{2}-\frac{1}{2}\log(2\pi)$, and $d(\theta) = -\frac{\theta^{2}}{2}$.
 \end{example}
 
+\textit{August 1st.}
+
 \begin{remark}
     \begin{enumerate}
         \item The Neyman-Fisher factorization theorem holds if $\underline{\theta}$ and $\underline{T}$ are vectors. Their dimensions need not be equal.
         
         \item If $T$ is sufficient and $T$ is a function of $U$, then $U$ is also sufficient.
         
-        \item If $V$ is a function of $T$, then $V$ need not be sufficient. But if $V$ is one-to-one with $T$, then $V$ is also sufficient. $V = B(T)$ and $T = B^{-1}(V)$ shows that $g(T,\theta) = g(B^{-1}(V),\theta) = g^{\ast}(V,\theta)$.
+        \item If $V$ is a function of $T$, then $V$ need not be sufficient. But if $V$ is one-to-one with $T$, then $V$ is also sufficient. $V = B(T)$ and $T = B^{-1}(V)$ shows that $g(T,\theta) = g(B^{-1}(V),\theta) = g^{\ast}(V,\theta)$. Note that the inverse exists since it is defined on the image of the original function only.
     \end{enumerate}
 \end{remark}
 
 \section{Minimal Sufficiency}
 Again, we being with a few definitions.
 \begin{definition}
-    A \eax{partition} of a space $\cH$ is a collection $\{E_{i}\}$ of subsets of $\cH$ such that
+    A \eax{partition} of a space $\cX$ is a collection $\{E_{i}\}$ of subsets of $\cX$ such that
     \begin{align}
-        \bigcup_{n \geq 1} E_{i} = \cH \text{ and } E_{i} \cap E_{j} = \emptyset \text{ for } i \neq j.
+        \bigcup_{n \geq 1} E_{i} = \cX \text{ and } E_{i} \cap E_{j} = \emptyset \text{ for } i \neq j.
     \end{align}
-    The $E_{i}$'s are called \eax{partition set}s. Let $T: \cH \to \cJ$. The partition of $\cH$ induced by the function $T$ is the collection of the sets $T_{y} = \{x \mid T(x) = y\}$ for $y \in \cJ$.
+    The $E_{i}$'s are called \eax{partition set}s. Let $T: \cX \to \cY$. The partition of $\cX$ induced by the function $T$ is the collection of the sets $T_{y} = \{x \mid T(x) = y\}$ for $y \in \cY$.
 \end{definition}
 
 We say that $\cP_{2}$ is a \eax{reduction} of $\cP_{1}$ if each partition set of $\cP_{2}$ is the union of the same members of $\cP_{1}$.
+
+\begin{definition}
+    A sufficient statistic $T(X)$ is called a \eax{minimal sufficient statistic} if for any other sufficient statistic $T'(X)$, $T(\underline{X})$ is a function of $T'(X)$. That is,
+    \begin{align}
+        T(\underline{X}) = U(T'(X)) \implies \text{ if } T'(\underline{x}) = T'(\underline{y}) \text{ then } T(\underline{x}) = T(\underline{y}).
+    \end{align}
+\end{definition}
+
+In terms of partition sets, if $\{B_{t'} \mid t' \in T'\}$ are partition sets for $T'(x)$ and $\{A_{t}:t \in T\}$ are partition sets for $T(x)$, then the definition states that every $B_{t'}$ is a subset of some $A_{t}$. Thus the partition associated with a minimal sufficient statistic is the coarsest possible partition for a sufficient statistic, and a minimal sufficient statistic achieves the greatest possible data reduction.
+
+\begin{theorem}
+    Let $f(x \mid \theta)$ be the probability mass/density funciton of a sample $\underline{X}$. Suppose there exists a function $T(\underline{x})$ such that for every two sample points $\underline{x}$ and $\underline{y}$, the ratio $\sfrac{f(\underline{x}\mid \theta)}{f(\underline{y}\mid\theta)}$ is constant as a function of $\theta$ if and only if $T(\underline{x}) = T(\underline{y})$. Then $T(\underline{X})$ is a minimal sufficient statistic for $\theta$.
+\end{theorem}
+
+We look at an example first before proving the theorem.
+
+\begin{example}
+    Let $X_{1},\ldots,X_{n}$ be independent and identically distributed $\Exp(\theta)$ for $\theta > 0$. Recall that the probabilty density function is $f(x \mid \theta) = \theta \exp(-\theta x)$. We show that $T(\underline{X}) = \sum_{i=1}^{n} X_{i}$ is minimal sufficient for $\theta$. The joint density in this case is
+    \begin{align}
+        f(\underline{X}=\underline{x} \mid \theta) = \prod_{i=1}^{n} \theta \exp(-\theta x_{i}) = \theta^{n} \exp\left( -\theta .\sum_{i=1}^{n} x_{i} \right).
+    \end{align}
+    The ratio is now
+    \begin{align}
+        \frac{f(\underline{x} \mid \theta)}{f(\underline{y} \mid \theta)} = \exp\left( -\theta \sum_{i=1}^{n}(x_{i}-y_{i}) \right) = \exp(-\theta (T(\underline{x})-T(\underline{y}))).
+    \end{align}
+    This expression is constant as a function of $\theta$ if and only if $T(\underline{x}) = T(\underline{y})$. Thus, $T$ is minimal sufficient statistic for $\theta$.
+\end{example}
+
+\begin{proof}
+    We shall assume that $f(x \mid \theta) > 0$ for all $x \in X, \theta \in \Theta$. Suppose there exists $T(X)$ such that $\sfrac{f(\underline{x}\mid\theta)}{f(\underline{y}\mid\theta)}$ is constant as a function of $\theta$ if and only if $T(x) = T(y)$. We first show that $T$ is sufficient. The map is really $T:\cX \to \cT = \{t \mid T(x) = t \text{ for some } x \in \cX\}$. Let $A_{t} = \{x \in \cX \mid T(x) = t\}$. Then the collection of sets $\{A_{t}\}_{t \in \cT}$ is a partition of $\cX$.
+
+    For each $A_{t}$, fix an element $x_{t} \in A_{t}$. For any $x \in \cX$, we have $x \in A_{T(x)}$ and hence $x_{T(x)}$ is the fixed element which belongs to the same partitioning set as $x$ does. Thus, $T(x) = T(x_{T(x)})$ since $x$ and $x_{T(x)}$ belong to $A_{T(x)}$. $\frac{f(x\mid\theta)}{f(x_{T(x)}\mid\theta)}$ is a constant function of $\theta$, so $h(x) = \frac{f(x\mid\theta)}{f(x_{T(x)}\mid\theta)}$ independent of $\theta$ and $h:\cX \to \R_{\geq 0}$. Define $g:\cT \times \Theta \to \R_{\geq 0}$ by $g(t,\theta) = f(x_{t} \mid \theta)$. Then
+    \begin{align}
+        f(x \mid \theta) = \frac{f(x\mid\theta)}{f(x_{T(x)}\mid\theta)} f(x_{t} \mid \theta) = h(x) g(t,\theta).
+    \end{align}
+    Now that we have shown $T$ is sufficient, we show its minimality. Let $T'(X)$ be any other sufficient statistic. Then there exist functions $g'$ and $h'$ such that
+    \begin{align}
+        f(x\mid\theta) = g'(T'(x),\theta)h'(x).
+    \end{align}
+    Let $x$ and $y$ be any two sample points such that $T'(x) = T'(y)$. Then
+    \begin{align}
+        \frac{f(x\mid\theta)}{f(y\mid\theta)} = \frac{g'(T'(x),\theta)h'(x)}{g'(T'(y),\theta)h'(y)} = \frac{h'(x)}{h'(y)} \text{ is independent of } \theta.
+    \end{align}
+    We already know that $T(x) = T(y)$ whenever the above ratio is a constant function of $\theta$. Hence, $T'(x) = T'(y) \implies T(x) = T(y)$. This means that $T$ is coarser.
+\end{proof}
+
+\begin{theorem}
+    Suppose $\cP$ is a family of probability models with common support and $\cP_{0} \subset \cP$. If $T$ is minimal sufficient for $\cP_{0}$ and sufficient for $\cP$, then it is minimal sufficient for $\cP$ also.
+\end{theorem}
+
+\begin{proof}
+    Let $U$ be any sufficient statistic for $\cP$. Then it is sufficient for $\cP_{0}$. But $T$ is minimal for $\cP_{0}$. Therefore, $T = H(U)$. Now consider $\cP$. $T$ is sufficient for $\cP$ and for any other sufficient statistic $U$, $T = H(U)$. Thus, $T$ is minimal sufficient.
+\end{proof}
+
+\begin{example}
+    Let $X_{1},\ldots,X_{n}$ be independent and identically distributed $\Poi(\lambda)$ random variables. The probability mass function in this case is
+    \begin{align}
+        f(x_{1},\ldots,x_{n}\mid \lambda) = e^{-n\lambda} \frac{\lambda^{x_{1}+\cdots+x_{n}}}{x_{1}!\cdots x_{n}!}.
+    \end{align}
+    We find whether $\sum_{i=1}^{n} X_{i}$ is sufficient for $\lambda$. We have
+    \begin{align}
+        \frac{f(\underline{x} \mid \theta)}{f(\underline{y} \mid \theta)} = \theta^{-\left(\sum_{i=1}^{n} x_{i} - \sum_{j=1}^{n} y_{j}\right)} \frac{y_{1}! \cdots y_{n}!}{x_{1}! \cdots x_{n}!}
+    \end{align}
+    which is a constant with respect to $\theta$ if and only if $T(\underline{x}) = T(\underline{y})$.
+\end{example}
+
+\begin{definition}
+    Two statistics $S_{1}$ and $S_{2}$ are said to be \eax{equivalent statistics} if $S_{1}(x) = S_{1}(y)$ if and only if $S_{2}(x) = S_{2}(y)$. Note that if $S_{1}$ and $S_{2}$ are equivalent, then then provide the same
+    \begin{enumerate}
+        \item partition of the sample space,
+        \item reduction, and
+        \item information.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    A statistic $S(\underline{X})$ whose distribution does not depend on the parameter $\theta$ is called an \eax{ancillary statistic}. An example is the chi-squared distribution. 
+\end{definition}
+
+\section{Location Scale Family}
+With examples as context, we define the following families.
+\begin{example}
+    Consider $U \sim \Unif(-1,1)$. Then $f_{U}(u) = \frac{1}{2} I_{(-1,1)}(u)$. Let $X = \mu + U$. Then $X \sim \Unif(\mu-1,\mu+1)$. Thus,
+\begin{align}
+    f_{X}(x) = \frac{1}{2}I_{(\mu-1,\mu+1)}(x) = \frac{1}{2}I_{(-1,1)}(x-\mu) = f_{U}(x-\mu).
+\end{align}
+\end{example}
+
+The family of distributions for $X$ indexed by $\mu$ is called a \eax{location family} with \eax{location parameter} $\mu$. Note that $\mu$ is the location for $X$ if $X-\mu$ has a distribution which is free of $\mu$.
+
+\begin{example}
+    Suppose $Z \i\sim N(0,1)$ with density $f_{Z}(z) = \frac{1}{\sqrt{2\pi}} e^{-\frac{z^{2}}{2}}$. If we set $X = \sigma Z$ with $\sigma > 0$, then $X \sim (0,\sigma^{2})$. Thus,
+    \begin{align}
+        f_{X}(x) = \frac{1}{\sigma\sqrt{2\pi}} e^{-\frac{x^{2}}{2\sigma^{2}}} = \frac{1}{\sigma} f_{Z}(\frac{x}{\sigma}).
+    \end{align}
+\end{example}
+
+Here, $\sigma$ is called the \eax{scale parameter} for the family of distributions $X$ indexed by it, which is called a \eax{scale family}. Together, we have the changed distribution as
+\begin{align}
+    f_{X}(x) = \frac{1}{\sigma} f\left( \frac{x-\mu}{\sigma} \right).
+\end{align}
