@@ -229,7 +229,7 @@ In the \eax{cyclindrical coordinate system}, one has $(\rho,\phi,z)$, where $\ph
 
 \subsection{Generalized Coordinates}
 
-Coming back the rigid body mechanics, the inter-particle distance equation can be rewritten as
+Coming back to the rigid body mechanics, the inter-particle distance equation can be rewritten as
 \begin{align}
     (x-x_{C}(t))^{2} + (y-y_{C}(t))^{2} + (z-z_{C}(t))^{2} - R^{2} = 0.
 \end{align}
@@ -238,7 +238,7 @@ Such an equation which can be written in the form
 \begin{align}
     f(\vec{r}_{1},\vec{r}_{2},\ldots,\vec{r}_{N_{p}},t) = 0
 \end{align}
-is termed a \eax{holonomic constraint}. These are again of two types; amechanical system is \eax{rheonomous} if its equations of constraints contain time as an explicit variable. These are hard to deal with. On the other hand, a mechanical system is \eax{scleronomous} if the equations of constraints do not contain the time as an explicit variable.
+is termed a \eax{holonomic constraint}. These are again of two types; a mechanical system is \eax{rheonomous} if its equations of constraints contain time as an explicit variable. These are hard to deal with. On the other hand, a mechanical system is \eax{scleronomous} if the equations of constraints do not contain the time as an explicit variable.
 
 We now discuss the notion of \eax{generalized coordinates}, starting with $N_{p}$ particles in $d$ dimensions. Thus, we will have $dN_{p}$ independent coordinates to deal with. For now, we deal with $d = 3$. Suppose we also have $k$ equations of constraints which are holonomic in nature. Combining, we than have
 \begin{align}
@@ -246,3 +246,122 @@ We now discuss the notion of \eax{generalized coordinates}, starting with $N_{p}
 \end{align}
 which are termed $\{q_{j}\}$.
 
+\subsubsection{Equilibrium}
+\textit{August 4th.}
+
+The case of \eax{equilibrium} simply means $\vec{F}_{i} = 0$ for $i = 1,2,\ldots,N_{p}$. Trivially, the vector sum $\sum_{i=1}^{N_{p}} \vec{F}_{i}$ is also zero. More importantly, $\vec{F}_{i} \cdot \delta \vec{r}_{i} = 0$ and no work is being done by the system. Here, $\delta \vec{r}_{i}$ is the \eax{virtual displacement} of each particle and are not independent of each other. The virtual displacements are consistent with the constraints of the system.
+\begin{align}
+    \sum_{i=1}^{N_{p}} (\vec{F}_{i}^{(a)} + \vec{f}_{i}) \cdot \delta \vec{r}_{i} = 0
+\end{align}
+where $\vec{F}_{i}^{(a)}$ is the applied force, and $\vec{f}_{i}$ is the constraint force. We now make our first assumption: that the constraint forces do no work under virtual displacements. That is, $\vec{f}_{i} \cdot \delta \vec{r}_{i} = 0$. Of course, this implies that
+\begin{align}
+    \sum_{i=1}^{N_{p}} \vec{F}_{i}^{(a)} \cdot \delta \vec{r}_{i} = 0
+\end{align}
+This is the \eax{principle of virtual work}: the total virtual work done by the applied forces vanishes. Note that this does not imply that each applied force is zero. We now extend this to the case of dynamics. In this case, Newton's second law gives us $\vec{F}_{i} = \dot{\vec{p}}_{i}$, where $\vec{p}_{i}$ is the linear momentum of the $i$th particle. Then we have:
+\begin{align}
+    \vec{F}_{i} - \dot{\vec{p}}_{i} = 0 \Rightarrow \sum_{i=1}^{N_{p}} (\vec{F}_{i}^{(a)} + \vec{f}_{i} - \dot{\vec{p}}_{i}) \cdot \delta \vec{r}_{i} = 0
+\end{align}
+Again invoking the assumption that the constraint forces do no virtual work, we find:
+\begin{align}
+    \sum_{i=1}^{N_{p}} (\vec{F}_{i}^{(a)} - \dot{\vec{p}}_{i}) \cdot \delta \vec{r}_{i} = 0
+\end{align}
+This is known as \eax{d'Alembert's principle}. It states that the difference between the applied forces and the time derivative of the momentum (i.e., the inertial forces) does no virtual work.\\
+
+Suppose $\vec{r}_{i} = \vec{r}_{i}(q_{1},\ldots,q_{n},t)$ for all $i = 1,2,\ldots,N_{p}$, with $n$ generalized coordinates. We transfer many definitions to the idea of generalized coordinates
+
+The first step is the definition of the velocities. We have
+\begin{align}
+    \vec{v}_{i} = \frac{d\vec{r}_{i}}{dt} = \sum_{j=1}^{n} \frac{\partial \vec{r}_{i}}{\partial q_{j}} \frac{d q_{j}}{dt} + \frac{\partial \vec{r}_{i}}{\partial t}
+\end{align}
+The virtual displacement is again a function of the generalized coordinates, so we can write this as
+\begin{align}
+    \delta \vec{r}_{i} = \sum_{j=1}^{n} \frac{\partial \vec{r}_{i}}{\partial q_{j}} \delta q_{j}.
+\end{align}
+Moving forward,
+\begin{align}
+    \sum_{i=1}^{N_{p}} \vec{F}_{i}^{(a)} \cdot \delta \vec{r}_{i} = \sum_{i=1}^{N_{p}} \vec{F}_{i}^{(a)} \cdot \left( \sum_{j=1}^{n} \frac{\partial \vec{r}_{i}}{\partial q_{j}} \delta q_{j} \right) = \sum_{j=1}^{n} \left( \sum_{i=1}^{N_{p}} \vec{F}_{i}^{(a)} \cdot \frac{\partial \vec{r}_{i}}{\partial q_{j}}\right) \delta q_{j} = \sum_{j=1}^{N} Q_{j} \delta q_{j}
+\end{align}
+where $Q_{j}$ is the scalar $\sum_{i=1}^{N_{p}} \vec{F}_{i}^{(a)} \cdot \frac{\partial \vec{r}_{i}}{\partial q_{j}}$. Next, using Newtons' law,
+\begin{align}
+    \dot{\vec{p}}_{i} \cdot \delta\vec{r}_{i} = m_{i}\ddot{\vec{r}}_{i} \cdot \delta\vec{r}_{i} \Rightarrow \sum_{i=1}^{N_{p}} m_{i} \ddot{\vec{r}_{i}} \cdot \delta\vec{r}_{i} = \sum_{j=1}^{n} \left( \sum_{i=1}^{N_{p}} m_{i} \ddot{\vec{r}}_{i} \cdot \frac{\partial \vec{r}_{i}}{\partial q_{j}} \right) \delta q_{j}.
+\end{align}
+A bit of algebra shows us
+\begin{align}
+    m_{i} \ddot{\vec{r}}_{i} \cdot \frac{\partial \vec{r}_{i}}{\partial q_{j}} = \frac{d}{dt} \left( m_{i} \dot{\vec{r}}_{i} \cdot \frac{\partial \vec{r}_{i}}{\partial q_{j}} \right) - m_{i} \dot{\vec{r}}_{i} \cdot \frac{d}{dt} \left( \frac{\partial \vec{r}_{i}}{\partial q_{j}} \right)
+\end{align}
+and
+\begin{align}
+    \frac{d}{dt} \left( \frac{\partial \vec{r}_{i}}{\partial q_{j}} \right) = \frac{\partial}{\partial q_{j}} \left( \frac{d\vec{r}_{i}}{dt} \right) = \frac{\partial \vec{v}_{i}}{\partial q_{j}}.
+\end{align}
+Denoting the time derivative of $q_{j}$ as $\dot{q_{j}}$, we have
+\begin{align}
+    \frac{\partial \vec{v}_{i}}{\partial \dot{q}_{j}} = \frac{\partial}{\partial \dot{q}_{j}} \left( \frac{d \vec{r}_{i}}{dt} \right) = \frac{\partial}{\partial \dot{q}_{j}} \left( \sum_{k=1}^{n} \frac{\partial \vec{r}_{i}}{\partial q_{k}} \dot{q}_{k} + \frac{\partial \vec{r}_{i}}{\partial t} \right) = \frac{\partial \vec{r}_{i}}{\partial q_{j}}.
+\end{align}
+Thus,
+\begin{align}
+    \frac{d}{dt} \left( m_{i} \ddot{\vec{r}}_{i} \cdot \frac{\partial \vec{r}_{i}}{\partial q_{j}} \right) = \frac{d}{dt} \left( m_{i} \vec{v}_{i} \cdot \frac{\partial \vec{v}_{i}}{\partial \dot{q}_{j}}\right) \text{ and } m_{i} \dot{\vec{r}}_{i} \cdot \frac{d}{dt} \left( \frac{\partial \vec{r}_{i}}{\partial q_{j}} \right) = m_{i} \vec{v}_{i} \cdot \frac{\partial \vec{v}_{i}}{\partial q_{j}}.
+\end{align}
+Note that both these terms are distinct and are summed over $i$ and $j$. With $T = (\sum_{i=1}^{N_{p}} m_{i}v_{i}^{2})/2$, we turn to
+\begin{align}
+    \sum_{i=1}^{N_{p}} \dot{\vec{p}}_{i} \cdot \delta \vec{r}_{i} &= \sum_{i=1}^{N_{p}} \left( \sum_{j=1}^{N_{p}} \left( \frac{d}{dt} \left( m_{i} \vec{v}_{i} \cdot \frac{\partial \vec{v}_{i}}{\partial \dot{q}_{j}} \right) - m_{i}\vec{v}_{i} \cdot \frac{\partial \vec{v}_{i}}{\partial q_{j}} \right) \delta q_{j} \right) \\
+    &= \sum_{j=1}^{n} \left( \frac{d}{dt} \left( \frac{\partial T}{\partial \dot{q}_{j}} \right) - \frac{\partial T}{\partial q_{j}} \right) \delta q_{j}.
+\end{align}
+This is the term that appears from the above. Remember that there was also a term $\vec{F}_{i}^{(a)} \cdot \delta \vec{r}_{i} = \sum_{j=1}^{n} Q_{j} \delta q_{j}$. Therefore,
+\begin{align}
+    \sum_{i=1}^{N_{p}} (\vec{F}_{i}^{(a)} - \dot{\vec{p}}_{i}) \cdot \delta \vec{r}_{i} = 0 \implies \sum_{j=1}^{n} \left( \frac{d}{dt} \left( \frac{\partial T}{\partial \dot{q}_{j}} \right) - \frac{\partial T}{\partial q_{j}} -Q_{j}\right) \delta q_{j} = 0.
+\end{align}
+What we have essentially done is transform the equations depending on the non-independent virtual displacements into a linear sum of $\delta q_{j}$'s which are independent of each other. We get the desired result
+\begin{align}
+    \frac{d}{dt} \left( \frac{\partial T}{\partial \dot{q}_{j}} \right) - \frac{\partial T}{\partial q_{j}} - Q_{j} = 0 \text{ for all } j = 1,2,\ldots,n.
+\end{align}
+
+Let us use the above result to derive the equations for three dimensional motion. Here, $q_{1} = x$, $q_{2} = y$, and $q_{3} = z$. Also, $\frac{\partial T}{\partial q_{j}} = 0$ for all $j$, where $T = \frac{1}{2}m(\dot{x}^{2}+\dot{y}^{2}+\dot{z}^{2})$. Moreover,
+\begin{align}
+    \frac{\partial T}{\partial \dot{q}_{1}} = \frac{\partial T}{\partial \dot{x}} = m\dot{x} \text{ and } \frac{d}{dt} \left( \frac{\partial T}{\partial \dot{q}_{1}} \right) = \frac{d}{dt}(m\dot{x}) = m\ddot{x} = 0 
+\end{align}
+which matches the standard laws of motions. For $n$ particles, we have
+\begin{align}
+    \frac{d}{dt} \left( \frac{\partial T}{\partial q_{j}} \right) - \frac{\partial T}{\partial q_{j}} = Q_{j} \text{ for all } j = 1,2,\ldots,n.
+\end{align}
+Since $\vec{F}_{i} = -\vec{\nabla}_{i} V$,
+\begin{align}
+    Q_{j} = \sum_{i=1}^{N_{p}} \vec{F}_{i} \cdot \frac{\partial \vec{r}_{i}}{\partial q_{j}} = -\sum_{i=1}^{N_{p}} \vec{\nabla}_{i} V \cdot \frac{\partial \vec{r}_{i}}{\partial q_{j}} = -\frac{\partial V}{\partial q_{j}}
+\end{align}
+$V$ generally does not depend on $\dot{q}_{j}$. So,
+\begin{align}
+    \frac{d}{dt} \left( \frac{\partial T}{\partial \dot{q}_{j}} \right) - \frac{\partial(T-V)}{\partial q_{j}} = 0 \implies \frac{d}{dt} \left( \frac{\partial(T-V)}{\partial \dot{q}_{j}} \right) - \frac{\partial(T-V)}{\partial q_{j}} = 0.
+\end{align}
+This aove equation holds true for any $j$. The quantity $T-V$ is termed the \eax{Lagrangian} denoted as $L = L(\{q_{j}\},\{\dot{q}_{j}\},t)$.
+
+\begin{example}
+    Let us look at a particle moving in 2 dimensions via polar coordinates. The force acting on it is $\vec{F} = F_{x}\hat{e}_{x} + F_{y}\hat{e}_{y}$. Here, $q_{1} = r$ and $q_{2} = \theta$. The kinetic energy is $\frac{1}{2}m(\dot{x}^{2}+\dot{y}^{2})$. The coordinates are changed to polar as $x = r\cos\theta = x(r,\theta)$ and $y = r \sin \theta = y(r,\theta)$, giving us
+    \begin{align}
+        \dot{x} = \dot{r} \cos \theta - r \dot{\theta} \sin \theta \text{ and } \dot{y} = \dot{r} \sin \theta + r \dot{\theta} \cos \theta.
+    \end{align}
+    The kinetic energy then becomes
+    \begin{align}
+        T &= \frac{1}{2} m(\dot{x}^{2}+\dot{y}^{2}) = \frac{1}{2}m\dot{r}^{2} + \frac{1}{2} mr^{2}\dot{\theta}^{2}
+    \end{align}
+    giving us
+    \begin{align}
+        \frac{\partial T}{\partial \dot{r}} = m\dot{r} \implies \frac{d}{dt} \left( \frac{\partial T}{\partial \dot{r}} \right) = \frac{d}{dt} (m\dot{r}) = m\ddot{r}.
+    \end{align}
+    Along with $\frac{\partial U}{\partial \dot{r}} = 0$, we get
+    \begin{align}
+        \frac{d}{dt} \left( \frac{\partial L}{\partial \dot{r}} \right) = m\ddot{r}.
+    \end{align}
+    Moreover, $\frac{\partial T}{\partial r} = mr \dot{\theta}^{2}$ and $\frac{\partial U}{\partial r} = -F_{r}$. Thus, we have
+    \begin{align}
+        \frac{d}{dt}\left( \frac{\partial L}{\partial \dot{r}} \right) - \frac{\partial L}{\partial r} = 0 \implies m\ddot{r} - mr\dot{\theta}^{2} - F_{r} = 0.
+    \end{align}
+    Moving on to $q_{2} = \theta$, we first have
+    \begin{align}
+        \frac{\partial T}{\partial \dot{\theta}} = mr^{2}\dot{\theta} \implies \frac{d}{dt} \left( \frac{\partial T}{\partial \dot{\theta}} \right) = 2mr\dot{r}\dot{\theta} + mr^{2}\ddot{\theta} = \frac{d}{dt} \left( \frac{\partial L}{\partial \dot{\theta}} \right)
+    \end{align}
+    since $\frac{\partial U}{\partial \dot{\theta}} = 0$. Moreover, since $\frac{\partial T}{\partial \theta} = 0$, we get $\frac{\partial L}{\partial \theta} = -\frac{\partial U}{\partial \theta} = rF_{\theta} = r \vec{F} \cdot \hat{e}_{\theta}$. Thus, we get
+    \begin{align}
+        \frac{d}{dt}\left( \frac{\partial L}{\partial \dot{\theta}} \right) - \frac{\partial L}{\partial \theta} = 0 \implies 2mr\dot{r}\dot{\theta} + mr^{2}\ddot{\theta} = rF_{\theta}.
+    \end{align}
+\end{example}
+
+The final differential equations we derived are known as the \eax{Euler-Lagrangian equations of motion}.
