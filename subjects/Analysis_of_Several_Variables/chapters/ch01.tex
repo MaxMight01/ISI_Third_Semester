@@ -405,3 +405,135 @@ For the proof, we will denote $A \defeq Df(a)$ and $B \defeq Dg(f(a))$, and $b =
         \implies \frac{\norm{r_{g}(f(x))}}{\norm{x-a}} &\to 0 \text{ as } x \to a.
     \end{align}
 \end{proof}
+\noindent \textit{August 4th.}
+
+The derivative also satisfies nice properties in higher dimensions.
+
+\begin{proposition}
+    Let $f,g: O_{n} \to \R^{m}$ be differentiable at $a \in O_{n}$. Then
+    \begin{enumerate}
+        \item $D(\alpha f + g)(a) = \alpha Df(a) + Dg(a)$ for all $\alpha \in \R$.
+        \item If $m = 1$, then $(f \times g)'(a) = f(a)g'(a) + f'(a)g(a)$.
+        \item If $m = 1$, then $\left( \frac{f}{g} \right)'(a) = \frac{1}{(g(a))^{2}} (f'(a)g(a) - f(a)g'(a))$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    The proof is left as an exercise to the reader.
+\end{proof}
+
+\section{Partial Derivatives}
+
+Given $a \in O_{n}$ and $f:O_{n} \to \R$, define $\eta_{i} : (-\varepsilon,\varepsilon) \to \R$ for $i = 1,2,\ldots,n$ by
+\begin{align}
+    \eta_{i}(t) = f(a+te_{i}).
+\end{align}
+We define $\frac{\partial f}{\partial x_{i}}(a) = \frac{d\eta_{i}}{dt}(0)$, if the latter term is defined. This is called the \eax{partial derivative} of $f$ in the direction, or with respect to, $x_{i}$ at $a$. Therefore,
+\begin{align}
+    \frac{\partial f}{\partial x_{i}}(a) = \lim_{t \to 0} \frac{f(a+te_{i}) - f(a)}{t}.
+\end{align}
+
+\begin{remark}
+    \begin{enumerate}
+        \item Note that $\frac{\partial f}{\partial x_{i}}$ is easy to compute since we are essentially holding all other $x_{j}$'s with $j \neq i$ as constant and just differentiating $f$ with respect to $x_{i}$.
+        \item $\frac{\partial f}{\partial x_{i}}$ is the total derivative of $f$ with the limit taken in the $x_{i}$-direction.
+    \end{enumerate}
+\end{remark}
+
+We want $Df(a)$ for a function $f:O_{n} \to \R$. We show further that the idea of partial derivatives solves this issues of computing $Df(a)$.
+
+\begin{definition}
+    $f:O_{n} \to \R$ is termed a function in $C^{1}(O_{n})$ if $\frac{\partial f}{\partial x_{i}}$ for all $i = 1,2,\ldots,n$ exists and $x \mapsto \frac{\partial f}{\partial x_{i}}(x)$ is continuous on $O_{n}$.
+\end{definition}
+
+We discuss some examples.
+
+\begin{example}
+    Let $f(x,y) = x^{3}+y^{4}+\sin(xy)$ on $\R^{2}$. Taking $y$ as a constant, $x \mapsto f(x,y)$ is differentiable. Thus,
+    \begin{align}
+        \frac{\partial f}{\partial x} = 3x^{2} + y \cos (xy).
+    \end{align}
+    Similarly,
+    \begin{align}
+        \frac{\partial f}{\partial y} = 4y^{3} + x \cos(xy).
+    \end{align}
+    The above two partial derivatives are continuous functions. Thus, $f \in C^{1}(\R^{2})$.
+\end{example}
+
+\begin{example}
+    Recall the function
+    \begin{align}
+        f(x,y) = \begin{cases}
+            \frac{xy}{x^{2}+y^{2}} &\text{ if } (x,y) \neq (0,0),\\
+            0 &\text{ if } (x,y) = (0,0)
+        \end{cases}
+    \end{align}
+    which was discontinuous at the origin. At the origin, we have
+    \begin{align}
+        \frac{\partial f}{\partial x}(0,0) = \lim_{t \to 0} \frac{f(t,0)-f(0,0)}{t} = 0.
+    \end{align}
+    Similarly,
+    \begin{align}
+        \frac{\partial f}{\partial y}(0,0) = 0.
+    \end{align}
+    Thus we conclude that the partial derivatives exist at $(0,0)$. But $f$ is not continuous at $(0,0)$. Thus, we conclude that the existence of partial derivatives does \textit{not} imply the existence of the total derivative.
+\end{example}
+
+
+\subsection{Higher Order Partials}
+Hereforth, we will denote $f_{x_{i}} \defeq \frac{\partial f}{\partial x_{i}}$. Let us assume that the partials $f_{x_{i}}$ exist for all $i = 1,2,\ldots,n$. Therefore, $f_{x_{i}} : O_{n} \to \R$ are functions. Define
+\begin{align}
+    \frac{\partial^{2} f}{\partial x_{j} \partial x_{i}} \defeq \frac{\partial}{\partial x_{j}} \left( \frac{\partial f}{\partial x_{i}} \right) = \frac{\partial}{\partial x_{j}} \left( f_{x_{i}} \right) \text{ for all } j = 1,2,\ldots,n.
+\end{align}
+This is known as the second order partial derivative. We may write this as $f_{x_{i}x_{j}} = (f_{x_{i}})_{x_{j}}$. Similarly, $\frac{\partial^{3} f}{\partial x_{i} \partial x_{j} \partial x_{k}}$ may be defined as $\frac{\partial}{\partial x_{i}} (f_{x_{j}x_{k}})$. This idea can be extended even further into higher dimensions.
+
+\begin{example}
+    Define $f(x,y) = \sin x + e^{y} + xy$. Then $f_{x} = \cos x + y$ and $f_{y} = e^{y}+x$. From here, we further have $f_{xy} = 1$ and $f_{yx} = 1$. Coincidentally, we have $f_{xy} = f_{yx}$. Thus, we question whether the order of the variables even matters.
+\end{example}
+The following example shows that the order of the variables does matter.
+\begin{example}
+    Define
+    \begin{align}
+        f(x,y) = \begin{cases}
+            \frac{xy(x^{2}-y^{2})}{x^{2}+y^{2}} &\text{ if } (x,y) \neq (0,0),\\
+            0 &\text{ if } (x,y) = (0,0).
+        \end{cases}
+    \end{align}
+    In this case, we get $f_{xy}(0,0) = 1 \neq f_{yx}(0,0) = -1$. Partial differentiation is not commutative.
+\end{example}
+
+The following result shows that with a little more constraints, the commutativity does hold.
+
+\begin{theorem}[\eax{Clairut's theorem}]
+    Let $(a,b) \in O_{2}$, $f:O_{2} \to \R$, and assume that $f_{xy}$ and $f_{yx}$ exist on $O_{2}$. Also suppose that $f_{xy}$ is continuous at $(a,b)$. Then $f_{xy}(a,b) = f_{yx}(a,b)$.
+\end{theorem}
+The result does hold in higher dimensions too, but we only show for two dimensions. The rest of the theorem and proof are left as exercises for the reader.
+\begin{proof}
+    Without the loss of generality, let $(a,b) = (0,0)$ and $O_{2} = B_{1}(0,0)$. Choose $h,k > 0$ such that $[0,h] \times [0,k] \subseteq B_{1}(0,0)$. Then,
+    \begin{align}
+        \frac{\partial^{2}f}{\partial y \partial x} &= \lim_{k \to 0} \frac{1}{k} \left( \frac{\partial f}{\partial x}(x,y+k) - \frac{\partial f}{\partial x} (x,y) \right) \\
+        &= \lim_{k \to 0} \frac{1}{k} \lim_{h \to 0} \frac{1}{h} (f(x+h,y+k) - f(x,y+k) - f(x+h,y) + f(x,y)) \notag\\
+        &= \lim_{k \to 0} \lim_{h \to 0} \frac{1}{hk} (f(x+h,y+k) - f(x,y+k) - f(x+h,y) + f(x,y)) \\
+        \implies \frac{\partial^{2}f}{\partial y \partial x}(0,0) &= \lim_{k \to 0} \lim_{h \to 0} \frac{1}{hk} (f(h,k) - f(0,k) - f(h,0) + f(0,0)) \defeq \lim_{k \to 0} \lim_{h \to 0} \frac{1}{hk}F(h,k).
+    \end{align}
+    Similarly,
+    \begin{align}
+        \frac{\partial^{2}f}{\partial x \partial y}(0,0) = \lim_{h \to 0} \lim_{k \to 0} \frac{1}{hk}F(h,k).
+    \end{align}
+    Fix $k$ and $h$ for a moment. Set $f_{1}(x) = f(x,k) - f(x,0)$ for all $x \in [0,h]$. Then $f_{1}$ is continuous on $[0,h]$, since $f_{x}$ exists, and is differentiable on $(0,h)$. By the mean value theorem, there exists $c_{1} \in (0,h)$ such that $f_{1}(h) - f_{1}(0) = f_{1}'(c_{1}) \times h_{1}$
+    \begin{align}
+        \implies \frac{1}{h}F(h,k) = \left( \frac{\partial f}{\partial x}(c_{1},k) - \frac{\partial f}{\partial x}(c_{1},0) \right).
+    \end{align}
+    Next, consider $f_{2}(y) = \frac{\partial f}{\partial x} (c_{1},y)$ for all $y \in [0,k]$ which is continuous on $[0,k]$ and differentiable on $(0,k)$. Again, by the mean value theorem, there exists $c_{2} \in (0,k)$ such that $f_{2}(k) - f_{2}(0) = f_{2}'(c_{2}) \times k$
+    \begin{align}
+        \implies \frac{1}{hk} F(h,k) = \frac{\partial^{2} f}{\partial y \partial x} (c_{1},c_{2})
+    \end{align}
+    with $0 < c_{1} < h$ and $0 < c_{2} < k$. Similarly, if we had redefined $f_{1}$ and $f_{2}$, we would have received
+    \begin{align}
+        \frac{1}{hk} F(h,k) = \frac{\partial^{2} f}{\partial x \partial y} (\tilde{c}_{1},\tilde{c}_{2})
+    \end{align}
+    with $0 < \tilde{c}_{1} < h$ and $0 < \tilde{c}_{2} < k$. Thus,
+    \begin{align}
+        \frac{\partial^{2} f}{\partial y \partial x} (c_{1},c_{2}) = \frac{\partial^{2} f}{\partial x \partial y} (\tilde{c}_{1},\tilde{c}_{2}).
+    \end{align}
+    As $(h,k) \to (0,0)$, $f_{xy}(0,0) = f_{yx}(0,0)$.
+\end{proof}
