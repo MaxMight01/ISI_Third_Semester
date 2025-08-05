@@ -282,6 +282,8 @@ We now introduce the \eax{zeta function} $\zeta$ defined as $\zeta(x,y) = 1$ if 
     g(x) = \sum_{y \leq x} f(y) = \sum_{y \in S} \zeta(y,x) f(y). 
 \end{align}
 
+\noindent \textit{August 5th.}
+
 \begin{lemma}
     A finite partial order can always be embedded in a total ordering; that is, there exists an indexing $S = \{x_{1},\ldots,x_{n}\}$ such that $x_{i} \leq x_{j}$ in $S$ implies $i \leq j$.
 \end{lemma}
@@ -300,4 +302,61 @@ Thus, using the lemma, we can rewrite the relation between $g$ and $f$ in matrix
         \zeta(x_{n},x_{1}) & \cdots & \zeta(x_{n},x_{n})
     \end{pmatrix}.
 \end{align}
-Since $\zeta(x_{i},x_{j}) = 0$ when $i > j$, the matrix on the right is upper triangular. Also, all the diagonal entries are 1.
+Since $\zeta(x_{i},x_{j}) = 0$ when $i > j$, the matrix on the right is upper triangular. Also, all the diagonal entries are 1. Denote the above matrix on the right by $Z$. Note that $Z = I+N$ where $I$ is the identity matrix and $N$ is upper triangular with $0$'s on the diagonal. $Z^{-1}$ can be computed by taking a power series, and noting that $N^{n}$ is $0$.
+\begin{align}
+    Z^{-1} = (I+N)^{-1} = I-N+N^{2}-N^{3} + \cdots + (-1)^{n-1}N^{n-1}
+\end{align}
+
+Let $M = [\mu(x_{i},x_{j})]$. We find the $(x_{i},x_{j})$ entry of $MZ$ as
+\begin{align}
+    \sum_{y \in P} M_{x_{i},y} Z_{y,x_{j}} = \sum_{y \in P} \mu(x_{i},y) \zeta(y,x_{j}) = \sum_{y \leq x_{j}} \mu(x_{i},y) = \sum_{x_{i} \leq y \leq x_{j}} \mu(x_{i},y).
+\end{align}
+Noting that $\mu(x_{i},x_{j}) = -\sum_{x_{i} \leq z < x_{j}} \mu(x_{i},z)$, we get the above expression to be $1$ if $x_{i} = x_{j}$ and $0$ otherwise. Thus, $MZ = I$. This is the used definition of the the M\"obius functon. $ZM = I$ may be verified similarly.
+
+
+\begin{theorem}
+    Let $(P,\leq)$ be a finite poset, with $f,g:P \to \Z$ functions. Then,
+    \begin{enumerate}
+        \item $f(x) = \sum_{y \leq x} g(y)$ if and only if $g(x) = \sum_{y \leq x} \mu(y,x) f(y)$, and
+        \item $f(x) = \sum_{x \leq y} g(y)$ if and only if $g(x) = \sum_{x \leq y} \mu(x,y)f(y)$. 
+    \end{enumerate}
+    This is the \eax{M\"obius inversion formula for a poset}.
+\end{theorem}
+
+\begin{proof}
+    We have
+    \begin{align}
+        \sum_{y \leq x} \mu(y,x)f(y) = \sum_{y \leq x} \left( \sum_{z \leq y} \mu(y,x) g(z) \right) = \sum_{z \leq x} \sum_{z \leq y \leq x} \mu(y,x)g(z) = \sum_{z \leq x} g(z) \sum_{z \leq y \leq x} \mu(y,x) = g(x)
+    \end{align}
+    since $\mu(y,x)$ at the end will be zero if $z \neq x$. To show the converse, we have
+    \begin{align}
+        \sum_{y \leq x} g(y) = \sum_{y \leq x} \sum_{z \leq y} \mu(z,y) f(z) = \sum_{z \leq x} f(z) \left( \sum_{z \leq y \leq x} \mu(z,y) \right) = f(x)
+    \end{align}
+    since $\mu(z,y)$ is zero if $z \neq x$.
+\end{proof}
+
+\begin{example}
+    Verify that if the poset is the positive integers with the standard ordering $\leq$, then
+    \begin{align}
+        \mu(i,j) = \begin{cases}
+            1 &\text{ if } i = j,\\
+            -1 &\text{ if } i = j-1,\\
+            0 &\text{ if otherwise.}
+        \end{cases}
+    \end{align}
+\end{example}
+
+\begin{example}
+    Let our poset be $(2^{S},\subseteq)$ for a set $S$. For fixed subsets $U,T \in 2^{S}$, we have
+    \begin{align}
+        \sum_{U \subseteq R \subseteq T}(-1)^{\#T - \#S} = \begin{cases}
+            1 &\text{ if } U = T,\\
+            0 &\text{ if otherwise.} 
+        \end{cases}
+    \end{align}
+    To show this, without the loss of generality, we will assume that $U = \emptyset$. Denoting $\#T = n$, we have
+    \begin{align}
+        \sum_{R \subseteq T} (-1)^{\#R} = \sum_{k=0}^{n} \binom{n}{k}(-1)^{k} = 0.
+    \end{align}
+    Here, $Z(R,T) = 1$ if $R \subseteq T$ and 0 otherwise. Also, $M(R,T) = (-1)^{\#T-\#R}$ if $R \subseteq T$ and 0 otherwise. Since $MZ = I$, $M(R,T)$ must be the M\"obius function for $(2^{S},\leq)$.
+\end{example}
