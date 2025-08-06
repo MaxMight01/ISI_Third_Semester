@@ -364,4 +364,69 @@ This aove equation holds true for any $j$. The quantity $T-V$ is termed the \eax
     \end{align}
 \end{example}
 
-The final differential equations we derived are known as the \eax{Euler-Lagrangian equations of motion}.
+The final differential equations we derived are known as the \eax{Euler-Lagrangian equations of motion}.\\ \\
+
+\section{Working with the Euler-Lagrangian Equations}
+\textit{August 6th.}
+
+For a system of $N_{p}$ particles, $k$ constraint equations, moving in $d$ dimensions, the number of generalized coordinates is given by $dN_{p}-k = n$. The kinetic energy $T$ is expressed as
+\begin{align}
+    T = \sum_{i=1}^{N_{p}} \frac{1}{2} m_{i} \abs{\dot{\vec{r}}_{i}}^{2}.
+\end{align}
+The Lagrangian is then formed as $L = T-V$, where $V$ is the potential energy. Here, $V$ depends on the generalized coordinates and we take the case of conservative forces. Then Euler-Lagrange equation is then used as
+\begin{align}
+    \frac{d}{dt} \left( \frac{\partial L}{\partial \dot{q}_{i}} \right) - \frac{\partial L}{\partial q_{i}} = 0 \qquad\text{ for all } i = 1,2,\ldots,n
+\end{align}
+where $q_{i}$ is the $i^{\text{th}}$ generalized coordinate. We now express the kinetic energy $T$ is another form.\\
+
+Denote $\dot{\vec{r}}_{i}$ by $\vec{v}_{i}$, which can be written as
+\begin{align}
+    \vec{v}_{i} = \sum_{j=1}^{n} \frac{\partial \vec{r}_{i}}{\partial q_{j}} \dot{q}_{j} + \frac{\partial \vec{r}_{i}}{\partial t}.
+\end{align}
+Here, $\dot{q}_{j}$ is the exact derivative, that is, $\frac{d q_{j}}{d t}$. Plugging this in the kinetic energy formula, we get
+\begin{align}
+    T = \sum_{i=1}^{n} \frac{1}{2} m_{i} \left( \sum_{j=1}^{n} \frac{\partial \vec{r}_{i}}{\partial q_{j}} \dot{q}_{j} + \frac{\partial \vec{r}_{i}}{\partial t} \right) \cdot \left( \sum_{k=1}^{n} \frac{\partial \vec{r}_{i}}{\partial q_{k}} \dot{q}_{k} + \frac{\partial \vec{r}_{i}}{\partial t} \right).
+\end{align}
+$T$ can be written as $T = T_{0} + T_{1} + T_{2}$, where the $T_{i}$'s are
+\begin{align}
+    T_{0} &= \sum_{i=1}^{N_{p}} \frac{1}{2} m_{i} \left( \frac{\partial \vec{r}_{i}}{\partial t} \cdot \frac{\partial \vec{r}_{i}}{\partial t} \right),\\
+    T_{1} &= \sum_{j=1}^{n} \dot{q}_{j} M_{j} \quad \text{ where } \quad M_{j} = \sum_{i=1}^{N_{p}} m_{i} \frac{\partial \vec{r}_{i}}{\partial q_{j}} \cdot \frac{\partial \vec{r}_{i}}{\partial t},\\
+    T_{2} &= \sum_{1 \leq j < k \leq n} M_{jk} \dot{q}_{j} \dot{q}_{k} + \sum_{j=1}^{n} M_{jj} (\dot{q}_{j})^{2} \quad \text{ where } \quad M_{jk} = \sum_{i=1}^{N_{p}} m_{i} \frac{\partial \vec{r}_{i}}{\partial q_{j}} \cdot \frac{\partial \vec{r}_{i}}{\partial q_{k}}.
+\end{align}
+Writing $T = T_{0} + T_{1} + T_{2}$ gives us an advantage; if $\frac{\partial \vec{r}_{i}}{\partial t} = 0$, then the terms $T_{0}$ and $T_{1}$, which depend on this factor, drop out.
+
+\begin{example}
+    Let us discuss \eax{Atwood's machine}, which is simply two masses $M_{1}$ and $M_{2}$ on opposite sides of a weightless pulley. If we assume that total length of the string to be $L$, then $M_{1}$ hangs $x$ length below the pulley, and $M_{2}$ hands $L-x$ length below the pulley. In this case we have
+    \begin{align}
+        T &= \frac{1}{2} M_{1} \dot{x}^{2} + \frac{1}{2}M_{2}(\dot{x}^{2}) = \frac{1}{2}(M_{1} + M_{2}) \dot{x}^{2},\\
+        V &= -M_{2}g(L-x) - M_{1}gx,\\
+        L &= \frac{1}{2}(M_{1}+M_{2})\dot{x}^{2} + M_{1}gx + M_{2}g(L-x).
+    \end{align}
+    Here, our generalized coordinate is only $x$. The first and second terms in the Euler-Lagrange equation are
+    \begin{align}
+        \frac{d}{dt}\left( \frac{\partial L}{\partial \dot{x}} \right) = (M_{1}+M_{2})\ddot{x}\quad\text{ and }\quad\frac{\partial L}{\partial x} = (M_{1}-M_{2})g.
+    \end{align}
+    Thus, the equation of motion is
+    \begin{align}
+        \frac{d}{dt}\left( \frac{\partial L}{\partial \dot{x}} \right) - \frac{\partial L}{\partial x} = 0 \implies \ddot{x} = \left( \frac{M_{1}-M_{2}}{M_{1}+M_{2}} \right)g.
+    \end{align}
+\end{example}
+
+\begin{example}
+    Suppose a wire is infinitely long and rotates uniformly about a point $P$ on it. Also suppose a point mass (bead) is on the wire, moving about frictionless on the wire due to the rotation. Denote the particle's position with respect to $P$ as $(r(t),\theta(t))$. Since there is no constraint force, we have $V = 0$. Denoting $\dot{\theta} = \omega$ shows us only $r$ is a generalized coordinate. Also noting that $T$ is identically $L$, we have
+    \begin{align}
+        L = T = \frac{1}{2} m\dot{r}^{2} + \frac{1}{2}mr^{2}\omega^{2}.
+    \end{align}
+    Thus,
+    \begin{align}
+        \frac{d}{dt}\left( \frac{\partial L}{\partial \dot{r}} \right) = m\ddot{r}\quad\text{ and }\quad\frac{\partial L}{\partial r} = m \omega^{2} r.
+    \end{align}
+    The equation of motion tells us
+    \begin{align}
+        \frac{d}{dt}\left( \frac{\partial L}{\partial \dot{r}} \right) - \frac{\partial L}{\partial r} = 0 \implies \ddot{r} = \omega^{2} r \implies r(t) = r_{0}e^{\omega t}.
+    \end{align}
+    Here, the angular momentum $L(t) = mr^{2} \omega = m\omega r_{0}^{2} e^{2\omega t}$ showing us that there is an external torque. This torque is given by
+    \begin{align}
+        \tau(t) = \frac{dL}{dt}(t) = 2m\omega^{2} r_{0}^{2} e^{2\omega t} \implies F_{\theta}(t) = \frac{\tau(t)}{r(t)} = 2 m \omega^{2} r_{0} e^{\omega t}.
+    \end{align}
+\end{example}
