@@ -503,7 +503,7 @@ The following example shows that the order of the variables does matter.
 
 The following result shows that with a little more constraints, the commutativity does hold.
 
-\begin{theorem}[\eax{Clairut's theorem}]
+\begin{theorem}[\eax{Clairaut's theorem}]
     Let $(a,b) \in O_{2}$, $f:O_{2} \to \R$, and assume that $f_{xy}$ and $f_{yx}$ exist on $O_{2}$. Also suppose that $f_{xy}$ is continuous at $(a,b)$. Then $f_{xy}(a,b) = f_{yx}(a,b)$.
 \end{theorem}
 The result does hold in higher dimensions too, but we only show for two dimensions. The rest of the theorem and proof are left as exercises for the reader.
@@ -537,3 +537,82 @@ The result does hold in higher dimensions too, but we only show for two dimensio
     \end{align}
     As $(h,k) \to (0,0)$, $f_{xy}(0,0) = f_{yx}(0,0)$.
 \end{proof}
+
+\noindent \textit{August 6th.}
+
+\begin{theorem}[\eax{Schwarz theorem}]
+    Let $f:O_{2} \to \R$ be a function such that $(0,0) \in O_{2}$. Also suppose that $f_{x},f_{y},f_{xy}$ exist on $O_{2}$ and $f_{xy}$ is continuous on $O_{2}$. Then $f_{yx}(0,0)$ exists and $f_{yx}(0,0) = f_{xy}(0,0)$.
+\end{theorem}
+
+\begin{proof}
+    As $f_{xy}$ is continuous at $(0,0)$, for $\varepsilon > 0$, there exists $\delta > 0$ such that
+    \begin{align}
+        \abs{f_{xy}(s,t) - f_{xy}(0,0)} < \varepsilon \text{ for all } \sqrt{s^{2}+t^{2}} < \delta.
+    \end{align}
+    We already know $F(h,k) = f_{xy}(c_{1},c_{2})$ with $0 < c_{1} < h$ and $0 < c_{2} < k$. Choose $h,k$ small enough such that $\sqrt{h^{2}+k^{2}} < \delta$. Therefore, for $\sqrt{c_{1}^{2} + c_{2}^{2}} < \delta$,
+    \begin{align}
+        \abs{f_{xy}(c_{1},c_{2})-f_{xy}(0,0)} < \varepsilon \implies \abs{F(h,k) - f_{xy}(0,0)} < \varepsilon \text{ for } \sqrt{h^{2}+k^{2}} < \varepsilon.
+    \end{align}
+    From the above, we infer $-\varepsilon+f_{xy}(0,0) < F(h,k) < \varepsilon + f_{xy}(0,0)$. Rewriting the middle term,
+    \begin{align}
+        F(h,k) = \frac{1}{h} \left( \frac{f(h,k)-f(h,0)}{k} - \frac{f(0,k)-f(0,0)}{k} \right) \xrightarrow{k \to 0} \frac{1}{h} (f_{y}(h,0)-f_{y}(0,0))
+    \end{align}
+    Rebounding gives us
+    \begin{align}
+        \abs{\frac{1}{h}(f_{y}(h,0)-f_{y}(0,)) - f_{xy}(0,0)} \leq \varepsilon \implies \lim_{h \to 0} \frac{1}{h} (f_{y}(h,0)-f_{y}(0,0)) = f_{xy}(0,0).
+    \end{align}
+\end{proof}
+
+Note that in the above theorem, $(0,0)$ was chosen for the sake of simplifying the proof. Any $(\alpha,\beta) \in O_{2}$ would have worked. We move our focus back to the total derivative.
+
+\begin{theorem}
+    Let $f:O_{n} \to \R^{m}$ be differentiable at $a \in O_{n}$. Then $\frac{\partial f_{i}}{\partial x_{j}}$ exists at $a$ for all $i = 1,2,\ldots,m$ and $j = 1,2,\ldots,n$. Moreover,
+    \begin{align}
+        \begin{bmatrix}
+            Df(a)
+        \end{bmatrix}_{m \times n} = \begin{pmatrix}
+            \dfrac{\partial f_{i}}{\partial x_{j}}(a)
+        \end{pmatrix}_{m \times n}.
+    \end{align}
+\end{theorem}
+
+\begin{proof}
+    Let $m = 1$, and fix $j \in \{1,2,\ldots,n\}$. Suppose $a = (a_{1},\ldots,a_{j},\ldots,a_{n})$. Consider the mapping $\eta_{j}:(a_{j}-\varepsilon,a_{j}+\varepsilon) \to \R^{n}$ defined as $x \mapsto (a_{1},\ldots,a_{j-1},x,a_{j+1},\ldots,a_{n})$. Since this image is in the neighbourhood of $a$, we can apply $f$ on it to get an image in $\R$; the mapping maps $x$ to $f(a_{1},\ldots,a_{j-1},x,a_{j+1},\ldots,a_{n})$.
+
+    As $x \to a_{1}$, $x \to a_{2}$, $\ldots$, $x \to x$, $x \to a_{j+1}$, $\ldots$ differentiable on $(a_{j}-\varepsilon,a_{j}+\varepsilon)$, $\eta_{j}$ is differentiable on $a_{j}$ and $\eta_{j}'(a_{j}) = e_{j}$. Thus, $f \circ n_{j}$ is differentiable at $a_{j}$ by the chain rule.
+    \begin{align}
+        (Df \circ n_{j}) (a_{j}) = \frac{d}{dx} (f \circ n_{j})(a_{j}) = \lim_{h \to 0} \frac{f(\eta_{j}(a_{j}+h)) - f(a)}{h} = \lim_{h \to 0} \frac{f(a_{1},\ldots,a_{j},\ldots,a_{n})-f(a)}{h} = \frac{\partial f}{\partial x_{j}}(a).
+    \end{align}
+    The chain rule implies that $(Df \circ n_{j})(a_{j}) = Df(\eta_{j}(a_{j})) D\eta_{j}(a_{j}) \implies \frac{\partial f}{\partial x_{j}}(a) = Df(a) e_{j}$. Thus, we must have
+    \begin{align}
+        \begin{pmatrix}
+            Df(a)
+        \end{pmatrix} = \begin{pmatrix}
+            f_{x_{1}(a)} & \cdots & f_{x_{n}}(a)
+        \end{pmatrix}.
+    \end{align}
+    We now work the case for a general $m$; write $f$ as $(f_{1},\ldots,f_{m})$. $f$ is differentiable at $a$ implies that
+    \begin{align}
+        \begin{bmatrix}
+            Df(a)
+        \end{bmatrix} = \begin{bmatrix}
+            Df_{1}(a) \\ \vdots \\ Df_{m}(a)
+        \end{bmatrix} = \begin{bmatrix}
+            \frac{\partial f_{1}}{\partial x_{1}}(a) & \cdots & \frac{\partial f_{1}}{\partial x_{n}}(a) \\
+            \vdots & \ddots & \vdots \\
+            \frac{\partial f_{m}}{\partial x_{1}}(a) & \cdots & \frac{\partial f_{m}}{\partial x_{n}}(a)
+        \end{bmatrix}.
+    \end{align}
+\end{proof}
+
+\begin{definition}
+    Let $f:O_{n} \to \R^{m}$ be differentiable at $a$. The matrix representation $\left( \frac{\partial f_{i}}{\partial x_{j}}(a) \right)_{m \times n}$ of the total derivative $Df(a)$ is termed the \eax{Jacobian} of $f$ at $a$. We prefer to write it as $J_{f}(a)$.
+\end{definition}
+
+Since we have a matrix to deal with now, it is only natural to ask questions regarding its nature. For instance, what does the rank of the Jacobian tell us? What about its determinant?
+
+\begin{theorem}
+    Let $f:O_{n} \to \R^{m}$ be a function with $a \in O_{n}$. Suppose $f$ is a $C^{1}$ function in the neighbourhood of $a$. Then $f$ is differentiable at $a$.
+\end{theorem}
+
+There is a \textit{gap} between this theorem and the previous one; we have the extra requirement of continuity of the partial derivatives here. 
