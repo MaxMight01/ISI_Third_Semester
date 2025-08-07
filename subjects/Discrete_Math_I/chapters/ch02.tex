@@ -1,0 +1,84 @@
+\chapter{RECURRENCE RELATIONS AND GENERATING FUNCTIONS}
+
+\section{Generating Functions}
+We begin with ordinary ones.
+
+\begin{definition}
+    For a sequence $(a_{n})_{n \geq 0} \subseteq \R$, the \eax{ordinary generating function} associated with this sequence is defined as
+    \begin{align}
+        f(x) = \sum_{n=0}^{\infty} a_{n} x^{n} = a_{0} + a_{1}x + a_{2}x^{2} + \cdots.
+    \end{align}
+\end{definition}
+Note that we are not concerned with convergence right now. We deconstruct our abstraction of ideas into levels, starting with the first level as regarding ordinary generating functions as algebraic objects. One can multiply and add them to create new generating functions. The second level is regarding them as analytic objects, only if the radius of convergence is positive. 
+
+The above is known as \eax{Z-transform}, where a sequence is mapped onto a function. When using the word transform, we generally mean a `change of basis'; in this case, we are changing from a sequence space to a function space.
+
+\begin{definition}
+    For a sequence $(a_{n})_{n \geq 0} \subseteq \R$, the \eax{exponential generating function} associated with this sequence is defined as
+    \begin{align}
+        f(x) = \sum_{n=0}^{\infty} \frac{a_{n}}{n!} x^{n} = a_{0} + a_{1}x + \frac{a_{2}}{2!}x^{2} + \cdots.
+    \end{align}
+\end{definition}
+
+Again, we have transformed from a sequence space to a function space. One can also transform from a random variable space to a function space.
+
+\begin{definition}
+    For a random variable $X$ taking values in $\R$, the \eax{moment generating function} associated with this random variable is defined as
+    \begin{align}
+        M_{X}(t) = E[e^{tX}] = \sum_{n=0}^{\infty} \frac{E[X^{n}]}{n!} t^{n} = 1 + E[X]t + \frac{E[X^{2}]}{2!}t^{2} + \cdots.
+    \end{align}
+\end{definition}
+
+\subsection{Algberaic Operaions}
+We give a kind of correspondence between algebraic operations and combinatorial interpretations.
+\begin{enumerate}
+    \item Multiplying by $x^{k}$ maps $a_{0}+a_{1}x+a_{2}x^{2}+\cdots$ to $a_{0}x^{k}+a_{1}x^{k+1}+a_{2}x^{k+2}+\cdots$. This corresponds to shifting the sequence $(a_{0},a_{1},\ldots)$ right by $k$ places. This is known as the \eax{shift operator}.
+    \item Multiplication is also defined; for two functions $a_{0}+a_{1}x+a_{2}x^{2}+\cdots$ and $b_{0}+b_{1}x+b_{2}x^{2}+\cdots$, their product is given by $a_{0}+(a_{1}b_{0}+a_{0}b_{1})x+(a_{2}b_{0}+a_{1}b_{1}+a_{0}b_{2})x^{2}+\cdots$. This corresponds to combining objects of size $k$ and size $n-k$ chosen independently.
+    \item Differentiation maps $a_{0}+a_{1}x+a_{2}x^{2}+\cdots$ to $a_{1}+2a_{2}x+3a_{3}x^{2}+\cdots$. This corresponds to weighing the sequence values by their index, with a shift of one place to the right.
+\end{enumerate}
+
+\begin{example}
+    Suppose we have $k$ boxes labelled $1$ through $k$, and box $i$ contains $r_{i}$ balls for $1 \leq i \leq k$. We wish to encode all possible configurations in a kind of book-keeping device. For a particular $(r_{1},\ldots,r_{k})$, we have
+    \begin{align}
+        \sum_{r_{i}\geq 0} x_{1}^{r_{1}} \cdots x_{k}^{r_{k}} = (1+x_{1}+x_{1}^{2}+\cdots)(1+x^{2}+x_{2}^{2}+\cdots)\cdots(1+x_{k}+x_{k}^{2}+\cdots).
+    \end{align}
+    We find the number of partitions of $n$ (balls) into $k$ numbers (boxes), where each number if non-negative. Disregarding the order, we set all the $x_{i}$'s equal to each other. Thus, we wish to find the coefficient of $x^{n}$ where $r_{1}+\cdots+r_{k} = n$. From the sum above, we have
+    \begin{align}
+        (1+x+x^{2}+\cdots)^{k} = (1-x)^{-k} = \sum_{j=0}^{\infty} \binom{k-1+j}{j} x^{j} x^{j}.
+    \end{align}
+    Therefore, the required coefficient is $\binom{k-1+n}{n}$.
+\end{example}
+
+We briefly introduce the idea of rings. A \eax{ring} $(R,+,\ast)$ is a set $R$ with two operations $+$ and $\ast$ such that $(R,+)$ is an abelian group, $(R,\ast)$ is a monoid, and the distributive law holds. Some examples of rings include $\Z$, $M_{n}(\C)$, and $\C[x]$. Another example is the ring of formal power series $\C[[x]]$, which consists of all series of the form $a_{0}+a_{1}x+a_{2}x^{2}+\cdots$ where $a_{i} \in \C$. We ask which elements of this ring are invertible.
+
+We claim that $a_{0}+a_{1}x+a_{2}x^{2}+\cdots$ is invertible if and only if $a_{0} \neq 0$. We find $b_{0}+b_{1}x+b_{2}x^{2}+\cdots$ such that
+\begin{align}
+    (a_{0}+a_{1}x+a_{2}x^{2}+\cdots)(b_{0}+b_{1}x+b_{2}x^{2}+\cdots) = 1.
+\end{align}
+This first gives us $a_{0}b_{0} = 1$, so $b_{0} = \frac{1}{a_{0}}$. The next term gives us $a_{0}b_{1}+a_{1}b_{0} = 0$, so $b_{1} = -\frac{a_{1}}{a_{0}^{2}}$. Continuing this process, we find that the coefficients of $b$ can be expressed in terms of the coefficients of $a$ as
+\begin{align}
+    b_{n} = -\frac{1}{a_{0}} \sum_{k=1}^{n} a_{k}b_{n-k}.
+\end{align}
+There is also the ring homomorphism $\ev_{z}:\C[[x]] \to \C$ where $x \mapsto z$, with $z \in \C$.
+
+\begin{example}
+    Let $d_{n}$ denote the number of derangements of $\{1,2,\ldots,n\}$. We consider a derangement $\Pi$ of $\{1,2,\ldots,n+1\}$ where
+    \begin{itemize}
+        \item Case I: $\Pi(n+1) = i$ and $\Pi(i) = n+1$ for some $i$. The number of such derangements is $nd_{n-1}$.
+        \item Case II: $\Pi(n+1) = i$ and $\Pi(j) = n+1$ for some $i \neq j$. The number of such derangements is $d_{n+1} = n(d_{n}+d_{n-1})$.
+    \end{itemize}
+    Here, $d_{0} = 1$, $d_{1} = 0$, and $d_{2} = 1$. The exponential generating function, here, is
+    \begin{align}
+        D(x) = \sum_{n=0}^{\infty} d_{n} \frac{x^{n}}{n!} \implies D'(x) = \sum_{n=1}^{\infty} nd_{n} \frac{x^{n-1}}{(n-1)!} = \sum_{n=0}^{\infty} d_{n+1} \frac{x^{n}}{n!}.
+    \end{align}
+\end{example}
+
+Recall the identity $\sum_{i=0}^{n} (-1)^{i} \binom{n}{i} \binom{m+n-i}{k-i}$ which was $\binom{m}{k}$ for $m \geq k$ and $0$ for $m < k$.
+
+\begin{example}
+    Suppose we wish to find number of ways to make $n$ change with the denominations $1$, $2$, and $5$. We use generating functions. Thus,
+    \begin{align}
+        (1+x+x^{2}+\cdots)(1+x^{2}+x^{4}+\cdots)(1+x^{5}+x^{10}+\cdots) = \frac{1}{(1-x)(1-x^{2})(1-x^{5})}.
+    \end{align}
+    From above, taking the $n^{\text{th}}$ derivative of the fraction,dividng it by $n!$, and evaluating at $x = 0$ provides the number of ways to make change for $n$.
+\end{example}
