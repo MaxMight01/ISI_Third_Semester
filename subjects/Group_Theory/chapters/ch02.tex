@@ -172,6 +172,127 @@ Essentially, in group theory, we consider two groups the same if they are isomor
     We list down all the groups of order 6 upto isomorphism. Again, the only two possibilities are $\sfrac{\Z}{6\Z}$ and $S_{3}$.
 \end{example}
 
+\textit{August 7th.}
+
 \begin{example}
-    For groups of order 8, we have $\sfrac{\Z}{8\Z}$, $(\sfrac{\Z}{2\Z})^{2}$, $\sfrac{\Z}{4\Z} \times \sfrac{\Z}{2\Z}$, $D_{4}$, and $\Q_{8}$, the \eax{quaternions}.
+    For groups of order 8, we have $\sfrac{\Z}{8\Z}$, $(\sfrac{\Z}{2\Z})^{2}$, $\sfrac{\Z}{4\Z} \times \sfrac{\Z}{2\Z}$, $D_{4}$, and $Q_{8}$, the quaternions.
 \end{example}
+
+The \eax{quaternions} $Q_{8}$ is the group $\{\pm 1, \pm i, \pm j, \pm k\}$ equipped with the multiplication operation such that
+\begin{align}
+    i^{2} &= -1, \quad j^{2} = -1, \quad k^{2} = -1, \\
+    ij &= k, \quad jk = i, \quad ki = j, \\
+    ji &= -k, \quad kj = -i, \quad ik = -j.
+\end{align}
+
+\subsection{Kernel and Image}
+
+\begin{definition}
+    For a group homomorphism $f:G \to H$, we define the \eax{kernel} of $f$ as $\ker f = \{g \in G \mid f(g) = e_{H}\}$. We also define the \eax{image} of $f$ as $f(G) = \Img f = \{f(g) \mid g \in G\}$.
+\end{definition}
+
+The image and kernel are both subgroups; this is our proposition.
+
+\begin{proposition}
+    For a group homomorphism $f:G \to H$, $\ker f$ and $\Img f$ are subgroups of $G$ and $H$ respectively.
+\end{proposition}
+
+\begin{proof}
+    Note that $\emptyset \neq \Img f \subseteq H$; let $a,b \in \Img f$. Then $f(x) = a$ and $f(y) = b$ for some $x,y \in G$. So, $ab = f(x) f(y) = f(xy) \in \Img f$, showing $ab \in \Img f$. Also, $a^{-1} = f(x)^{-1} = f(x^{-1}) \in \Img f$, showing $a^{-1} \in \Img f$. Thus, $\Img f \sbg H$.
+
+    For the kernel, note that $e_{g} \in \ker f$ since $f(e_{G}) = e_{H}$. Let $x,y \in \ker f$. Then $f(x) = f(y) = e_{H}$ implying $f(xy^{-1}) = f(x)f(y)^{-1} = e_{H}e_{H}^{-1} = e_{H}$. Thus, $xy^{-1} \in \ker f$, showing $\ker f \sbg H$.
+\end{proof}
+
+\begin{remark}
+    Let $f$ be a group homomorphism.
+    \begin{enumerate}
+        \item If $f$ is an isomorphism, then $\Img f = H$ and $\ker f = \{e_{G}\}$.
+        \item If $f$ is a monomorphism, then $\ker f = \{e_{G}\}$.
+        \item If $f$ is an epimorphism, then $\Img f = H$.
+    \end{enumerate}
+\end{remark}
+
+\section{Normal Subgroups and Quotient Groups}
+
+\begin{proposition}
+    Let $G$ be a group and $H \sbg G$ be a subgroup. Then the following are equivalent.
+    \begin{enumerate}
+        \item $gH \subseteq Hg$ for all $g \in G$,
+        \item $g^{-1}Hg \subseteq H$ for all $g \in G$,
+        \item $gH = Hg$ for all $g \in G$,
+        \item $g^{-1}Hg = H$ for all $g \in G$.
+    \end{enumerate}
+\end{proposition}
+
+Such a subgroup satisfying any (all) of the above conditions is termed a \eax{normal subgroup} of $G$ and is denoted by $H \nsbg G$.
+
+\begin{proof}
+    For 1.~implies 2., we are given $g^{-1}H \subseteq Hg^{-1}$ for all $g \in G$. Let $x \in g^{-1}Hg$. Then $x = g^{-1}hg$ for some $h \in H$. Thus, $g^{-1}h \in g^{-1}H \subseteq Hg^{-1}$ which implies $g^{-1}h = h'g^{-1}$ for some $h' \in H$. But then $g^{-1}hg = h' \in H$, showing $x \in H$. Therefore, $g^{-1}Hg \subseteq H$.
+
+    For 2.~implies 3., assume $g^{-1}Hg \subseteq H$ for all $g \in G$. Let $x \in gH$, that is, $x = gh$ for some $h \in H$. Write this as $x = ghg^{-1}g$. But $ghg^{-1} \in gHg^{-1} \subseteq H$, so $ghg^{-1} = h'$ for some $h' \in H$. Thus, $x = h'g \in Hg$. Similarly, if $x \in Hg$, then $x \in gH$. We conclude that $Hg = gH$ for all $g \in G$.
+
+    For 3.~implies 4., we have $gH = Hg$ for all $g \in G$. Let $x \in g^{-1}Hg$, where $x = g^{-1}hg$ for some $h \in H$. Note that $hg = gh'$ for some $h' \in H$ since $gH = Hg$. Thus, $x = g^{-1}hg = g^{-1}(gh') = h' \in H$, giving us $g^{-1}Hg \subseteq H$.
+
+    Finally, for 4.~implies 1., let $x \in gh$; there exists $h \in H$ such that $x = gh$. Thus, $x = ghg^{-1}g = h'g \in Hg$ since $gHg^{-1} = H$. Hence, $gH \subseteq Hg$.
+\end{proof}
+
+Note that if $G$ is abelian, then every subgroup is normal.
+
+\begin{proposition}
+    The following miscellaneous propositions hold true. Let $G$ be a group.
+    \begin{enumerate}
+        \item If $g,h \in G$, then $\ord(ghg^{-1}) = \ord(h)$.
+        \item The mapping $\varphi_{g}:G \to G$ defined as $\varphi_{h}(h) = g^{-1}hg$ is an isomorphism for all $g \in G$. The inverse isomorphism is given by $\varphi_{g}^{-1} = \varphi_{g^{-1}}$.
+        \item Both $G$ and $\{e\}$ are normal subgroups of $G$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    The proofs of these are left as an exercise to the reader.
+\end{proof}
+
+\begin{proposition}
+    Let $f:G \to H$ be a group homomorphism. Then $\ker f \nsbg G$.
+\end{proposition}
+\begin{proof}
+    For $g \in G$, let $x \in g^{-1} \ker(f) g$; that is, $x = g^{-1}hg$ for some $h \in \ker f$. Then,
+    \begin{align}
+        f(x) = f(g^{-1}hg) = f(g^{-1})f(h)f(g) = f(g)^{-1}e_{H}f(g) = e_{H}.
+    \end{align}
+    Thus, $x \in \ker f$, showing $g^{-1} \ker(f) g \subseteq \ker f$ for all $g \in G$; $\ker f \nsbg G$.
+\end{proof}
+
+\begin{proposition}
+    Let $G$ be a group with $H \sbg G$ a subgroup. Then $H \nsbg G$ if and only if for all $\varphi_{g}:G \to G$, we have $\varphi_{g}|_{H}:H \to H$, an isomorphism.
+\end{proposition}
+Note that an isomorphism from a group to itself is called an \eax{automorphism}. Thus, the above proposition equates to $\varphi_{g}$ still remaning an automorphism when restricted to $H$.
+\begin{proof}
+    The statement is simply equivalent to saying $g^{-1}Hg = H$ for all $g \in G$.
+\end{proof}
+
+One also defines the notion of \eax{product of groups}. Let $G_{1},G_{2}$ be two groups. Then
+\begin{align}
+    G_{1} \times G_{2} \defeq \{ (g_{1},g_{2}) \mid g_{1} \in G_{1}, g_{2} \in G_{2} \}
+\end{align}
+is a group with the equipped operation defined as
+\begin{align}
+    (g_{1},g_{2}) \cdot (g_{1}',g_{2}') = (g_{1}g_{1}',g_{2}g_{2}').
+\end{align}
+Here, the identity element is $(e_{G_{1}},e_{G_{2}})$ and the inverse of $(g_{1},g_{2})$ is $(g_{1}^{-1},g_{2}^{-1})$.
+
+Let $G$ be a group and $H,K$ be subgroups of $G$. Let $HK = \{hk \mid h \in H,k \in K\}$. Then $HK$ is a group if either $H$ or $K$ is a normal subgroup of $G$.
+\begin{proof}
+    Let us assume $H \nsbg G$. Take the elements $h_{1}k_{1},h_{2}k_{2} \in HK$. Since $H \nsbg G$, $k_{1}H = Hk_{1}$. So, $k_{1}h_{2} = h'k_{1}$ for some $h' \in H$ Thus,
+    \begin{align}
+        h_{1}k_{1}h_{2}k_{2} = h_{1}h'k_{1}k_{2} \in HK.
+    \end{align}
+    Similarly, $(h_{1}k_{1})^{-1} = k_{1}^{-1}h_{1}^{-1} = h'k_{1}^{-1} \in HK$ for some $h' \in H$, since $H \nsbg G$ and $k_{1}^{-1}H =  Hk_{1}^{-1}$.
+\end{proof}
+
+We now get familiar with quotient groups.
+\begin{definition}
+    Let $G$ be a group and $H \nsbg G$ a normal subgroup. The \eax{quotient group} is defined as $G/H = \{gH \mid g \in G\}$ with the operation defined as $gH \ast g'H \defeq (gg')H$ for all $g,g' \in G$.
+\end{definition}
+Of course, it still remains to verify that the groups axioms are not violated and the operation is indeed well-defined. Note that the map $q:G \to G/H$ defined as $g \mapsto gH$ is a group epimorphism, with $\ker q = H$.
+\begin{proof}
+    Let $gH = kH$ and $g'H = k'H$ for $k,k' \in G$. We wish to show that $gg'H = kk'H$. Since $gH = kH$, we have $k^{-1}g \in H$. Similarly, $k'^{-1}g' \in H$, and $k'^{-1}g'k^{-1}g' \in H$. Thus, $(kg')^{-1}gg' \in H$ and $gg'H = kg'H$. Hence, the operation is well-defined.
+\end{proof}
