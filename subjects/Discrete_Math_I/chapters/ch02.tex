@@ -1,6 +1,8 @@
 \chapter{RECURRENCE RELATIONS AND GENERATING FUNCTIONS}
 
 \section{Generating Functions}
+\textit{August 7th.}
+
 We begin with ordinary ones.
 
 \begin{definition}
@@ -65,15 +67,28 @@ There is also the ring homomorphism $\ev_{z}:\C[[x]] \to \C$ where $x \mapsto z$
     Let $d_{n}$ denote the number of derangements of $\{1,2,\ldots,n\}$. We consider a derangement $\Pi$ of $\{1,2,\ldots,n+1\}$ where
     \begin{itemize}
         \item Case I: $\Pi(n+1) = i$ and $\Pi(i) = n+1$ for some $i$. The number of such derangements is $nd_{n-1}$.
-        \item Case II: $\Pi(n+1) = i$ and $\Pi(j) = n+1$ for some $i \neq j$. The number of such derangements is $d_{n+1} = n(d_{n}+d_{n-1})$.
+        \item Case II: $\Pi(n+1) = i$ and $\Pi(j) = n+1$ for some $i \neq j$. The number of such derangements is $d_{n+1} = nd_{n}$.
     \end{itemize}
+    Thus, the total number of derangements is $d_{n+1} = n(d_{n}+d_{n-1})$.
     Here, $d_{0} = 1$, $d_{1} = 0$, and $d_{2} = 1$. The exponential generating function, here, is
     \begin{align}
-        D(x) = \sum_{n=0}^{\infty} d_{n} \frac{x^{n}}{n!} \implies D'(x) = \sum_{n=1}^{\infty} nd_{n} \frac{x^{n-1}}{(n-1)!} = \sum_{n=0}^{\infty} d_{n+1} \frac{x^{n}}{n!}.
+        D(x) = \sum_{n=0}^{\infty} d_{n} \frac{x^{n}}{n!} \implies D'(x) = \sum_{n=1}^{\infty} nd_{n} \frac{x^{n-1}}{(n-1)!} = \sum_{n=0}^{\infty} d_{n+1} \frac{x^{n}}{n!} = \sum_{n=1}^{\infty} \frac{d_{n}}{(n-1)!} x^{n} + \sum_{n=1}^{\infty} \frac{d_{n-1}}{(n-1)!} x^{n}.
+    \end{align}
+    This gives us
+    \begin{align}
+        D'(x) = xD'(x) + xD(x) \implies \frac{D'(x)}{D(x)} = \frac{x}{1-x} \implies D(x) = C \left( \frac{e^{-x}}{1-x} \right).
+    \end{align}
+    Plugging in $x = 0$ givens $C = 1$. Thus, the exponential generating function is
+    \begin{align}
+        D(x) = \frac{e^{-x}}{1-x} = (1+x+x^{2}+x^{3}+\cdots)(1-x+\frac{x^{2}}{2!}-\frac{x^{3}}{3!}+\cdots).
+    \end{align}
+    The coefficient of $x^{n}$ in the above series is $\frac{d_{n}}{n!}$, giving us
+    \begin{align}
+        d_{n} = n! \sum_{k=0}^{n} a_{k}b_{n-k} = n! \left( 1-\frac{1}{1!}+\frac{1}{2!} + \cdots + (-1)^{n}\frac{1}{n!} \right).
     \end{align}
 \end{example}
 
-Recall the identity $\sum_{i=0}^{n} (-1)^{i} \binom{n}{i} \binom{m+n-i}{k-i}$ which was $\binom{m}{k}$ for $m \geq k$ and $0$ for $m < k$.
+% Recall the identity $\sum_{i=0}^{n} (-1)^{i} \binom{n}{i} \binom{m+n-i}{k-i}$ which was $\binom{m}{k}$ for $m \geq k$ and $0$ for $m < k$.
 
 \begin{example}
     Suppose we wish to find number of ways to make $n$ change with the denominations $1$, $2$, and $5$. We use generating functions. Thus,
@@ -82,3 +97,88 @@ Recall the identity $\sum_{i=0}^{n} (-1)^{i} \binom{n}{i} \binom{m+n-i}{k-i}$ wh
     \end{align}
     From above, taking the $n^{\text{th}}$ derivative of the fraction,dividng it by $n!$, and evaluating at $x = 0$ provides the number of ways to make change for $n$.
 \end{example}
+
+\subsection{Extended Binomial Theorem}
+\textit{August 8th.}
+
+We begin by extending the definition of a binomial coefficient.
+
+\begin{definition}
+    For any $u \in \R$ and positive integer $k$, we define the \eax{extended binomial coefficient} as
+    \begin{align}
+        \binom{u}{k} = \frac{u(u-1)(u-2) \cdots (u-k+1)}{k!}
+    \end{align}
+    with $\binom{u}{0} = 1$.
+\end{definition}
+
+\begin{theorem}
+    For positive integers $n$ and $r$, we have
+    \begin{align}
+        \binom{-n}{r} = (-1)^{r} \binom{n+r-1}{r}.
+    \end{align}
+\end{theorem}
+\begin{proof}
+    We simply have
+    \begin{align}
+        \binom{-n}{r} = (-1)^{r} \frac{n(n+1) \cdots (n+r-1)}{r!} = (-1)^{r} \binom{n+r-1}{r}.
+    \end{align}
+\end{proof}
+\begin{theorem}[The \eax{extended binomial theorem}]
+    For any $u \in \R$ and positive integer $k$, we have
+    \begin{align}
+        (1+x)^{u} = \sum_{k=0}^{\infty} \binom{u}{k} x^{k}.
+    \end{align}.
+\end{theorem}
+
+The extended binomial theorem helps to compute coefficients of generating functions such like $\frac{1}{(1+x)^{5}}$ or even $\sqrt{1+x}$.
+
+\begin{example}
+    We compute the coefficient of $x^{2026}$ in the generating function $G(x) = \frac{1}{(1-x)^{2}(1+x)^{2}}$. We break down as partial fractions to get
+    \begin{align}
+        G(x) &= \frac{1}{(1-x)^{2}(1+x)^{2}} = \frac{1}{4} \left( \frac{1}{1-x} + \frac{1}{(1-x)^{2}} + \frac{1}{1+x} + \frac{1}{(1+x)^{2}} \right) \\ &= \frac{1}{4} \sum_{k=0}^{\infty} \left((-1)^{k} \binom{-1}{k}+(-1)^{k} \binom{-2}{k} + \binom{-1}{k} + \binom{-2}{k}\right) x^{k}.
+    \end{align}
+    The odd terms vanish, so we set $k$ to be even to get the coefficient of $x^{k}$ as
+    \begin{align}
+        \frac{1}{4} \left( 2\binom{-1}{k}+2\binom{-2}{k}\right) = 1 + \frac{k}{2}.
+    \end{align}
+    Setting $k = 2026$ gives the desired solution of $1014$.
+\end{example}
+
+\subsection{Bernoulli Numbers}
+
+\begin{definition}
+    In power series of $\frac{t}{e^{t}-1} = \sum_{k=0}^{\infty} B_{k} \frac{t^{k}}{k!}$, the coefficients $B_{k}$ are known as the \eax{Bernoulli numbers}.
+\end{definition}
+
+Here, $B_{0}$ is defined to be $1$. One can also recursively define them as $B_{0} = 1$ and $B_{j}$ for $j \geq 1$ such that $\sum_{k=0}^{n} \binom{n+1}{k} B_{k} = 0$ for $n \geq 1$
+
+One also has a useful formula for the Bernoulli numbers.
+
+\begin{theorem}[\eax{Faulhaber's formula}]
+    We have
+    \begin{align}
+        \sum_{m=1}^{n} m^{k} = \frac{1}{k+1} \sum_{j=0}^{k} \binom{k+1}{j} B_{j} n^{k+1-j}.
+    \end{align}
+\end{theorem}
+
+Setting $k = 1$, we get
+\begin{align}
+    1 +2 + \cdots + n = \frac{1}{2} \left(\binom{2}{0}B_{0}(n+1)^{2} + \binom{2}{1}B_{1}(n+1) \right) = \frac{1}{2} \left( (n+1)^{2} - (n+1) \right) = \frac{1}{2}(n+1)n.
+\end{align}
+Similarly, one may verify for $k = 2$ or $k = 3$.
+
+\begin{proof}
+    To this end, we use the \eax{Bernoulli polynomials} $B_{k}$ which are interpreted as coefficients in
+    \begin{align}
+        \frac{te^{xt}}{e^{t}-1} = \sum_{k=0}^{\infty} B_{k}(x) \frac{t^{k}}{k!}
+    \end{align}
+    with $B_{k}(0) = B_{k}$. We claim that $B_{n}(x) = \sum_{k=0}^{n} \binom{n}{k} B_{k} x^{n-k}$. We have
+    \begin{align}
+        \frac{t}{e^{t}-1} e^{xt} = \left( \sum_{k=0}^{\infty} B_{k} \frac{t^{k}}{k!} \right)e^{xt} = \sum_{n=0}^{\infty} \left( \sum_{k=0}^{\infty} \binom{n}{k} B_{k} x^{n-k} \right) \frac{t^{n}}{n!}.
+    \end{align}
+    Summing gives us
+    \begin{align}
+        \sum_{m=0}^{n-1} \frac{te^{mt}}{e^{t}-1} = \sum_{m=0}^{n-1} (1+mt+m^{2}\frac{t^{2}}{2!}+\cdots) = \frac{t}{e^{t}-1}\left( n + \sum_{m=0}^{n-1} m \frac{t}{1!} + \cdots + \sum_{m=0}^{n-1} m^{k} \frac{t^{k}}{k!} \right)
+    \end{align}
+
+\end{proof}
