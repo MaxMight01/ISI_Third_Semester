@@ -1,0 +1,132 @@
+\chapter{POINT ESTIMATION}
+
+We begin with a definition.
+
+\begin{definition}
+    A \eax{point estimator} is a function $W$ of the sample, mapping into the parameter space $\Theta$ of the parameter $\theta$ of interest. The value $W(X)$ is called a \eax{point estimate} of $\theta$.
+\end{definition}
+
+Various methods of point estimation are discussed in this chapter, including the method of moments, maximum likelihood estimation, and Bayes estimation.
+
+\section{Estimators}
+\subsection{Method of Moments}
+Let $X_{1},\ldots,X_{n}$ be a sample from a population with a probability distribution function and probability density function. The \eax{method of moments} estimators are found by equating the first $k$ sample moments to the corresponding $k$ population moments and solving the resulting system of simultaneous equations. Here, the $k^{\text{th}}$ sample moment and the $k^{\text{th}}$ population moment are given as
+\begin{align}
+    m_{k} = \frac{1}{n} \sum_{j=1}^{n} X_{j}^{k} \qquad \text{and} \qquad \mu_{k}' = E[X^{k}]
+\end{align}
+respectively. For $\mu_{j}' = \mu_{j}'(\theta_{1},\ldots,\theta_{i})$, with $1 \leq j \leq k$, the estimators are obtained by solving the equations
+\begin{align}
+    m_{j} = \mu_{j}'(\theta_{1},\ldots,\theta_{i}) \qquad \text{for } 1 \leq j \leq k.
+\end{align}
+
+\subsection{Maximum Likelihood Estimators}
+
+Let $X_{1},\ldots,X_{n}$ be an independent and identically distributed sample from a population with a probability distribution/mass function $f(\underline{x} \mid \theta_{1},\ldots,\theta_{k})$. The \eax{likelihood function} is defin as
+\begin{align}
+    L(\underline{\theta} \mid \underline{x}) = L(\theta_{1},\ldots,\theta_{k} \mid x_{1},\ldots,x_{n}) \defeq \prod_{j=1}^{n} f(x_{j} \mid \theta_{1},\ldots,\theta_{k}).
+\end{align}
+
+\begin{definition}
+    For each sample points, let $\overline{\theta}(\underline{x})$ be a parameter value at which $L(\underline{\theta} \mid \underline{x})$ attains its maxima as a function of $\underline{\theta}$, with $\underline{x}$ held fixed. A \eax{maximum likelihood estimator} (MLE) of the parameter $\theta$ based on a sample $\underline{X}$ is $\hat{\theta}(\underline{X})$.
+\end{definition}
+
+\begin{remark}
+    \begin{enumerate}
+        \item By its contraction, the ranges of the MLE concludes with the range of the parameter.
+        \item The MLE is the parameter points for which the observation sample is most likely.
+    \end{enumerate}
+\end{remark}
+
+If the likelihood function is differentiable in $\theta_{i}$, then possible candidates for the MLE are the values of $(\theta_{1},\ldots,\theta_{k})$ that solve $\frac{\partial}{\partial \theta_{i}}L(\underline{\theta} \mid \underline{x}) = 0$ for $1 \leq i \leq k$. Moreover, we must have $\frac{\partial^{2}}{\partial^{2}\theta_{i}}L(\underline{\theta} \mid \underline{x}) < 0$ for the solution to be a maximum.
+
+\begin{remark}
+    \begin{enumerate}
+        \item The solutions to the above equation are the only possible candidates for the MLE since the first derivative being zero is only a necessary condition for the maximum and not sufficient.
+        \item The zeroes of the first derivatives only locate extreme points in the interior of the domain of the function.
+        \item If the extrema occurs on te boundary of the domain, then the first derivative may not be zero. Thus the boundary must be checked separately.
+        \item The points where the first derivatives are zero may be local/global maxima or minima. 
+    \end{enumerate}
+\end{remark}
+
+
+\begin{example}
+    Let us take the example of the binomial distribution, $X \sim \Bin (n,p)$. The likelihood function is given by $L(p \mid x) = \binom{n}{x} p^{x} (1-p)^{n-x}$, where $0 < p < 1$. We have
+    \begin{align}
+        \frac{\partial}{\partial p} L(p \mid x) = \frac{dL}{dp}(p \mid x) = 0.
+    \end{align}
+    This derivative is hard to compute directly. So we take the logarithm (an increasing function) of the likelihood function, and then differentiate.
+    \begin{align}
+        \implies \frac{d}{dp} \log L(p \mid x) = \frac{x}{p} - \frac{n-x}{1-p} = 0.
+    \end{align}
+    This gives us $p = \frac{x}{n}$, with the second derivative less than zero, confirming that this is a maximum. Thus, the MLE of $p$ is $\hat{p} = \frac{X}{n}$.
+\end{example}
+
+The method in this example is known as \eax{log likelihood estimation}. It is often easier to work with the log likelihood function, especially when dealing with products.
+
+\begin{remark}
+    \begin{enumerate}
+        \item The MLE may not exist at all or may not be unique.
+        \item If $\hat{\theta}$ is the MLE of $\theta$, then $\rho(\hat{\theta})$ is the MLE of $\rho(\theta)$ for any function $\rho$.
+    \end{enumerate}
+\end{remark}
+
+The following is a vital and important result.
+\begin{theorem}
+    The MLE depends on $\underline{x}$ only through the sufficient statistic $T(\underline{x})$.
+\end{theorem}
+\begin{proof}
+    We have $L(\theta \mid \underline{x}) = f(\underline{x} \mid \theta) = g(T(\underline{x}),\theta) h(\underline{x})$. Therefore, we have
+    \begin{align}
+        L(\hat{\theta}(\underline{x}) \mid \underline{x}) = \max_{\theta} g(T(\underline{x}),\theta) h(\underline{x}).
+    \end{align}
+    Since $h(\underline{x}) > 0$, and does not depend on $\theta$, we must have
+    \begin{align}
+        L(\hat{\theta}(\underline{x}) \mid \underline{x}) = h(\underline{x}) \max_{\theta} g(T(\underline{x}),\theta)
+    \end{align}
+    where the maximization is on the part that involves $\underline{x}$ through $T(\underline{x})$ only.
+\end{proof}
+
+\subsection{One Parameter Exponential Family in Natural Form}
+Recall that the usual density form of the exponential family was given as
+\begin{align}
+    f(x \mid \theta) = \exp(c(\theta)T(x) + d(\theta) + s(x))\1_{A}(x).
+\end{align}
+Define $\eta = c(\theta)$ for $\theta \in \Theta$, and let $\Gamma = \{\eta \mid \eta = c(\theta), \theta \in \Theta\}$. We then have
+\begin{align}
+    f^{\ast}(x \mid \eta) = \exp(\eta T(x) + d_{0}(\eta) + s(x))\1_{A}(x)
+\end{align}
+where $d_{0}(\eta) = d(c^{-1}(\eta))$ if $c$ is one-one. Moreover,
+\begin{align}
+    1 &= \int_{A}f^{\ast}(x \mid \eta)dx = \int_{A} \exp(\eta T(x) + d_{0}(\eta) + s(x))dx = \exp(d_{0}(\eta)) \int_{A} \exp(\eta T(x)+s(x))dx \\
+    \implies d_{0}(\eta) &= -\log\left( \int_{A} \exp(\eta T(x) + s(x))dx\right). 
+\end{align}
+
+\begin{theorem}
+    If $X$ has density of the form $f(x \mid \eta) = \exp(\eta T(x) + d_{0}(\eta) + s(x))\1_{A}(x)$ and $\eta$ is an interior points of $H \defeq \{\eta \mid \abs{d_{0}(\eta)} < \infty\}$, then the moment generating function of $T(X)$ exists and is given by
+    \begin{align}
+        \varphi(s) = E[\exp(sT(X))].
+    \end{align}
+    Also,
+    \begin{align}
+        E[T(X)] = -\frac{d}{d\eta} d_{0}(\eta), \qquad \text{ and } \qquad \Var(T(X)) = -\frac{d^{2}}{d\eta^{2}} d_{0}(\eta).
+    \end{align}
+\end{theorem}
+
+\begin{theorem}
+    Let $\{P_{\theta} \mid \theta \in \Theta\}$ be a one parameter exponential family with density $f(x \mid \theta) = \exp(c(\theta)T(x) + d(\theta) + s(x))\1_{A}(x)$ and let $c$ be the interior of $C = \{c(\theta) \mid \theta \in \Theta\}$. Also suppose $\theta \mapsto c(\theta)$ is one-one. If the equation
+    \begin{align}
+        E_{\theta}[T(X)] = T(x)
+    \end{align}
+    has a solution $\hat{\theta}(x)$ for which $c(\hat{\theta}(x)) \in C$, then $\hat{\theta}(x)$ is the unique MLE of $\theta$.
+\end{theorem}
+\begin{proof}
+    Since $\theta \mapsto c(\theta)$ is one-one, maximizing the likelihood over $\theta$ is maximizing over $\eta = c(\theta)$. Hence, consider the natural parametrization
+    \begin{align}
+        f(x \mid \eta) = \exp(\eta T(x) + d_{0}(\eta) + s(x))\1_{A}(x) \text{ for } \eta \in H.
+    \end{align}
+    $L(\eta \mid x) = \eta T(x) + d_{0}(\eta) + s(x)$, if $x \in A$, is the log likelihood function. Also,
+    \begin{align}
+        \frac{\partial}{\partial \eta} L(\eta \mid x) = T(x) + d_{0}'(\eta) \text{ and } \frac{\partial^{2}}{\partial \eta^{2}} L(n \mid x) = d_{0}''(\eta).
+    \end{align}
+    Therefore, we get $\frac{\partial}{\partial \eta} L(\eta \mid x) = T(x) - E_{\eta}[T(x)] = 0$ implying that $E_{\eta}[T(X)] = T(x)$. Now, $\frac{\partial^{2}}{\partial \eta^{2}} L(\eta \mid x) < 0$ so that $L$ is strictly concave. Then we get a unique maxima at $\hat{\eta}(x)$ for which $E_{\eta}[T(X)]_{\eta = \hat{\eta}(x)} = T(x)$.
+\end{proof}
