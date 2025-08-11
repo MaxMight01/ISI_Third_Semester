@@ -1,0 +1,86 @@
+\chapter{PLACEHOLDER}
+
+\section{Integral Principle}
+\textit{August 11th.}
+
+Recall the assumptions we made prior to deriving the equations of motion:
+\begin{enumerate}
+    \item $\vec{F}_{i}$ is decomposed into $\vec{F}_{i}^{(a)}$ and $\vec{f}_{i}$.
+    \item We have $\sum_{i=1}^{N_{p}} \vec{f}_{i} \cdot \delta \vec{r}_{i} = 0$.
+    \item Each $\vec{r}_{i}$ is expressed as $\vec{r}_{i}(q_{1},q_{2},\ldots,q_{n},t)$, where the $\delta q_{k}$'s are independent.
+\end{enumerate}
+
+From our assumptions, there are no longer any constraint forces. Also recall the generalized forces where
+\begin{align}
+    Q_{j} = \sum_{i=1}^{N_{p}} \vec{F}_{i}^{(a)} \cdot \frac{\partial \vec{r}_{i}}{\partial q_{j}}, \quad j = 1,2,\ldots,n,
+\end{align}
+satisfying
+\begin{align}
+    \frac{d}{dt} \left( \frac{\partial T}{\partial \dot{q}_{i}} \right) - \frac{\partial T}{\partial q_{i}} - Q_{i} = 0, \quad i = 1,2,\ldots,n,
+\end{align}
+where $T = \sum_{i=1}^{N_{p}} \frac{1}{2} m_{i} \abs{\dot{\vec{r}}_{i}}^{2}$ is the kinetic energy. If a $V$ can be defined such that $\vec{F}_{i} = -\vec{\nabla}_{i} V$, then $L(q,\dot{q},t) = T - V$, and
+\begin{align}
+    \frac{d}{dt} \left( \frac{\partial L}{\partial \dot{q}_{j}} \right) - \frac{\partial L}{\partial q_{j}} = 0, \quad j = 1,2,\ldots,n,
+\end{align}
+where $-\frac{\partial V}{\partial q_{j}} = Q_{j}$ and $V$ does not depend on $\dot{q}_{j}$.
+
+We now discuss the \eax{integral principle}, also known as \eax{Hamilton's principle}. As a precursor, we have $Q_{j} = U(\{q_{j}\},\{\dot{q}_{j}\},t)$ where $U$ is a function of the generalized coordinates, velocities, and time, and $L(\{q_{j}\},\{\dot{q}_{j}\},t) = T-U$. The \eax{action} is defined as
+\begin{align}
+    S = \int_{t_{i}}^{t_{f}} L(\{q_{j}\},\{\dot{q}_{j}\},t)dt.
+\end{align}
+The principle states that the physical trajectory taken by the system between two times $t_{i}$ and $t_{f}$ is the one for which the action $S$ is stationary, usually an extremum.
+
+\subsection{Variational Calculus}
+
+We set up a function $f(y,\frac{dy}{dx},x)$ where we have the correspondences $f \leftrightarrow x$, $q \leftrightarrow y$, and $L \leftrightarrow f$, which is analogous to writing $L(q,\dot{q},t)$. We also identify $\frac{dy}{dx}$ with $\dot{y}$. Then, correspondingly, we have
+\begin{align}
+    J \equiv \int_{x_{1}}^{x_{2}} f(y,\dot{y},x)dx.
+\end{align}
+Setting $y(x_{1}) = y_{1}$ and $y(x_{2}) = y_{2}$, we aim to minimize $J$ with respect to $y$. We ask how does one \textit{vary} $y(x)$, a function? To rectify this issue, we introduce a new parameter $\alpha$ in $y(x,\alpha)$ such that $y(x,0) = y(x)$. In other words,
+\begin{align}
+    y(x,\alpha) = y(x,0) + \alpha \eta(x),
+\end{align}
+where $\eta(x)$ is an arbitrary function that vanishes at the endpoints: $\eta(x_{1}) = \eta(x_{2}) = 0$. It is safe to assume here that every possible smooth path from $x_{1}$ to $x_{2}$ can be represented in this form; the neighbouring paths are parametrized by $\alpha$. Thus,
+\begin{align}
+    J[f] = \int_{x_{1}}^{x_{2}}dx \cdot f(y(x,\alpha),\dot{y}(x,\alpha),x).
+\end{align}
+We can now differentiate $J$ with respect to $\alpha$ and set it to $0$ at $\alpha = 0$.
+\begin{align}
+    \frac{dJ}{d\alpha} = \int_{x_{1}}^{x_{2}} \left( \frac{\partial f}{\partial y} \frac{\partial y}{\partial \alpha} + \frac{\partial f}{\partial \dot{y}} \frac{\partial \dot{y}}{\partial \alpha} \right) dx.
+\end{align}
+Using the fact that $\frac{\partial \dot{y}}{\partial \alpha} = \frac{d}{dx} \left( \frac{\partial y}{\partial \alpha} \right) = \frac{\partial^{2} y}{\partial x \partial \alpha}$ and noticing the $dx$ term, the integral screams out to use integration by parts. Thus, on the rightmost term of the integral
+\begin{align}
+    \int_{x_{1}}^{x_{2}} dx \cdot \frac{\partial f}{\partial \dot{y}} \frac{d}{dx} \left( \frac{\partial y}{\partial \alpha}\right) = \left[-\int_{x_{1}}^{x_{2}} \frac{\partial y}{\partial x} \frac{\partial}{\partial x} \left( \frac{\partial f}{\partial \dot{y}} \right) dx \right] + \frac{\partial f}{\partial \dot{y}} \frac{\partial y}{\partial \alpha} \bigg|_{x_{1}}^{x_{2}}.
+\end{align}
+We plug this back in the derivative of $J$, taking note that $\frac{\partial y}{\partial \alpha} = \eta(x)$.
+\begin{align}
+    \frac{dJ}{d\alpha} = \int_{x_{1}}^{x_{2}} \left( \frac{\partial f}{\partial y} - \frac{d}{dx} \left( \frac{\partial f}{\partial \dot{y}} \right) \right) \left( \frac{\partial y}{\partial \alpha} \right) dx = \int_{x_{1}}^{x_{2}} dx\left( \frac{\partial f}{\partial y} - \frac{d}{dx} \left( \frac{\partial f}{\partial \dot{y}} \right) \right) \eta(x) = 0.
+\end{align}
+Since this works for \textit{any} $\eta$ following our initial constraints, we must have
+\begin{align}
+    \frac{d}{dx} \left( \frac{\partial f}{\partial \dot{y}} \right) - \frac{\partial f}{\partial y} = 0.
+\end{align}
+
+\begin{example}
+    We show that, without any external conditions, the shortest path between two points $(x_{1},y_{1})$ and $(x_{2},y_{2})$ is a straight line. Each path segment is characterized as $(ds)^{2} = (dx)^{2} + (dy)^{2}$. Thus,
+    \begin{align}
+        J = \int_{x_{1}}^{x_{2}} ds = \int_{x_{1}}^{x_{2}}\sqrt{(dx)^{2}+(dy)^{2}} = \int_{x_{1}}^{x_{2}} dx \sqrt{1 + \left( \frac{dy}{dx} \right)^{2}} = \int_{x_{1}}^{x_{2}} dx (1+\dot{y}^{2})^{1/2}
+    \end{align}
+    Identifying with our equation, we have $f = \sqrt{1+\dot{y}^{2}}$, and $\frac{\partial f}{\partial \dot{y}} = \frac{\dot{y}}{\sqrt{1+\dot{y}^{2}}}$ and $\frac{\partial f}{\partial y} = 0$. Thus, the equation tell us
+    \begin{align}
+        \frac{d}{dx} \left( \frac{\dot{y}}{\sqrt{1+\dot{y}^{2}}} \right) = 0 \implies \frac{\dot{y}}{\sqrt{1+\dot{y}^{2}}} = C \implies \dot{y} = \sqrt{\frac{C^{2}}{1-C^{2}}}.
+    \end{align}
+\end{example}
+
+
+\begin{example}
+    As another example, we show that the shortest path between the north pole $(\theta_{1} = 0)$ and south pole $(\theta_{2} = \pi)$ on a sphere is a great circle. Here, the movement in spherical coordinates is $\vec{dt} = dr \hat{e}_{r} + rd\theta \hat{e}_{\theta} + r \sin \theta d\phi \hat{e}_{\phi}$. For a sphere, $R$ is constant so really we have $\vec{dr} = Rd \theta \hat{e}_{\theta} + R \sin \theta d\phi \hat{e}_{\phi}$. Thus, the integral becomes
+    \begin{align}
+        J = \int_{\theta_{1}}^{\theta_{2}} \sqrt{\vec{dr} \cdot \vec{dr}} = \int_{\theta_{1}}^{\theta_{2}} R \sqrt{1 + \sin^{2}\theta \dot{\phi}^{2}} d \theta.
+    \end{align}
+    Thus, we identify $x$ with $\theta$, $y(x)$ with $\phi(\theta)$, $f$ with $\sqrt{1+\sin^{2}\theta \dot{\phi}^{2}}$. Plugging the partials in the equation, we get
+    \begin{align}
+        \frac{R\sin^{2}\theta\dot{\phi}}{\sqrt{1+\sin^{2}\theta \dot{\phi}^{2}}} = C
+    \end{align}
+    This works for any $\theta$; plugging in $\theta_{1} = 0$ shows that $C = 0$. Thus, we must conclude that $\dot{\phi} \equiv 0$; the condition of a great circle. Notice that our choice of north pole and south pole could be arbitrary. Thus, the shortest distance between any two points on a sphere $\theta_{1} = 0$ and $\theta_{2}$ is a great circle.
+\end{example}
