@@ -615,4 +615,112 @@ Since we have a matrix to deal with now, it is only natural to ask questions reg
     Let $f:O_{n} \to \R^{m}$ be a function with $a \in O_{n}$. Suppose $f$ is a $C^{1}$ function in the neighbourhood of $a$. Then $f$ is differentiable at $a$.
 \end{theorem}
 
-There is a \textit{gap} between this theorem and the previous one; we have the extra requirement of continuity of the partial derivatives here. 
+There is a \textit{gap} between this theorem and the previous one; we have the extra requirement of continuity of the partial derivatives here.\\ \\
+\textit{August 11th.}
+\begin{example}
+    Consider the function
+    \begin{align}
+        f(x,y) = \begin{cases}
+            (x^{2}+y^{2}) \sin \frac{1}{\sqrt{x^{2}+y^{2}}} &\text{ if } (x,y) \neq (0,0),\\
+            0 &\text{ if } (x,y) = (0,0).
+        \end{cases}
+    \end{align}
+    Then $f$ is continuous at $(0,0)$. Moreover, one can show that $f$ is also differentiable at $(0,0)$ with $Df(0,0) = \begin{bmatrix}
+        0 & 0
+    \end{bmatrix}$. However, both $f_{x}$ and $f_{y}$ are not continuous at $(0,0)$.
+\end{example}
+
+We now provide the proof of the above theorem, setting $a = 0$ without the loss of generality.
+\begin{proof}
+    Let $m = 1$; the general case will be handled later. We claim that
+    \begin{align}
+        \lim_{h \to 0} \frac{1}{\norm{h}} \abs{f(h)-f(0) - \sum_{i=1}^{n} \frac{\partial f}{\partial x_{i}}(0)h_{i}} = 0.
+    \end{align}
+    For $h \in \R^{n}$, with $\norm{h}$ sufficiently small, we write $\hat{h}_{i} = (h_{1},h_{2},\ldots,h_{i},0,\ldots,0)$ with $(n-i)$ zeroes at the end, for all $i = 1,2,\ldots,n$, and $\hat{h}_{0} = (0,\ldots,0)$. Therefore,
+    \begin{align}
+        f(h)-f(0) &= f(\hat{h}_{n}) - f(\hat{h}_{0}) = (f(\hat{h}_{1})-f(\hat{h}_{0})) + (f(\hat{h}_{2})-f(\hat{h}_{1})) + \cdots + (f(\hat{h}_{n})-f(\hat{h}_{n-1})) \notag \\ &= \sum_{i=1}^{n} (f(\hat{h}_{i})-f(\hat{h}_{i-1})).
+    \end{align}
+    Define $\eta_{i}(t) = f(h_{1},\ldots,h_{i-1},t,0,\ldots,0)$ for $t \in [0,h_{i}]$. Thus, each $\eta_{i}$ is a single variable function and the chain rule tells us $\eta_{i}:[0,h_{i}] \to \R$ is a $C^{1}$-function. The mean value theorem then tell us that there exists $c_{i} \in (0,h_{i})$ such that
+    \begin{align}
+        \eta_{i}(h_{i})-\eta_{i}(0) &= h_{i} \eta_{i}'(c_{i}) \\
+        \implies f(\hat{h}_{i})-f(\hat{h}_{i-1}) &= h_{i} \frac{\partial f}{\partial x_{i}}(h_{1},\ldots,h_{i-1},c_{i},0,\ldots,0).
+    \end{align}
+    Therefore,
+    \begin{align}
+        \frac{1}{\norm{h}} \abs{f(h)-f(0)-\sum_{i=1}^{n} f_{x_{i}}(0)h_{i}} &= \frac{1}{\norm{h}} \abs{\sum_{i=1}^{n} h_{i} \left( \frac{\partial f}{\partial x_{i}}(h_{1},\ldots,h_{i-1},c_{i},0,\ldots,0) - f_{x_{i}}(0) \right)} \notag \\
+        &\leq \sum_{i=1}^{n} \frac{\abs{h_{i}}}{\norm{h}} \abs{f_{x_{i}}(h_{1},\ldots,h_{i},c_{i},0,\ldots,0) - f_{x_{i}}(0)} \xrightarrow{h \to 0} 0.
+    \end{align}
+    Hence, the function $f$ is differentiable at $0$.
+\end{proof}
+
+\begin{example}
+    We compute the total derivative of $f(x,y,z) = (x+2y+3z,xyz,\cos x, \sin x)$. Clearly, $f$ is a $C^{1}$ function. Thus,
+    \begin{align}
+        J_{f}(x,y,z) = \begin{bmatrix}
+            \frac{\partial f_{1}}{\partial x} & \frac{\partial f_{1}}{\partial y} & \frac{\partial f_{1}}{\partial z} \\
+            \frac{\partial f_{2}}{\partial x} & \frac{\partial f_{2}}{\partial y} & \frac{\partial f_{2}}{\partial z} \\
+            \frac{\partial f_{3}}{\partial x} & \frac{\partial f_{3}}{\partial y} & \frac{\partial f_{3}}{\partial z} \\
+            \frac{\partial f_{4}}{\partial x} & \frac{\partial f_{4}}{\partial y} & \frac{\partial f_{4}}{\partial z}
+        \end{bmatrix} = \begin{bmatrix}
+            1 & 2 & 3 \\
+            yz & xz & xy \\
+            -\sin x & 0 & 0 \\
+            \cos x & 0 & 0
+        \end{bmatrix}.
+    \end{align}
+\end{example}
+
+\section{Gradient, Divergence, and Curl}
+
+We first extend the notion of the derivative along the coordinate directions to the derivative along \textit{any} direction.
+
+\begin{definition}
+    Let $u \in \R^{n}$ be a unit vector, that is, $\norm{u} = 1$. Also let $f:O_{n} \to \R$ be a function. The \eax{directional derivative} of $f$ at $x \in O_{n}$ in the direction of $u$ is defined as
+    \begin{align}
+        D_{u}f(x) = \lim_{t \to 0} \frac{f(x+tu)-f(x)}{t}, \text{ if exists.}
+    \end{align}
+\end{definition}
+
+The reader may verify that $D_{e_{i}}f(x) = f_{x_{i}}(x)$. If we denote $t \mapsto f(x+tu)$ as $\eta(t)$, then we directional derivative is simply $D_{u}f(x) = \eta'(0)$. If we additionally assume that $f$ is differentiable at $x$, then the chain rule gives us
+\begin{align}
+    D_{u}f(x) = \eta'(0) = Df(x) \circ u.
+\end{align}
+Notice that $u$ can be thought of as a linear map from $\R$ to $\R^{n}$ and $Df(x)$ is a linear map from $\R^{n}$ to $\R$.
+
+\begin{theorem}
+    Let $f:O_{n} \to \R$ be differentiable at $x \in O_{n}$ and let $u$ be a unit vector in $\R^{n}$. Then the directional derivative $D_{u}f(x)$ exists and is given by
+    \begin{align}
+        (D_{u}f)(x) = Df(x)u.
+    \end{align}
+\end{theorem}
+
+The idea of the gradient is introduced.
+
+\begin{definition}
+    Let $f:O_{n} \to \R$ be a function with $a \in O_{n}$. Also suppose $f_{x_{i}}(a)$ exists for all $i = 1,2,\ldots,n$. Then
+    \begin{align}
+        (\nabla f)(a) = (f_{x_{1}}(a),\ldots,f_{x_{n}}(a))
+    \end{align}
+    is called the \eax{gradient} of $f$ at $a$. Therefore,
+    \begin{align}
+        \nabla:\{f:\R^{n}\to\R \mid f_{x_{i}} \text{ exists}\} \to \R^{n}.
+    \end{align}
+\end{definition}
+
+\begin{corollary}
+    Let $f:O_{n} \to \R$ be differentiable at $x \in O_{n}$ and let $u$ be a unit vector. Then, $(D_{u}f)(x) = (\nabla f)(x) \cdot u$.
+\end{corollary}
+
+\begin{remark}
+    Suppose $f:O_{n} \to \R$ is a function whose partial derivatives exist at $x \in O_{n}$. Then
+    \begin{align}
+        (\nabla f)(x) \cdot u = \norm{(\nabla f)(x)} \cdot \norm{u} \cos \theta = \norm{(\nabla f)(x)} \cos \theta.
+    \end{align}
+    As $\abs{\cos \theta} \leq 1$, the right hand side is maximum if $\theta = 0$.
+\end{remark}
+
+What follows is an important result.
+
+\begin{theorem}
+    Let $f:O_{n} \to \R$ be differentiable at $x \in O_{n}$ and suppose $(\nabla f)(x) \neq 0$. Then the vector $(\nabla f)(x)$ points in the direction of the steepest ascent of the function $f$ at $x$ and $\norm{(\nabla f)(x)}$ is the greatest possible rate of change.
+\end{theorem}
