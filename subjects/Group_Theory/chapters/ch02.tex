@@ -288,11 +288,128 @@ Let $G$ be a group and $H,K$ be subgroups of $G$. Let $HK = \{hk \mid h \in H,k 
     Similarly, $(h_{1}k_{1})^{-1} = k_{1}^{-1}h_{1}^{-1} = h'k_{1}^{-1} \in HK$ for some $h' \in H$, since $H \nsbg G$ and $k_{1}^{-1}H =  Hk_{1}^{-1}$.
 \end{proof}
 
+\textit{August 12th.}
+
 We now get familiar with quotient groups.
 \begin{definition}
     Let $G$ be a group and $H \nsbg G$ a normal subgroup. The \eax{quotient group} is defined as $G/H = \{gH \mid g \in G\}$ with the operation defined as $gH \ast g'H \defeq (gg')H$ for all $g,g' \in G$.
 \end{definition}
-Of course, it still remains to verify that the groups axioms are not violated and the operation is indeed well-defined. Note that the map $q:G \to G/H$ defined as $g \mapsto gH$ is a group epimorphism, with $\ker q = H$.
+Of course, it still remains to verify that the groups axioms are not violated and the operation is indeed well-defined.
 \begin{proof}
-    Let $gH = kH$ and $g'H = k'H$ for $k,k' \in G$. We wish to show that $gg'H = kk'H$. Since $gH = kH$, we have $k^{-1}g \in H$. Similarly, $k'^{-1}g' \in H$, and $k'^{-1}g'k^{-1}g' \in H$. Thus, $(kg')^{-1}gg' \in H$ and $gg'H = kg'H$. Hence, the operation is well-defined.
+    Let $gH = kH$ and $g'H = k'H$ for $k,k' \in G$. We wish to show that $gg'H = kk'H$. Since $gH = kH$, we have $k^{-1}g \in H$. Similarly, $k'^{-1}g' \in H$, and $k'^{-1}g'(k^{-1}g) \in H$. Thus, $(k g')^{-1}gg' \in H$ and $gg'H = kg'H$. Hence, the operation is well-defined. We verify the group axioms now.
+    \begin{enumerate}
+        \item \textit{Associativity:} We have
+        \begin{align}
+            (gH \ast hH) \ast (kH) = (ghH) \ast kH = (gh)kH = g(hk)H = gH \ast (hkH) = (gH) \ast (gH \ast kH).
+        \end{align}
+
+        \item \textit{Existence of Identity:} The identity here is $e_{G/H} = H$ since
+        \begin{align}
+            gH \ast H = (g e) H = gH = (e g) H = H \ast gH.
+        \end{align}
+
+        \item \textit{Existence of Inverse:} For $gH \in G/H$, we have $(gH)^{-1} = g^{-1}H$ since
+        \begin{align}
+            (gH) \ast (g^{-1}H) = (g g^{-1})H = H = (g^{-1} g) H = (g^{-1}H) \ast (gH).
+        \end{align}
+    \end{enumerate}
+\end{proof}
+\noindent Note that the map $q:G \to G/H$ defined as $g \mapsto gH$ is a group epimorphism, with $\ker q = H$. The proof of showing surjectivity and preservation of group structure is left as an exercise the reader.
+
+\begin{example}
+    \begin{itemize}
+        \item As a familiar example, $n\Z \nsbg \Z$ is a normal subgroup, and the quotient group $\Z/n\Z$ is the group of integers modulo $n$.
+        \item If one sets $H = \{e\} \nsbg G$, then $G/H = \{\{g\} \mid g \in G\}$ is the group of singletons, and the quotient map $q:G \to G/H$ becomes an isomorphism.
+        \item If $H = G \nsbg G$, then $G/H = \{G\}$ is the trivial group.
+    \end{itemize}
+\end{example}
+
+\subsection{Centre}
+
+\begin{definition}
+    The \eax{centre of a group} $G$, denoted $Z(G)$, is the set of all elements in $G$ that commute with every element of $G$:
+    \begin{align}
+        Z(G) = \{ g \in G \mid gx = xg \text{ for all } x \in G \}.
+    \end{align}
+\end{definition}
+
+One can show that $Z(G) \sbg G$ always holds true. In fact, the centre is a subgroup of $G$.
+
+\begin{example}
+    \begin{itemize}
+        \item Since $Z(G)$ is a normal subgroup, the quotient group makes sense. Moreover, $Z(G/Z(G)) = \{Z(G)\}$.
+        \item $G$ is abelian if and only if $Z(G) = G$.
+        \item $Z(GL_{2}(\R)) = \{\lambda I \mid \lambda \in \R^{\ast}\}$, where $I$ is the identity matrix.
+    \end{itemize}
+\end{example}
+
+One can also define a centre for individual elements and subsets in a group.
+
+\begin{definition}
+    The \eax{centre of a subset} $H \subseteq G$ is defined as
+    \begin{align}
+        C_{G}(H) = \{g \in G \mid gh = hg \text{ for all } h \in H\}.
+    \end{align}
+    Note that $Z(G) \subseteq C_{G}(H)$ and $C_{G}(G) = Z(G)$. For $g \in G$, we define the \eax{centralizer} of $g$ as $C_{G}(g) \defeq C_{G}(\{g\})$. Additionally, if $H \sbg G$, then
+    \begin{align}
+        N_{G}(H) = \{g \in G \mid gH = Hg\}
+    \end{align}
+    is termed the \eax{normalizer} of $H$ in $G$.
+\end{definition}
+
+\begin{remark}
+    The following may be shown, for a subset $H \subseteq G$.
+    \begin{itemize}
+        \item $C_{G}(H) = \bigcap_{g \in H} C_{G}(g)$.
+        \item $C_{G}(H) \sbg G$ holds.
+    \end{itemize}
+    The following may be shown, for a subgroup $H \sbg G$.
+    \begin{itemize}
+        \item $C_{G}(H) \subseteq N_{G}(H)$ holds.
+        \item $H \nsbg N_{G}(H)$ holds.
+        \item $N_{G}(H) \sbg G$ holds.
+    \end{itemize}
+\end{remark}
+
+The proofs of the above are left as an exercise to the reader.
+
+\section{The Isomorphism Theorems}
+
+These are important theorems that hold regarding isomorphisms. In particular, they describe the relationships between different quotient groups and subgroups. Before we encounter the actual theorems, we establish a minor result.
+
+\begin{proposition}
+    Let $f:G \to H$ be a group homomorphism and let $K = \ker f$. Then $K \nsbg G$. Moreover, $K = \{e\}$ if and only if $f$ is injective.
+\end{proposition}
+\begin{proof}
+    The first part follows from the fact that $g^{-1}Kg \subseteq K$ for all $g \in G$. For the second part, if $f$ is injective, then $\ker f = \{e\}$ since $f(g) = e_{H}$ implies $g = e_{G}$. Conversely, suppose $K = \{e\}$ and let $f(g) = f(g')$ for some $g,g' \in G$. Then
+    \begin{align}
+        f(g^{-1}g') = f(g^{-1})f(g') = f(g)^{-1}f(g) = e_{H} \implies g^{-1}g' = e_{G} \implies g' = g.
+    \end{align}
+\end{proof}
+
+
+\begin{theorem}[The \eax{first isomorphism theorem}]
+    Let $f:G \to H$ be a group homomorphism. Then the map $\tilde{f}:G/K \to \Img f$ sending $gK \mapsto f(g)$ is a well-defined isomorphism where $K = \ker f$. Bluntly,
+    \begin{align}
+        G/\ker f \cong \Img f.
+    \end{align}
+\end{theorem}
+\begin{proof}
+    We first show that $\tilde{f}$ is well-defined. Suppose $gK = g'K$ for some $g,g' \in G$. Then
+    \begin{align}
+        g^{-1}g' \in K \implies f(g^{-1}g') = e_{H} \implies f(g) = f(g').
+    \end{align}
+    To show $\tilde{f}$ is a homomorphism, let $aK,bK \in G/K$. Then
+    \begin{align}
+        \tilde{f}(aK \cdot bK) = \tilde{f}((ab)K) = f(ab) = f(a)f(b) = \tilde{f}(aK) \cdot \tilde{f}(bK).
+    \end{align}
+    Finally, we show $\tilde{f}$ is bijective. Let $h \in \Img f$. Then there exists $g \in G$ such that $f(g) = h$. We claim that $\tilde{f}(gK) = h$. Indeed,
+    \begin{align}
+        \tilde{f}(gK) = f(g) = h.
+    \end{align}
+    Thus, $\tilde{f}$ is surjective. To show injectivity, suppose $\tilde{f}(gK) = \tilde{f}(g'K)$ for some $g,g' \in G$. Then
+    \begin{align}
+        f(g) = f(g') \implies g^{-1}g' \in K \implies gK = g'K.
+    \end{align}
+    Therefore, $\tilde{f}$ is injective. We conclude that $\tilde{f}$ is a bijection.
 \end{proof}
