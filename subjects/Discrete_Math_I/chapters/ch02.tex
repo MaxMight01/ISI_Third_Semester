@@ -176,9 +176,42 @@ Similarly, one may verify for $k = 2$ or $k = 3$.
     \begin{align}
         \frac{t}{e^{t}-1} e^{xt} = \left( \sum_{k=0}^{\infty} B_{k} \frac{t^{k}}{k!} \right)e^{xt} = \sum_{n=0}^{\infty} \left( \sum_{k=0}^{\infty} \binom{n}{k} B_{k} x^{n-k} \right) \frac{t^{n}}{n!}.
     \end{align}
-    Summing gives us
+    Summing gives us $\dfrac{t(e^{nt}-1)}{(e^{t}-1)^{2}}$
     \begin{align}
-        \sum_{m=0}^{n-1} \frac{te^{mt}}{e^{t}-1} = \sum_{m=0}^{n-1} (1+mt+m^{2}\frac{t^{2}}{2!}+\cdots) = \frac{t}{e^{t}-1}\left( n + \sum_{m=0}^{n-1} m \frac{t}{1!} + \cdots + \sum_{m=0}^{n-1} m^{k} \frac{t^{k}}{k!} \right)
+        = \sum_{m=0}^{n-1} \frac{te^{mt}}{e^{t}-1} &= \frac{t}{e^{t}-1}\sum_{m=0}^{n-1} (1+mt+m^{2}\frac{t^{2}}{2!}+\cdots) = \frac{t}{e^{t}-1}\left( n + \sum_{m=0}^{n-1} m \frac{t}{1!} + \cdots + \sum_{m=0}^{n-1} m^{k} \frac{t^{k}}{k!} + \cdots \right) \notag \\
+        \implies \frac{t(e^{nt}-1)}{e^{t}-1} &= \frac{te^{nt}}{e^{t}-1} - \frac{t}{e^{t}-1} = \sum_{k=0}^{\infty} (B_{n}(x)-B_{k}(0)) \frac{t^{k}}{k!} = t \left( n + (\cdots) \right).
     \end{align}
-
+    Matching the terms gives us
+    \begin{align}
+        1 + 2^{k} + \cdots + n^{k} = \frac{1}{k+1} \left( B_{k+1}(n+1)-B_{k+1}(0) \right) = \frac{1}{k+1} \left( \sum_{j=0}^{k+1} B_{j}(n+1)^{k-j} \right) - B_{k+1}(0).
+    \end{align}
 \end{proof}
+
+\section{The Pigeonhole Principle}
+\textit{August 12th.}
+
+The \eax{pigeonhole principle} simply states that if there are $N$ objects places into $k$ boxes, then some box contains at least $\ceil{\frac{N}{k}}$ objects.
+
+\begin{proof}
+    Assume, if possible, that every box has less than $\ceil{\frac{N}{k}}$ objects. Then the total number of objects is at most $k \cdot \ceil{\frac{N}{k}}$. We take cases.
+    \begin{itemize}
+        \item Case I, where $k \mid N$. Then $\frac{N}{k}$ is a positive integer, and the total number of objects is less than $k \cdot \frac{N}{k} = N$. This is a contradiction.
+        \item Case II, where $k \nmid N$. Then every box has at most $\floor{\frac{N}{k}}$ objects, which is less than $\frac{N}{k}$. Multiplying by $k$ tell us that the total number of objects is less than $k \cdot \frac{N}{k}$ which is, again, a contradiction.
+    \end{itemize}
+\end{proof}
+
+\begin{theorem}[The \eax{Erd\"os-Szekeres theorem}]
+    Any sequence of $mn+1$ distinct real numbers either contains an increasing subsequence of length $n+1$ or a decreasing subsequence of length $m+1$.
+\end{theorem}
+
+\begin{proof}
+    Suppose the sequence of numbers is $a_{1},a_{2},\ldots,a_{mn+1}$. Assign a pair of numbers $(b_{i},c_{i})$ to each index $i$, where $b_{i}$ is the length of the longest increasing subsequence starting at $i$ and $c_{i}$ is the length of the longest decreasing subsequence starting at $i$.
+
+    If $b_{i} \geq n + 1$ for some $i$, or if $c_{i} \geq m + 1$ for some $i$, we are done. Else, we have $b_{i} \leq n$ and $c_{i} \leq m$ for all $i$. Since both are less than or equal to their respective bounds, the most number of distinct pairs $(b_{i},c_{i})$ is $mn$. Thus, by the pigeonhole principle, there exists some $i \neq j$ such that $(b_{i},c_{i}) = (b_{j},c_{j})$. Without loss of generality, assume $i < j$.
+    \begin{itemize}
+        \item Case I, where $a_{i} < a_{j}$. Then $a_{i}$ can be (pre)appended to any increasing sequence starting at $a_{j}$ which is a contradiction since $b_{i} > b_{j}$.
+        \item Case II, where $a_{i} > a_{j}$. Then $a_{i}$ can be (pre)appended to any decreasing sequence starting at $a_{j}$ which is a contradiction since $c_{i} > c_{j}$.
+    \end{itemize}
+\end{proof}
+
+\eax{Dirichlet's principle} states that in any set of $n+1$ integers, two of them must leave the same remainder modulo $n$. This is easy to see since there are only $n$ possible remainders (namely $0, 1, \ldots, n-1$) and $n+1$ integers. By the pigeonhole principle, at least two of the integers must fall into the same remainder class.

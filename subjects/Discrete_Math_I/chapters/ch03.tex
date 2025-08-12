@@ -1,0 +1,86 @@
+\chapter{GRAPHS}
+
+
+\section{Introduction}
+A \eax{graph} is a pair $G = (V,E)$, where $V$ is a set whose elements are called \eax{vertices} and $E \subseteq V \times V$ is a set of unordered pairs $\{v_{1},v_{2}\}$ of vertices, whose elements are called edges. Here, $(v_{1},v_{2})$ and $(v_{2},v_{1})$ are undistinguishable, and are simply denoted by $\{v_{1},v_{2}\}$ or $v_{1}v_{2}$.
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}[scale=1,
+        every node/.style={circle, draw=\subjectcolor!80!black, fill=\subjectcolor!40!white, inner sep=2pt}]
+        % Vertices
+        \node (A) at (0, 0.2) {A};
+        \node (B) at (2.1, -0.1) {B};
+        \node (C) at (1.2, 1.6) {C};
+        \node (D) at (3.1, 1.4) {D};
+        \node (E) at (4.2, 0.1) {E};
+
+        % Edges
+        \draw (A) -- (B);
+        \draw (B) -- (C);
+        \draw (C) -- (A);
+        \draw (B) -- (D);
+        \draw (D) -- (E);
+    \end{tikzpicture}
+\end{figure}
+
+The above shows a simple undirected graph on five vertices $V=\{A,B,C,D,E\}$ with edges $E=\{AB,AC,BC,BD,DE\}$. Here, simple and undirected are also terms to be defined in the context of graph theory.
+
+\begin{definition}
+    A graph is called a \eax{simple graph} if it has no loops (edges connecting a vertex to itself) and no multiple edges (more than one edge connecting the same pair of vertices). Otherwise, it is termed a \eax{multigraph}. A graph is called an \eax{undirected graph} if its edges have no orientation; that is, the edge $uv$ is identical to the edge $vu$. Otherwise, it is termed a \eax{directed graph}.
+\end{definition}
+
+In directed graphs, or \eax{digraph}s, one deals with $G = (V,E,s,t)$, where $s:E \to V$ gives the \eax{source node} of an edge and $t:E \to V$ gives the \eax{target node} of an edge. In this edge set $E$, $uv \neq vu$, unlike the case of a simple graph.
+
+Structure-preserving maps are useful in graph theory too.
+
+\begin{definition}
+    Suppose we have two graphs $G = (V(G),E(G))$ and $H = (V(H),E(H))$. A function $f:V(G) \to V(H)$ is said to be a \eax{graph homomorphism} if $f$ preserves adjacency; that is, if $v_{1}v_{2} \in E(G)$, then $f(v_{1})f(v_{2}) \in E(H)$. If $f$ is also bijective and $f$ and $f^{-1}$ are both graph homomorphisms, then $f$ is termed a \eax{graph isomorphism}.
+\end{definition}
+
+We also term the group $\Aut(G)$ as the group of all graph isomorphisms of $G$, with the group operation of composition.
+
+\begin{definition}
+    Suppose we have two digraphs $G_{1} = (V_{1},E_{1},s_{1},t_{1})$ and $G_{2} = (V_{2},E_{2},s_{2},t_{2})$. A \eax{digraph homomorphism} is two maps $f_{V}:V_{1} \to V_{2}$ and $f_{E}:E_{1} \to E_{2}$ such that
+    \begin{align}
+        s_{2}(f_{E}(e)) = f_{V}(s_{1}(e)) \quad \text{ and } \quad t_{2}(f_{E}(e)) = f_{V}(t_{1}(e)).
+    \end{align}
+    That is, the source node of every image edge is the image node of every source node, and the target node of every image edge is the image node of every target node.
+\end{definition}
+
+One also discusses the neighbours of nodes.
+
+\begin{definition}
+    The \eax{degree of a node}, or the \eax{valency of a node}, is simply defined as the number of edges incident with the vertex. If $v$ is such a node in a graph $(V,E)$, then $\deg(v) = \#\{u \in V \mid vu \in E\}$. In digraphs, one defines the \eax{out-degree of a node} $v$ as the number of edges with $v$ as the source node, and the \eax{in-degree of a node} $v$ as the number of edges with $v$ as the target node.
+\end{definition}
+
+A \eax{regular graph} is one where every vertex has the same degree. We now discuss the first ever theorem (historically) in graph theory.
+
+\begin{theorem}
+    A finite (simple) graph $G$ has an even number of vertices of odd degree.
+\end{theorem}
+
+\begin{proof}
+    Let $G = (V,E)$ be a graph. One can deduce that
+    \begin{align}
+        2 \cdot \# E(G) = \sum_{v \in V(G)} \deg(v).
+    \end{align}
+    Thus, there must be an even number of vertices of odd degree to keep the term on the left even.
+\end{proof}
+
+
+\section{Walks, Paths, and Cycles}
+
+\begin{definition}
+    A \eax{walk on a graph} $G$ is an alternating sequence of vertices and edges 
+    \begin{align}
+        (v_{0},e_{1},v_{1},e_{2},v_{2},\ldots,e_{k},v_{k})
+    \end{align}
+    such that for all $i$, $e_{i}$ is an edge between $v_{i-1}$ and $v_{i}$. The \eax{length of a walk}, in this case, is termed $k$.
+\end{definition}
+
+
+\begin{definition}
+    If the edges $e_{1},e_{2},\ldots,e_{k}$ are distinct, then the walk is called a \eax{path on a graph}. A \eax{simple path} is one where the vertices $v_{0},v_{1},\ldots,v_{k}$ are also all distinct. Finally, a \eax{simple closed path} is one where $v_{0} = v_{k}$ and the rest are distinct.
+\end{definition}
+
+A \eax{metric on a graph} between two vertices $d(v_{1},v_{2})$ is defined as the length of the shortest walk between $v_{1}$ and $v_{2}$. This walk is always a path since if it's not, there is a repetition of edges, and appropriate middle edges and vertices can be deleted to form a path or a shorter walk. If no such path exists, then $d(v_{1},v_{2}) = \infty$.
