@@ -1,5 +1,6 @@
 test_folder/
 assignments/
+.vscode/
 *.aux
 *.idx
 *.ilg

@@ -719,8 +719,120 @@ The idea of the gradient is introduced.
     As $\abs{\cos \theta} \leq 1$, the right hand side is maximum if $\theta = 0$.
 \end{remark}
 
+\noindent \textit{August 13th.}
+
 What follows is an important result.
 
 \begin{theorem}
     Let $f:O_{n} \to \R$ be differentiable at $x \in O_{n}$ and suppose $(\nabla f)(x) \neq 0$. Then the vector $(\nabla f)(x)$ points in the direction of the steepest ascent of the function $f$ at $x$ and $\norm{(\nabla f)(x)}$ is the greatest possible rate of change.
 \end{theorem}
+
+In other words, the maximum possible directional derivative of $f$ at $a$ occurs at $\nabla f(a)$.
+
+\begin{example}
+    Let $f(x,y,z) = x^{2}yz$. We find the directional derivatives of $f$ at $(1,1,0)$ in the direction of $\ip{1,1,-1}$. Note that the unit vector in this case is $u = \frac{1}{\sqrt{3}}\ip{1,1,-1}$, and that $f$ is differentiable since $f$ is a polynomial. Thus, $f_{x} = 2xyz$, $f_{y} = x^{2}z$, and $f_{z} = x^{2}y$. Therefore,
+    \begin{align}
+        \nabla f = \ip{2xyz, x^{2}z, x^{2}y} \implies \nabla f (1,1,0) = \ip{0,0,1}.
+    \end{align}
+    Finally, we get
+    \begin{align}
+        D_{u}f(1,1,0) = \ip{0,0,1} \cdot \frac{1}{\sqrt{3}} \ip{1,1,-1} = -\frac{1}{\sqrt{3}}.
+    \end{align}
+    Also, the maximum possible derivative of $f$ at $(1,1,0)$ occurs at $\ip{0,0,1}$ and it is $\ip{0,0,1} \cdot \ip{0,0,1} = 1$.
+\end{example}
+
+\begin{example}
+    We look at
+    \begin{align}
+        f(x,y) = \begin{cases}
+            \frac{x^{2}y}{x^{2}+y^{2}} &\text{ if } (x,y) \neq (0,0),\\
+            0 &\text{ if } (x,y) = (0,0).
+        \end{cases}
+    \end{align}
+    Clearly, $\abs{f(x,y) - f(0,0)} = \frac{x^{2}\abs{y}}{x^{2}+y^{2}} \leq \abs{y}$, so $f$ is continuous at $(0,0)$. For a given direction $u = \ip{u_{1},u_{2}}$, we have
+    \begin{align}
+        D_{u}f(0,0) = \lim_{t \to 0} \frac{f(tu_{1},tu_{2})-f(0,0)}{t} = \lim_{t \to 0} \frac{t^{3}u_{1}^{2}u_{2}}{t^{2}(u_{1}^{2}+u_{2}^{2})} \cdot \frac{1}{t} = u_{1}^{2}u_{2} < \infty.
+    \end{align}
+    Therefore, $D_{u}f(0,0) = u_{1}^{2}u_{2}$. Also, $f_{x}(0,0) = 0 = f_{y}(0,0)$ implying that $\nabla f(0,0) = \ip{0,0}$. This gives us
+    \begin{align}
+        \nabla f(0,0) \cdot u = 0 \neq u_{1}^{2}u_{2} = D_{u}f(0,0)
+    \end{align}
+    making $f$ \textit{not} differentiable at $(0,0)$.
+\end{example}
+
+Hereforth, given $a,b \in \R^{n}$, we denote $L_{a,b}$ to be the line segment joining $a$ to $b$. Essentially, $L_{a,b} = \{(1-t)a + tb \mid 0 \leq t \leq 1\}$.
+
+\begin{theorem}[The \eax{mean value theorem}]
+    Let $f:O_{n} \to \R$ be differentiable and $L_{a,b} \subseteq O_{n}$. Then there exists $c \in L_{a,b}$ such that
+    \begin{align}
+        f(b)-f(a) = \nabla f(c) \cdot (b-a).
+    \end{align}
+\end{theorem}
+
+\begin{proof}
+    Define $\eta:[0,1] \to L_{a,b}$ as $\eta(t) = (1-t)a + tb$. Then $f \circ \eta : [0,1] \to \R$ is differentiable and $\eta'(t) = b-a$, a column vector. We apply the one-dimensional mean value theorem on $f \circ \eta$ to get
+    \begin{align}
+        (f \circ \eta)(1) - (f \circ \eta)(0) = (f \circ \eta)'(t_{0})
+    \end{align}
+    for some $t_{0} \in (0,1)$. This implies that
+    \begin{align}
+        f(b) - f(a) = f'(\eta(t_{0})) \cdot \eta'(t_{0}) = \nabla f(\eta(t_{0})) \cdot (b-a) = \nabla f(c) \cdot (b-a)
+    \end{align}
+    where $c = \eta(t_{0}) \in L_{a,b}$.
+\end{proof}
+
+\subsection{More Partials}
+Suppose we have $f:O_{n} \to O_{m}$ and $g:O_{m} \to \R^{p}$ where $a \in O_{n}$ and $b = f(a) \in O_{m}$. Assume that $f$ and $g$ are differentiable at $a$ and $b$, respectively. Then 
+\begin{align}
+    J_{g \circ f}(a) = J_{g}(b)J_{f}(a).
+\end{align}
+Comparing the $(i,j)^{\text{th}}$ entry of both sides (for $1 \leq i \leq p$ and $1 \leq j \leq n$), we get
+\begin{align}
+    \frac{\partial (g \circ f)_{i}}{\partial x_{j}}(a) = \sum_{k=1}^{m} \frac{\partial g_{i}}{\partial y_{k}}(b) \frac{\partial f_{k}}{\partial x_{j}}(a).
+\end{align}
+
+In a more natural way, set $y_{k} = f_{k}(x_{1},\ldots,x_{n})$ for $k = 1,\ldots,m$ and set $z_{i} = g_{i}(y_{1},\ldots,y_{m})$ for $i = 1,\ldots,p$. Then we can write
+\begin{align}
+    \frac{\partial z_{i}}{\partial x_{j}} = \frac{\partial z_{i}}{\partial y_{1}} \cdot \frac{\partial y_{1}}{\partial x_{j}} + \cdots + \frac{\partial z_{i}}{\partial y_{m}} \cdot \frac{\partial y_{m}}{\partial x_{j}} = \sum_{t = 1}^{m} \frac{\partial z_{i}}{\partial y_{t}} \cdot \frac{\partial y_{t}}{\partial x_{j}}.
+\end{align}
+This is termed the \eax{chain rule for partials}.
+
+\begin{example}
+    Suppose on $O_{1} \to O_{m} \to \R$, we have the mapping(s) $t \mapsto (x_{1}(t),\ldots,x_{m}(t)) \mapsto f(x_{1}(t),\ldots,x_{m}(t))$. If we call the first mapping $\eta(t)$, and second mapping $(f(\eta(t)))$, then
+    \begin{align}
+        \frac{df}{dt} = \frac{\partial f}{\partial x_{1}}\frac{dx_{1}}{dt} + \cdots + \frac{\partial f}{\partial x_{m}}\frac{dx_{m}}{dt} = \sum_{i=1}^{m} \frac{\partial f}{\partial x_{i}} \frac{dx_{i}}{dt}.
+    \end{align}
+\end{example}
+
+\begin{example}
+    Suppose $f(x,y,z) = xy^{2}z$ with $x = t$, $y = e^{t}$, and $z = 1+t$. Then
+    \begin{align}
+        \frac{df}{dt} = \frac{\partial f}{\partial x} \frac{dx}{dt} + \frac{\partial f}{\partial y} \frac{dy}{dt} + \frac{\partial f}{\partial z} \frac{dz}{dt} = y^{2}z + 2xyze^{t} + xy^ = e^{2t}((1+2t)+2t(1+t)).
+    \end{align}
+    Of course, in this example, it would have been preferable to substitute back in the variables in terms of $t$ and then derivating. This may not always be the case, especially in abstract computations.
+\end{example}
+
+\begin{example}
+    Suppose $g(z,w) = f(x(z,w),y(z,w))$. Making all the necessary assumptions, we have
+    \begin{align}
+        \frac{\partial g}{\partial z} = \frac{\partial f}{\partial x} \frac{\partial x}{\partial z} + \frac{\partial f}{\partial y} \frac{\partial y}{\partial z}.
+    \end{align}
+\end{example}
+
+\begin{example}
+    We introduce the idea of \eax{polar coordinates}. $g(y,x)$ can be written as $f(r,\theta)$ where $r = \sqrt{x^{2}+y^{2}}$ and $\theta = \tan^{-1}(\frac{y}{x})$. The converse may also be done. Here,
+    \begin{align}
+        \frac{\partial g}{\partial x} = \frac{\partial g}{\partial r} \frac{\partial r}{\partial x} + \frac{\partial g}{\partial \theta} \frac{\partial \theta}{\partial x}.
+    \end{align}
+\end{example}
+
+\begin{example}
+    Suppose $z = z(u,v)$ with $u = x^{2}y$ and $v = 3x + 2y$. Then
+    \begin{align}
+        \frac{\partial z}{\partial y} = \frac{\partial z}{\partial u} \frac{\partial u}{\partial y} + \frac{\partial z}{\partial v} \frac{\partial v}{\partial y} = \frac{\partial z}{\partial u} x^{2} + \frac{\partial z}{\partial v} \cdot 2.
+    \end{align}
+    One can reuse the chain rule and think of double partial differentiation too as
+    \begin{align}
+        \frac{\partial^{2}y}{\partial y^{2}} = x^{2}\frac{\partial}{\partial y} \left( \frac{\partial z}{\partial u} \right) + 2 \frac{\partial}{\partial y} \left( \frac{\partial z}{\partial v} \right).
+    \end{align}
+\end{example}
