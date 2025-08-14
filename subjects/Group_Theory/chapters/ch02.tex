@@ -337,7 +337,7 @@ One can show that $Z(G) \sbg G$ always holds true. In fact, the centre is a subg
 
 \begin{example}
     \begin{itemize}
-        \item Since $Z(G)$ is a normal subgroup, the quotient group makes sense. Moreover, $Z(G/Z(G)) = \{Z(G)\}$.
+        \item Since $Z(G)$ is a normal subgroup, the quotient group makes sense. However, in general, $Z(G/Z(G))$ is not trivial.
         \item $G$ is abelian if and only if $Z(G) = G$.
         \item $Z(GL_{2}(\R)) = \{\lambda I \mid \lambda \in \R^{\ast}\}$, where $I$ is the identity matrix.
     \end{itemize}
@@ -387,6 +387,7 @@ These are important theorems that hold regarding isomorphisms. In particular, th
     \end{align}
 \end{proof}
 
+\subsection{First Isomorphism Theorem}
 
 \begin{theorem}[The \eax{first isomorphism theorem}]
     Let $f:G \to H$ be a group homomorphism. Then the map $\tilde{f}:G/K \to \Img f$ sending $gK \mapsto f(g)$ is a well-defined isomorphism where $K = \ker f$. Bluntly,
@@ -412,4 +413,141 @@ These are important theorems that hold regarding isomorphisms. In particular, th
         f(g) = f(g') \implies g^{-1}g' \in K \implies gK = g'K.
     \end{align}
     Therefore, $\tilde{f}$ is injective. We conclude that $\tilde{f}$ is a bijection.
+\end{proof}
+
+\textit{August 14th.}
+
+\begin{example}
+    We discuss the \eax{Heisenberg group}
+    \begin{align}
+        H = \left\{ \begin{pmatrix}
+              1 & a & b \\
+              0 & 1 & c \\
+              0 & 0 & 1
+           \end{pmatrix} \;\middle|\; a,b,c \in \R \right\}.
+    \end{align}
+    The group operation here is matrix multiplication, and one can see that $H \sbg SL_{3}(\R)$. Here, the center of $H$ is precisely 
+    \begin{align}
+        Z(H) = \left\{ \begin{pmatrix}
+              1 & 0 & b \\
+              0 & 1 & 0 \\
+              0 & 0 & 1
+           \end{pmatrix} \;\middle|\; b \in \R \right\}.
+    \end{align}
+    If we look at the map $f:H \to \R^{2}$ that sends
+    \begin{align}
+        \begin{pmatrix}
+              1 & a & b \\
+              0 & 1 & c \\
+              0 & 0 & 1
+           \end{pmatrix} \mapsto (a,c)
+    \end{align}
+    then $f$ is a group homomorphism since
+    \begin{align}
+        f(AA') = (a+a',c+c') = (a,c) + (a',c') = f(A) + f(A').
+    \end{align}
+    Moreover, $\Img f = \R^{2}$ and $\ker f = Z(H)$. Hence, by the first isomorphism theorem, we have
+    \begin{align}
+        H/Z(H) \cong \R^{2}
+    \end{align}
+    with the map $\tilde{f}:H/Z(H) \to \R^{2}$ given by $\tilde{f}(A Z(H)) = f(A)$. Note that $\R^{2}$ is an abelian group, and so is $H/Z(H)$. Hence, $Z(H/Z(H)) = H/Z(H)$.
+\end{example}
+
+
+\subsubsection{Commutator Subgroup}
+
+\begin{definition}
+    Let $G$ be a group. Then
+    \begin{align}
+        (G:G) \defeq \ip{\{ghg^{-1}h^{-1} \mid g,h \in G\}}
+    \end{align}
+    is termed the \eax{commutator subgroup} of $G$.
+\end{definition}
+
+\noindent Of course, the name suggests that $(G:G)$ is a subgroup of $G$. In fact, it is actually a normal subgroup of $G$.
+
+\begin{proposition}
+    $(G:G)$ is a normal subgroup of $G$. Moreover $G/(G:G)$ is abelian. Let $f:G \to A$ be a group homomorphism with an abelian group $A$. Then $(G:G) \subseteq \ker f$ and there exists $\bar{f}:G/(G:G) \to A$ such that $f = \bar{f} \circ q$ where $q:G \to G/(G:G)$ is the quotient map.
+\end{proposition}
+
+\begin{proof}
+    Let $x \in G$. Then we have
+    \begin{align}
+        x^{-1}(ghg^{-1}h^{-1})x &= x^{-1}gxx^{-1}hxx^{-1}g^{-1}xx^{-1}h^{-1}x = (x^{-1}gx)(x^{-1}hx)(x^{-1}g^{-1}x)(x^{-1}h^{-1}x) \notag \\
+        &= aba^{-1}b^{-1} \in (G:G) \text{ where } a = x^{-1}gx \text{ and } b = x^{-1}hx.
+    \end{align}
+    Thus, if $S = \{ghg^{-1}h^{-1} \mid g,h \in G\}$, then $x^{-1}Sx \subseteq (G:G)$ for all $x \in G$. We now show that $(G:G)$ is a subgroup. Let $a \in (G:G)$. Then $a = b_{1} \cdots b_{n}$, where $b_{i} \in S$, and
+    \begin{align}
+        x^{-1}ax = x^{-1}b_{1}xx^{-1}b_{2}x \cdots x^{-1}b_{n}x \in (G:G)
+    \end{align}
+    since $x^{-1}b_{i}x \in (G:G)$ for all $i$. Thus, $x^{-1}(G:G)x \subseteq (G:G)$ for all $x \in G$, showing $(G:G) \nsbg G$. Hereforth, in this example, let $C = (G:G)$. We now show $G/C$ is abelian. This is simple enough since $ghg^{-1}h^{-1} = gh(hg)^{-1} \in C$ implies $gChC = ghC = hgC = hCgC$.
+
+    Now let $f:G \to A$ be a group homomorphism with $A$ an abelian group. We then have
+    \begin{align}
+        f(ghg^{-1}h^{-1}) = f(g)f(h)f(g^{-1})f(h^{-1}) = f(g)f(h)f(g)^{-1}f(h)^{-1} = e_{A}.
+    \end{align}
+    Thus, $S \subseteq \ker f$ implying $(G:G) \subseteq \ker f$. Finally, we show that $\bar{f}:G/C \to A$ defined as $gC \mapsto f(g)$ is an isomorphism. To show $\bar{f}$ is well-defined, we have $gC = hC \Leftrightarrow gh^{-1} \in C \subseteq \ker f$ showing $f(gh^{-1}) = e_{A}$ or $f(g) = f(h)$. To show a homomorphism, for $g,h \in G$, we have
+    \begin{align}
+        \bar{f}(gChC) = f(gh) = f(g)f(h) = \bar{f}(gC)\bar{f}(hC).
+    \end{align}
+    Moreover, $\bar{f} \circ q(g) = \bar{f}(gC) = f(g)$ for all $g \in G$, so $\bar{f} \circ q = f$.
+\end{proof}
+
+\begin{remark}
+    A few corollaries, we have
+    \begin{itemize}
+        \item If $G$ is abelian then $(G:G) = \{e\}$.
+        \item For $H$, the Heisenberg group, we have $(H:H) = Z(H)$.
+        \item $(G/(G:G):G/(G:G)) = \{e\}$.
+        \item If $H \sbg G$ then $\abs{H} \mid \abs{G}$. The \eax{index} of $H$ in $G$ is defined as $[G:H] = \abs{G/H}$. It is also equal to $\frac{\abs{G}}{\abs{H}}$ if $\abs{G}$ is finite.
+    \end{itemize}
+\end{remark}
+
+
+\subsection{Second and Third Isomorphism Theorems}
+
+\begin{theorem}[The \eax{second ismorphism theorem}]
+    Let $G$ be a group and $A,B \sbg G$ be subgroups such that $A \sbg N_{G}(B)$. Then $AB \sbg G$, $B \nsbg AB$, and $A \cap B \nsbg A$. Moreover,
+    \begin{align}
+        AB/B \cong A/(A \cap B).
+    \end{align}
+\end{theorem}
+
+\begin{proof}
+    Firstly, we have $A \sbg N_{G}(B)$ and $B \nsbg N_{G}(B) = \{g \in G \mid gB = Bg\}$. Thus, $AB \sbg N_{G}(B)$. Of course, this also means $AB \sbg G$. Also, $B \nsbg AB$ since $B \nsbg N_{G}(B)$ and $AB \subseteq N_{G}(B)$.
+
+    We now define a map $f:A \to AB/B$ that maps $a \mapsto aB$ since $a \in A \subseteq AB$. $f$ is a group homomorphism. Thus, by the first isomorphism theorem,
+    \begin{align}
+        \bar{f} : A/\ker f \to \Img f
+    \end{align}
+    is an isomorphism. It is enough to show that $\ker f = A \cap B$ and $f$ is surjective. Again, simple to see since
+    \begin{align}
+        \ker f = \{a \in A \mid aB = B\} = \{a \in A \mid a \in B\} = A \cap B;
+    \end{align}
+    for surjectivity, let $x \in AB/B$. Then $x = abB$ for some $a \in A$ and $b \in B$. But $abB$ is simply $aB$ so we simply have $abB = aB = f(a)$.
+\end{proof}
+
+\begin{corollary}
+    For $G$ a group with $A,B \sbg G$, we have $[AB:B] = [A:A \cap B]$.
+\end{corollary}
+
+Finally, we move on to the third theorem.
+
+\begin{theorem}[The \eax{third isomorphism theorem}]
+    Let $G$ be a group and let $H,K \nsbg G$ such that $K \sbg H$. Then $H/K \nsbg G/K$ and
+    \begin{align}
+        \frac{G/K}{H/K} \cong G/H.
+    \end{align}
+\end{theorem}
+
+\begin{proof}
+    We define a map $f:G/K \to G/H$ via $gK \mapsto gH$. This is well-defined since if $gK = g'K$, then $g^{-1}g' \in K \subseteq H$ and hence $gH = g'H$. We now show that $f$ is a group homomorphism. For $gK,hK \in G/K$, we have
+    \begin{align}
+        f(gKhK) = f(ghK) = ghH = gHhH = f(gK)f(hK).
+    \end{align}
+    $f$ is also surjective as $gH = f(gK)$ for all $g \in G$. By the first isormorphism theorem, we have
+    \begin{align}
+        \frac{G/K}{\ker f} \cong \Img f = G/H
+    \end{align}
+    where the isomorphism is given by the map $gK \ker f \mapsto gH$. Since $\ker f = \{gK \mid gH = H\} = \{gK \mid g \in H\} = H/K$, our proof is complete.
 \end{proof}

@@ -1,0 +1,17 @@
+\chapter{GROUP ACTIONS}
+
+\section{An Overview}
+
+Let $G$ be a group and $S$ be a set. A \eax{(left) group action} or $G$-action on $S$ is a function $\theta : G \times S \to S$ satisfying
+\begin{enumerate}
+    \item $\theta(g_{1}g_{2},x) = \theta(g_{1},\theta(g_{2},x))$ for all $g_{1},g_{2} \in G$ and $x \in S$.
+    \item $\theta(e_{G},x) = x$ for all $x \in S$.
+\end{enumerate}
+In practice, we prefer to write $\theta$ simply as $(g,x) \mapsto gx$. Thus, the axioms are simply $g_1(g_2x) = (g_1g_2)x$ and $ex = x$ for all $g_1,g_2 \in G$ and $x \in S$. Unless there are multiple different group actions on $S$ in context, we will stick with this notation instead. In this case, $S$ is called a $G$-set.
+
+\begin{remark}
+    \begin{itemize}
+        \item Let $\varphi_{g}:S \to S$ sending $x \mapsto gx$ for all $g \in G$ and $x \in S$. Then $\varphi_{g}$ is a bijection for each $g \in G$. This can be shown simply by considering the maps $\varphi_{g^{-1}} \circ \varphi_{g}$.
+        \item Let $G$ be a group and $X$ be a $G$-set. Then the map $G \to \Bij(X)$ given by $g \mapsto \varphi_{g}$ is a group homomorphism. Here, $\Bij(X)$ denotes the set (group) of bijections from $X$ to itself.
+    \end{itemize}
+\end{remark}
