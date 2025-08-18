@@ -670,7 +670,7 @@ We now provide the proof of the above theorem, setting $a = 0$ without the loss 
     \end{align}
 \end{example}
 
-\section{Gradient, Divergence, and Curl}
+\section{Gradient and The Chain Rule}
 
 We first extend the notion of the derivative along the coordinate directions to the derivative along \textit{any} direction.
 
@@ -836,3 +836,145 @@ This is termed the \eax{chain rule for partials}.
         \frac{\partial^{2}y}{\partial y^{2}} = x^{2}\frac{\partial}{\partial y} \left( \frac{\partial z}{\partial u} \right) + 2 \frac{\partial}{\partial y} \left( \frac{\partial z}{\partial v} \right).
     \end{align}
 \end{example}
+\noindent \textit{August 18th.}
+
+The Laplacian is introduced.
+
+\begin{definition}
+    For $u \in C^{2}(O_{n})$, the \eax{Laplacian} of $u$ is defined as
+    \begin{align}
+        \Delta u \defeq \nabla \circ \nabla u = \ip{\frac{\partial}{\partial x_{1}}, \ldots, \frac{\partial}{\partial x_{n}}} \cdot \ip{u_{x_{1}},\ldots,u_{x_{n}}} = \sum_{j=1}^{n} \frac{\partial^{2} u}{\partial x_{j}^{2}}.
+    \end{align}
+\end{definition}
+
+\begin{example}
+    Let $x = r \cos \theta$ and $y = r \sin \theta$ and let $u \defeq u(x,y)$. The Laplacian of $u$ is $\frac{\partial^{2}u}{\partial x^{2}} + \frac{\partial^{2}u}{\partial y^{2}}$. Now,
+    \begin{align}
+        \frac{\partial u}{\partial r} = \frac{\partial u}{\partial x} \frac{\partial x}{\partial r} + \frac{\partial u}{\partial y} \frac{\partial y}{\partial r} = \frac{\partial u}{\partial x} \cos \theta + \frac{\partial u}{\partial y} \sin \theta.
+    \end{align}
+    In a case where $u$ is considered in its polar coordinates, the Laplacian of $u$ is also written in its polar coordinate form.
+\end{example}
+
+\section{Extremum and Critical Points}
+
+Of course, one can extend the idea of the maximum (minimum) value of a function into higher dimensions.
+
+\begin{definition}
+    Let $S_{n} \subseteq \R^{n}$ and let $a \in S_{n}$ be an interior point. We say $f:S_{n} \to \R$ attains a \eax{local maximum} at $a$ if there exists $r > 0$ such that $f(x) \leq f(a)$ for all $x \in B_{r}(a) \subseteq S_{n}$. Similarly, it attains a \eax{local minimum} at $a$ if there exists $r > 0$ such that $f(x) \geq f(a)$ for all $x \in B_{r}(a) \subseteq S_{n}$.
+
+    $a$ is, instead, termed a \eax{saddle point} of $f$ if for all $r > 0$ satisfying $B_{r}(a) \subseteq S_{n}$, there exist $h_{1},h_{2} \in B_{r}(a)$ such that $f(h_{1}) > f(a)$ and $f(h_{2}) < f(a)$.
+\end{definition}
+
+Similarly, one has critical points.
+
+\begin{definition}
+    $a \in S_{n}$ is called a \eax{critical point} of $f:S_{n} \to \R$ if $\nabla f(a) = 0$. In other words, $f_{x_{i}}(a) = 0$ for all $i = 1,2,\ldots,n$.
+\end{definition}
+
+\begin{theorem}
+    Suppose $f:O_{n} \to \R$ is differentiable at $a \in O_{n}$. If $a$ is a local extremum, then $\nabla f(a) = 0$.
+\end{theorem}
+
+\begin{proof}
+    We claim that $f_{x_{i}}(a) = 0$ for each $i$. Fix $i$ and define $\varphi_{i}(t) = f(a_{1},\ldots,a_{i-1},t,a_{i+1},\ldots,a_{n})$ for $t \in (a_{i}-\varepsilon,a_{i}+\varepsilon)$. This implies that $a_{i}$ is a local extremum of $\varphi_{i}$ giving $\frac{d\varphi_{i}}{dt}(a_{i}) = 0$. Thus, $f_{x_{i}}(a) = 0$.
+\end{proof}
+
+To find these extrema, one would find the critical points and apply the second derivative test in the one variable case. In higher dimensions, we do the same; however, one needs to formulate the idea of a `second derivative test' here.
+
+\begin{definition}
+    Given $f \in C^{2}(O_{n})$ with $a \in O_{n}$. The \eax{Hessian matrix}, or Hessian, of $f$ at $a$ is defined as
+    \begin{align}
+        H_{f}(a) = \left[ \frac{\partial^{2} f(a)}{\partial x_{i} \partial x_{j}} \right]_{n \times n}
+    \end{align}
+    Note that $H_{f}$ is a symmetric matrix.
+\end{definition}
+
+\begin{example}
+    Consider $f:\R^{2} \to \R$ defined as $f(x,y) = \sin^{2}x + x^{2}y + y^{2}$. Then $f_{x} = \sin 2x + 2xy$, $f_{y} = x^{2}+2y$, and $f_{xy} = 2x$. The Jacobian in this case is
+    \begin{align}
+        J_{f} = \begin{bmatrix}
+            \sin 2x + 2xy & x^{2}+2y
+        \end{bmatrix}
+    \end{align}
+    and the Hessian is
+    \begin{align}
+        H_{f} = \begin{bmatrix}
+            2 \cos 2x + 2y & 2x \\ 2x & 2
+        \end{bmatrix}.
+    \end{align}
+\end{example}
+
+\begin{definition}
+    Given $A = (a_{ij})_{n \times n} \in M_{n}(\R)$, we define $Q_{A}(x) = x^{t}Ax = \ip{Ax,x} = \sum_{i,j =1}^{n} a_{ij}x_{i}x_{j}$ for all $x \in \R^{n}$. A \eax{quadratic form} is $Q_{A}$ when $A$ is symmetric.
+\end{definition}
+
+Thus, $x^{t}H_{f}(a)x$ is a quadratic form which is also a homogenous polynomial of degree 2. One calls a symmetric matrix $A \in M_{n}(\R)$ a \eax{positive definite matrix} if $h^{t}Ah > 0$ for all $h \in \R^{n} \setminus \{0\}$ and, likewise, a \eax{negative definite matrix}. It is termed a \eax{positive semidefinite matrix} if $h^{t}Ah \geq 0$ for all $h \in \R^{n}$ and, likewise, a \eax{negative semidefinite matrix}. It is called a \eax{indefinite matrix} if it satisfies none of the above conditions.
+
+\begin{theorem}
+    Consider a symmetric matrix $A = \begin{bmatrix}
+        a & b \\ b & c
+    \end{bmatrix} \in M_{2}(\R)$. Then
+    \begin{enumerate}
+        \item $A$ is positive definite if and only if $a > 0$ and $ac - b^{2} > 0$,
+        \item $A$ is negative definite if and only if $a < 0$ and $ac - b^{2} > 0$,
+        \item $A$ is indefinite if and only if $ac - b^{2} < 0$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{lemma}
+    Let $a \in O_{n}$, and suppose $A(x) = \begin{bmatrix}
+        a_{11}(x) & a_{12}(x) \\ a_{21}(x) & a_{22}(x)
+    \end{bmatrix} \in M_{2}(\R)$ is a symmetric matrix for all $x \in O_{n}$. Suppose $A$ is continuous at $a$, that is, the functions $a_{ij}$ are continuous at $a$ for all pairs $i,j$. If $A(a)$ is positive definite, then $A$ is positive definite in a neighbourhood of $a$.
+\end{lemma}
+
+\begin{proof}
+    $A(a)$ is positive definite implies that $a_{11}(a) > 0$ and $a_{11}(a) a_{22}(a) - a_{12}(a)^{2} > 0$. As $x \mapsto a_{ij}(x)$ is continuous at $a$, there exists a neighbourhood of $a$ such that $a_{11}(x) > 0$ and $a_{11}(x)a_{22}(x) - a_{12}(x)^{2} > 0$ for all $x$ in that neighbourhood. Therefore, $A(x)$ is positive definite in a neighbourhood of $a$.
+\end{proof}
+
+Recall Taylor's polynomial and approximation; given a function $f \in C^{k}(I)$ with $a \in I \subseteq \R$, we would have
+\begin{align}
+    p_{a,k}(a+h) = \sum_{m=0}^{k} \frac{f^{(m)}(a)}{m!}h^{m}
+\end{align}
+where $a+h \in I$. In terms of $x$, it was
+\begin{align}
+    p_{a,k}(x) = \sum_{m=0}^{k} \frac{f^{(m)}(a)}{m!}(x-a)^{m}
+\end{align}
+One would also have Taylor's theorem, where if the above $f$ were a $C^{k+1}(I)$-function, then for all $x \in I$ there exists a $\zeta \equiv \zeta(x,a)$ such that
+\begin{align}
+    f(x) = p_{a,k}(x) + \frac{f^{(k+1)}(\zeta)}{(k+1)!}(x-a)^{k+1}.
+\end{align}
+This theorem extends to higher dimensions.
+
+\begin{theorem}[\eax{Taylor's theorem}]
+    Let $a \in O_{n}$ where $O_{n}$ is a convex set. Also suppose $f:O_{n} \to \R$ is a $C^{k+1}$-function. If $h \in O_{n}$ and $a+h \in O_{n}$, then
+    \begin{align}
+        f(a+h) = \sum_{\abs{\alpha} \leq k} \frac{\partial^{\alpha}f(a)}{\alpha !} h^{\alpha} + \gamma_{a,k}(h)
+    \end{align}
+    where
+    \begin{align}
+        \gamma_{a,k}(h) = \sum_{\abs{\alpha} = k+1} \frac{\partial^{\alpha}f(a+ch)}{\alpha !} h^{\alpha}
+    \end{align}
+    for some $c \in (0,1)$.
+\end{theorem}
+
+We clear up some notation. Here, $\alpha = (\alpha_{1},\ldots,\alpha_{n}) \in \N^{n}$ is termed a multi-index, with $\abs{\alpha} = \sum \alpha_{i}$. The notation $\partial^{\alpha}f(a)$ is shorthand for $\frac{\partial^{\abs{\alpha}}f(a)}{\partial x_{1}^{\alpha_{1}} \cdots \partial x_{n}^{\alpha_{n}}}$. Also, $\alpha! = \alpha_{1}! \cdots \alpha_{n}!$, and finally, $h^{\alpha} = h_{1}^{\alpha_{1}} \cdots h_{n}^{\alpha_{n}}$.
+
+\begin{proof}
+    Fix $a,a+h \in O_{n}$. Consider the mappings $t \mapsto a+th \mapsto f(a+th)$, with $\eta:[0,1] \to \R$ defined as $\eta(t) = f(a+th)$. Note that $\eta$ is also a $C^{k+1}$-function, and $\eta'(t) = \nabla f(a+th) \circ h = \sum_{i=1}^{n} h_{i}f_{x_{i}}(a+th)$. The double derivatives is
+    \begin{align}
+        \eta''(t) = \sum_{i=1}^{n} h_{i}f_{x_{i}}(a+th) = \nabla f_{x_{i}}(a+th) \circ h = \sum_{i,j=1}^{n} h_{i}h_{j}f_{x_{i}x_{j}}(a+th).
+    \end{align}
+    Call $\nabla \circ h = \sum_{i=1}^{n} h_{i} \frac{\partial}{\partial x_{i}}$. Therefore, $\eta'(t) = (\nabla \circ h) f(a+th)$ and $\eta''(t) = (\nabla \circ h)^{2}f(a+th)$; we have
+    \begin{align}
+        \eta^{(m)}(t) = (\nabla \circ h)^{m}f(a+th)
+    \end{align}
+    for all $0 \leq m \leq k+1$. Note that 
+    \begin{align}
+        (\nabla \circ h)^{m} = \sum_{\abs{\alpha}=m} \frac{\partial^{\alpha}}{\alpha!}h^{\alpha}.
+    \end{align}
+    We apply the one-dimensional Taylor's theorem to get
+    \begin{align}
+        \eta(1) = \eta(0) + \eta'(0) + \frac{1}{2!}\eta''(0) + \cdots + \frac{1}{k!}\eta^{(k)}(0) + \frac{1}{(k+1)!} \eta^{(k+1)} (c)
+    \end{align}
+    for some $c \in (0,1)$. Expanding in terms of $f$ gives the desired result.
+\end{proof}
