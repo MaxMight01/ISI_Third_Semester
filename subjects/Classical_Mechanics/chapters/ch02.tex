@@ -84,3 +84,75 @@ Since this works for \textit{any} $\eta$ following our initial constraints, we m
     \end{align}
     This works for any $\theta$; plugging in $\theta_{1} = 0$ shows that $C = 0$. Thus, we must conclude that $\dot{\phi} \equiv 0$; the condition of a great circle. Notice that our choice of north pole and south pole could be arbitrary. Thus, the shortest distance between any two points on a sphere $\theta_{1} = 0$ and $\theta_{2}$ is a great circle.
 \end{example}
+
+\noindent \textit{August 18th.}
+
+\begin{remark}
+    The following may be shown via variational calculus.
+    \begin{enumerate}
+        \item A geodesic in $\R^{n}$ is a `straight' line.
+        \item A geodesic on a sphere $S^{2}$ is a `great circle'.
+        \item The minimum time path, with end points fixed, freely falling under $Mg$ is a `\eax{brachistochrone}' cycloid, starting under rest.
+    \end{enumerate}
+\end{remark}
+
+
+Now suppose $f$ is a function as $f(y_{1}(x),\ldots,y_{n}(x),\dot{y}_{1}(x),\ldots,\dot{y}_{n}(x),x)$. With $J = \int_{x_{1}}^{x_{2}}f dx$ and $y_{k}(x_{1}), y_{k}(x_{2})$ fixed for all $k$, we again parameterize by $\alpha$ to show small changes as
+\begin{align}
+    y_{k}(x,\alpha) = y_{k}(x,0) + \alpha \eta_{k}(x)
+\end{align}
+with $\eta_{k}(x_{1}) = \eta_{k}(x_{2}) = 0$ for all $1 \leq k \leq n$. Thus,
+\begin{align}
+    \delta J = \frac{\partial J}{\partial \alpha} d \alpha = \int_{x_{1}}^{x_{2}} \left( \sum_{i=1}^{n} \left( \frac{\partial f}{\partial y_{i}} \frac{\partial y_{i}}{\partial \alpha} + \frac{\partial f}{\partial \dot{y}_{i}} \frac{\partial \dot{y}_{i}}{\partial \alpha} \right) dx\right).
+\end{align}
+For all $i$, the second term can be written as $T_{2} = \frac{\partial f}{\partial \dot{y}_{i}} \frac{\partial}{\partial \alpha} \left( \frac{dy_{i}}{dx} \right)$ giving us the second integral-sum as
+\begin{align}
+    \sum_{i=1}^{n} \int_{x_{1}}^{x_{2}} dx \frac{\partial f}{\partial \dot{y}_{i}} \frac{d}{dx} \left( \frac{\partial y_{i}}{\partial \alpha} \right) = \sum_{i=1}^{n} \left[ \frac{\partial f}{\partial y_{i}} \frac{\partial y_{i}}{\partial \alpha} \bigg|_{x_{1}}^{x_{2}} - \int_{x_{1}}^{x_{2}} \frac{d}{dx} \left( \frac{\partial f}{\partial \dot{y}_{i}} \right) \cdot \frac{\partial y_{i}}{\partial \alpha} dx \right].
+\end{align}
+Plugging this in, we have
+\begin{align}
+    \delta J = \frac{\partial J}{\partial \alpha} d\alpha = \int_{x_{1}}^{x_{2}} dx \sum_{i=1}^{n} \left( \frac{\partial f}{\partial y_{i}} - \frac{d}{dx} \left( \frac{\partial f}{\partial \dot{y}_{i}} \right) \right) \delta y_{i} = \sum_{i=1}^{n} \delta y_{i} \left[ \int_{x_{1}}^{x_{2}} dx \left[ \frac{\partial f}{\partial y_{i}} - \frac{d}{dx} \left( \frac{\partial f}{\partial \dot{y}_{i}} \right) \right] \right] = 0.
+\end{align}
+The $\delta y_{i}$'s are independent, giving the inner integral as zero for all $i$, resulting in
+\begin{align}
+    \frac{\partial f}{\partial y_{i}} - \frac{d}{dx} \left( \frac{\partial f}{\partial \dot{y}_{i}} \right) = 0.
+\end{align}
+
+\section{Lagrange Multipliers}
+
+Finding the independent $q_{i}$'s is \textit{hard}; for a sphere, its simply the spherical coordinates without radial dependence. For a general surface, the solution is complicated and requires studying differential geometry and algebraic geometry. We have to introduce a way to introduce the constraints and eliminate the dependent coordinates. Thus introduces the concept of \eax{Lagrange multipliers}.
+
+
+
+Suppose we have a nice hemispherical bowl of radius $R$ lying flat on the ground and a particle of mass $m$ rests atop the bowl. Without the loss of generality, we assume the particle only moves in the $xz$-plane. Thus, $y = 0$, $x = R \sin \theta$, $z = R \cos \theta$. By writing this, we have ensured a constraint $f(x,z) = x^{2}+z^{2}-R^{2} = 0$. Here the kinetic energy $T$ is given by
+\begin{align}
+    T = \frac{1}{2} m(\dot{x}^{2}+\dot{y}^{2}+\dot{z}^{2}) = \frac{1}{2}(R\dot{\theta} \cos \theta)^{2} + \frac{1}{2}(-R \dot{\theta} \sin \theta)^{2} = \frac{1}{2} m R^{2} \dot{\theta}^{2}.
+\end{align}
+The potential is
+\begin{align}
+    V = mgz = mgR \cos \theta.
+\end{align}
+The Lagrangian is
+\begin{align}
+    L = T - V = \frac{1}{2} m R^{2} \dot{\theta}^{2} - mgR \cos \theta.
+\end{align}
+The Euler-Lagrange equation is
+\begin{align}
+    \frac{d}{dt}\left( \frac{\partial L}{\partial \dot{\theta}} \right) - \frac{\partial L}{\partial \theta} = mR^{2}\ddot{\theta}-(mgR \sin \theta) = 0 \implies \ddot{\theta} = \frac{g}{R} \sin \theta.
+\end{align}
+Here, our constraint was fixed throughout; if we wanted to know the angle $\theta$ at which the particle leaves the surface, the constraint then would no longer be applicable.
+
+In actuality, the particle presses a little on the bowl compressing it a tiny bit. Van der waals forces then react and push back with a normal force. Thus the distance $r$ of the particle from the centre of the bowl changes a little, and we model this $x = r \sin \theta$ and $z = r \cos \theta$, with
+\begin{align}
+    L = \frac{1}{2}m(\dot{r}^{2} + r^{2} \dot{\theta}^{2}) - mgR \cos \theta - V(r).
+\end{align}
+Here we get $\frac{d}{dt} \left( \frac{\partial L}{\partial \dot{r}} \right) = m\ddot{r}$ and $\frac{\partial L}{\partial r} = mr\dot{\theta}^{2} - mg\cos\theta - \frac{dV}{dr}$. The Euler-Lagrange equations are
+\begin{align}
+    m\ddot{r} - mr\dot{\theta}^{2} + mg\cos\theta + \frac{dV}{dr} &= 0,\\
+    mr^{2}\ddot{\theta} + 2mr\dot{r}\dot{\theta} - mgr \sin \theta &= 0.
+\end{align}
+If we now put in the constraints $r(t) = R$ with $\dot{r} = 0$ and $\ddot{r} = 0$, we get
+\begin{align}
+    mR \dot{\theta}^{2} = mg \cos \theta + \frac{dV}{dr} \bigg|_{R}, \qquad mR^{2}\ddot{\theta} = mgR \sin \theta.
+\end{align}
+Plugging in the constraint later has given us an additional equation as $- F_{N} = \frac{dV}{dr} \big|_{R} = mR\dot{\theta}^{2} - mg \cos \theta$.
