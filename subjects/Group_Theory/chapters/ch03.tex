@@ -7,11 +7,113 @@ Let $G$ be a group and $S$ be a set. A \eax{(left) group action} or $G$-action o
     \item $\theta(g_{1}g_{2},x) = \theta(g_{1},\theta(g_{2},x))$ for all $g_{1},g_{2} \in G$ and $x \in S$.
     \item $\theta(e_{G},x) = x$ for all $x \in S$.
 \end{enumerate}
-In practice, we prefer to write $\theta$ simply as $(g,x) \mapsto gx$. Thus, the axioms are simply $g_1(g_2x) = (g_1g_2)x$ and $ex = x$ for all $g_1,g_2 \in G$ and $x \in S$. Unless there are multiple different group actions on $S$ in context, we will stick with this notation instead. In this case, $S$ is called a $G$-set.
+In practice, we prefer to write $\theta$ simply as $(g,x) \mapsto gx$. Thus, the axioms are simply $g_1(g_2x) = (g_1g_2)x$ and $ex = x$ for all $g_1,g_2 \in G$ and $x \in S$. Unless there are multiple different group actions on $S$ in context, we will stick with this notation instead. In this case, $S$ is called a $G$-set.\\
+
+\textit{August 19th.}
 
 \begin{remark}
     \begin{itemize}
         \item Let $\varphi_{g}:S \to S$ sending $x \mapsto gx$ for all $g \in G$ and $x \in S$. Then $\varphi_{g}$ is a bijection for each $g \in G$. This can be shown simply by considering the maps $\varphi_{g^{-1}} \circ \varphi_{g}$.
-        \item Let $G$ be a group and $X$ be a $G$-set. Then the map $G \to \Bij(X)$ given by $g \mapsto \varphi_{g}$ is a group homomorphism. Here, $\Bij(X)$ denotes the set (group) of bijections from $X$ to itself.
+        \item Let $G$ be a group and $X$ be a $G$-set. Then the map $\psi_{\theta}:G \to \Bij(X)$ given by $g \mapsto \theta(g,\ast) = \varphi_{g}(\ast)$ is a group homomorphism. Here, $\Bij(X)$ denotes the set (group) of bijections from $X$ to itself.
+        \item Let $\psi:G \to \Bij(X)$ be a group homomorphism. Also let $\theta_{\psi}:G \times X \to X$ be a map defined as $\theta_{\psi}(g,x) = \psi(g)(x)$. Then $\theta$ is a $G$-action on $X$.
     \end{itemize}
 \end{remark}
+One can show that $\theta_{\psi_{\theta}} = \theta$ and $\psi_{\theta_{\psi}} = \psi$; if one starts with the action, the homomorphism can be obtained and vice versa.
+\begin{align}
+    \theta_{\psi_{\theta}}(g,x) &= \psi_{\theta}(g)(x) = \theta(g,x) \text{ for all } g \in G, x \in X,\\
+    \psi_{\theta_{\psi}}(g)(x) &= \theta_{\psi}(g,x) = \psi(g)(x) \text{ for all } g \in G, x \in X.
+\end{align}
+
+\begin{example}
+    \begin{itemize}
+        \item Let $H \sbg S_{n}$. Then $H$ acts on $\{1,2,\ldots,n\}$ as $(\sigma,i) \mapsto \sigma(i)$ for all $\sigma \in H$ and $i \in \{1,2,\ldots,n\}$.
+        \item Naturally, $GL_{n}(\R) \times \R^{n} \to \R^{n}$ acts as $(A,x) \mapsto Ax$ for all $A \in GL_{n}(\R)$ and $x \in \R^{n}$.
+        \item More generally, let $f:G \to GL_{n}(\R)$ be a homomorphism of groups. Then the induced action of $G$ on $\R^{n}$ is given by $(g,x) \mapsto f(g)(x)$ for all $g \in G$ and $x \in \R^{n}$.
+        \item Let $G$ be a group and $H \sbg G$. Also let $X = G/H = \{gH \mid g \in G\}$ be the set of left cosets of $H$ in $G$. Then $G$ acts on $X$ as $(g,g'H) \mapsto gg'H$ for all $g,g' \in G$. 
+    \end{itemize}
+\end{example}
+
+\section{Orbits and Stabilizers}
+
+\begin{definition}
+    Let $G$ be a group and $X$ a $G$-set. Then, for $x \in X$, the $G$-orbit (or \eax{orbit}) of $x$ is defined as
+    \begin{align}
+        \cO(x) = Gx \defeq \{gx \mid g \in G\} = \{\theta(g,x) \mid g \in G\} \subseteq X.
+    \end{align}
+    If $Gx = X$ for some $x \in X$, then the $G$-action on $X$ is said to be a \eax{transitive action}.
+\end{definition}
+
+For example, if $H \sbg G$, then the $G$-action on $G/H$ is transitive.
+
+\begin{proposition}
+    Let $G$ be a group acting on a set $X$. For $x,y \in X$, we say $x \sim y$ if there exists $g \in G$ such that $gx = y$. Then $\sim$ is an equivalence relation on $X$, and the equivalence classes are simply the orbits;
+    \begin{align}
+        [x] = \{y \in X \mid y \sim x\} = Gx.
+    \end{align}
+\end{proposition}
+\begin{proof}
+    $g \sim g$ since $eg = g$. If $x \sim y$, then $gx = y$ for some $g \in G$ implies $x = g^{-1}y$ or $y \sim x$. If $x \sim y$ and $y \sim z$, then $gx = y$ and $hy = z$ for some $g,h \in G$, so $(hg)x = z$ showing $x \sim z$.
+\end{proof}
+These orbits of $G$-action on $X$ give a partition of $X$.
+
+\begin{definition}
+    Let a group $G$ act on a set $X$. For $x \in X$, the \eax{stabilizer} of $x$ in $G$ is defined as
+    \begin{align}
+        \Stab_{G}(x) = \Stab(x) \defeq \{g \in G \mid gx = x\} = \{g \in G \mid \theta(g,x) = x\} \subseteq G.
+    \end{align}
+\end{definition}
+
+\begin{proposition}
+    $\Stab_{G}(x) \sbg G$ for all $x \in X$.
+\end{proposition}
+\begin{proof}
+    Clearly, $e_{G} \in \Stab_{G}(x)$ since $ex = x$. If $g,h \in \Stab_{G}(x)$, then $(gh)x = g(hx) = gx = x$, so $gh \in \Stab_{G}(x)$. Note that if $g \in \Stab_{G}(x)$, then $gx = x$ implies $x = g^{-1}x$, or $g^{-1} \in \Stab_{G}(x)$. $\Stab_{G}(x)$ is therefore a subgroup.
+\end{proof}
+
+\begin{example}
+    \begin{itemize}
+        \item If $G$ acts on $G/H$, then $\Stab(H) = H$ and $\Stab(gH) = \{x \in G \mid xgH = gH\} = gHg^{-1}$.
+        \item Regarding the group action $S_{n}$ on $\{1,2,\ldots,n\}$, $\Stab(n) = \{ \sigma \in S_{n} \mid \sigma(n) = n\} = S_{n-1}$.
+    \end{itemize}
+\end{example}
+
+\begin{proposition}
+    We state two results.
+    \begin{enumerate}
+        \item Let a group $G$ act on a set $X$. For $x \in X$, the \textit{set} $G/\Stab(x)$ is in bijection with $Gx$, the orbit of $x$.
+        \item Let $x,y \in X$ be in the same orbit. Then $\Stab_{G}(x) = g\Stab_{G}(y)g^{-1}$, where $g \in G$ is such that $x = gy$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item Let $H = \Stab(x)$. Let $gH \in G/H$. We show that the map $\psi:G/H \to Gx$ defined as $gH \mapsto gx$ is the required bijection. $\psi$ is well=defined since if $gH = g'H$ for some $g,g' \in G$, then $g^{-1}g'x = x$ implies $g^{-1}g' \in H = \Stab(x)$, so $g'x = gx$. The converse argument is also true, showing $\psi$ is well-defined and one-one. Also, for $y \in Gx$, there exists $g \in G$ such that $y = gx = \psi(gH)$; $\psi$ is also onto.
+
+        \item Let $x,y$ be in the same orbit; that is, there exists $g \in G$ such that $x = gy$. Suppose $h \in \Stab(x)$, or $hx = x$. This implies $hgy = gy \Rightarrow g^{-1}hgy = y$, so $g^{-1}hg \in \Stab(y)$, showing $h \in g\Stab(y)g^{-1}$. The converse argument also holds.
+    \end{enumerate}
+\end{proof}
+
+
+\begin{corollary}[The \eax{orbit-stabilizer theorem}]
+    $\abs{G/\Stab(x)} = \abs{Gx}$, that is, $\abs{G} = \abs{\Stab(x)} \cdot \abs{Gx}$.
+\end{corollary}
+
+
+\begin{definition}
+    Let $G$ be a group acting on a set $X$. The action is termed a \eax{faithful action} if $\{g \in G \mid gx = x \text{ for all } x \in X\} = \{e_{G}\}$, that is, the only element of $G$ that fixes every point in $X$ is the identity element.
+\end{definition}
+The above definition is equivalent to saying that the induced group homomorphism $G \to \Bij(X)$ is injective.
+
+\begin{definition}
+    The \eax{kernel of an action} $G$ acting on $X$ is defined as
+    \begin{align}
+        K = \{g \in G \mid gx = x \text{ for all } x \in X\}.
+    \end{align}
+    Note that if the action is $\theta$, then $K = \ker \psi_{\theta}$.
+\end{definition}
+
+\noindent One may show that
+\begin{align}
+    K = \bigcap_{x \in X} \Stab_{G}(x).
+\end{align}
+For example, the kernel of $G$-action on $G/H$ is $K = \bigcap _{g \in G} gHg^{-1} \nsbg G$. Note that $K$ is the largest subgroup of $G$ contained in $H$.
