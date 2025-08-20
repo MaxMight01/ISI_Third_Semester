@@ -155,4 +155,35 @@ If we now put in the constraints $r(t) = R$ with $\dot{r} = 0$ and $\ddot{r} = 0
 \begin{align}
     mR \dot{\theta}^{2} = mg \cos \theta + \frac{dV}{dr} \bigg|_{R}, \qquad mR^{2}\ddot{\theta} = mgR \sin \theta.
 \end{align}
-Plugging in the constraint later has given us an additional equation as $- F_{N} = \frac{dV}{dr} \big|_{R} = mR\dot{\theta}^{2} - mg \cos \theta$.
+Plugging in the constraint later has given us an additional equation as $- F_{N} = \frac{dV}{dr} \big|_{R} = mR\dot{\theta}^{2} - mg \cos \theta$.\\ \\
+\textit{August 20th.}
+
+We now discuss how exactly one includes the constraints $\{f_{\alpha}(q_{i},t) = 0 \mid \alpha = 1,2,\ldots,k,\; k < N\}$ in Hamilton's principle. This is where the method of Lagrange multipliers comes in. Suppose we have $n$ generalized coordinates $\{q_{i}\}$ with $m$ constraint equations, for $n > m$. We can then form the augmented Lagragian as
+\begin{align}
+    S = \int_{1}^{2} dt \left( L + \sum_{j=1}^{m} \lambda_{j}f_{i}(\{q_{j}\},t) \right) \implies \delta S = 0
+\end{align}
+where $\{\lambda_{i}\}$, from $i = 1$ to $m$, are termed \eax{Lagrange multipliers}. This expands as
+\begin{align}
+    \delta S = \int_{1}^{2} dt \left( \sum_{i=1}^{n} \left( \frac{d}{dt} \left( \frac{\partial L}{\partial \dot{q}_{i}} \right) - \frac{\partial L}{\partial q_{i}} + \sum_{j=1}^{m} \lambda_{j} \frac{\partial f_{j}}{\partial q_{i}} \right) \delta q_{i} \right) = 0.
+\end{align}
+We choose the $m$ multipliers $\lambda_{j}$'s such that the first $m$ coefficients vanish, and we are left with $n-m$ coordinates that are now linearly independent. With $L$ still being $T-V$, we get
+\begin{align}
+    \frac{d}{dt}\left( \frac{\partial L}{\partial \dot{q}_{i}} \right) - \frac{\partial L}{\partial q_{i}} + \sum_{j=1}^{m} \lambda_{j} \frac{\partial f_{j}}{\partial q_{i}} = 0, \quad i = 1,2,\ldots,n.
+\end{align}
+
+\begin{example}
+    Consider the prior example of a point mass atop a hemispherical bowl of radius $R$. Here, $L = \frac{1}{2}m(\dot{x}^{2}+\dot{z}^{2}) - mgz$. The easier of writing this is to switch to polar coordinates, so $L = \frac{1}{2}m(\dot{r}^{2}+r^{2}\dot{\theta}^{2}) - mgr \cos \theta$. The only constraint here is $f = r - R$. So the augmented Lagrangian here is
+    \begin{align}
+        \tilde{L} = L + \lambda(r-R)
+    \end{align}
+    The equations can be worked out to get
+    \begin{align}
+        mr\ddot{r}-mr\dot{\theta}^{2} + mg\cos\theta + \lambda_{1} &= 0,\\
+        2mr\dot{r}\dot{\theta} + mr^{2}\ddot{\theta} - mgr\sin\theta &= 0.
+    \end{align}
+    One can then solve and plug in $r(t) = R$.
+\end{example}
+
+\begin{example}
+    For a ball of radius $R$ rolling without slipping, the distance $x$ travelled across the slope is given as $R\dot{\theta} = \dot{x}$. Thus, this constraint is $R\dot{\theta} - \dot{x}$.
+\end{example}
