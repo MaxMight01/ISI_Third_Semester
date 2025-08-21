@@ -116,4 +116,108 @@ The above definition is equivalent to saying that the induced group homomorphism
 \begin{align}
     K = \bigcap_{x \in X} \Stab_{G}(x).
 \end{align}
-For example, the kernel of $G$-action on $G/H$ is $K = \bigcap _{g \in G} gHg^{-1} \nsbg G$. Note that $K$ is the largest subgroup of $G$ contained in $H$.
+For example, the kernel of $G$-action on $G/H$ is $K = \bigcap _{g \in G} gHg^{-1} \nsbg G$. Note that, here in this example, $K$ is the largest subgroup of $G$ contained in $H$.\\ \\
+\textit{August 21st.}
+
+\begin{proposition}
+    Let $G$ be a finite group. Let $H \sbg G$ be a subgroup such that $[G:H]$ is the smallest prime dividing $\abs{G}$. Then $H$ is a normal subgroup of $G$.
+\end{proposition}
+
+\begin{proof}
+    Suppose $G$ acts on $G/H$ via $(g,xH) \mapsto gxH$. Letting $p = [G:H]$, this induces a group homomorphism $\varphi:G \to \Bij(G/H) \cong S_{p}$. Also $K = \ker \varphi \subseteq H$ with $K \nsbg G$. By the first isomorphism theorem, we work as
+    \begin{align}
+        G/K \cong \Img \varphi \Rightarrow \abs{\Img \varphi} = \abs{G/K} = \frac{\abs{G}}{\abs{K}} = \frac{\abs{G}}{\abs{H}} \frac{\abs{H}}{\abs{K}} = [G:H][H:K].
+    \end{align}
+    But $\abs{\Img \varphi}$ divides $\abs{S_{p}} = p!$, so $p[H:K] \mid p! \implies [H:K] \mid (p-1)!$. Since $p$ is the smallest prime dividing $\abs{G}$, we must have $[H:K] = 1$, showing $K = H$.
+\end{proof}
+
+One can show a different proof for a proposition we studied earlier.
+\begin{proposition}
+    Let $\sigma \in S_{n}$. Then $\sigma$ is a product of disjoint cycles.
+\end{proposition}
+
+\begin{proof}
+    Let $H = \ip{\sigma} \subseteq S_{n}$. Then $H$ acts on $\{1,2,\ldots,n\}$. Let $O_{1},\ldots,O_{r}$ be the orbits of $H$-action on $\{1,2\ldots,n\}$. We claim that $O_{i} = \{x_{i},\sigma x_{i},\sigma^{2}x_{i},\ldots,\sigma^{d_{i}-1}x_{i}\}$, where $\abs{O_{i}} = d_{i}$ for $1 \leq i \leq r$. If it so happens, then
+    \begin{align}
+        \sigma = (x_{1}\;\sigma x_{1}\;\cdots\;\sigma^{d_{1}-1}x_{1}) (x_{2}\;\sigma x_{2}\;\cdots\;\sigma^{d_{2}-1}x_{2}) \cdots (x_{r}\;\sigma x_{r}\;\cdots\;\sigma^{d_{r}-1}x_{r}).
+    \end{align}
+    Note that $\{x_{i},\sigma x_{i},\ldots,\sigma^{d_{i}-1}x_{i}\} \subseteq O_{i}$; if $\sigma^{a}x_{i} \neq \sigma^{b}x_{i}$ for $a \neq b$, then the elements are distinct. Otherwise, $\sigma^{a}x_{i} = \sigma^{b}x_{i}$ implies $\sigma^{b-a}x_{i} = x_{i}$. Then $O_{i} = \{x_{i},\sigma x_{i},\ldots,\sigma^{b-a-1}x_{i}\}$ which contradicts $\abs{O_{i}} = d_{i}$ and $\sigma^{d_{i}}x_{i} = x_{i}$. The disjoint cycle decomposition then follows since $\bigcup_{i=1}^{n} O_{i} = \{1,2,\ldots,n\}$ and $O_{i} \cap O_{j} = \emptyset$ for $i \neq j$.
+\end{proof}
+
+\section{Conjugation}
+
+The \eax{conjugation action} of $G$ on $\cP(G)$, the power set of $G$, is defined as $G \times \cP(G) \to \cP(G)$ given by $(g,S) \mapsto gSg^{-1} = \{gsg^{-1} \mid s \in S\}$. This is, indeed, an action since
+\begin{align}
+    (g_{1}g_{2}) \cdot S = (g_{1}g_{2})S(g_{1}g_{2})^{-1} = g_{1}(g_{2}Sg_{2}^{-1})g_{1}^{-1} = g_{1} \cdot (g_{2}Sg_{2}^{-1}) = g_{1} \cdot (g_{2} \cdot S) \text{ and } e_{G} \cdot S = S.
+\end{align}
+This action gives one an action on $G$ on itself as
+\begin{align}
+    G \times G \to G, \quad (g,x) \mapsto gxg^{-1}.
+\end{align}
+
+Orbits of this action are termed \eax{conjugacy classes}. For example, the conjugacy class of $e_{G}$ is $\{e_{G}\}$. In general, the conjugacy class of $x \in G$ is $\{x\}$ if and only if $x \in Z(G)$, that is, it commutes with every element.
+
+\begin{example}
+    In $S_{3}$, the conjugacy classes are as follows:
+    \begin{itemize}
+        \item The class of the identity: $\{e_{S_{3}}\}$.
+        \item The class of the transpositions: $\{(1\;2),(2\;3),(1\;3)\}$.
+        \item The class of the 3-cycles: $\{(1\;2\;3),(1\;3\;2)\}$.
+    \end{itemize}
+    Note that elements belonging to the same conjugacy class have the same order; this is always true for conjugacy classes of any group. A necessary, but not sufficient, condition for a subset to be a conjugacy class is that the cardinality of the subset must divide the order of the group by the orbit-stabilizer theorem.
+\end{example}
+
+\begin{proposition}
+    Two permutations $\sigma,\tau \in S_{n}$ belong to the same conjugacy class if their disjoint cycle decompositions are of the same type; that is, they have the same number of cycles and they have the same cycle lengths.
+\end{proposition}
+
+\begin{proof}
+    We may assume $\sigma = (1\;\cdots\;d_{1})(d_{1}+1\;\cdots\;d_{1}+d_{2})\cdots(d_{1}+\cdots+d_{r-1}+1\;\cdots\;n)$ and $\tau = (i_{1}\;\cdots\;i_{d_{1}})(i_{d_{1}+1}\;\cdots\;i_{d_{1}+d_{2}})\cdots(i_{d_{1}+\cdots+d_{r-1}+1}\;\cdots\;n)$, where $1 \leq i_{1},\ldots,i_{n}$ are distinct, and the cycle lengths in $\sigma$ are $d_{1},d_{2},\ldots,d_{r}$ such that $d_{1}+d_{2}+\cdots+d_{r} = n$. Moreover, we may assume that $d_{1} \leq d_{2} \leq \cdots \leq d_{r}$.
+
+    Let $g \in S$ such that $g(j) = i_{j}$ for all $1 \leq j \leq n$. Then
+    \begin{align}
+        g\sigma g^{-1}(i_{j}) = g(\sigma(j)) = \begin{cases}
+            g(j+1) &\text{ if } j \notin \{d_{1},d_{1}+d_{2},\ldots,d_{1}+\cdots+d_{r-1},n\},\\
+            g(d_{1}+\cdots+d_{l-1}+1) &\text{ if } j = d_{1}+\cdots+d_{l} \text{ for } l = 1,2,\ldots,r.
+        \end{cases}
+    \end{align}
+    The cases are essentially $i_{j+1}$ and $i_{d_{1}+\cdots+d_{l-1}+1}$. But this is $\tau(i_{j})$ for every $i_{j}$, showing $g\sigma g^{-1} = \tau$.
+\end{proof}
+
+Let $G$ be a finite group. Then
+\begin{align}
+    \abs{G} = \abs{Z(G)} + \sum_{\substack{[g] \text{ non-trivial}\\ \text{conjugacy classes}}} [G:C_{G}(g)].
+\end{align}
+This is known as the \eax{class-equation}.
+
+\begin{proof}
+    $G$ acts on $G$ via conjugacy. If $x \in Z(G)$, then the conjugacy class of $x$, $[x] = \{x\}$. If $x$ is not in the centre, then $[x]$ is non-trivial. Moreover, by the orbit-stabilizer theorem, $\abs{[x]} = [G:\Stab(x)]$. But $\Stab(x) = \{g \in G \mid gxg^{-1} = x\} = C_{G}(x)$, the centralizer of $x$ in $G$. Thus, $\abs{[x]} = [G:C_{G}(x)]$. The class equation follows by summing over all non-trivial conjugacy classes and adding the size of the centre.
+\end{proof}
+
+The above result seem very trivial and straightforward, but proves to be useful in various contexts.
+
+\begin{remark}
+        \item Let $H \sbg G$; the normalizer is then $N_{G}(H) = \{g \in G \mid gHg^{-1} = H\}$. If $G$ acts on $\cP(G)$ via conjugation, then $N_{G}(H) = \Stab(H)$ with respect to this action.
+\end{remark}
+
+Recall that $G$ acts on $G$ trivially via $(g,x) \mapsto gx$. This is then a transitive action; moreover, it is also a faithful action. This leads to a very important theorem in group theory.
+
+\begin{theorem}[\eax{Cayley's theorem}]
+    Every finite group is isomorphic to a subgroup of $S_{n}$ for some $n$.
+\end{theorem}
+
+\begin{proof}
+    The above $G$-action on itself is faithful; hence, the group homomorphism $\psi:G \to \Bij(G) \cong S_{\abs{G}}$ is injective, and $G \cong \Img \psi \cong H \sbg S_{\abs{G}}$.
+\end{proof}
+
+\begin{definition}
+    Let $p$ be a prime. A finite group $G$ is called a \eax{$p$-group} if $\abs{G} = p^{n}$ for some $n \geq 0$.
+\end{definition}
+Of course, for $n = 1$, $G$ is isomorphic to $\Z/p\Z$. For $\abs{G} = p^{2}$, $G$ is also abelian.
+\begin{proposition}
+    If $G$ is a $p$-group then $Z(G)$ is non-trivial.
+\end{proposition}
+\begin{proof}
+    This follows immediately from the class-equation since if $Z(G)$ is trivial, then $p$ divides $\abs{G}$ and the summation, but $p \nmid \abs{Z(G)} = 1$, contradicting the class-equation.
+\end{proof}
+Thus, $Z(G)$ contains at least $p$ elements for a $p$-group $G$. One can show that if $G/Z(G)$ is cyclic then $G$ is abelian.
