@@ -131,3 +131,155 @@ where $d_{0}(\eta) = d(c^{-1}(\eta))$ if $c$ is one-one. Moreover,
     \end{align}
     Therefore, we get $\frac{\partial}{\partial \eta} L(\eta \mid x) = T(x) - E_{\eta}[T(x)] = 0$ implying that $E_{\eta}[T(X)] = T(x)$. Now, $\frac{\partial^{2}}{\partial \eta^{2}} L(\eta \mid x) < 0$ so that $L$ is strictly concave. Then we get a unique maxima at $\hat{\eta}(x)$ for which $E_{\eta}[T(X)]_{\eta = \hat{\eta}(x)} = T(x)$.
 \end{proof}
+
+\noindent \textit{August 22nd.}
+
+The \eax{loss function} $L(q(\theta),T(X))$ measures the discrepancy between the true parameter $q(\theta)$ and the estimate $T(X)$. A common choice for $L$ is the squared error loss, defined as
+\begin{align}
+    L(q(\theta),T(X)) = (q(\theta) - T(X))^{2}.
+\end{align}
+One may also choose the absolute error loss, defined as
+\begin{align}
+    L(q(\theta),T(X)) = \abs{q(\theta) - T(X)}.
+\end{align}
+
+
+\begin{theorem}[The \eax{Rao-Blackwell theorem}]
+    Let $\underline{X}$ be a random vector with distribution $P_{\theta}$, $\theta \in \Theta$, and let $T$ be sufficient for $\theta$. Moreover, let $\delta(\underline{X})$ be an estimator of $\theta$ and $\delta^{\ast}(t) = E[\delta(X) \mid T = t]$. Also let $L(\theta,d)$ be a strictly convex loss function (in $d$) and $R(\theta,d) = E[L(\theta,d(\underline{X}))]$. Then if $R(\theta,\delta) = E[L(\theta,\delta(X))] < \infty$, we obtain $R(\theta,\delta^{\ast}) < R(\theta,\delta)$ for all $\theta$ unless $\delta(x) = \delta^{\ast}(T(x))$ with probability 1.
+\end{theorem}
+
+Another form is
+
+\begin{theorem}
+    If $T$ is an unbiased estimate of $\tau(\theta)$ and $S$ is a sufficient statistic, then $T' = E_{\theta}[T \mid S]$ is also unbiased for $\tau(\theta)$ and
+    \begin{align}
+        \Var_{\theta}(T') \leq \Var_{\theta}(T) \text{ for all } \theta.
+    \end{align}
+\end{theorem}
+
+\begin{proof}
+    We simply have $E_{\theta}[T'] = E_{\theta}[E[T \mid S]] = \tau(\theta) = E_{\theta}[T] = \tau(\theta)$, where we have used the property $E[E[X \mid Y]] = E[X]$. For the next part, we have
+    \begin{align}
+        \Var_{\theta}(T) &= E[T-E[T]]^{2} = E[T-\tau(\theta)]^{2} = E[T-T'+T'-\tau(\theta)]^{2} \notag \\ &= E[T-T']^{2} + E[T'-\tau(\theta)]^{2} + 2E[(T-T')(T'-\tau(\theta))].
+    \end{align}
+    The last term can be worked upon as
+    \begin{align}
+        E[(T-T')(T'-\tau(\theta))] = E[E[(T-T')(T'-\tau(\theta)) \mid S]] = E[(T-\tau(\theta))E[(T-T') \mid S]]
+    \end{align}
+    where we have used the fact that $E[AB \mid S] = AE[B \mid S]$ when $B$ is any random variable and $A$ is measurable with respect ot $S$. But note that the inner term, $E[(T-T') \mid S]$ expands as
+    \begin{align}
+        E[(T-T') \mid S] = E[T \mid S] - E[T' \mid S] = 0
+    \end{align}
+    giving us
+    \begin{align}
+        \Var_{\theta}(T) = E[T-T']^{2} + E[T'-\tau(\theta)]^{2} \geq E[T'-\tau(\theta)]^{2} = \Var_{\theta}(T').
+    \end{align}
+\end{proof}
+
+\begin{theorem}
+    Let $X$ have distribution $P_{\theta}$, $\theta \in \Theta$, and let $T = T(\underline{X})$ be complete and sufficient for $\theta$ (or $P_{\theta}$, $\theta \in \Theta)$. Then every function $h(T)$ is the unique unbiased estimator of its own expected value; that is, for any $h$, if $g(\theta) = E_{\theta}[h(T)]$ holds, then $h(T)$ is the only unbiased estimate available for $g(\theta)$.
+\end{theorem}
+
+\begin{proof}
+    $T$ is complete for $\theta$, so for any function $h$, $E[h(T(X))] = 0$ for all $\theta$ implies that $h \equiv 0$. Let $h_{1}(T)$ and $h_{2}(T)$ be unbiased, so that $E[h_{1}(T)] = \theta = E[h_{2}(T)]$. Set $h(t) = h_{1}(t) - h_{2}(t)$. Then $E[h(T)] = 0$ for all $\theta$, which implies that $h \equiv 0$, or $h_{1}(t) = h_{2}(t)$.
+\end{proof}
+
+\begin{theorem}[The \eax{Lehmann-Scheffe theorem}]
+    Suppose $T = T(\underline{X})$ is complete sufficient for $P_{\theta}$, $\theta \in \Theta$, and $S = S(\underline{X})$ is any unbiased estimate of $q(\theta)$. Then $S^{\ast} = E[S(\underline{X}) \mid T]$ is the unique minimum variance unbiased estimator (UMVUE) of $q(\theta)$ is $\Var_{\theta}(S^{\ast}(\underline{X})) < \infty$ for all $\theta$.
+\end{theorem}
+
+\begin{proof}
+    Both $S$ and $S^{\ast}$ are unbiased, and the mean squared error is the variance. By Rao-Blackwell theorem, $\Var_{\theta}(S^{\ast}) \leq \Var_{\theta}(S)$ for all $\theta$. Let $S_{1}$ and $S_{2}$ be two such that $g_{1}(T) = E[S_{1} \mid T]$ and $g_{2}(T) = E[S_{2} \mid T]$ with $E[g_{1}(T)] = \theta = E[g_{2}(T)]$. Then $E[h(T)] = E[g_{1}(T)-g_{2}(T)] = 0$ showing $h \equiv 0$.
+\end{proof}
+
+\begin{remark}
+    \begin{enumerate}
+        \item Give any $S(X)$ unbiased for $q(\theta)$, the UMVUE is found by obtaining $S^{\ast}(X) = E[S(X) \mid T(X)]$, where $T$ is a complete sufficient statistic for $\theta$.
+        \item If we already have $h(T)$ unbiased for $q(\theta)$ and $T$ complete sufficient, then $h(T)$ is the UMVUE for $q(\theta)$ since $S^{\ast} = E[h(T) \mid T] = h(T)$.
+    \end{enumerate}
+\end{remark}
+
+We work with some problems to familiarize.
+
+\begin{example}
+    Let $X_{1},\ldots,X_{n} \sim N(\mu,\sigma^{2})$ be independent and identically distributed random variables. Setting $s^{2} = \frac{1}{n-1} \sum_{i} (X_{i}-\overline{X})^{2}$, one can show that $s^{2}$ is unbiased for $\sigma^{2}$.
+\end{example}
+
+\begin{example}
+    For $X_{1},\ldots,X_{n} \sim N(\theta,\theta^{2})$, one can show that $(\sum X_{i}, \sum X_{i}^{2})$ is sufficient but not complete.
+\end{example}
+
+\begin{theorem}[\eax{Basu's theorem}]
+    Suppose $T$ is complete sufficient for $\{P_{\theta} \mid \theta \in \Theta\}$. Let $S$ be any ancillary statistic. Then $T$ and $S$ are indpendent for all $\theta$.
+\end{theorem}
+
+\begin{proof}
+    We have
+    \begin{align}
+        \int_{-\infty}^{\infty} [F_{S}(s) - F_{S \mid T = t}(s)]f_{T}(t) dt = 0 \text{ for all } \theta.
+    \end{align}
+\end{proof}
+
+\begin{theorem}
+    Let $\{P_{\theta} \mid \theta \in \Theta\}$ be a $k$-parameter exponential family with density
+    \begin{align}
+        f(\underline{x} \mid \theta) = \exp \left( \sum_{j=1}^{k} c_{j}(\theta) T_{j}(\underline{x}) + d(\theta) + S(\underline{x}) \right)\1_{A}(\underline{x}).
+    \end{align}
+    Suppose $\{\underline{c}(\theta) = (c_{1}(\theta),\ldots,c_{n}(\theta)) \mid \theta \in \Theta\}$ contains an open set $g(e)$ in $\R^{k}$. Then $\underline{T}(\underline{X}) = (T_{1},\ldots,T_{k})$ is complete sufficient.
+\end{theorem}
+
+
+\begin{theorem}
+    A (bounded) complete sufficient statistic is minimal sufficient, assuming that the minimal sufficient statistic exists.
+\end{theorem}
+
+\begin{proof}
+    Let $T$ be minimal sufficient and $U$ complete sufficient.Then $T = h(U)$ for some function $h$. We need to show that $T$ and $U$ are equivalent statistics (produce the same partition). It is enough t show that for all integrable $\varphi$, $E[\varphi(U) \mid T] = \varphi(U)$. Suppose $E[\varphi(U) \mid T] \neq \varphi(U)$ for some $\varphi$. Define $K(U) = \varphi(U) - E[\varphi(U) \mid h(U)]$. Then
+    \begin{align}
+        E[K(U)] = E[\varphi(U)] - E[E[\varphi(U) \mid h(U)]] = E[\varphi(U)] - E[\varphi(U)] = 0.
+    \end{align}
+    But $U$ is complete, so $K(U) \equiv 0$, or $\varphi(U) = E[\varphi(U) \mid h(U)]$ for all integrable $\varphi$. This shows that $T$ and $U$ are equivalent statistics.
+\end{proof}
+
+
+\section{Information Number}
+
+Let $\{P_{\theta}:\theta \in \Theta\}$ be a family of probability distributions satisfying the following mathematical regularity conditions.
+\begin{enumerate}
+    \item[(A)] $A = \{x : f(x) > 0\}$ does not depend on $\theta$.
+\end{enumerate}
+For all $x \in A$, $\theta \in \Theta$, the \eax{score function}
+\begin{align}
+    S(x) = \frac{\partial}{\partial \theta} \log f(x \mid \theta) = \frac{\frac{\partial}{\partial \theta} f(x \mid \theta)}{f(x \mid \theta)}
+\end{align}
+exists and is finite. $S(x)$ measures the relative rate at which $f(x \mid \theta)$ changes at $x$. Since $X$ is random, this needs averaging as
+\begin{align}
+    I(\theta) = E_{\theta}[S(X)^{2}] = \int \left( \frac{\partial}{\partial \theta} \log f(x \mid \theta) \right)^{2} f(x \mid \theta) dx.
+\end{align}
+$I(\theta)$ is called the \eax{Fisher information number} about $\theta$ contained in the observation $X$. It measures the amount of information that the observable random variable $X$ carries about the unknown parameter $\theta$.
+The second regularity condition is
+\begin{enumerate}
+    \item[(B)] The derivative, with respect to $\theta$, of $\int f(x \mid \theta) dx$ can be obtained by differentiating under the integral sign.
+\end{enumerate}
+
+\begin{theorem}
+    If both (A) and (B) hold then
+    \begin{enumerate}
+        \item $E_{\theta} [S(X)] = 0$,
+        \item $I(\theta) = \Var_{\theta}(S(X))$.
+    \end{enumerate}
+    In addition, if the second derivative (w.r.t.~$\theta$) of $\log f(x \mid \theta)$ for all $x$ and $\theta$, and the second derivative of $\int f(x \mid \theta) dx$ can be obtained by differentiating under the integral sign, then
+    \begin{enumerate}
+        \item[3.] $I(\theta) = -E_{\theta}[\frac{\partial^{2}}{\partial \theta^{2}} \log f(X \mid \theta)]$. 
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}
+    Let $X,Y$ be two independent random variables with densities $f_{1}(x \mid \theta)$ and $f_{2}(y \mid \theta)$ respectively. If $I(\theta)$, $I_{1}(\theta)$, $I_{2}(\theta)$ are the Fisher information numbers of $(X,Y)$, $X$, $Y$ respectively, then $I(\theta) = I_{1}(\theta) + I_{2}(\theta)$.
+\end{theorem}
+
+The above theory works for single parameters; for multiple parameters, the \eax{fisher information matrix} is defined as
+\begin{align}
+    I(\theta) = [I_{ij}(\theta)] \text{ where } I_{ij}(\theta) = E \left[ \frac{\partial}{\partial \theta_{i}} \log f(x \mid \theta) \cdot \frac{\partial}{\partial \theta_{j}} \log f(x \mid \theta) \right].
+\end{align}
+The matrix is symmetric.
