@@ -978,3 +978,118 @@ We clear up some notation. Here, $\alpha = (\alpha_{1},\ldots,\alpha_{n}) \in \N
     \end{align}
     for some $c \in (0,1)$. Expanding in terms of $f$ gives the desired result.
 \end{proof}
+
+\noindent \textit{August 22nd.}
+
+\begin{theorem}[The \eax{min-max theorem}]
+    Let $f \in C^{2}(O_{2})$ with $a \in O_{2}$, and suppose $Df(a) = 0$. Consider the Hessian matrix $H_{f}(a) = \begin{bmatrix}
+        f_{xx}(a) & f_{xy}(a) \\ f_{xy}(a) & f_{yy}(a)
+    \end{bmatrix}$. Then
+    \begin{enumerate}
+        \item $f(a)$ is a local maximum if $f_{xx}(a) < 0$ and $\det H_{f}(a) > 0$,
+        \item $f(a)$ is a local minimum if $f_{xx}(a) > 0$ and $\det H_{f}(a) > 0$,
+        \item $f(a)$ is a saddle point if $\det H_{f}(a) < 0$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    We show only for the first part; the rest follow a similar logic. Let $f_{xx}(a) > 0$ and $\det H_{f}(a) > 0$. Then $f_{xx}(x,y) > 0$ for all $(x,y)$ in a neighbourhood of $a$. Now, $\det H_{f}(x,y) = f_{xx}(x,y)f_{yy}(x,y)-f_{xy}(x,y)^{2}$ implies that $(x,y) \mapsto \det H_{f}(x,y)$ is a continuous function. Thus $H_{f}(a) > 0$ will force $H_{f}(x,y) > 0$ for all $(x,y)$ in a neighbourhood of $a$. Thus, for some $r > 0$, $f_{xx} > 0$ and $\det H_{f} > 0$ in $B_{r}(a)$. We conclude that $H_{f}$ is positive definite on $B_{r}(a)$. Thus, for all $a + h \in B_{r}(a)$, we use Taylor's polynomial to get
+    \begin{align}
+        f(a+h)-f(a) = \frac{1}{2}h^{t}H_{f}(a+ch)h > 0 \implies f(a+h) > f(a) \text{ for all } a+h \in B_{r}(a).
+    \end{align}
+    Thus, $f(a)$ is a local minimum.
+\end{proof}
+
+\begin{example}
+    We find the critical points and discuss the nature of the function $f(x,y) = x^{3}-6x^{2}-8y^{2}$. We have
+    \begin{align}
+        f_{x} = 3x^{2}-12x,\;f_{y}=-16y,\;f_{xx}=6x-12,\;f_{yy}=-16,\;f_{xy}=0.
+    \end{align}
+    Setting $f_{x} = 0 = f_{y}$ gives $x = 0,4$ and $y = 0$; the critical points are $(0,0)$ and $(4,0)$. Moreover, $H_{f}(x,y) = \begin{bmatrix}
+        6x-12 & 0 \\ 0 & -16
+    \end{bmatrix}$. At $(0,0)$, $\det H_{f}(0,0) > 0$ and $f_{xx}(0,0) < 0$, so $f(0,0)$ is a local maximum. At $(4,0)$, $\det H_{f}(4,0) < 0$, so $f(4,0)$ is a saddle point.
+\end{example}
+
+\section{Compact Sets}
+
+The theory of compact sets proves to be useful in various areas of analysis.
+
+\begin{definition}
+    A set $K \subseteq \R^{n}$ is termed a \eax{compact set} if every sequence from $K$ has a convergent subsequence whose limit lies in $K$.
+\end{definition}
+
+\begin{remark}
+    \begin{enumerate}
+        \item Compact sets are bounded sets; there exists an $M > 0$ such that $\norm{x} \leq M$ for all $x \in K$. If it were not bounded, then for every $m \in \N$, one could find $x_{m} \in K$ such that $\norm{x_{m}} > m$. The sequence $\{x_{m}\}$ does not have a convergent subsequence.
+        \item Compact sets are closed sets; let $K$ be compact and let $\{x_{m}\} \subseteq K$ converge to $x$. Since $K$ is compact, simply pick the subsequence $x_{m_{k}} = x_{m}$, which will force the limit point $x$ to lie in $K$ showing that $K$ is closed.
+    \end{enumerate}
+\end{remark}
+
+One then naturally asks whether every closed and bounded subset is compact.
+
+\begin{theorem}
+    The box $K \defeq \Pi_{i=1}^{n} [a_{i},b_{i}]$ is compact.
+\end{theorem}
+\begin{proof}
+    Pick $\{x_{m}\} \subseteq K$. Look at sequence of the $i^{\text{th}}$ projection of the $x_{m}$'s as $\{\Pi_{i}(x_{m})\} \subseteq [a_{i},b_{i}]$. By the one dimensional Bolzano-Weierstrass theorem, we can find a convergent subsequence such that $\Pi_{i}(x_{m_{l}}) \to \alpha_{i}$. Pick the intersection of all these convergent subsequences, the resulting subsequences will converge to $\alpha = (\alpha_{1},\ldots,\alpha_{n}) \in K$.
+\end{proof}
+
+\begin{theorem}
+    Let $K \subseteq \R^{n}$. Then $K$ is compact if and only if $K$ is closed and bounded.
+\end{theorem}
+\begin{proof}
+    We have already shown the forward direction. For the converse implication, since $K$ is bounded, there exists $M > 0$ such that $K \subseteq [-M,M]^{n}$. Pick any $\{x_{m}\} \subseteq K$. As $\{x_{m}\}$ is also a subset of the box $[-M,M]^{n}$, a compact set, there exists $x_{m_{t}}$ such that it converges to $x \in [-M,M]^{n}$. But $K$ is closed forcing $x \in K$. Thus, $K$ is compact.
+\end{proof}
+
+\begin{theorem}
+    The continuous image of a compact set is compact.
+\end{theorem}
+\begin{proof}
+    Let $f:O_{n} \to \R$ be continuous with $K \subseteq O_{n}$, a compact set. To show that $f(K)$ is compact, pick $\{y_{m}\} \subseteq f(K)$ which results in $y_{m} = f(x_{m})$ for some $x_{m} \in K$. $K$ is compact, so there exists a convergent subsequence $x_{m_{t}} \to x \in K$. By continuity of $f$, we have $f(x_{m_{t}}) \to f(x)$. Thus, $f(K)$ is compact.
+\end{proof}
+
+\begin{theorem}[The \eax{extreme value theorem}]
+    Let $f:K \to \R$, where $K$ is a compact set. Then, there exist $a,b \in K$ such that $f(a) \leq f(x) \leq f(b)$ for all $x \in K$.
+\end{theorem}
+\begin{proof}
+    Note that $f(K) \subseteq \R$ is compact. So pick $m \defeq \inf_{x \in K} f(x)$ and $M \defeq \sup_{x \in K} f(x)$. Since $f(K)$ is compact, there exist $a,b \in K$ such that $f(a) = m$ and $f(b) = M$. Thus, for all $x \in K$, we have $m \leq f(x) \leq M$.
+\end{proof}
+
+\begin{lemma}
+    Let $f:O_{n} \to \R^{n}$ be a $C^{1}$-function, with $O_{n}$ convex. Suppose $\sup_{x \in O_{n}} \abs{\frac{\partial f_{i}}{\partial x_{j}}(a)} \leq M$ for all $i,j = 1,2,\ldots,n$. Then
+    \begin{align}
+        \norm{f(a)-f(y)} \leq n^{2}M \norm{x-y} \text{ for all } x,y \in O_{n}.
+    \end{align}
+\end{lemma}
+\begin{proof}
+    Here, using the mean value theorem, we have
+    \begin{align}
+        \norm{f(x)-f(y)} \leq \sum_{i=1}^{n} \abs{f_{i}(x)-f_{i}(y)} = \sum_{i=1}^{n} \abs{\sum_{j=1}^{n}\frac{\partial f_{i}}{\partial x_{j}}(c_{i}) \cdot (x_{j}-y_{j})}
+    \end{align}
+    for $c_{i} \in L_{x,y}$. One then bounds as
+    \begin{align}
+        \norm{f(x)-f(y)} \leq M \cdot \sum_{i=1}^{n} \abs{\sum_{j=1}^{n}(x_{j}-y_{j})} \leq M \times \sum_{i=1}^{n} \sum_{j=1}^{n} \abs{x_{j}-y_{j}} = n^{2}M \norm{x-y}.
+    \end{align}
+\end{proof}
+
+\begin{theorem}[The \eax{inverse function theorem}]
+    Let $f:O_{n} \to \R^{n}$ be a $C^{1}$-function and $a \in O_{n}$. Suppose $f'(a)$ is invertible. Then there exist open set $V$ and $W$, with $a \in V$ and $f(a) \in W$, such that $f|_{V} : V \to W$ is a bijection and $(f|_{V})^{-1}$ is differentiable on $W$. Also, $(f^{-1}(y))' = [f'(f^{-1}(y))]^{-1}$ for all $y \in W$.
+\end{theorem}
+\begin{proof}
+    Without the loss of generality, assume $Df(a) = I$ (This can be done easily by setting $L\defeq (Df(a))^{-1}$ implying $L \circ f$ is differentiable and $(L \circ f)'(a) = L'(f(a))f'(a) = L L^{-1} = I$). Note that there exists a closed box $U$ with $a \in U$ such that $f(x) \neq f(a)$ for all $x \in U \setminus \{a\}$. As $x \mapsto \det J_{f}(x)$ is continuous, and $\det J_{f}(a) = 1 \neq 0$, we conclude $\det J_{f}(x) \neq 0$ for all $x \in U$. By continuity of $\frac{\partial f_{i}}{\partial x_{j}}$ at $a$,
+    \begin{align}
+        \abs{\frac{\partial f_{i}}{\partial x_{j}}(x) - \frac{\partial f_{i}}{\partial x_{j}}(a)} < \frac{1}{2n^{2}} \text{ for all } x \in U,\; i,j = 1,2,\ldots,n.
+    \end{align}
+    We make a bold claim:
+    \begin{align}
+        \norm{f(x)-f(y)} \geq \frac{1}{2} \norm{x-y} \text{ for all } x,y \in U.
+    \end{align}
+    To show this claim, set $g(x) = f(x) - x$ for all $x \in U$. $g$ is then a $C^{1}$-function and $g'(x) = f'(x)-I_{n}$ shows $\frac{\partial g_{i}}{\partial x_{j}}(a) = \frac{\partial f_{i}}{\partial x_{j}}(a) - \frac{\partial f_{i}}{\partial x_{j}}(a)$, or
+    \begin{align}
+        \abs{\frac{\partial g_{i}}{\partial x_{j}}(x)} < \frac{1}{2n^{2}} \text{ for all } x \in U,\; i,j = 1,2,\ldots,n.
+    \end{align}
+    By the previous lemma, $\norm{g(x)-g(y)} \leq \frac{1}{2} \norm{x-y}$. Therefore,
+    \begin{align}
+        \norm{x-y} -\norm{f(x)-f(y)} \leq \norm{(x-y)-(f(x)-f(y))} \leq \frac{1}{2}\norm{x-y} \implies \norm{f(x)-f(y)} \geq \frac{1}{2} \norm{x-y}.
+    \end{align}
+\end{proof}
