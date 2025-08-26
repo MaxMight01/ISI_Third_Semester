@@ -221,3 +221,60 @@ Of course, for $n = 1$, $G$ is isomorphic to $\Z/p\Z$. For $\abs{G} = p^{2}$, $G
     This follows immediately from the class-equation since if $Z(G)$ is trivial, then $p$ divides $\abs{G}$ and the summation, but $p \nmid \abs{Z(G)} = 1$, contradicting the class-equation.
 \end{proof}
 Thus, $Z(G)$ contains at least $p$ elements for a $p$-group $G$. One can show that if $G/Z(G)$ is cyclic then $G$ is abelian.
+
+\textit{August 26th.}
+
+\begin{proposition}
+    Let $G$ be a group and $N \nsbg G$. Then there is a natural bijection between subgroups of $G/N$ and subgroups of $G$ containing $N$.
+\end{proposition}
+\begin{proof}
+    Define a map $q:G \to G/N$. Let $H \sbg G$ such that $N \subseteq H$ and $q(H) \sbg G/N$; subgroups of $G$ containing $N$ are mapped to subgroups of $G/N$. Let the image be $\bar{H} \sbg G/N$. Then $q^{-1}(\bar{H}) = \{h \in G \mid q(h) \in \bar{H}\}$ is a subgroup of $G$ containing $q^{-1}(e_{G/N}) = N$. Let $g, g' \in q^{-1}(\bar{H})$, that is, $q(g), q(g') \in \bar{H}$. Then $q(gg') = q(g)q(g') \in \bar{H}$, so $gg' \in q^{-1}(\bar{H})$. Also, if $g \in q^{-1}(\bar{H})$, then $q(g) \in \bar{H}$ implies $q(g^{-1}) = q(g)^{-1} \in \bar{H}$, so $g^{-1} \in q^{-1}(\bar{H})$. Thus, $q^{-1}(\bar{H})$ is a subgroup of $G$ containing $N$. The maps $H \mapsto q(H)$ (denoted by $\phi$) and $\bar{H} \mapsto q^{-1}(\bar{H})$ (denoted by $\psi$) are inverses of each other. To show this, let $N \subseteq H \sbg G$. Then $\phi(H) = q(H)$, and $H \subseteq q^{-1}(q(H)) = \psi(q(H))$. 
+
+    Conversely, let $\bar{H} \sbg G/N$. Then $\psi(\bar{H}) = q^{-1}(\bar{H})$ is a subgroup of $G$ containing $N$. Applying $\phi$, we have $\phi(\psi(\bar{H})) = q(q^{-1}(\bar{H})) = \bar{H}$. Similarly, for $H \sbg G$ containing $N$, $\psi(\phi(H)) = q^{-1}(q(H)) = H$. Thus, $\phi$ and $\psi$ are inverses, establishing the bijection.
+\end{proof}
+
+\begin{theorem}[\eax{Cauchy's theorem}]
+    Let $p \mid \abs{G}$ for a prime $p$. Then there exists $x \in G$ such that $\abs{x}=p$.
+\end{theorem}
+\begin{proof}
+    We perform induction on $\abs{G}$. If $G$ is abelian, pick a non-identity $x \in G$. If $\abs{x}$ is $mp$ for some $m$, then $x^{m}$ has order $p$. If $\abs{x}$ is not a multiple of $p$, then $H = \ip{x} \nsbg G$ and $p \mid \abs{G/H}$. By induction hypothesis, there exists $yH \in G/H$ such that $\abs{yH} = p$. Thus, $(yH)^{p} = e_{G/H} = H$ or $y^{p}H = H$; $y^{p}$ must belong in $H$. This tells us that $y^{p} = x^{r}$ for some $r$, and $m = \abs{x^{r}}$ is coprime to $p$ as $(\abs{x},p) = 1$. Thus, $(y^{p})^{m} = e_{G}$. We claim that $p \mid \abs{y}$. If not, then $y^{r} = e$ for some $p \nmid r$ and $(yH)^{r} = H$. But $\abs{yH} = p$, a contradiction. Hence, $\abs{y} = pn$ for some $n$, and $\abs{y^{n}} = p$.
+
+    For the general case, let $Z(G) \nsbg G$ be the centre of $G$. If $\abs{(Z(G))} \neq 1$, then consider two cases; if $p \mid Z(G)$, then there exists $x \in Z(G) \subseteq G$ such that $\abs{x} = p$. If $p \nmid \abs{Z(G)}$, then $p \mid \abs{G/Z(G)}$ and there exists $yZ(G) \in G/Z(G)$ such that $\abs{yZ(G)} = p$ by induction hypothesis. The same argument as before works leading to the claim that $\abs{y}$ is a multiple of $p$ where $y$ is such that $q(y) = yZ(G)$, and that $\abs{y^{n}} = p$ for some $n$.
+
+    If $Z(G) = \{e\}$, the class equation gives $\abs{G} = \abs{Z(G)} + \sum_{[x]:[G:C_G(x)]\neq 1} [G:C_G(x)]$. SO there exists $x \in G$ such that $p \nmid [G:C_{G}(x)] > 1$ implying that $p \mid \abs{C_{G}(x)} < \abs{G}$ since $\abs{G} = \abs{C_{G}(x)}[G:C_{G}(x)]$. By induction hypothesis there exists $y \in C_{G}(x) \sbg G$ such that $\abs{y} = p$
+\end{proof}
+
+\section{Sylow's Theorems}
+
+\begin{definition}
+    Let $G$ be a finite group and $p$ be a prime. Let $\abs{G} = p^{n}m$ where $(m,p) = 1$ and $n \geq 0$. A subgroup $H \sbg G$ is called a \eax{$p$-Sylow subgroup} of $G$ if $\abs{H}=p^{n}$.
+\end{definition}
+
+In fact, such a subgroup always exists.
+
+\begin{theorem}[\eax{Sylow's first theorem}]
+    Let $G$ be a finite group and $p$ be a prime. Then $G$ has a $p$-Sylow subgroup.
+\end{theorem}
+
+\begin{proof}
+    We work similar to the proof of Cauchy's theorem; perform induction on $\abs{G}$. We may assume $n \geq 1$. If $p \nmid Z(G)$, the class equation tells us 
+    \begin{align}
+        \abs{G} = \abs{Z(G)} + \sum_{\substack{[x] \text{ non-trivial}\\ \text{conjugacy classes}}} [G:C_G(x)].
+    \end{align}
+    So there must exists $x \in G$ such that $p \nmid [G:C_G(x)] > 1$ implying that $\abs{C_{G}(x)} < \abs{G}$. Also, $\abs{C_{G}(x)} = p^{n}k$ for some $k$. By the induction hypothesis, there exists $P \sbg C_{G}(x)$ such that $\abs{P} = p^{n}$ and $P \sbg G$.
+
+    If $P \mid \abs{Z(G)}$, then there exists $H \sbg Z(G)$ such that $\abs{H} = p$. Then $H \nsbg G$ since $H \subseteq Z(G)$, giving us $\abs{G/H} = p^{n-1}m$. So by the induction hypothesis there exists subgroup $\overline{P} \sbg G/H$ such that $\abs{\overline{P}} = p^{n-1}$. Let $q:G \to G/H$ be the quotient map. Let $P = q^{-1}(\overline{P})$. then $\abs{P} = \abs{P/H}\abs{H} = p^{n-1} \cdot p = p^{n}$. Thus, $P \sbg G$ and $\abs{P} = p^{n}$.
+\end{proof}
+
+
+\begin{remark}
+    \begin{itemize}
+        \item Note that $S_{n}$ acts on $\{1,2,\ldots,n\}$ by permuting the elements. Any subgroup $H \sbg S_{n}$ is termed a \eax{transitive subgroup} if the action of $H$ on $\{1,2,\ldots,n\}$ is transitive. For example, $\ip{(1\;2\;3)} \sbg S_{3}$ is transitive. $H$ is termed a \eax{2-transitive subgroup} if given any $1 \leq i,j \leq n$ with $i \neq j$, there exists a permutation $h \in H$ such that $h(1) = i$ and $h(2) = j$. Since there does not exists $\sigma \in \ip{(1\;2\;3)}$ such that $\sigma(1) = 1$ and $\sigma(2) = 3$, the subgroup is not 2-transitive.
+
+        One can show that $H \sbg S_{n}$ is 2-transitive if and only if $\Stab_{H}(i)$ acts transitively on $\{1,2,\ldots,n\} \setminus \{i\}$ for all $i \in \{1,2,\ldots,n\}$.
+
+
+        \item Suppose $H$ acts on $A \defeq \{1,2,\ldots,n\}$. A subset $B \subseteq A$ is called a \eax{block} of for all $\sigma \in H$, we have either $\sigma(B) = B$ or $\sigma(B) \cap B = \emptyset$. Note that $\{i\}$ is a block for all $i \in A$. $A$ is also a block. $H$ is termed a \eax{primitive subgroup} if $\{i\}$ and $A$ are the only blocks. One can show that 2-transitive subgroups are primitive.
+    \end{itemize}
+
+\end{remark}
