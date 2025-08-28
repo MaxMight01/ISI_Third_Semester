@@ -189,3 +189,70 @@ A =
 0 & 1 & 1 & 0
 \end{bmatrix}
 $. For two graphs $G_{1}$ and $G_{2}$ to be isomorphic, one can show that $A(G_{1})$ must be similar to $A(G_{2})$. Moreover, to count the number of walks from $v$ to $w$ of length $k$, one can use the $k$-th power of the adjacency matrix: the entry $(i,j)$ of $A^{k}$ gives the number of walks of length $k$ from vertex $v_{i}$ to vertex $v_{j}$.
+
+\textit{August 28th.}
+\begin{theorem}
+    Let $G = (V,E)$ be a simple graph with $n$ vertices $V = \{1,2,\ldots,n\}$ and adjacency matrix $A$. Then the $(i,j)^{\text{th}}$ entry of $A^{k}$ gives the number of walks of length $k$ from vertex $i$ to vertex $j$.
+\end{theorem}
+
+\begin{proof}
+    $k = 1$ is trivial, as a walk of length $1$ is just showing there exists an edge between the two vertices. Let $k = 2$. Then the $(i,j)^{\text{th}}$ entry of $A^{2}$ is given as
+    \begin{align}
+        (A^{2})_{i,j} = \sum_{m=1}^{n} a_{im} a_{mj}
+    \end{align}
+    where $a_{ij}$ is 1 if $i$ and $j$ are neighbours and zero otherwise. Thus, $a_{im}a_{mj}$ represents if vertex $m$ is an immediate intermediate vertex between $i$ and $j$. Thus, the number of walks of length 2 from $i$ to $j$ is equal to the number of such intermediate vertices $m$.
+
+    Assume the result holds for an arbitrary $k$; that is, $(A^{k})_{i,j}$ gives the number of walks from $i$ and $j$ of length $k$. Then, for $k+1$, we have
+    \begin{align}
+        (A^{k+1})_{i,j} = \sum_{m=1}^{n} (A^{k})_{i,m} a_{mj}.
+    \end{align}
+    Any walk from $i$ to $j$ must have a neighbour of $j$ at the $k^{\text{th}}$ step. By the induction hypothesis, $(A^{k})_{i,m}$ represents the number of walks from $i$ to $m$ of length $k$. Thus, the total number of walks from $i$ to $j$ of length $k+1$ is the sum over all possible intermediate vertices $m$.
+\end{proof}
+
+\begin{theorem}
+    Let $\lambda_{1},\ldots,\lambda_{n}$ be the eigenvalues of $A(G)$ where $G = (V,E)$ is a simple graph. Then the number of closed walks of length $k$ is given by $\sum_{i=1}^{n} \lambda_{i}^{k}$.
+\end{theorem}
+\begin{proof}
+    The number of such closed walks of length $k$ is, clearly, $\tr A^{k}$. The eigenvalues of $A^{k}$ are $\lambda_{1}^{k},\ldots,\lambda_{n}^{k}$, and the trace is the sum of all eigenvalues; the result immediately follows.
+\end{proof}
+
+\begin{remark}
+    \begin{itemize}
+        \item For $k = 2$, $\frac{1}{2}\tr A^{2}$ provides the number of edges in the graph.
+        \item For $k = 3$, $\frac{1}{6}\tr A^{3}$ provides the number of triangles in the graph.
+    \end{itemize}
+\end{remark}
+
+\begin{example}
+    $G$ is connected if and only if the largest eigenvalue of $A$ has multiplicity 1. This is known as the \eax{Perron-Frobenius theorem} will be taken as granted for now, without providing a proof.
+\end{example}
+
+\begin{proposition}
+    For any eigenvalue $\lambda$ of $G = (V,E)$, it holds that $\abs{\lambda} \leq \max_{v \in G} \deg(v)$.
+\end{proposition}
+\begin{proof}
+    Pick a corresponding eigenvector $x \neq 0$ with $Ax = \lambda x$, where $A$ is the adjacency matrix. Pick $x_{j} = \norm{x}_{\infty} = \max_{i} \abs{x_{i}}$. Then we have
+    \begin{align}
+        \abs{\lambda}\abs{x_{j}} = \abs{\lambda x_{j}} = \abs{\sum_{i=1}^{n} A_{ji} x_{i}} \leq \sum_{i=1}^{n} A_{ji} \abs{x_{i}} \leq \abs{x_{j}} \sum_{i=1}^{n} A_{ji} = \abs{x_{j}} \deg (j) \implies \abs{\lambda} \leq \deg (j) \leq \max_{v \in G} \deg(v).
+    \end{align}
+\end{proof}
+
+\begin{proposition}
+    Let spectrum of $G = \{\lambda_{1},\ldots,\lambda_{n}\}$ be the list of eigenvalues where $\lambda_{1} \leq \lambda_{2} \leq \cdots \leq \lambda_{n}$. Then
+    \begin{align}
+        \frac{1}{n}\sum_{v \in G} \deg(v) \leq \lambda_{n} \leq \max_{v \in G} \deg(v).
+    \end{align}
+\end{proposition}
+
+\begin{proof}
+    Let $e = (1\;1\;\cdots\;1)^{t}$, and let $d = Ae = (\deg(v_{1})\;\deg(v_{2})\;\cdots\;\deg(v_{n}))^{t}$. Then $e^{t}Ae = ed = \sum_{v \in G} \deg(v)$. Then $\sup_{\norm{x}=1}\ip{x,Ax} = \lambda_{\max}(A) \geq \frac{e^{t}}{\sqrt{n}} A \frac{e}{\sqrt{n}} = \frac{1}{n}\sum_{v \in G} \deg(v)$. The second inequality is just the one above.
+\end{proof}
+
+\begin{theorem}
+    A finite multigraph $G$ is Eulerian if and only if $G$ is connected and every vertex has an even degree.
+\end{theorem}
+\begin{proof}
+    If $G$ is Eulerian, then it is connected and every vertex has an even degree by definition. Conversely, suppose $G$ is connected and every vertex has an even degree. Take `a' longest trail, one where edges are not repeated, starting at $x \in V(G)$. We claim that this trail is actually closed. Let, if possible, the endpoint be $y \neq x$. There must have been an ``entering'' edge followed by an ``exiting'' edge. In the last step, one has entered $y$ but never exited it. So, an odd number of edges incident with $y$ appear in this trail. As $\deg(y)$ is even, there must be an unused edge incident with $y$. If we append that edge to the trail, we have a longer trail, contradicting our assumption.
+
+    We make another claim that this trail exhausts all edges. To show this, start by deleting all edges appearing in this trail. Assume that the graph so-obtained has at least one edge. In the trail, $T$, if a vertex $y$ appears all its incident edges must also appear. Let $z$ be a vertex not appearing on $T$. Then none of the vertices in $T$ are neighbours of $z$, showing $G$ not connected which is a contradiction.
+\end{proof}
