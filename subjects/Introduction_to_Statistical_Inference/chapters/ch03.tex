@@ -1,0 +1,15 @@
+\chapter{ORDER STATISTICS}
+
+Suppose $X_{1},\ldots,X_{n} \sim F(x)$ are independent and identically distributed. Then the data points are arranged in increasing order and labelled $X_{(1)} \leq X_{(2)} \leq \cdots \leq X_{(n)}$. The distribution of the smallest order statistic $X_{(1)}$ is given by
+\begin{align}
+    F_{(1)}(x) = P(X_{(1)} \leq x) = 1 - P(X_{(1)} > x) = 1 - P(X_{1} > x)^{n} = 1 - (1 - F(x))^{n}.
+\end{align}
+Similarly, the distribution of the largest order statistic $X_{(n)}$ is given by
+\begin{align}
+    F_{(n)}(x) = P(X_{(n)} \leq x) = P(X_{1} \leq x)^{n} = (F(x))^{n}.
+\end{align}
+The joint distribution of $X_{(1)}$ and $X_{(n)}$ may also be obtained. Here,
+\begin{align}
+    P(X_{(n)} \leq y) &= P(X_{(1)} \leq x,\;X_{(n)} \leq y) + P(X_{(1)} > x,\;X_{(n)} \leq y) \notag \\
+    \implies F_{X_{(1)},X_{(n)}}(x,y) = P(X_{(1)}\leq x,\;X_{(n)} \leq y) &= (F(y))^{n} - (F(y)-F(x))^{n}.
+\end{align}

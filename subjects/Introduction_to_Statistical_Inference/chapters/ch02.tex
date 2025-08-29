@@ -283,3 +283,58 @@ The above theory works for single parameters; for multiple parameters, the \eax{
     I(\theta) = [I_{ij}(\theta)] \text{ where } I_{ij}(\theta) = E \left[ \frac{\partial}{\partial \theta_{i}} \log f(x \mid \theta) \cdot \frac{\partial}{\partial \theta_{j}} \log f(x \mid \theta) \right].
 \end{align}
 The matrix is symmetric.
+
+\textit{August 29th.}
+
+\begin{theorem}
+    Let $X$ have one parameter exponential family density
+    \begin{align}
+        f(x \mid \theta) = \exp(c(\theta)T(x) + d(\theta) + s(x))\1_{A}(x).
+    \end{align}
+    Consider the mean value parametrization $\delta(\theta) = E_{\theta}[T(X)]$. Then $I(\delta) = \frac{1}{\Var T}$.
+\end{theorem}
+\begin{proof}
+    The natural parametrization $\eta = c(\theta)$ gives
+    \begin{align}
+        f^{\ast}(x \mid \eta) = \exp(\eta T(x) + d_{0}(\theta)+s(x))\1_{A}(x).
+    \end{align}
+    Log gives us
+    \begin{align}
+        \log f^{\ast}(x \mid \eta) = \eta T(x) + d_{0}(\theta)+s(x) \implies \frac{\partial}{\partial \eta} \log f^{\ast}(x \mid \eta) = T(x)+d_{0}'(\eta) = T(x)-E_{\eta}(T).
+    \end{align}
+    Here $E_{\eta}(T) = -d_{0}'(\eta)$ and $\Var_{\eta}(T) = -d_{0}''(\eta)$. Therefore, we have
+    \begin{align}
+        I^{\ast}(\eta) = E_{\eta} [\frac{\partial}{\partial \eta} \log f^{\ast}(X \mid \eta)] = E_{\eta}[T(X)-E_{\eta}(T)] = \Var_{\eta}(T).
+    \end{align}
+    Here $\delta(\theta) = E_{\theta}[T] = -d_{0}'(\eta) = h(\eta)$.
+    \begin{align}
+        \frac{d \eta}{d \delta} = \left( \frac{d \delta}{d \eta} \right)^{-1} = (-d_{0}''(\eta))^{-1} = \frac{1}{\Var_{\eta}(T)} \implies I(\delta) = I^{\ast}(\eta) \left( \frac{d \eta}{d \delta} \right)^{2}\big|_{\eta = h^{-1}(\delta)} = \frac{1}{\Var_{\eta}(T)}.
+    \end{align}
+\end{proof}
+
+\subsection{Information Inequality}
+Suppose the conditions (A) and (B) (above) hold, and $0 < I(\theta) < \infty$. Let $T(X)$ be any statistic with $\Var T < \infty$ and such that the derivative, with respect to $\theta$, of
+\begin{align}
+    E_{\theta}(T) = \int T(x)f(x \mid \theta) dx
+\end{align}
+exists and can be obtained by differentiating under the integral sign. Then
+\begin{align}
+    \Var_{\theta}(T(X)) \geq \frac{\frac{d}{d\theta}[E_{\theta}[T]]^{2}}{I(\theta)}.
+\end{align}
+This is known as the \eax{Cram\'er-Rao lower bound}. To see this inequality, note that
+\begin{align}
+    \frac{d}{d \theta} E_{\theta}[T] = \int T(x) \frac{d}{d\theta}f(x \mid \theta) dx = \int T(x) S(x) f(x \mid \theta) dx = E_{\theta}[T(X)S(X)].
+\end{align}
+$E[S(X)] = 0$, so the covariance $\Cov(T(X),S(X)) = E[T(X)S(X)] -E[T(X)]E[S(X)] = E[T(X)S(X)] \leq \sqrt{\Var(T(X)) \Var(S(X))}$. $\Var(S(X))$ is nothing but $I(\theta)$. The inequality follows.\\
+
+For the class of all unbiased estimators of $\theta$ we have
+\begin{align}
+    \Var_{\theta}(T(X)) \geq \frac{\frac{d}{d\theta}[E_{\theta}[T]]^{2}}{I(\theta)} = \frac{1}{I(\theta)}.
+\end{align}
+This lower bound is independent of any particular $T$. If there exists an unbiased estimator that attains this lower bound, then that estimator has to be the UMVUE.
+
+\begin{remark}
+    Let $X_{1},\ldots,X_{n}$ be i.i.d.~from a location parameter family with probability distribution function $f_{X}(x \mid \theta) = f(x-\theta)$ with $\theta \in \R$. Then $R = X_{(n)}-X_{(1)}$ is ancillary.
+
+    If they come from a scale parameter family with pdf $f_{X}(x \mid \theta) = \frac{1}{\theta}f\left(\frac{x}{\theta}\right)$, then $R = X_{(n)}-X_{(1)}$ is also ancillary.
+\end{remark}
