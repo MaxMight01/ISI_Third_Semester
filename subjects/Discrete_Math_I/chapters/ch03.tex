@@ -256,3 +256,57 @@ $. For two graphs $G_{1}$ and $G_{2}$ to be isomorphic, one can show that $A(G_{
 
     We make another claim that this trail exhausts all edges. To show this, start by deleting all edges appearing in this trail. Assume that the graph so-obtained has at least one edge. In the trail, $T$, if a vertex $y$ appears all its incident edges must also appear. Let $z$ be a vertex not appearing on $T$. Then none of the vertices in $T$ are neighbours of $z$, showing $G$ not connected which is a contradiction.
 \end{proof}
+
+
+\subsubsection{Hamiltonian Graphs}
+\textit{August 29th.}
+
+\begin{definition}
+    A cycle in $G = (V,E)$ is said to be a \eax{Hamiltonian cycle} if the vertices in the cycle are all distinct, except the starting and ending vertices, and all vertices are exhausted. A simple graph with a Hamiltonian cycle is termed a \eax{Hamiltonian graph}.
+\end{definition}
+
+\begin{example}
+    \begin{itemize}
+        \item Trivially, all polygons with $n$ vertices $C_{n}$ are Hamiltonian graphs.
+        \item The complete graph $K_{n}$ is Hamiltonian for all $n \geq 3$.
+    \end{itemize}
+\end{example}
+
+If $G = (V,E)$ is a graph, then a \eax{subgraph} $H = (V(H),E(H))$ is such that $V(H) \subseteq V(G)$ and $E(H) \subseteq V(H)$ where $E(H)$ are edges connecting vertices in $V(H)$. A \eax{spanning subgraph} is such that $V(H) = V(G)$. We note that $G$ is Hamiltonian if and only if $C_{n}$ is a spanning subgraph of $G$.
+
+Our goal now is to find a characterizing condition for Hamiltonian graphs (similar to the characterization of Eulerian graphs), and if a graph is Hamiltonian, then finding the (a) Hamiltonian cycle. The proof of providing a characterization is out of the scope of this course, while the latter problem is NP-hard and not always computationally tactible.
+
+
+\begin{definition}
+    The \eax{Hamiltonian closure of a graph} $G$, denoted by $\cl(G)$, is the graph obtained by repeatedly adding an edge between non-adjacent vertices $u,v$ such that $\deg(u)+\deg(v) \geq n = \#V(G)$.
+\end{definition}
+
+\begin{proposition}
+    With $\#V(G) = n \geq 3$, let $G$ be a simple graph. If $\deg(v) \geq \frac{n}{2}$ for all $v \in V(G)$, then $G$ is Hamiltonian.
+\end{proposition}
+
+\begin{lemma}
+    A graph $G$ is Hamiltonian if and only if $\cl(G)$ is Hamiltonian.
+\end{lemma}
+\begin{proof}
+    If $G$ is Hamiltonian, then clearly $\cl(G)$ is Hamiltonian since adding edges cannot remove Hamiltonian cycles. Conversely, suppose $\cl(G)$ is Hamiltonian. Assume the contrary that there exists $G$ with $\#V(G) = n$ and $u$ an $v$ are \textit{not} neighbours in $G$ with $\deg(u)+\deg(v) \geq n$, but $G$ is not Hamiltonian. $G+uv$ is Hamiltonian, however. Suppose the intermiedate graphs obtained to get the closure are given as
+    \begin{align}
+        G = G_{0} \subseteq G_{1} \subseteq G_{2} \subseteq \cdots \subseteq G_{t} = \cl(G)
+    \end{align}
+    where $\cl(G)$ is Hamiltonian. Then every Hamiltonian cycle in $G+uv$ must contain the edge $uv$. Let this Hamiltonian cycle be $(v,v_{1},\ldots,v_{n-1},v_{n} = u,v_{n+1}=v)$. Let $P = \{v_{i} \mid 2 \leq i \leq 2 \text{ and } v_{1}v_{i} \in E(G)\}$ and $Q = \{v_{i} \mid 2 \leq i \leq n \text{ and } v_{i-1}v_{n} \in E(G)\}$ ($P$ and $Q$ are defined with respect to $G$ and \textit{not} $G+uv$). Then $\#P = \deg(v)$, $\#Q = \deg(v_{n})$, and $\#P+\#Q = \deg(u) + \deg(v) \geq n$. Moreover, $P \cup Q \subseteq \{v_{2},\ldots,v_{n}\}$. $P \cap Q$ is non-empty since
+    \begin{align}
+        \#(P \cup Q) = \#P + \#Q - \#(P \cap Q) \geq n-\#(P \cap Q) \implies \#(P \cap Q) \geq n-\#(P \cup Q) \geq 1.
+    \end{align}
+    Thus, there exists some $v_{i} \in P \cap Q$ with $2 \leq i \leq n$, that is, $v_{1}v_{i} \in E(G)$ and $v_{i-1}v_{n} \in E(G)$. Then the cycle $(v=v_{1},v_{i},v_{i+1},\ldots,v_{n}=u,v_{i-1},v_{i-2},\ldots,v_{2},v_{1})$ is a Hamiltonian cycle not using the added edge $uv$---a contradiction.
+\end{proof}
+
+\section{Bipartite Graphs}
+
+A simple graph $G = (V,E)$ is said to be bipartite if there exists a partition of $V(G)$ as $V = V_{1} \sqcup V_{2}$ such that no pairs of vertices in $V_{1}$ are edges, and no pairs of vertices in $V_{2}$ are edges; that is, there exist $V_{1},V_{2} \subseteq V$ such that
+\begin{align}
+    V_{1} \cap V_{2} = \emptyset,\; V_{1} \sqcup V_{2} = V,\; E \subseteq V_{1} \times V_{2}.
+\end{align}
+
+\begin{theorem}[\eax{Kőnig's theorem}]
+    A graph $G$ is bipartite if and only if it has no odd cycles.
+\end{theorem}
