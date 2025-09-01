@@ -187,3 +187,99 @@ We choose the $m$ multipliers $\lambda_{j}$'s such that the first $m$ coefficien
 \begin{example}
     For a ball of radius $R$ rolling without slipping, the distance $x$ travelled across the slope is given as $R\dot{\theta} = \dot{x}$. Thus, this constraint is $R\dot{\theta} - \dot{x}$.
 \end{example}
+
+\section{Potential Dependent on Generalized Velocity}
+\textit{September 1st.}
+
+Essentially, a redefinition of the (generalized) momentum. Let us take the example of a point mass with charge moving in an electromagnetic filed. The force experienced by this particle is given by
+\begin{align}
+    \vec{F} = m\vec{a} = q(\vec{E} + \vec{v} \times \vec{B})
+\end{align}
+where $q$ is the charge on the particle, and $\vec{E}$ and $\vec{B}$ are the electric field and magnetic field respectively. Moreover, $\vec{E} \equiv \vec{E}(\vec{r},t)$ and $\vec{B} \equiv \vec{B}(\vec{r},t)$. One actually rewrites the magnetic field as
+\begin{align}
+    \vec{B}(\vec{r},t) = \vec{\nabla} \times \vec{A}(\vec{r},t)
+\end{align}
+where $\vec{A}(\vec{r},t)$ is termed the \eax{vector potential}. The magnetic field satisfies the constraint of $\vec{\nabla} \cdot \vec{B} = 0$ (In general, one can show that the curl of a divergence vector is always zero). When $\vec{\nabla} \times \vec{E} = 0$ is valid, the the vector field $\vec{E}$ can be written as $-\vec{\nabla} \varphi$. Also, for any vector field $\vec{B}$, if $\vec{\nabla} \times \vec{v}(\vec{r},t) = 0$, then the velocity can always be written as $\vec{v}(\vec{r},t) = \vec{\nabla}f(\vec{r},t)$. If the above is not valid, we instead have Faraday's law as $\vec{\nabla} \times \vec{E} = -\frac{\partial \vec{B}}{\partial t}$. In particular, it can be written as
+\begin{align}
+    \vec{E}(\vec{r},t) = -\vec{\nabla} \varphi(\vec{r},t) - \frac{\partial \vec{A}(\vec{r},t)}{\partial t}.
+\end{align}
+In this case, the velocity-dependent potential is
+\begin{align}
+    U = q \phi(\vec{r},t) - q\vec{A}(\vec{r},t) \cdot \vec{v}
+\end{align}
+which, in turn, gives the Lagrangian (in cartesian coordinates)
+\begin{align}
+    L = T - U = \frac{1}{2} m(\dot{x}^{2}+\dot{y}^{2}+\dot{z}^{2})-q\phi(\vec{r},t) + q\vec{A}(\vec{r},t) \cdot \vec{v}.
+\end{align}
+Here in our formal notation, $q_{1} = x$, $q_{2} = y$, $q_{3} = z$, and the corresponding time derivatives. Thus our equation of motion, for $q_{i} = q_{1} = x$, is
+\begin{align}
+    \frac{d}{dt} \left( \frac{\partial L}{\partial \dot{q}_{i}} \right) - \frac{\partial L}{\partial q_{i}} = 0.
+\end{align}
+Here,
+\begin{align}
+    \frac{\partial L}{\partial \dot{x}} = m\dot{x} + qA_{x} \implies \frac{d}{dt} \left( \frac{\partial L}{\partial \dot{x}} \right) = m\ddot{x} + q \frac{\partial A_{x}}{\partial t} + q \left( \frac{\partial A_{x}}{\partial x} \dot{x} + \frac{\partial A_{x}}{\partial y} \dot{y} + \frac{\partial A_{x}}{\partial z} \dot{z} \right).
+\end{align}
+One can define $\vec{\nabla}A_{x} = \frac{\partial A_{x}}{\partial x} \hat{e}_{x} + \frac{\partial A_{x}}{\partial y} \hat{e}_{y} + \frac{\partial A_{x}}{\partial z} \hat{e}_{z}$, and $\vec{v} = \dot{x}\hat{e}_{x} + \dot{y}\hat{e}_{y} + \dot{z}\hat{e}_{z}$, giving us
+\begin{align}
+    \frac{d}{dt} \left( \frac{\partial L}{\partial \dot{x}} \right) = m\ddot{x} + q \frac{\partial A_{x}}{\partial t} + q (\vec{v} \cdot \vec{\nabla}A_{x}).
+\end{align}
+For the second term in the Lagragian, we have
+\begin{align}
+    \frac{\partial L}{\partial x} = -q\frac{\partial \phi}{\partial x} + q \left( v_{x} \frac{\partial A_{x}}{\partial x} + v_{y} \frac{\partial A_{y}}{\partial y} + v_{z} \frac{\partial A_{z}}{\partial z} \right).
+\end{align}
+Plugging them into the Lagrangian equation of motion, and using the fact that $\vec{E} = -\vec{\nabla} \phi - \frac{\partial \vec{A}}{\partial t} \implies E_{x} = -\frac{\partial \phi}{\partial x} - \frac{\partial A_{x}}{\partial t}$, we get
+\begin{align}
+    m\ddot{x} + q\frac{\partial A_{x}}{\partial t} + q\frac{\partial \phi}{\partial x} + q \left( v_{x}\frac{\partial A_{x}}{\partial x} + v_{y}\frac{\partial A_{x}}{\partial y} + v_{z}\frac{\partial A_{x}}{\partial z} \right) - q \left( v_{x} \frac{\partial A_{x}}{\partial x} + v_{y} \frac{\partial A_{y}}{\partial x} + v_{z} \frac{\partial A_{z}}{\partial x} \right) = 0 \\
+    \implies m\ddot{x} + q(-E_{x}) + q \left( v_{y} \left( \frac{\partial A_{x}}{\partial y} - \frac{\partial A_{y}}{\partial x} \right) + v_{z} \left( \frac{\partial A_{x}}{\partial z} - \frac{\partial A_{z}}{\partial x} \right) \right) = 0
+\end{align}
+Similarly, one can show that $B_{z} = (\vec{\nabla} \times \vec{A})_{z} = \partial_{x}A_{y} - \partial_{y}A_{x}$ and $B_{y} = (\vec{\nabla} \times \vec{A})_{y} = \partial_{z}A_{x} - \partial_{x}A_{z}$. Thus, the above transforms as
+\begin{align}
+    m\ddot{x} -q E_{x} + q (v_{y}(-B_{z}) + v_{z}B_{y}) = 0.
+\end{align}
+Using the cross product for the final term, we get
+\begin{align}
+    m\ddot{x} = \left( q\vec{E} + q(\vec{v} \times \vec{B}) \right)_{x}
+\end{align}
+This is the exact force required to describe the motion of a charged particle in an electromagnetic field.\\
+
+\section{Cyclic Coordinates and Conservation Laws}
+Recall the energies and how we write it:
+\begin{align}
+    T = \sum_{i=1}^{N} \frac{1}{2}m_{i}(\dot{x}_{i}^{2}+\dot{y}_{i}^{2}+\dot{z}_{i}^{2}),\quad U = U(\{x_{i},y_{i},z_{i}\}).
+\end{align}
+Here,
+\begin{align}
+    \frac{\partial L}{\partial \dot{x}_{i}} = m_{i}\dot{x}_{i} = p_{x,i},\quad \frac{\partial L}{\partial \dot{y}_{j}} = p_{y,j}.
+\end{align}
+In terms of the generalized coordinates, $L = L(\{q_{1},\ldots,q_{n},\dot{q}_{1},\ldots,\dot{q}_{n},t\})$, and $p_{i} = \frac{\partial L}{\partial \dot{q}_{i}}$. For $L$ independent of some $q_{i}$, we have $\frac{\partial L}{\partial q_{i}} = 0$. This $q_{i}$ is termed a \eax{cyclic coordinates}, and the equation of motion gives
+\begin{align}
+    \frac{d}{dt} \left( \frac{\partial L}{\partial \dot{q}_{i}} \right) = 0 \implies \frac{dp_{i}}{dt} = 0.
+\end{align}
+For a rigid body, let $q_{j}$ be the coordinate(s) of its center of mass. Then, the Lagrangian equation of motion (where $V \equiv V(\{q_{j}\}))$ is
+\begin{align}
+    \frac{d}{dt}\left( \frac{\partial T}{\partial \dot{q}_{j}} \right) + \frac{\partial V}{\partial q_{j}} = 0 \implies \frac{dp_{j}}{dt} = -\frac{\partial V}{\partial q_{j}} = Q_{j}.
+\end{align}
+In $Q_{j} = \sum_{i=1}^{N} \vec{F}_{i} \cdot \frac{\partial \vec{r}_{i}}{\partial q_{j}}$, one has
+\begin{align}
+    \frac{\partial \vec{r}_{i}}{\partial q_{j}} = \lim_{dq_{j} \to 0} \frac{\vec{r}_{i}(q_{j}+dq_{j})-\vec{r}_{i}(q_{j})}{dq_{j}} = \lim_{dq_{j} \to 0} \frac{dq_{j} \hat{e}_{n}}{dq_{j}} = \hat{e}_{n}.
+\end{align}
+Thus, $Q_{j} = \sum_{i=1}^{N} \vec{F}_{i} \cdot \hat{e}_{n} = \vec{F}_{\text{sys}} \cdot \hat{e}_{n}$. Using $T = \sum_{i=1}^{N} \frac{1}{2} m_{i} v_{i}^{2}$, we get
+\begin{align}
+    p_{j} = \frac{\partial T}{\partial \dot{q}_{j}} = \sum_{i=1}^{N} m_{r} \dot{\vec{r}}_{i} \cdot \hat{e}_{n} \implies \frac{dp_{j}}{dt} = \frac{d}{dt} \left( \sum_{i=1}^{n} m_{i} \vec{v}_{i} \cdot \hat{e}_{n} \right) = Q_{j} = \vec{F}_{\text{sys}} \cdot \hat{e}_{n}.
+\end{align}
+Thus the Newton's law statement has been translated into the generalized coordinates statement. Now suppose $q_{j}$ is cyclic and $dq_{j}$ is rotation about an axis. Here, we again take $\frac{\partial T}{\partial q_{j}} = 0$ and $\frac{\partial V}{\partial q_{j}} = 0$. Thus, the equation of motion gives
+\begin{align}
+    \dot{p}_{j} = \frac{d}{dt} \left( \frac{\partial L}{\partial \dot{q}_{j}} \right) = \frac{d}{dt} \left( \frac{\partial T}{\partial \dot{q}_{j}} \right) = \frac{\partial L}{\partial q_{j}} = -\frac{\partial V}{\partial q_{j}} = Q_{j}.
+\end{align}
+Working as above, $Q_{j} = \sum_{i=1}^{N} \vec{F}_{i} \cdot \frac{\partial \vec{r}_{i}}{\partial q_{j}}$, and
+\begin{align}
+    \frac{\partial \vec{r}_{i}}{\partial q_{j}} = \lim_{dq_{j} \to 0} \frac{\vec{r}_{i} (q_{j} + dq_{j}) - \vec{r}_{i}(q_{j})}{dq_{j}} = \lim_{dq_{j} \to 0} \frac{dq_{j} \hat{e}_{n}}{dq_{j}} = \hat{e}_{n}.
+\end{align}
+To proceed, one has
+\begin{align}
+    \abs{\partial \vec{r}_{i}} = \abs{\vec{r}_{i}} \sin \theta dq_{j} \implies \abs{\frac{\partial \vec{r}_{i}}{\partial q_{j}}} = \abs{\vec{r}_{i}} \abs{\hat{e}_{n}} \sin(\theta) \implies \frac{\partial \vec{r}_{i}}{\partial q_{j}} = \hat{e}_{n} \times \vec{r}_{i}.
+\end{align}
+where $\theta$ is the angle between $\vec{r}_{i}$ and $\hat{e}_{n}$. This tells us $Q_{j} = \sum_{i=1}^{N} \vec{F}_{i} \cdot (\hat{e}_{n} \times \vec{r}_{i}) = \sum_{i=1}^{N} (\vec{r}_{i} \times \vec{F}_{i}) \cdot \hat{e}_{n} = \vec{\tau}_{\text{tot,sys}} \cdot \hat{e}_{n}$.
+\begin{align}
+    p_{j} = \frac{\partial T}{\partial \dot{q}_{j}} = \sum_{i=1}^{N} m_{i} \vec{v}_{i} \cdot (\hat{e}_{n} \times \vec{r}_{i}) = \sum_{i=1}^{N} \hat{e}_{n} \cdot \vec{L}_{i} = \vec{L}_{\text{tot}} \cdot \hat{e}_{n} \implies \dot{p}_{j} = \frac{d}{dt} \left( \sum_{i=1}^{N} \vec{L}_{i} \cdot \hat{e}_{n} \right) = Q_{j} = \vec{\tau}_{\text{sys}} \cdot \hat{e}_{n}.
+\end{align}
