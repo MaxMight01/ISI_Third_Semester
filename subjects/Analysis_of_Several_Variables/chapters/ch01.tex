@@ -1,4 +1,4 @@
-\chapter{INTRODUCTION TO $\R^{n}$}
+\chapter{$\R^{n}$: LIMITS, CONTINUITY, AND DIFFERENTIABILITY}
 
 \section{Translation into Higher Dimensions}
 \textit{July 21st.}
@@ -1142,4 +1142,48 @@ We now talk about the derivative of a function $y = f(x)$ when we are given an `
         \end{align}
         provided $\frac{\partial F}{\partial y}(a,b) \neq 0$.
     \end{enumerate}
+\end{example}
+\textit{September 1st.}
+
+Here's the setting; for $x \in \R^{n}$ and $y \in \R^{m}$, let $(x,y) \in \R^{n+m}$. Also suppose that $(a,b) \in O \subseteq \R^{n+m}$ where $O$ is an open set, and suppose $F:O \to \R^{m}$ is a function with $F = (f_{1},\ldots,f_{m})$.
+
+\begin{theorem}[The \eax{implicit function theorem}]
+    Let $F \in C^{1}(O)$, with $F(a,b) = 0$. If $\det \left( \frac{\partial f_{i}}{\partial y_{j}}(a,b) \right)_{m \times m} \neq 0$, then there exists an open set $U$, with $a \in U \subseteq \R^{n}$, and a function $f:U \to \R^{m}$ such that $F(x,f(x)) = 0$ for all $x \in U$.
+\end{theorem}
+
+\begin{proof}
+    Define $\tilde{F}:O \to \R^{n+m}$ by $\tilde{F}(x,y) = (x,F(x,y))$. This is a $C^{1}$-function, and $J_{\tilde{F}}(a,b) = \begin{bmatrix}
+        I_{n} & 0 \\ (\cdots) & J_{f}(a,b)
+    \end{bmatrix}$. Now $\det J_{\tilde{F}}(a,b) = \det J_{f}(a,b) \neq 0$. Apply the inverse function theorem to get open boxes $A \subseteq \R^{n}$ and $B \subseteq \R^{m}$ such that $(a,b) \in A \times B$ and $\tilde{F}:A \times B \to \tilde{U} \subseteq \R^{n+m}$ is an invertible function with a $C^{1}$-inverse. Also, $\tilde{F}(a,b) = (a,0) \in \tilde{U}$. Call $U = A \ni a$. Note that $\tilde{F}^{-1}(x,y) = (x,g(x,y))$ for all $(x,y) \in \tilde{U}$ where $g:\tilde{U} \to \R^{m}$ is a $C^{1}$-function.
+
+    If $\Pi_{1}$ denote the projection of the first $n$ variables, and $\Pi_{2}$ denote the projection of the remaining $m$ variables, then $\Pi_{2}\tilde{F} = F$, and $\Pi_{1}\tilde{F}(A \times B) = A$. Therefore, 
+    \begin{align}
+        F(x,g(x,y)) = F \circ \tilde{F}^{-1}(x,y) = \Pi_{2}(x,y) = y \text{ for all } (x,y) \in \tilde{U}.
+    \end{align}
+    Pick $y = 0$. One then has $F(x,g(x,0)) = 0$ for all $x \in U$. Define $f:U \to \R^{m}$ by $f(x) = g(x,0)$ for all $x \in U$. Then $F(x,f(x)) = 0$ for all $x \in U$.
+\end{proof}
+
+\begin{remark}
+    In particular for $n = m = 1$, let $f:\R^{2} \to \R$ be a $C^{1}$-function. Suppose $f(a,b) = 0$ and $\frac{\partial f}{\partial y}(a,b) \neq 0$. Then by the implicit function theorem, there exists an open box $I \times J$ with $(a,b) \in I \times J$ such that for all $x \in I$, there exists a unique $y \in J$ such that $f(x,y) = 0$. We write $y = \varphi(x)$, that is, $f(x,\varphi(x)) = 0$ for all $x \in I$. Moreover, $\varphi$ is a $C^{1}$-function and $\varphi'(x) = -\dfrac{\frac{\partial f}{\partial x}(x,\varphi(x))}{\frac{\partial f}{\partial y}(x,\varphi(x))}$ for all $x \in I$.
+\end{remark}
+
+\begin{example}
+    Suppose $x^{2}+2y^{2}+z^{2}+w = 6$ and $2x^{3}+4y^{2}+z+w^{2} = 9$. We try to write $z$ and $w$ as functions of $x$ and $y$. Define $F:\R^{4} \to \R^{2}$ by $F(x,y,z,w) = (f_{1},f_{2})$ where
+    \begin{align}
+        f_{1} = x^{2}+2y^{2}+z^{2}+w-6,\quad f_{2} = 2x^{3}+4y^{2}+z+w^{2}-9.
+    \end{align}
+    $F$ is then a $C^{1}$-function. Letting $\alpha = (1,-1,-1,2)$ gives $F(\alpha) = 0$. We claim that $(z,w)$ is a $C^{1}$-function of $(x,y)$. Here,
+    \begin{align}
+        \det \begin{bmatrix}
+            \frac{\partial f_{1}}{\partial z} & \frac{\partial f_{1}}{\partial w} \\
+            \frac{\partial f_{2}}{\partial z} & \frac{\partial f_{2}}{\partial w}
+        \end{bmatrix} = \det \begin{bmatrix}
+            2z & 1 \\
+            1 & 2w
+        \end{bmatrix} = 4zw - 1 \implies \det \begin{bmatrix}
+            \frac{\partial f_{1}}{\partial z} & \frac{\partial f_{1}}{\partial w} \\
+            \frac{\partial f_{2}}{\partial z} & \frac{\partial f_{2}}{\partial w}
+        \end{bmatrix}(\alpha) = -9 \neq 0.
+    \end{align}
+    So there exists a $C^{1}$-function $\varphi:U \to \R^{2}$ with $(1,-1) \to \R^{2}$ such that $F(x,y,\varphi(x,y)) = 0$ for all $(x,y) \in U$. Thus, $(z,w)$ can be expressed as a function of $(x,y)$.
 \end{example}
