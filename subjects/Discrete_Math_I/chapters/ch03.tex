@@ -307,6 +307,62 @@ A simple graph $G = (V,E)$ is said to be bipartite if there exists a partition o
     V_{1} \cap V_{2} = \emptyset,\; V_{1} \sqcup V_{2} = V,\; E \subseteq V_{1} \times V_{2}.
 \end{align}
 
+\textit{September 2nd.}
+
 \begin{theorem}[\eax{Kőnig's theorem}]
     A graph $G$ is bipartite if and only if it has no odd cycles.
+\end{theorem}
+\begin{proof}
+    Suppose $G$ is bipartite with the required vertex sets $V_{1} \sqcup V_{2} = V(G)$. Take a cycle of length $n$ in $G$ and suppose it is an odd cycle, say $C = (v_{1},v_{2},\ldots,v_{2k},v_{2k+1},v_{1})$ where $k \geq 1$. Without the loss of generality, assume $v_{1} \in V_{1}$. Since a vertex's neighbours must be in a different vertex set, we have $v_{2} \in V_{2}$. Proceeding inductively, we have $\{v_{1},v_{3},\ldots,v_{2k+1}\} \subseteq V_{1}$ and $\{v_{2},v_{4},\ldots,v_{2k}\} \subseteq V_{2}$. But $v_{1}v_{2k+1} \in E(G)$, which is a contradiction since both $v_{1}$ and $v_{2k+1}$ are in $V_{1}$. Thus, every cycle in $G$ must be even.
+
+    For the converse, let $v_{0} \in V$ and put it in a vertex set $V_{1}$. Put the neighbours of $v_{0}$ in $V_{2}$, that is, $N(v_{0}) \subseteq V_{2}$. We note that for $w_{1},w_{2} \in N(v_{0})$, there cannot be the edge $w_{1}w_{2}$, since having so would make $(v_{0},w_{1},w_{2},v_{0})$ an odd cycle. Now put the neighbours of $N(v_{0})$ in $V_{1}$, that is, $N(N(v_{0})) \subseteq V_{1}$. Note that $v_{0} \in N(N(v_{0}))$. Again, for $w_{1},w_{2} \in N(N(v_{0}))$, there cannot be the edge $w_{1}w_{2}$ since having so would make $(v_{0},\ast_{1},w_{1},w_{2},\ast_{2},v_{0})$ an odd cycle, where $\ast_{1},\ast_{2}$ are neighbours of $w_{1}$ and $w_{2}$ respectively, and both are in $N(v_{0}) \subseteq V_{1}$. Proceeding so, we have $V_{1} = \{v \in V \mid d_{G}(v_{0},v) \text{ is even }\}$ and $V_{2} = \{v \in V \mid d_{G}(v_{0},v) \text{ is odd }\}$. This shows bipartition for a connected $G$. Note that $G$ is bipartite if and only if every connected component of $G$ is bipartite (a \eax{connected component} of $G$ is an equivalence relation on $V$, with $x \sim y$ if and only if there exists a path from $x$ to $y$ or $x = y$). If we find a bipartition of every connected component with $V_{1}^{(i)},V_{2}^{(i)}$ where $i$ signifies the $i^{\text{th}}$ connected component, then defining
+    \begin{align}
+        V_{1} = \bigsqcup_{i=1}^{k} V_{1}^{(i)},\quad V_{2} = \bigsqcup_{i=1}^{k} V_{2}^{(i)}
+    \end{align}
+    results in the required bipartition. Coming back to the definition of $V_{1}$, all vertices even length away from $v_{0}$, and $V_{2}$, all vertices odd length away from $v_{0}$, we claim that no two vertices in $V_{1}$ are neighbours. Let us assume for contradiction that there exist $v,w \in V_{1}$ which are neighbours. Let $P$ be the shortest path from $v_{0}$ to $v$ and $P'$ be the shortest path from $v_{0}$ to $w$. Then $(v_{0},P',w,v,P,v_{0})$ is a walk of odd length which is a contradiction. Hence, any $v$ and $w$ in $V_{1}$ cannot be neighbours. Similarly, one can show fro $V_{2}$.
+\end{proof}
+
+$K_{m,n}$ denotes the \eax{complete bipartite graph} with $m$ vertices in one vertex set and $n$ vertices in the other vertex set. Here, $uv$ is an edge in $K_{m,n}$ if and only if $u$ and $v$ are in different vertex sets. Thus the number of edges in $E(K_{m,n})$ is $mn$.
+
+\begin{corollary}
+    A bipartite graph has no triangles.
+\end{corollary}
+
+To guarantee a triangle, how many edges must have a simple graph $G$ have? We have the following theorem.
+
+\begin{theorem}[\eax{Mantel's theorem}]
+    If $G$, with $\#V(G) = n$, has more than $\floor{\dfrac{n^{2}}{4}}$ edges, then $G$ contains a triangle.
+\end{theorem}
+
+\begin{proof}[Alternate proof]
+    Consider $G$ with no triangles, with $m$ edges and $n$ vertices. Let $x$ and $y$ be two vertices in $G$ such that $xy \in E(G)$. Then $\deg(x) + \deg(y) \leq n$ since each vertex in $G$ can only be connected to one of $x$ or $y$; otherwise, if a vertex $z$ were adjacent to both, the set $\{x, y, z\}$ would form a triangle. Now observe that
+    \begin{align}
+        \sum_{xy \in E(G)} \left( \deg(x) + \deg(y) \right) &\leq m \cdot n.
+    \end{align}
+    On the other hand, each degree appears in this sum once for each incident edge, so:
+    \begin{align}
+        \sum_{xy \in E(G)} \left( \deg(x) + \deg(y) \right) &= \sum_{v \in V(G)} \deg(v)^2 \leq mn.
+    \end{align}
+    Applying the Cauchy-Schwarz inequality results in
+    \begin{align}
+        \sum_{v \in V(G)} \deg(v)^2 \geq \frac{1}{n} \left( \sum_{v \in V(G)} \deg(v) \right)^2 = \frac{(2m)^2}{n}.
+    \end{align}
+    Combining the two inequalities gives
+    \begin{align}
+        \frac{4m^2}{n} \leq m n \implies m \leq \frac{n^2}{4}.
+    \end{align}
+    Hence, the number of edges is at most $\left\lfloor \frac{n^2}{4} \right\rfloor$, as desired.
+\end{proof}
+
+\subsection{Coloring}
+A \eax{proper coloring} of a graph $G$ is a mapping $f:V \to C$, where $C$ is a finite set of a colors, such that for every edge $uv \in E(G)$, we have $f(u) \neq f(v)$. In other words, adjacent vertices must be assigned different colors. The \eax{chromatic number} $\chi(G)$ of a graph $G$ is the smallest number of colors needed for a proper coloring of $G$, that is, the minimal cardinality of $C$ required. For a planar graph $G$, $\chi(G)$ is at most 4.
+
+One also has the \eax{chromatic polynomial} $P_{G}(k)$ which specifies the number of proper $k$-colorings of $G$ for a given $k$. One can see the recurrence relation 
+\begin{align}
+    P_{G-e}(k) = P_{G}(k) + P_{G\setminus e}(k-1)
+\end{align}
+where $G-e$ is the graph obtained by removing the edge $e$ from $G$, and $G\setminus e$ is the graph obtained by joinin the vertices of edge $e$.
+
+\begin{theorem}
+    $P_{G}(k)$ is a polynomial function of $k$.
 \end{theorem}
