@@ -283,3 +283,34 @@ where $\theta$ is the angle between $\vec{r}_{i}$ and $\hat{e}_{n}$. This tells 
 \begin{align}
     p_{j} = \frac{\partial T}{\partial \dot{q}_{j}} = \sum_{i=1}^{N} m_{i} \vec{v}_{i} \cdot (\hat{e}_{n} \times \vec{r}_{i}) = \sum_{i=1}^{N} \hat{e}_{n} \cdot \vec{L}_{i} = \vec{L}_{\text{tot}} \cdot \hat{e}_{n} \implies \dot{p}_{j} = \frac{d}{dt} \left( \sum_{i=1}^{N} \vec{L}_{i} \cdot \hat{e}_{n} \right) = Q_{j} = \vec{\tau}_{\text{sys}} \cdot \hat{e}_{n}.
 \end{align}
+\\\textit{September 3rd.}
+
+For $L(\{q_{i}\},\{\dot{q}_{i}\},t)$, we have
+\begin{align}
+    \frac{dL}{dt} = \sum_{i=1}^{n} \left(\frac{\partial L}{\partial q_{i}} \dot{q}_{i} + \frac{\partial L}{\partial \dot{q}_{i}} \ddot{q}_{i} \right) + \frac{\partial L}{\partial t} = \frac{d}{dt} \left( \sum_{i=1}^{n} \dot{q}_{i} \frac{\partial L}{\partial \dot{q}_{i}} \right) + \frac{\partial L}{\partial t} \implies \frac{d}{dt} \left( \sum_{i=1}^{n} \dot{q}_{i} \frac{\partial L}{\partial \dot{q}_{i}} - L\right) + \frac{\partial L}{\partial t} = 0.
+\end{align}
+Here, one then defines the \eax{energy function} as $h(\{q_{i}\},\{\dot{q}_{i}\},t) = \sum_{i=1}^{n} \dot{q}_{i} \frac{\partial L}{\partial \dot{q}_{i}} - L = \sum_{i=1}^{n} \dot{q}_{i} p_{i} - L$, resulting in
+\begin{align}
+    \frac{dh}{dt} = -\frac{\partial L}{\partial t}.
+\end{align}
+Thus, if the Lagrangian doesn't have an explicit time dependence, the energy function $h$ is conserved. Physically, a time-translation invariance results in the conservation of $h$. Recall the expression for the total kinetic energy $T = T_{0} + T_{1} + T_{2}$ where
+\begin{align}
+    T_{0} = \sum_{i=1}^{N} \frac{1}{n}m_{i}\abs{\frac{\partial \vec{r}_{i}}{\partial t}}^{2},\quad T_{1} = \sum_{j=1}^{n} \dot{q}_{j}M_{j}, \quad T_{2} = \sum_{j=1}^{n} \sum_{k=1}^{n} \dot{q}_{j} \dot{q}_{k} M_{jk}
+\end{align}
+and
+\begin{align}
+    M_{j} = \sum_{i=1}^{N} m_{i} \frac{\partial \vec{r}_{i}}{\partial t} \cdot \frac{\partial \vec{r}_{i}}{\partial q_{j}},\quad M_{jk} = \sum_{i=1}^{N} \frac{1}{2}m_{i} \frac{\partial \vec{r}_{i}}{\partial q_{j}} \cdot \frac{\partial \vec{r}_{i}}{\partial q_{k}}.
+\end{align}
+Now, if $\vec{r}_{i} = \vec{r}_{i}(\{q_{j}\})$ for all $i = 1,2,\ldots,N$, then $\frac{\partial \vec{r}_{i}}{\partial t} = 0$ tells us that $T = T_{2}$. Let us call this our first condition (i). For our second condition (ii), it may so happen that the Lagrangian $L = L_{0}(\{q\},t) + L_{1}(\{q\},\{\dot{q}\},t) + L_{2}(\{q\},\{\dot{q}\},t)$, where $L_{0}$ is independent of the generalized velocities, $L_{1}$ is linear in the generalized velocities, and $L_{2}$ is quadratic in the generalized velocities. One can show that if $f(\{x_{i}\})$ is homogenous in degree $n$, 
+\begin{align}
+    \sum_{i=1}^{n} x_{i} \frac{\partial f}{\partial x_{i}} = n f.
+\end{align}
+Applying this to the Lagrangian $L = L_{0} + L_{1} + L_{2}$, we find
+\begin{align}
+    h(\{q_{i}\},\{\dot{q}_{i}\},t) = \sum_{i=1}^{n} \dot{q}_{i} \frac{\partial L}{\partial \dot{q}_{i}} - L = (2L_{2}+L_{1})-(L_{0}+L_{1}+L_{2}) = L_{2} - L_{0}.
+\end{align}
+Our this third condition (iii) is that the potentail $V$ is independent of the velocities $\{\dot{q}_{k}\}$. With these three conditions, one has $L_{2} = T_{2} = T$ and $L_{0} = -V$, showing
+\begin{align}
+    h = L_{2} - L_{0} = T-(-V) = T+V = E,
+\end{align}
+the total energy. Note that $\dot{h} = -\frac{\partial L}{\partial t} = 0$ is \textit{not} equivalent to total energy conserved; the prior statements says that the energy function is conserved. Conditions (i), (ii), and (iii) must all be satisfied for the energy function to be the total energy.
