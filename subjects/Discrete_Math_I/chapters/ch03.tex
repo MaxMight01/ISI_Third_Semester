@@ -355,14 +355,62 @@ To guarantee a triangle, how many edges must have a simple graph $G$ have? We ha
 \end{proof}
 
 \subsection{Coloring}
+\textit{September 4th.}
+
 A \eax{proper coloring} of a graph $G$ is a mapping $f:V \to C$, where $C$ is a finite set of a colors, such that for every edge $uv \in E(G)$, we have $f(u) \neq f(v)$. In other words, adjacent vertices must be assigned different colors. The \eax{chromatic number} $\chi(G)$ of a graph $G$ is the smallest number of colors needed for a proper coloring of $G$, that is, the minimal cardinality of $C$ required. For a planar graph $G$, $\chi(G)$ is at most 4.
 
-One also has the \eax{chromatic polynomial} $P_{G}(k)$ which specifies the number of proper $k$-colorings of $G$ for a given $k$. One can see the recurrence relation 
+One also has the \eax{chromatic polynomial} $P_{G}(k)$, or $P(G,k)$, which specifies the number of proper $k$-colorings of $G$ for a given $k$. From here, one can define
 \begin{align}
-    P_{G-e}(k) = P_{G}(k) + P_{G\setminus e}(k-1)
+    \chi(G) \defeq \min\{k \mid P(G,k) > 0\}.
 \end{align}
-where $G-e$ is the graph obtained by removing the edge $e$ from $G$, and $G\setminus e$ is the graph obtained by joinin the vertices of edge $e$.
+
+\begin{proposition}[The \eax{deletion-contraction principle}]
+    For any edge $e \in E(G)$, $G$ a graph,
+    \begin{align}
+        P(G,k) = P(G-e,k)-P(G\setminus e,k)
+    \end{align}
+    holds, where $G-e$ is the graph obtained by removing the edge $e$ from $G$ (termed deletion), and $G\setminus e$ is the graph obtained by joinin the vertices of edge $e$ (termed contraction).
+\end{proposition}
+\begin{proof}
+    The proof is left as an exericse to the reader.
+\end{proof}
+The following are some properties of $P(G,x)$.
+\begin{enumerate}
+    \item $P(G,x)$ is a monic polynomial of degree $\#V(G)$.
+    \item $\chi(G) = \min\{k \in \N \mid P(G,k) > 0\}$.
+    \item The constant term of the polynomial, $a_{0}$, is zero.
+    \item One has either $\sum_{i=1}^{n} a_{i} = 0$ or $P(G,x) = x^{n}$.
+    \item $a_{n-i} = (-1)^{i}\abs{a_{n-i}}$.
+    \item $a_{n-1} = -\#E(G)$.
+\end{enumerate}
+
+\begin{proof}
+    We induct on $\#E$. Look at the base, $D_{n}$, a graph with $n$ vertices and no edges. Then $P(D_{n},x) = x^{n}$, a monic polynomial of degree $1$. For any graph $G$, we have $P(G,k)=P(G-e,k)-P(G\setminus e,k)$. By the induction hypothesis, $P(G-e,k)$ is a monic polynomial of degree $n$, and $P(G\setminus e, k)$ is monic polynomial of degree $n-1$. Thus, $P(G,k)$ is one too. The second property is by definition. The third statement follows the same argument as the first statement.
+
+    For the fourth statement, note that $P(G,1) = 0$ if there is at least one edge. By induction, one can see that $\sum_{i=1}^{n} a_{i} = 0$, unless no edge is present, in which case $P(G,x) = P(D_{n},x) = x^{n}$. Fifth and sixth statements also follow an argument by induction
+\end{proof}
 
 \begin{theorem}
-    $P_{G}(k)$ is a polynomial function of $k$.
+    The chromatic polynomial of a graph $G = (V,E)$ can be written in the form
+    \begin{align}
+        P(G,k) = \sum_{X \subseteq E} (-1)^{\#X}x^{\beta_{0}(X)}
+    \end{align}
+    where $\beta_{0}(X)$ denotes the number of connected components of the subgraph $(V,X)$.
 \end{theorem}
+Thus, to find the coefficient of $x^{m}$, one must collect all subgraphs with $m$ connected components. Let $k_{E}$ denote the number of spanning subgraphs of $G$ with $m$ connected components and even number of edges, and let $k_{O}$ denote the number of spanning subgroups of $G$ with $m$ connected components and odd number of edges. Then the coefficient of $x^{m}$ comes out to be $k_{E}-k_{O}$. In the case where $m = n$, we have $k_{E} = 1$ and $k_{O} = 0$.
+
+\begin{proof}
+    Here, $P(G,k) = k^{n} - \#(IC)$, where $IC$ is the number of improper colorings. Denote, for an edge $e = uv$, $B_{e} = \{c \in IC \mid c(u) = c(v)\}$. Then
+    \begin{align}
+        P(G,k) = k^{n} - \abs{\bigcup_{e \in E} B_{e}} = k^{n} - \sum_{X \neq \emptyset,\;X \subseteq E} (-1)^{\#X}\abs{\bigcap_{e \in X} B_{e}}
+    \end{align}
+    via the principle of inclusion-exclusion. Let $X = \{e_{1},\ldots,e_{k}\} \subseteq E$ with $e_{i} = u_{i}v_{i}$. Then
+    \begin{align}
+        \bigcap_{e \in X} B_{e} = \{c:V \to \{1,2,\ldots,k\} \mid c(u_{i}) = c(v_{i}) \text{ for all } i\} = k^{\beta_{0}(x)}
+    \end{align}
+    since the function $c$ has to be constant on each connected component of $(V,X)$. Hence,
+    \begin{align}
+        P(G,k) = k^{n} - \sum_{X \neq \emptyset,\;X \subseteq E} (-1)^{\#X} k^{\beta_{0}(X)}.
+    \end{align}
+\end{proof}
+
