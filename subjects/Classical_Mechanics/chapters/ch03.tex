@@ -1,0 +1,44 @@
+\chapter{THE CENTRAL FORCE PROBLEM}
+
+\section{One Body Problem}
+Consider two particles of masses lying $m_{1}$ and $m_{2}$ lying at positions $\vec{r}_{1}$ and $\vec{r}_{2}$ respectively. If $\vec{r} = \vec{r}_{2}-\vec{r}_{1}$ is the relative position vector, and $\vec{R}$ is the position vector of the centre of mass, then the kinetic energy may be given as
+\begin{align}
+    T = \frac{1}{2}m_{1}\dot{\vec{r}}_{1}^{2} + \frac{1}{2}m_{2}\dot{\vec{r}}_{2}^{2} = \frac{1}{2}(m_{1}+m_{2})\dot{\vec{R}}^{2} + \frac{1}{2}\left( \frac{m_{1}m_{2}}{m_{1}+m_{2}} \right) \dot{\vec{r}}^{2}.
+\end{align}
+Here the quantity $\mu = \frac{m_{1}m_{2}}{m_{1}+m_{2}}$ is called the \eax{reduced mass}. If the potential energy of the system is $U(\vec{r})$, only dependent on the relative position, then the Lagrangian of the system may be written as
+\begin{align}
+    L = T-U = \frac{1}{2}M\dot{R}^{2} + \frac{1}{2}\mu \dot{r}^{2} - U(\vec{r})
+\end{align}
+Note that $R$ is a cyclic coordinate here. So
+\begin{align}
+    \frac{\partial L}{\partial \dot{\vec{R}}} = M\dot{\vec{R}} = \vec{P}_{CM} \implies \frac{d}{dt} \vec{P}_{CM} = 0.
+\end{align}
+The momentum of the center of mass is conserved. For the most popular of cases, we consider $U(\vec{r}) \equiv U(r)$, i.e., the potential energy depends only on the magnitude of the relative position vector. This is called a \eax{conservative central force}. If a particle of mass $m_{1}$ is fixed at the origin, then the other particle of mass $m_{2}$ moves in the potential $U(r)$ with reduced mass $\mu$. We shall focus our analysis only on the reduced mass since the center of mass positive is a cyclic coordinate. The Lagrangian of the system is
+\begin{align}
+    L = \frac{1}{2}\mu(\dot{r}^{2} + r^{2}\dot{\theta}^{2} + r^{2}\sin^{2}\theta \dot{\phi}^{2}) - U(r).
+\end{align}
+Since the problem is spherically symmetric, the angular momentum $\vec{L} = \vec{r} \times \mu \dot{\vec{r}}$ is a conserved quantity. We can infer that the motion is planar in central force (first property). Choose the axis of $\vec{L}$ to be the $z$-axis. Then $\theta = \frac{\pi}{2}$. The Lagrangian reduces to
+\begin{align}
+    L = T-U = \frac{1}{2}\mu(\dot{r}^{2} + r^{2}\dot{\phi}^{2}) - U(r).
+\end{align}
+Here, $\phi$ is a cyclic coordinate and hence the angular momentum $\ell = \mu r^{2}\dot{\phi}$ is conserved, giving us $\dot{\phi} = \frac{\ell}{\mu r^{2}}$. From this conservation of $\ell$, it also follows that $\frac{d}{dt}(\frac{1}{2}\mu r^{2}) = 0 \implies \frac{1}{2}r^{2}\dot{\phi}$ is constant. We can interpret this as $\frac{1}{2}r(r\dot{\phi}) = dA$, the infinitesimal area swept out by the radius vector in time $dt$. The \eax{areal velocity} $\frac{dA}{dt}$ is constant; equal area is swept out in equal time (second property). The energy function is
+\begin{align}
+    h = \frac{1}{2}\mu\dot{r}^{2} + \frac{\ell^{2}}{2\mu r^{2}} + U(r) \implies \frac{dh}{dt} = \mu\ddot{r} - \frac{\ell^{2}}{\mu r^{3}} + \frac{dU}{dr} = 0.
+\end{align}
+Rewriting gives us
+\begin{align}
+    \mu\ddot{r} = -\frac{d}{dr}\left( U + \frac{\ell^{2}}{2\mu r^{2}} \right) = -\frac{dU_{\text{eff}}(r)}{dr}
+\end{align}
+where the new quantity is termed the \eax{effective potential energy}. The quantity $T_{\text{eff}} = \frac{1}{2}\mu\dot{r}^{2}$ is termed the effective kinetic energy. The total energy is $h = T_{\text{eff}} + U_{\text{eff}}$. Summarising all the properties, the formal solution for the problem is
+\begin{align}
+    \ell = \mu r^{2}\dot{\phi},\; E=\frac{1}{2}\mu \dot{r}^{2} + \frac{\ell^{2}}{2\mu r^{2}} + U,\; \dot{r} = \sqrt{\frac{2}{\mu}\left( E-U-\frac{\ell^{2}}{2 \mu r^{2}} \right)}.
+\end{align}
+Thus, $r$ can be found as a function of $t$ by integrating
+\begin{align}
+    \int_{r_{0}}^{r} \frac{dr}{\sqrt{\frac{2}{\mu}\left( E-U-\frac{\ell^{2}}{2 \mu r^{2}} \right)}} = \int_{0}^{t} dt = t
+\end{align}
+and inverting the solution to get a function $r(t)$. The angle $\phi$ can be found as a function of $t$ by integrating
+\begin{align}
+    \frac{d\phi}{dt} = \frac{\ell}{\mu r^{2}} \implies \phi - \phi_{0} = \frac{\ell}{\mu}\int_{0}^{t} \frac{dt}{r^{2}(t)}.
+\end{align}
+The energy-distance diagrams using $U_{\text{eff}} = \frac{l^{2}}{2\mu r^{2}} + U(r)$ are very useful in visualising the motion of the particle. The points where $E = U_{\text{eff}}$ are the turning points of the motion. If $E < 0$, the motion is bounded, and if $E > 0$, the motion is unbounded. The point where $U_{\text{eff}}$ is minimum is a point of stable equilibrium. For a potential of the form $U(r) = -\frac{k}{r}$, this `orbit' of stable equilbrium can be found by setting $\frac{dU_{\text{eff}}}{dr} = 0$ and $\frac{d^{2}U_{\text{eff}}}{dr^{2}} > 0$. This gives us $r_{0} = \frac{\ell^{2}}{\mu k}$. But setting $E = U_{\text{eff}}(r_{0})$ gives us the effective force $f_{\text{eff}}$ to be zero, or $\ddot{r} = 0$. This means that the radius is constant, and the motion is circular.
