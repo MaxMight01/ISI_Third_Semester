@@ -1,3 +1,124 @@
 \chapter{INTEGRATION: RIEMANN AND DARBOUX}
 
 For the one-dimensional integration, we studied how to compute the length of curves, the area under a curve, and even antiderivatives. Our aim, now, is to extend these concepts to higher dimensions; given a function $f:O_{n} \to \R$, we want to give meaning to $\int_{O_{n}} f d\ast$, and fill the $\ast$ too.
+
+\begin{definition}
+    We term $B^{n} = \prod_{i=1}^{n} [a_{i},b_{i}]$ a \eax{closed box} in $\R^{n}$. One can show that the closure of an open box is the corresponding closed box. The \eax{volume of a box} is defined as
+    \begin{align}
+        v(B^{n}) = v\left( \prod_{i=1}^{n} [a_{i},b_{i}] \right) = v\left( \prod_{i=1}^{n} (a_{i},b_{i}) \right) = \prod_{i=1}^{n} (b_{i} - a_{i}).
+    \end{align}
+\end{definition}
+
+We extend the concept of partitions to boxes in the natural way.
+
+\begin{definition}
+    Let $B^{n} = \prod_{i=1}^{n} [a_{i},b_{i}]$ be a closed box in $\R^{n}$. For each $i = 1,2,\ldots,n$, consider a partition of $[a_{i},b_{i}]$ give by $P_{i}:a_{i}=x_{i,0} < x_{i,1} < \cdots < x_{i,n_{i}} = n_{i}$. Set $P = P_{1} \times P_{2} \times \cdots \times P_{n}$, a \eax{partition of the box}, and set
+    \begin{align}
+        \Lambda(P) = \{(t_{1},t_{2},\ldots,t_{n}) : 0 \leq t_{i} \leq n_{i}\},
+    \end{align}
+    the set of multi-indices. For $\alpha \in \Lambda(P)$, define the $\alpha^{\text{th}}$ \eax{closed sub-box} as $B_{\alpha}^{n} = I_{1,t_{1}} \times I_{2,t_{2}} \times \cdots \times I_{n,t_{n}}$, where $I_{i,t_{i}} = [x_{i,t_{i}-1}, x_{i,t_{i}}]$. The set of all closed sub-boxes is called a \eax{partition of the box} $B^{n}$. We get
+    \begin{align}
+        B^{n} = \bigcup_{\alpha \in \Lambda(P)} B_{\alpha}^{n}, \quad v(B^{n}) = \sum_{\alpha \in \Lambda(P)} v(B_{\alpha}^{n}).
+    \end{align}
+\end{definition}
+
+Another unavoidable definition is that of refinement of partitions.
+
+\begin{definition}
+    For a closed box $B^{n}$, a partition $\tilde{P}$ is termed a \eax{refinement} of a partition $P$ if $\tilde{P}_{i}$ is a refinement of $P_{i}$ for each $i = 1,2,\ldots,n$.
+\end{definition}
+
+Given $f \in \cB(B^{n})$, a bounded function over $B^{n}$, and a partition $P$ of $B^{n}$, we define 
+\begin{align}
+    m_{\alpha} = \inf_{x \in B_{\alpha}^{n}} f(x), \quad M_{\alpha} = \sup_{x \in B_{\alpha}^{n}} f(x)
+\end{align}
+for all $\alpha \in \Lambda(P)$. We then define the \eax{lower Darboux sum} and the \eax{upper Darboux sum} of $f$ with respect to $P$ as
+\begin{align}
+    L(f,P) = \sum_{\alpha \in \Lambda(P)} m_{\alpha} v(B_{\alpha}^{n}), \quad U(f,P) = \sum_{\alpha \in \Lambda(P)} M_{\alpha} v(B_{\alpha}^{n})
+\end{align}
+respectively. If $m = \inf_{x \in B^{n}} f(x)$ and $M = \sup_{x \in B^{n}} f(x)$, then it is easy to see that
+\begin{align}
+    m v(B^{n}) \leq L(f,P) \leq U(f,P) \leq M v(B^{n}).
+\end{align}.
+
+\begin{theorem}
+    For $\tilde{P} \supset P$ partitions of $B^{n}$, and $f \in \cB(B^{n})$, we have
+    \begin{align}
+        L(f,P) \leq L(f,\tilde{P}) \leq U(f,\tilde{P}) \leq U(f,P).
+    \end{align}
+\end{theorem}
+\begin{proof}
+    The proof of this is left as an exercise to the reader; it is a straightforward generalization of the one-dimensional case.
+\end{proof}
+We also denote $\cP(B^{n})$ as the set of all partitions of $B^{n}$.
+\begin{corollary}
+    For all $P,Q \in \cP(B^{n})$, $L(f,P) \leq U(f,Q)$.
+\end{corollary}
+\begin{proof}
+    Easy to see since $P,Q \subset P \cup Q$.
+\end{proof}
+
+Since refinement leads to an increase in the lower Darboux sum and a decrease in the upper Darboux sum, we can define as follows.
+\begin{definition}
+    Given $f \in cB(B^{n})$, we define the \eax{lower Darboux integral} and the \eax{upper Darboux integral} of $f$ over $B^{n}$ as
+    \begin{align}
+        \underline{\int_{B^{n}}} f = \sup_{P \in \cP(B^{n})} L(f,P), \quad \overline{\int_{B^{n}}} f = \inf_{P \in \cP(B^{n})} U(f,P)
+    \end{align}
+    respectively. If $\underline{\int_{B^{n}}} f = \overline{\int_{B^{n}}} f$, we say that $f$ is \eax{Riemann-Darboux integrable} over $B^{n}$, and denote the common value as the \eax{Darboux integral} of $f$ over $B^{n}$, denoted as
+    \begin{align}
+        \int_{B^{n}} f = \underline{\int_{B^{n}}} f = \overline{\int_{B^{n}}} f.
+    \end{align}
+    We may write
+    \begin{align}
+        \int_{B^{n}} f = \int_{B^{n}} f dv = \int_{B^{n}} f(x_{1},\ldots,x_{n}) dx_{1} dx_{2} \cdots dx_{n}
+    \end{align}
+    where $dv$ denotes the infinitesimal volume element in $n$-dimensions, and with no intention of commuting the $dx_{i}$'s; it is simply notation.
+\end{definition}
+
+Also, we denote $\cR(B^{n}) \defeq \{f \in \cB(B^{n}) : f \text{ is Riemann-Darboux integrable over } B^{n}\}$.
+
+\begin{theorem}
+    Let $f \in \cB(B^{n})$. Then $f \in \cR(B^{n})$ if and only if for every $\varepsilon > 0$, there exists a partition $P \in \cP(B^{n})$ such that $U(f,P) - L(f,P) < \varepsilon$.
+\end{theorem}
+\begin{proof}
+    Let us assume $f$ is Riemann-Darboux integrable. Then
+    \begin{align}
+        \inf_{P}U(f,P) - \sup_{P}L(f,P) = \inf_{P}(U(f,P)-L(f,P)) = 0
+    \end{align}
+    showing the necessary result. For the converse, let $\varepsilon > 0$ be given. By hypothesis, there exists $P \in \cP(B^{n})$ such that $U(f,P) - L(f,P) < \varepsilon$. Simply by the definition of infimum and supremum, we have
+    \begin{align}
+        0 \leq \overline{\int_{B^{n}}} f - \underline{\int_{B^{n}}} f \leq U(f,P) - L(f,P) < \varepsilon \implies f \in \cR(B^{n}).
+    \end{align}
+\end{proof}
+
+Note that $\cR(B^{n})$ is a vector space over $\R$, satisfying $\int_{B_{n}} (f + \alpha g) = \int_{B_{n}} f + \alpha \int_{B_{n}} g$ for all $f,g \in \cR(B^{n})$ and $\alpha \in \R$. Also, if $f,g \in \cR(B^{n})$ and $f(x) \leq g(x)$ for all $x \in B^{n}$, then $\int_{B^{n}} f \leq \int_{B^{n}} g$.
+
+If $f \in \cR(B^{n})$, then $\abs{f} \in \cR(B^{n})$ and $\abs{\int_{B^{n}} f} \leq \int_{B^{n}} \abs{f}$. Also, if $f,g \in \cR(B^{n})$, then $fg \in \cR(B^{n})$, making $\cR(B^{n})$ an algebra over $\R$.
+
+\begin{definition}
+    The \eax{diameter of a box} $B^{n}$ is simply defined as the largest diagonal of the box, $\diam(B^{n})$.
+\end{definition}
+
+Using the above, the concept of mesh can be extended.
+\begin{definition}
+    The \eax{norm of a partition} or \eax{mesh of a partition} $P$ of a box $B^{n}$ is defined as
+    \begin{align}
+        \norm{P} = \max_{\alpha \in \Lambda(P)} \diam(B_{\alpha}^{n}).
+    \end{align}
+\end{definition}
+
+\begin{theorem}
+    $\cC(B^{n}) \subsetneq \cR(B^{n})$.
+\end{theorem}
+\begin{proof}
+    Pick $f:B^{n} \to \R$ continuous. Given $\varepsilon > 0$, by uniform continuity, there exists $\delta > 0$ such that $\abs{f(x) - f(y)} < \frac{\varepsilon}{2v(B^{n})}$ whenever $\norm{x-y} < \delta$. Now, choose a partition $P$ of $B^{n}$ such that $\norm{P} < \delta$. Then, for each $\alpha \in \Lambda(P)$, $a_{\alpha} \in B_{\alpha}^{n}$. Thus for all $x \in B_{\alpha}^{n}$, we have
+    \begin{align}
+        \abs{f(x)-f(a_{\alpha})} < \frac{\varepsilon}{2v(B^{n})} = \tilde{\varepsilon} \implies f(a_{\alpha}) - \tilde{\varepsilon} < f(x) < f(a_{\alpha}) + \tilde{\varepsilon} \text{ for all } x \in B_{\alpha}^{n}.
+    \end{align}
+    Inserting the infimum and supremum, we get
+    \begin{align}
+        f(a_{\alpha}) - \tilde{\varepsilon} < m_{\alpha} \leq M_{\alpha} < f(a_{\alpha}) + \tilde{\varepsilon} \implies c(P) - \frac{\varepsilon}{2} \leq L(f,P) \leq U(f,P) \leq c(P) + \frac{\varepsilon}{2}
+    \end{align}
+    where $c(P) = \sum_{\alpha \in \Lambda(P)} f(a_{\alpha}) v(B_{\alpha}^{n})$. Thus $U(f,P) - L(f,P) < \varepsilon$, showing that $f \in \cR(B^{n})$.
+\end{proof}
+
