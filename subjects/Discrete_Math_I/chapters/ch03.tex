@@ -414,3 +414,48 @@ Thus, to find the coefficient of $x^{m}$, one must collect all subgraphs with $m
     \end{align}
 \end{proof}
 
+\section{Trees and Cayley's}
+
+\begin{definition}
+    A graph $G$ with no simple cycles is called a \eax{forest}. A connected forest is called a \eax{tree}; essentially, a tree is a connected graph with no simple cycles.
+\end{definition}
+
+\begin{lemma}
+    A finite tree on $n$ vertices, for $n \geq 2$, has at least two vertices of degree 1.
+\end{lemma}
+The vertex in a tree with degree 1 is called a \eax{leaf}.
+\begin{proof}
+    Pick the longest path in the tree $T$, say $v_{0}v_{1}\cdots v_{k}$. We claim that both $v_{0}$ and $v_{k}$ are leaves. If not, say $\deg v_{0} \geq 2$, then there exists $u \neq v_{1}$ such that $uv_{0} \in E(T)$. If $u$ is not in the path, then $uv_{0}v_{1}\cdots v_{k}$ is a longer path, contradicting our assumption. If $u$ is in the path, then there exists $uv_{0}v_{1}\cdots v_{i}u$ which is a simple cycle, contradicting the definition of a tree. Thus, $v_{0}$ must have degree 1. Similarly, one can show for $v_{k}$.
+\end{proof}
+
+\begin{lemma}
+    A graph $G$ with $n$ vertices is a tree if and only if it is connected and has $n-1$ edges.
+\end{lemma}
+\begin{proof}
+    If $G$ is a tree, then it is connected by definition. We induct on $n$. The base case $n = 1$ is trivial. Assume the result holds for all trees with up to $n-1$ vertices. Let $G$ be a tree with $n$ vertices. By the previous lemma, there exists a leaf $v$ in $G$. Remove $v$ and the edge incident with it to form a subgraph $G'$. Then $G'$ is a tree with $n-1$ vertices, and by the induction hypothesis, it has $(n-1)-1 = n-2$ edges. Thus, $G$ has $(n-2)+1 = n-1$ edges.
+
+    For the converse, start with an $n$-vertex graph $G$. If $G$ contains a simple cycle, then removing an edge from that cycle leaves the graph connected; repeat until there are no such cycles. After (finitely) many steps, we end up with a tree, which we have shown to have $n-1$ edges. This meas that the original graph $G$, which had at least one cycle, must have had more than $n-1$ edges. 
+\end{proof}
+
+Similarly, one can show that $G$ is a forest if and only if it has $n-\beta_{0}(G)$ edges, where $\beta_{0}(G)$ is the number of connected components of $G$.
+
+\begin{definition}
+    A \eax{labelled tree} on $[n] = \{1,2,\ldots,n\}$ is a tree with vertex set $[n]$. Two labelled trees are considered distinct if they are not isomorphic via an isomorphism that preserves the labels.
+\end{definition}
+
+\begin{theorem}[\eax{Cayley's theorem}]
+    The number of labelled trees on $[n]$ is $n^{n-2}$.
+\end{theorem}
+\begin{proof}
+    We will show a bijection between the set of labelled trees on $[n]$ and $[n]^{n-2}$, the set of all sequences of length $n-2$ with entries from $[n]$.
+
+    For a tree $T$, generate a sequence of labelled trees $T_{1},\ldots,T_{n-1}$ inductively as follows: $T_{1} = T$, and $T_{2}$ is a labelled tree on $n-1$ vertices obtained by removing the leaf with the smallest label from $T_{1}$ and its incident edge. Continue this process until $T_{n-1}$, which is a tree on 2 vertices. Thus, each $T_{i}$ is a labelled tree on $n-i+1$ vertices. Denote by $x_{i}$ the leaf of $T_{i-1}$ with the smallest label; the leaf to be removed. Denote by $y_{i-1}$ the neighbour of $x_{i}$ in $T_{i-1}$. Then, the mapping $T \mapsto (y_{1},y_{2},\ldots,y_{n-2})$ gives a sequence of length $n-2$ with entries from $[n]$. This is called the \eax{Prüfer code} of the tree $T$. The claim that this mapping $T \mapsto (y_{1},y_{2},\ldots,y_{n-2})$ is a bijection is left as an exercise to the reader.
+\end{proof}
+
+A few key observations may be inferred:
+\begin{enumerate}
+    \item If $(y_{1},y_{2},\ldots,y_{n-2})$ is the Prüfer code of tree $T$, then $(y_{2},\ldots,y_{n-2})$ is the Prüfer code of the tree $T_{2}$.
+    \item The degree of a vertex $i$ is $d_{i} = \sum_{j=1}^{n-2} \1_{[y_{j}=i]} + 1$.
+    \item The leaf $x_{k} = \min_{i \in [n]}\{i \mid i \notin \{x_{1},\ldots,x_{k-1},y_{k},y_{k+1},\ldots,y_{n-2}\}\}$.
+\end{enumerate}
+Note that 1.~follows from the definition, and 2.~can be shown as a result of induction.
