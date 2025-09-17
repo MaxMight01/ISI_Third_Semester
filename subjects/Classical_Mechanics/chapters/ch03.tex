@@ -1,6 +1,8 @@
 \chapter{THE CENTRAL FORCE PROBLEM}
 
 \section{One Body Problem}
+\textit{September 15th.}
+
 Consider two particles of masses lying $m_{1}$ and $m_{2}$ lying at positions $\vec{r}_{1}$ and $\vec{r}_{2}$ respectively. If $\vec{r} = \vec{r}_{2}-\vec{r}_{1}$ is the relative position vector, and $\vec{R}$ is the position vector of the centre of mass, then the kinetic energy may be given as
 \begin{align}
     T = \frac{1}{2}m_{1}\dot{\vec{r}}_{1}^{2} + \frac{1}{2}m_{2}\dot{\vec{r}}_{2}^{2} = \frac{1}{2}(m_{1}+m_{2})\dot{\vec{R}}^{2} + \frac{1}{2}\left( \frac{m_{1}m_{2}}{m_{1}+m_{2}} \right) \dot{\vec{r}}^{2}.
@@ -41,4 +43,46 @@ and inverting the solution to get a function $r(t)$. The angle $\phi$ can be fou
 \begin{align}
     \frac{d\phi}{dt} = \frac{\ell}{\mu r^{2}} \implies \phi - \phi_{0} = \frac{\ell}{\mu}\int_{0}^{t} \frac{dt}{r^{2}(t)}.
 \end{align}
-The energy-distance diagrams using $U_{\text{eff}} = \frac{l^{2}}{2\mu r^{2}} + U(r)$ are very useful in visualising the motion of the particle. The points where $E = U_{\text{eff}}$ are the turning points of the motion. If $E < 0$, the motion is bounded, and if $E > 0$, the motion is unbounded. The point where $U_{\text{eff}}$ is minimum is a point of stable equilibrium. For a potential of the form $U(r) = -\frac{k}{r}$, this `orbit' of stable equilbrium can be found by setting $\frac{dU_{\text{eff}}}{dr} = 0$ and $\frac{d^{2}U_{\text{eff}}}{dr^{2}} > 0$. This gives us $r_{0} = \frac{\ell^{2}}{\mu k}$. But setting $E = U_{\text{eff}}(r_{0})$ gives us the effective force $f_{\text{eff}}$ to be zero, or $\ddot{r} = 0$. This means that the radius is constant, and the motion is circular.
+The energy-distance diagrams using $U_{\text{eff}} = \frac{\ell^{2}}{2\mu r^{2}} + U(r)$ are very useful in visualising the motion of the particle. The points where $E = U_{\text{eff}}$ are the turning points of the motion. If $E < 0$, the motion is bounded, and if $E > 0$, the motion is unbounded. The point where $U_{\text{eff}}$ is minimum is a point of stable equilibrium. For a potential of the form $U(r) = -\frac{k}{r}$, this `orbit' of stable equilbrium can be found by setting $\frac{dU_{\text{eff}}}{dr} = 0$ and $\frac{d^{2}U_{\text{eff}}}{dr^{2}} > 0$. This gives us $r_{0} = \frac{\ell^{2}}{\mu k}$. But setting $E = U_{\text{eff}}(r_{0})$ gives us the effective force $f_{\text{eff}}$ to be zero, or $\ddot{r} = 0$. This means that the radius is constant, and the motion is circular.\\
+
+\noindent\textit{September 17th.}
+
+With $u = \frac{1}{r}$, and $\frac{du}{d\phi} = -\frac{1}{r^{2}} \frac{dr}{d\phi}$, the differential equation can be written as differential operators; using this, we shall rewrite our equation of motion.
+\begin{align}
+    \frac{d}{dt} = \frac{\ell}{\mu r^{2}} \frac{d}{d\phi} \implies \mu \ddot{r} = \mu \frac{d}{dt}\left( \frac{dr}{dt} \right) = \frac{\ell}{r^{2}} \frac{d}{d\phi}\left( \frac{\ell}{\mu r^{2}} \frac{dr}{d\phi} \right) = -\frac{\ell^{2}}{\mu} u^{2} \frac{d^{2}u}{d\phi^{2}}.
+\end{align}
+The second term is simply $\frac{\ell^{2}}{\mu r^{3}} = \frac{\ell^{2}}{\mu} u^{3}$. The final term is $\frac{dU}{dr} = \frac{dU}{du} \frac{du}{dr} = -u^{2} \frac{dU}{du}$. Thus, the equation of motion becomes
+\begin{align}
+    \frac{d^{2}u}{d\phi^{2}} + u = -\frac{\mu}{\ell^{2}} \frac{dU}{du}.
+\end{align}
+Thus, given $(u_{0},\phi_{0},\ell,E)$, we can solve for $u = u(\phi)$ and hence $r = r(\phi)$. Recall the relation between the differentials $dt$ and $dr$. Rewriting $dt$ in terms of $d\phi$, we have
+\begin{align}
+    d\phi = \frac{\ell dr}{\mu r^{2} \sqrt{\frac{2}{\mu} \left( E-U(r) - \frac{\ell^{2}}{2\mu r^{2}} \right)}}.
+\end{align}
+Integrating gives us
+\begin{align}
+    \phi - \phi_{0} = -\int_{u_{0}}^{u} \frac{du}{\sqrt{\frac{2\mu E}{\ell^{2}} - \frac{2\mu U(u)}{\ell^{2}} -u^{2}}}.
+\end{align}
+
+\subsection{The Kepler Problem}
+We are simply considering $U = -\frac{k}{r} = -ku$ for some $k > 0$. Replacing this in the above equation gives
+\begin{align}
+    \phi - \phi_{0} = -\int_{u_{0}}^{u} \frac{du}{\sqrt{\frac{2\mu E}{\ell^{2}} + \frac{2\mu k}{\ell^{2}}u - u^{2}}}.
+\end{align}
+Recalling that
+\begin{align}
+    \int \frac{dx}{\sqrt{\alpha + \beta x + \gamma x^{2}}} = \frac{1}{\sqrt{-\gamma}} \cos^{-1} \left( -\frac{(\beta + 2\gamma x)}{\sqrt{\beta^{2}} - 4\alpha \gamma^{2}a} \right) + C,
+\end{align}
+we obtain
+\begin{align}
+    \phi - \phi_{0} = \cos^{-1}\left( \frac{\frac{\ell^{2} u}{\mu k} - 1}{\sqrt{1 + \frac{2 E \ell^{2}}{\mu k^{2}}}} \right).
+\end{align}
+Inverting the equation gives
+\begin{align}
+    \frac{1}{r} = u = \frac{\mu k}{\ell^{2}} \left( 1 + \sqrt{1 + \frac{2E \ell^{2}}{\mu k^{2}}} \cos(\phi - \phi_{0}) \right)
+\end{align}
+or just simply
+\begin{align}
+    \frac{1}{r} = C\left( 1 + e \cos(\phi - \phi_{0}) \right),\quad C = \frac{\mu k}{\ell^{2}},\; e = \sqrt{1 + \frac{2E \ell^{2}}{\mu k^{2}}}.
+\end{align}
+The above is simply the equation of a general conic section with one focus at the origin. Note that if $E > 0$, then $e > 1$ resulting in the shape of a hyperbola. If $E = 0$, then $e = 1$ resulting in the shape of a parabola. If $E < 0$ such that $0 < e < 1$ then the orbit is elliptical. To get a circle, the eccentricity must be zero, which means that the energy is \textit{fixed}, as $E = -\frac{\mu k^{2}}{2\ell^{2}}$. Coming in with this energy results in a circular orbit. 
