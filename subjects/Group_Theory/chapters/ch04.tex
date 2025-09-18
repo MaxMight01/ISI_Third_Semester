@@ -1,11 +1,13 @@
 \chapter{FREE GROUPS}
 
+\textit{September 16th.}
+
 Let $S = \{a_{1},a_{2},\ldots\}$ be a non-empty set of letters. Our objective is to define a (free) group on $S$. Note that $S$ need not be finite or countable. Let $\bar{S} = \{a_{1},a_{2},\ldots\} \sqcup \{a_{1}^{-1},a_{2}^{-1},\ldots\} \sqcup \{\square\}$ be the set of letters and their formal inverses, and another `null' element $\square$. An element of $\bar{S}$ is called a \eax{letter}. A \eax{word} on $S$ is a finite sequence of letters from $\bar{S}$, i.e., an element of the set $\bigcup_{n=0}^{\infty} \bar{S}^{n}$, where $\bar{S}^{0} = \{\square\}$. If $\Omega$ denotes the set of all words,
 then clearly
 \begin{align}
     \Omega = \{\square\} \sqcup \bar{S} \sqcup \bar{S}^{2} \sqcup \bar{S}^{3} \sqcup \cdots = \bigcup_{n=0}^{\infty} \bar{S}^{n} = \{f:\N \to \bar{S} \mid f(i) = \square \text{ for all but finitely many } i\}.
 \end{align}
-A word $w \in \Omega$ is said to be a \eax{reduced word} if the associated function $f:\N \to \bar{S}$ if the following are satisfied:
+A word $w \in \Omega$ is said to be a \eax{reduced word} if the associated function $f:\N \to \bar{S}$ satisfies the following:
 \begin{itemize}
     \item if there exists $k$ such that $f(k) = \square$, then $f(i) = \square$ for all $i > k$;
     \item for all $i$, if $f(i) = a_{j}$ for some $j$, then $f(i+1) \neq a_{j}^{-1}$, and vice versa.
@@ -24,3 +26,71 @@ where $h$ is reduced to ensure that $u \ast v \in \bar{\Omega}$; this reduction 
 \begin{lemma}
     Given $w \in \Omega$, there exists a unique $w_{\emph{\text{red}}} \in \bar{\Omega}$ such that $w_{\emph{\text{red}}}$ is obtained from $w$ by repeatedly deleting adjacent pairs of the form $a_{j}a_{j}^{-1}$ or $a_{j}^{-1}a_{j}$, for some $j$, until no such pair exists, and deleting all occurrences of $\square$ if a non-$\square$ letter appears anywhere after it.
 \end{lemma}
+
+\begin{proof}
+    Define a function $\red:\Omega \to \Omega$ as follows: if $w \in \bar{\Omega}$ then $\red(w) = w$. Otherwise let $i_{0}$ be the least integer such that $w(i) = \square$ or $(w(i_{0}),w(i_{0}+1)) \in \{(a,a^{-1}),(a^{-1},a)\}$ for some $a \in S$. Then define
+    \begin{align}
+        \red(w)(j) = \begin{cases}
+            w(j) &\text{ if } 1 \leq j < i_{0},\\
+            w(j+1) &\text{ if } w(i_{0}) = \square,\; j \geq i_{0},\\
+            w(j+2) &\text{ if } (w(i_{0}),w(i_{0}+1)) \in \{(a,a^{-1}),(a^{-1},a)\},\; j \geq i_{0}.
+        \end{cases}
+    \end{align}
+    Given $w \in \Omega$, one can show that there exists $k \in N$ less than the length of $w$ such that $\red^{k}(w) \in \bar{\Omega}$.
+\end{proof}
+
+\textit{September 18th.}
+
+From the above, we can define a function $r:\Omega \to \bar{\Omega}$ by $r(w) = \red^{k}(w)$, where $k$ is the least integer such that $\red^{k}(w) \in \bar{\Omega}$. Note that if $w \in \bar{\Omega}$, then $r(w) = w$. The uniqueness of $w_{\text{red}}$ follows from the fact that any two sequences of deletions must lead to the same reduced word. This can be proved by induction on the length of $w$.
+
+
+\begin{proposition}
+    Let $w,w' \in \Omega$. Then $r(w \ast w') = r(r(w) \ast r(w'))$.
+\end{proposition}
+\begin{proof}
+    The proof is left as an exercise to the reader.
+\end{proof}
+
+We can now `fix' our binary operator by defining $\bar{\ast}:\bar{\Omega}\times\bar{\Omega} \to \bar{\Omega}$ by $u \bar{\ast} v = r(u \ast v)$ for $u,v \in \bar{\Omega}$.
+
+\begin{theorem}
+    $(\bar{\Omega},\bar{\ast},e)$, where $e(i) = \square$ for all $i$, is a group.
+\end{theorem}
+The above is termed a \eax{free group} on the set $S$, and is denoted by $F_{S}$.
+\begin{proof}
+    \begin{enumerate}
+        \item Associativity: Let $u,v,w \in\bar{\Omega}$. Then
+        \begin{align}
+            (u \bar{\ast} v) \bar{\ast} w = r(r(u \ast v) \ast w) = r(u \ast v \ast w) = r(u \ast r(v \ast w)) = u \bar{\ast} (v \bar{\ast} w).
+        \end{align}
+
+        \item Identity: Let $u \in \bar{\Omega}$. Then $e \bar{\ast} u = r(e \ast u) = r(u) = u = r(u \ast e) = u \bar{\ast} e$.
+        
+        \item Inverses: Let $u \in \bar{\Omega}$, and let $u$ have the associated function $f:\N \to \bar{S}$. Define $u^{-1} \in \bar{\Omega}$ to be the reduced word whose associated function $g:\N \to \bar{S}$ is given by $g(i) = f(k-i+1)^{-1}$ if $f(k) \neq \square$ and $g(i) = \square$ if $f(k) = \square$, where $k$ is the least integer such that $f(k+1) = \square$. Then $u \bar{\ast} u^{-1} = r(u \ast u^{-1}) = e = r(u^{-1} \ast u) = u^{-1} \bar{\ast} u$.
+    \end{enumerate}
+\end{proof}
+
+Note that there is a natural mapping $i:S \to F_{S}$ given by $a \mapsto \bar{a}$ where $\bar{a}(1) = a$ and $\bar{a}(k) = \square$ for all $k > 1$.
+
+\begin{theorem}
+    Let $G$ be a group, and $S = \{a_{1},a_{2},\ldots,a_{n}\}$ be a set. Let $g_{1},g_{2},\ldots,g_{n} \in G$. Then there exists a unique group homomorphism $\phi:F_{S} \to G$ such that $\phi(\bar{a}_{i}) = g_{i}$ for all $i$. Moreover, if $S$ is arbitrary and $\theta:S \to G$ is a function, then there exists a unique mapping $\phi:F_{S} \to G$ such that $\theta = \phi \circ i$, or $\theta(a) = \phi(i(a))$ for all $a \in S$.
+\end{theorem}
+\begin{proof}
+    We show the existence via a constructive proof. Let $w \in F_{S}$. Then $w = a_{1}^{i_{1}} \cdots a_{n}^{i_{n}}$ where $i_{1},\ldots,i_{n} \in \{\pm 1\}$. Then $\phi(w) \defeq g_{1}^{i_{1}} g_{2}^{i_{2}} \cdots g_{n}^{i_{n}}$. Note that $\phi(\red(w)) = \phi(w)$ and $\phi(r(w)) = \phi(w)$, so $\phi$ is well-defined. This tells us, for $w,w' \in \bar{\Omega}$,
+    \begin{align}
+        \phi(w \bar{\ast} w') = \phi(r(w \ast w')) = \phi(w \ast w') = \phi(w) \phi(w')
+    \end{align}
+    showing that $\phi$ is a group homomorphism. If we have another homomorphism $\psi:F_{S} \to G$ such that $\psi(i(a)) = \psi(i(a))$ for all $a \in S$, then $\phi$ and $\psi$ agree on the generators of $F_{S}$ since $i(S)$ generates $F_{S}$, and both are group homomorphisms showing that $\phi = \psi$. The second part of the theorem follows from the first part by taking $g_{i} = \theta(a_{i})$ for all $i$.
+\end{proof}
+
+\begin{proposition}
+    Let $S$ and $T$ be sets of the same cardinality. Then $F_{S} \cong F_{T}$.
+\end{proposition}
+
+\begin{proof}
+    Let $\tilde{\theta}:S \to T$ be a bijection, and $i_{T} :T \to F_{T}$ $i_{S}:S \to F_{S}$ be the natural mappings. Define $\theta:i \circ \tilde{\theta}$. Then by the above theorem, there exists a unique group homomorphism $\phi:F_{S} \to F_{T}$ such that $\theta = \phi \circ i_{S}$. Similarly, since $\tilde{\theta}^{-1}:T \to S$ is also a bijection, there exists a unique group homomorphism $\psi:F_{T} \to F_{S}$ such that $i_{S} \circ \tilde{\theta}^{-1} = \psi \circ i_{T}$. We claim that $\psi = \phi^{-1}$. We have
+    \begin{align}
+        \psi \circ \phi(i_{S}(a)) = \psi \circ \theta (a) = \psi \circ i_{T} \circ \tilde{\theta}(a) = \theta^{-1} \circ \tilde{\theta}(a) = i_{S} \circ \tilde{\theta}^{-1} \circ \tilde{\theta}(a) = i_{S}(a)
+    \end{align}
+    showing $\psi \circ \phi|_{i(S)} = \id_{i(S)}$ or $\psi \circ \phi = \id_{F_{S}}$. Similarly, $\phi \circ \psi = \id_{F_{T}}$.
+\end{proof}
