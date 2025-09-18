@@ -416,6 +416,8 @@ Thus, to find the coefficient of $x^{m}$, one must collect all subgraphs with $m
 
 \section{Trees and Cayley's}
 
+\textit{September 16th.}
+
 \begin{definition}
     A graph $G$ with no simple cycles is called a \eax{forest}. A connected forest is called a \eax{tree}; essentially, a tree is a connected graph with no simple cycles.
 \end{definition}
@@ -443,15 +445,25 @@ Similarly, one can show that $G$ is a forest if and only if it has $n-\beta_{0}(
     A \eax{labelled tree} on $[n] = \{1,2,\ldots,n\}$ is a tree with vertex set $[n]$. Two labelled trees are considered distinct if they are not isomorphic via an isomorphism that preserves the labels.
 \end{definition}
 
+\textit{September 18th.}
+
 \begin{theorem}[\eax{Cayley's theorem}]
     The number of labelled trees on $[n]$ is $n^{n-2}$.
 \end{theorem}
 \begin{proof}
-    We will show a bijection between the set of labelled trees on $[n]$ and $[n]^{n-2}$, the set of all sequences of length $n-2$ with entries from $[n]$.
+    We will show a bijection between the set of labelled trees on $[n]$ and $[n]^{n-2}$, the set of all sequences of length $n-2$ with entries from $[n]$. For a labelled tree $T$ on vertex set $[n]$, generate a sequence of labelled trees $T_1, T_2, \ldots, T_{n-1}$ inductively as follows: let $T_1 = T$, and obtain $T_2$ by removing the leaf with the smallest label from $T_1$ along with its incident edge. Continue this process: at each step, remove the leaf with the smallest label from the current tree and its incident edge. This process terminates with $T_{n-1}$, which is a tree on two vertices. Thus, each $T_i$ is a labelled tree on $n - i + 1$ vertices.
 
-    For a tree $T$, generate a sequence of labelled trees $T_{1},\ldots,T_{n-1}$ inductively as follows: $T_{1} = T$, and $T_{2}$ is a labelled tree on $n-1$ vertices obtained by removing the leaf with the smallest label from $T_{1}$ and its incident edge. Continue this process until $T_{n-1}$, which is a tree on 2 vertices. Thus, each $T_{i}$ is a labelled tree on $n-i+1$ vertices. Denote by $x_{i}$ the leaf of $T_{i-1}$ with the smallest label; the leaf to be removed. Denote by $y_{i-1}$ the neighbour of $x_{i}$ in $T_{i-1}$. Then, the mapping $T \mapsto (y_{1},y_{2},\ldots,y_{n-2})$ gives a sequence of length $n-2$ with entries from $[n]$. This is called the \eax{Prüfer code} of the tree $T$. The claim that this mapping $T \mapsto (y_{1},y_{2},\ldots,y_{n-2})$ is a bijection is left as an exercise to the reader.
+    Let $x_i$ denote the leaf removed from $T_i$ (i.e., the leaf of $T_i$ with the smallest label), and let $y_i$ denote its unique neighbor in $T_i$. Define a sequence $(y_1, y_2, \ldots, y_{n-2})$, which we call the \eax{Prüfer code} of the tree $T$. Since at each step the removed leaf and its neighbor are well-defined, and since the process continues for $n - 2$ steps, this produces a sequence of length $n - 2$ with entries from $[n]$. Hence, every labelled tree on $[n]$ gives rise to a unique Prüfer code in $[n]^{n-2}$.
+
+    To show that this map is a bijection, it remains to show that every sequence in $[n]^{n-2}$ corresponds to a unique labelled tree on $[n]$. Given a sequence $(y_1, y_2, \ldots, y_{n-2})$ in $[n]^{n-2}$, we reconstruct the tree as follows:
+    \begin{enumerate}
+        \item Initialize the degree of each vertex $v \in [n]$ by $\deg(v) = 1 + \#\{i \mid y_i = v\}$, which counts the number of times $v$ appears in the sequence plus one (show this to be true).
+        \item For $i = 1$ to $n - 2$, find the smallest vertex $x_i$ such that $\deg(x_i) = 1$. Add the edge $(x_i, y_i)$ to the tree, and decrease both $\deg(x_i)$ and $\deg(y_i)$ by 1.
+        \item After processing all entries in the sequence, two vertices remain with degree 1. Connect these two vertices to complete the tree.
+    \end{enumerate}
+
+    This algorithm constructs a unique labelled tree from any given Prüfer code. Since both the encoding and decoding procedures are well-defined and inverse to one another, the correspondence is a bijection between the set of labelled trees on $[n]$ and $[n]^{n-2}$.
 \end{proof}
-
 A few key observations may be inferred:
 \begin{enumerate}
     \item If $(y_{1},y_{2},\ldots,y_{n-2})$ is the Prüfer code of tree $T$, then $(y_{2},\ldots,y_{n-2})$ is the Prüfer code of the tree $T_{2}$.
@@ -459,3 +471,55 @@ A few key observations may be inferred:
     \item The leaf $x_{k} = \min_{i \in [n]}\{i \mid i \notin \{x_{1},\ldots,x_{k-1},y_{k},y_{k+1},\ldots,y_{n-2}\}\}$.
 \end{enumerate}
 Note that 1.~follows from the definition, and 2.~can be shown as a result of induction.
+
+\begin{theorem}[The \eax{tree counting theorem}]
+    The number of labelled spanning trees on $n$ vertices with degree sequence $(d_{1},d_{2},\ldots,d_{n})$ is given by
+    \begin{align}
+        \binom{n-2}{d_{1}-1,\ldots,d_{n}-1} = \frac{(n-2)!}{(d_{1}-1)!(d_{2}-1)!\cdots(d_{n}-1)!}.
+    \end{align}
+\end{theorem}
+\begin{proof}
+    In the Prüfer code of a labelled tree $T$, a vertex $i$ appears exactly $d_{i}-1$ times. Thus the counting problem is equivalent to the number of Prüfer codes which contain $d_{i}-1$ copies of $i$. This is given by the multinomial coefficient above.
+\end{proof}
+
+\section{Ramsey Theory}
+
+In any graph $G$ on $6$ vertices, either $K \subseteq G$ or $K_{3} \subseteq \overline{G}$, where $\overline{G}$ is the complement of $G$. $G$ and $\overline{G}$ cannot both be triangle-free. Equivalently, any edge-colouring of $K_{6}$ with two colours must have a monochromatic triangle.
+
+\begin{definition}
+    The \eax{Ramsey number} $R(m,n)$ is defined as
+    \begin{align}
+        R(m,n) = \inf \{t \mid \text{ for any } G \subseteq K_{t}, \text{ either } K_{m} \subseteq G \text{ or } K_{n} \subseteq \overline{G}\}
+    \end{align}
+\end{definition}
+
+One can easily see that $R(m,2) = m$ and $R(m,n) = R(n,m)$, and $R(m,n) < \infty$ for all $m,n \in \N$.
+
+\begin{lemma}
+    $R(m,n) \leq R(m-1,n) + R(m,n-1)$ for all $m,n \geq 2$.
+\end{lemma}
+\begin{proof}
+    Let $t = R(m-1,n) + R(m,n-1)$ and consider $v \in V(K_{t})$, joined to $t-1$ other vertices. Bicolour all edges red or blue. Let $P$ be the set of all vertices connected to $v$ by a red edge, and let $Q$ be the set of all vertices connected to $v$ by a blue edge. Then $\#P + \#Q = p+q = t-1$. Thus either $p \geq R(m-1,n)$ or $q \geq R(m,n-1)$. If $p \geq R(m-1,n)$, then either there is a red $(m-1)$-clique with vertices in $P$ or there is a blue $n$-clique with vertices in $P$. In the former case, adding $v$ gives a red $m$-clique; in the latter case, we are done. Similarly, if $q \geq R(m,n-1)$, then either there is a red $m$-clique with vertices in $Q$ or there is a blue $(n-1)$-clique with vertices in $Q$. In the latter case, adding $v$ gives a blue $n$-clique; in the former case, we are done.
+\end{proof}
+
+\begin{lemma}
+    $R(n,n) \leq 4^{n}$ for all natural $n$.
+\end{lemma}
+\begin{proof}
+    Using the above inequality, a proof by induction on $n$ suffices.
+\end{proof}
+
+\begin{lemma}
+    $R(n,n) > \floor{2^{n/2}}$ for all natural $n$.
+\end{lemma}
+\begin{proof}
+    Let $t = \floor{2^{n/2}}$. There is an edge colouring of $K_{t}$ such that there is no monochromatic $K_{n}$; we wish to show this. Set of all possible colourings on $K_{t}$ is $\Omega_{t} = E(K_{t})^{\{R,B\}}$. Let $f:E(K_{t}) \to \{R,B\}$ be such a colouring. THe number of such functions is clearly $2^{\binom{t}{2}}$. Let $A_{t} = \{f \in \Omega_{t} : f \text{ has no monochromatic } n-\text{clique}\}$. $A_{t} \neq\emptyset$ and $\Omega_{t} \setminus A_{t} \neq \Omega_{t}$. If $f \notin A_{t}$, there exists $S \subseteq [t]$ and $\#S = n$ such that $f$ is constant on $E_{S}$. Thus,
+    \begin{align}
+        \Omega_{t} \setminus A_{t} = \bigcup_{S \subseteq [t],\; \#S = n} \{f \in \Omega_{t} : f \text{ is constant on } E_{S}\}.
+    \end{align}
+    We now look at the probability of a random colouring $X$ being in $\Omega_{t} \setminus A_{t}$.
+    \begin{align}
+        P(X \in \Omega_{t} \setminus A_{t}) \leq \sum_{S \subseteq [t],\; \#S = n} P(X|_{E_{S}} = R) + P(X|_{E_{S}} = B) = \sum_{S \subseteq [t],\; \#S = n} \frac{2}{2^{\binom{n}{2}}} = \binom{t}{n} \frac{1}{2^{\binom{n}{2}-1}}.
+    \end{align}
+    
+\end{proof}
