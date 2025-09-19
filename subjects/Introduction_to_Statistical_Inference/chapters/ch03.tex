@@ -1,15 +1,211 @@
-\chapter{ORDER STATISTICS}
+\chapter{MULTIVARIATE NORMAL DISTRIBUTION}
 
-Suppose $X_{1},\ldots,X_{n} \sim F(x)$ are independent and identically distributed. Then the data points are arranged in increasing order and labelled $X_{(1)} \leq X_{(2)} \leq \cdots \leq X_{(n)}$. The distribution of the smallest order statistic $X_{(1)}$ is given by
+\section{Random Vectors and Random Matrices}
+
+\textit{September 19th.}
+
+\begin{definition}    
+    A \eax{$\sigma$-algebra} (or \eax{$\sigma$-field}) on a set $ \Omega $ is a collection $\cF$ of subsets of $\Omega$ that satisfies the following properties:
+    \begin{enumerate}
+        \item $\Omega \in \cF $ (The entire set is in $ \cF $),
+        \item If $A \in \cF$, then $A^c \in \cF$ (Closed under complementation),
+        \item If $A_1, A_2, A_3, \dots \in \cF $, then $ \bigcup_{n=1}^\infty A_n \in \cF $ (Closed under countable unions).
+    \end{enumerate}
+\end{definition}
+
+Let $(\Omega, \cF)$ be such a $\sigma$-algebra. One then defines a random variables across more than one dimension as follows:
+\begin{definition}
+    The random variable $X$ defined as $X = (X_{1},\ldots,X_{p}):\Omega \to \R^{p}$ for all $\omega \in \Omega$ is called a \eax{$p$-variate random variable} if $X^{-1}(I_{a}) \in \cF$ for all $I_{a} = \{(x_{1},\ldots,x_{p}) \in \R^{p} \mid \infty < x_{i} \leq a_{i}, i = 1,\ldots,p\}$ and for all $a = (a_{1},\ldots,a_{p}) \in \R^{p}$.
+
+    The \eax{mean vector} is defined as $\mu = E[X] = (E[X_{1}],\ldots,E[X_{p}]) = (\mu_{1},\ldots,\mu_{p})$.
+\end{definition}
+
+\begin{definition}
+    A random matrix $Z_{p \times q} = (Z_{ij})_{p \times q}$ is a $p \times q$ matrix of random variables, where each entry $Z_{ij}$ is a random variable.
+
+    The \eax{mean matrix} of $Z$ is defined as $\mu_Z = E[Z] = (E[Z_{ij}])_{p \times q}$, where $E[Z_{ij}]$ is the expected value of the random variable $Z_{ij}$ for all $i = 1, \ldots, p$ and $j = 1, \ldots, q$.
+\end{definition}
+
+Note that if $G(Z)$ is a function of the random matrix $Z$, then the expectation is simply $E[G(Z)] = (E[G(Z)_{ij}])_{p \times q}$. A few more properties may be noted.
+
+\begin{enumerate}
+    \item If $G(Z) = AZB$ where $A$ and $B$ are constant matrices of appropriate dimensions, then $E[G(Z)] = A E[Z] B$.
+    \item If $(Z,T)$ has a joint distribution and $A$, $B$, $C$, and $D$ are constant matrices of appropriate dimensions, then $E[AZB + CTD] = A E[Z] B + C E[T] D$.
+    \item If $Z$ is symmetric and positive semidefinite with probability $1$, then $E[Z]$ is also symmetric and positive semidefinite.
+\end{enumerate}
+The first two properties follow from the linearity of the expectation in each of the entries of the matrix. The third property follows from the fact that if $Z$ is positive semidefinite with probability $1$, then for any vector $x$, we have $x^T Z x \geq 0$ with probability $1$. Taking the expectation, we get $E[x^T Z x] = x^T E[Z] x \geq 0$, which implies that $E[Z]$ is also positive semidefinite. Similarly, one can show that $E[Z]$ is symmetric if $Z$ is symmetric with probability $1$.
+
+\begin{example}
+    Suppose $Z_{p \times p}$ is symmetric and positive semidefinite with probability $1$. Then its spectral decomposition gives gives $Z = \Gamma D_{\lambda} \Gamma^{t}$ where $\Gamma$ is an orthogonal matrix and $D_{\lambda}$ is a diagonal matrix with nonnegative entries. If $\lambda_{i}(Z)$ denotes the $i^{\text{th}}$ diagonal entry of $D_{\lambda}$, then $\lambda_{1}(Z) \geq \lambda_{2}(Z) \geq \ldots \geq \lambda_{p}(Z) \geq 0$ with probability $1$. However $\lambda_{i}(E[Z])$ need not be equal to $E[\lambda_{i}(Z)]$ for $i = 1, \ldots, p$. This is because the eigenvalues are not linear functions of the entries of the matrix. What is true is that $\lambda_{i}(E[Z]) \geq 0$.
+\end{example}
+
+\subsection{Covariance Matrix}
+
+\begin{definition}
+    Suppose the random vector $X_{p \times 1}$ has mean $\mu$, and
+    \begin{align}
+        E[(X_{i}-\mu_{i})(X_{j}-\mu_{j})] = \Cov(X_{i},X_{j}) = \sigma_{ij} < \infty
+    \end{align}
+    for all $i,j = 1,\ldots,p$. Then the \eax{covariance matrix} of $X$ is defined as
+    \begin{align}
+        \Cov(X) = \Sigma = E[(X-\mu)(X-\mu)^{t}] = (E[(X_{i}-\mu_{i})(X_{j}-\mu_{j})])_{p \times p} = (\sigma_{ij})_{p \times p}.
+    \end{align}
+\end{definition}
+
+One may also call the matrix the dispersion matrix or the variance-covariance matrix.
+
+\begin{theorem}
+    A matrix $\Sigma_{p \times p}$ is a covariance matrix of some random vector $X$ if and only if $\Sigma$ is symmetric and positive semidefinite.
+\end{theorem}
+\begin{proof}
+    Suppose $\Sigma$ is a covariance matrix of some random vector $X$. Then $\Sigma = E[(X-\mu)(X-\mu)^{t}]$ for some mean vector $\mu$. Then for any $\alpha \in \R^{p}$, we have
+    \begin{align}
+        \alpha^{t}\Sigma \alpha = \alpha^{t}E[(X-\mu)(X-\mu)^{t}]\alpha = E[\alpha^{t}(X-\mu)(X-\mu)^{t}\alpha] = E[(\alpha^{t}(X-\mu))^{2}] = \Var(\alpha^{t}X) \geq 0
+    \end{align}
+    showing positive semidefinitness. Also, $\Sigma^{t} = (E[(X-\mu)(X-\mu)^{t}])^{t} = E[(X-\mu)(X-\mu)^{t}] = \Sigma$ showing symmetry. For the converse, suppose $\Sigma$ is symmetric and positive semidefinite. Also suppose it has rank $r \leq p$. Then $\Sigma = CC^{t}$ for some $C_{p \times r}$ with rank $r$. Let $Y_{1},\ldots,Y_{r}$ be independent and identically distribution $N(0,1)$ random variables, and let $X = CY$. Then $E[X] = E[CY] = CE[Y] = 0$ and
+    \begin{align}
+        \Cov(X) = E[XX^{t}] = E[CY(CY)^{t}] = CE[YY^{t}]C^{t} = C I_{r} C^{t} = CC^{t} = \Sigma
+    \end{align}
+    where $E[YY^{t}] = \Cov(Y) = I_{r}$ since the $Y_{i}$ are independent $N(0,1)$ random variables. Thus $\Sigma$ is a covariance matrix of the random vector $X$.
+\end{proof}
+
+Let $X_{p \times 1}$ and $Y_{q \times 1}$ be jointly distributed with finite second moments for their elements and with $E[X] = \mu$ and $E[Y] = \nu$. Then
+\begin{enumerate}
+    \item $\Cov(X,Y) = E[(X-\mu)(Y-\nu)^{t}]$ is the $p \times q$ covariance matrix between $X$ and $Y$.
+    \item $\Cov(X) = E[XX^{t}] = E[X]E[X]^{t}$.
+    \item $\Cov(AX,BY) = A \Cov(X,Y) B^{t}$ for any constant matrices $A$ and $B$ of appropriate dimensions.
+    \item $\Cov(AX) = A \Cov(X) A^{t}$ for any constant matrix $A$ of appropriate dimensions.
+\end{enumerate}
+
+The \eax{moment generating function} of a random vector $X_{p \times 1}$ is defined, simply, as
 \begin{align}
-    F_{(1)}(x) = P(X_{(1)} \leq x) = 1 - P(X_{(1)} > x) = 1 - P(X_{1} > x)^{n} = 1 - (1 - F(x))^{n}.
+    \phi_{X}(\alpha) = E[e^{\alpha^{t}X}] \text{ for all } \alpha \in \R^{p}.
 \end{align}
-Similarly, the distribution of the largest order statistic $X_{(n)}$ is given by
+If $X_{1}$ and $X_{2}$ are independent, then
 \begin{align}
-    F_{(n)}(x) = P(X_{(n)} \leq x) = P(X_{1} \leq x)^{n} = (F(x))^{n}.
+    \phi_{X_{1}+X_{2}}(\alpha) = E[e^{\alpha^{t}(X_{1}+X_{2})}] = E[e^{\alpha^{t}X_{1}}e^{\alpha^{t}X_{2}}] = E[e^{\alpha^{t}X_{1}}]E[e^{\alpha^{t}X_{2}}] = \phi_{X_{1}}(\alpha)\phi_{X_{2}}(\alpha).
 \end{align}
-The joint distribution of $X_{(1)}$ and $X_{(n)}$ may also be obtained. Here,
+
+\begin{theorem}[\eax{Cramér-Wold device}]
+    If $X_{p \times 1}$ is a random vector, then its probability distribution is completely determined by the distribution of all linear functions $\alpha^{t}X$ for all $\alpha \in \R^{p}$.
+\end{theorem}
+
+\section{Multivariate Normal Distribution}
+
+\begin{definition}
+    A random vector $X_{p \times 1}$ is said to be \eax{$p$-variate normally distributed} if for every $\alpha \in \R^{p}$, the distribution of $\alpha^{t}X$ is univariate normal.
+\end{definition}
+If $X$ has the $p$-variate normal distribution then both $\mu = E[X]$ and $\Sigma = \Cov(X)$ exist and are finite. We claim that the distribution of $X$ is completely determined by $\mu$ and $\Sigma$. TO see this, let $X = (X_{1},\ldots,X_{p})^{t}$. Then $e_{i}^{t}X = X_{i}$ is univariate normal for each $i = 1,\ldots,p$ where $e_{i}$ is the $i^{\text{th}}$ standard basis vector in $\R^{p}$. Thus each $X_{i}$ is univariate normal and follows distribution $N(\mu_{i},\sigma_{ii}^{2})$. Set $\mu = (\mu{1},\ldots,\mu_{p})^{t}$ and $\Sigma = (\sigma_{ij})_{p \times p}$. Furhter, $E[\alpha^{t}X] = \alpha^{t}\mu$ and $\Var(\alpha^{t}X) = \alpha^{t}\Sigma \alpha$. Thus $\{\alpha^{t}X \mid \alpha \in \R^{p}\}$ determines the distribution of $X$ by the Cramér-Wold device.
+
+IF $X = N_{p}(\mu,\Sigma)$, then for any $A_{k \times p}$ and $b_{k \times 1}$, we have
 \begin{align}
-    P(X_{(n)} \leq y) &= P(X_{(1)} \leq x,\;X_{(n)} \leq y) + P(X_{(1)} > x,\;X_{(n)} \leq y) \notag \\
-    \implies F_{X_{(1)},X_{(n)}}(x,y) = P(X_{(1)}\leq x,\;X_{(n)} \leq y) &= (F(y))^{n} - (F(y)-F(x))^{n}.
+    Y = AX + b \sim N_{k}(A\mu + b, A\Sigma A^{t}).
 \end{align}
+
+\begin{theorem}
+    $X_{p \times 1} \sim N_{p}(\mu,\Sigma)$ if and only if $X_{p \times 1} = C_{p \times r}Z_{r \times 1} + \mu_{p \times 1}$ where $Z = (Z_{1},\ldots,Z_{r})^{t}$ with $Z_{i}$'s following independent $N(0,1)$ distributions, $C_{p \times r}$ is a constant matrix with rank $r \leq p$, and $\Sigma = CC^{t}$.
+\end{theorem}
+\begin{proof}
+    Suppose $Z \sim N_{r}(0, I_{r})$ and $X = CZ + \mu$ with $C_{p \times r}$ a constant matrix with rank $r \leq p$, and $\mu \in R^{p}$. The characteristic function of $X$ is
+    \begin{align}
+        \phi_{X}(t) = E[e^{it^{T}X}] = E[e^{it^{T}X}] = E[e^{it^{T}(CZ+\mu)}] = e^{it^{T}\mu}E[e^{i(C^{T}t)^{T}Z}] = e^{it^{T}\mu}e^{-\frac{1}{2}t^{T}CC^{T}t}.
+    \end{align}
+\end{proof}
+
+\begin{theorem}
+    If $X \sim N_{p}(\mu,\Sigma)$, then the marginal distribution of any subset of $k$ components of $X$ is $k$-variate normal.
+\end{theorem}
+\begin{proof}
+    Suppose, without the loss of generality, that the first $k$ components of $X$ are considered. Then we can write $X = (X_{k \times 1}^{(1)}, X_{(p-k) \times 1}^{(2)})^{t}$ where $X^{(1)} = (X_{1},\ldots,X_{k})^{t}$ and $X^{(2)} = (X_{k+1},\ldots,X_{p})^{t}$. Then we can write $X^{(1)} = (I_{k \times k}, 0_{k \times (p-k)})X$. Thus $X^{(1)}$ is a linear function of $X$ and hence is $k$-variate normal.
+\end{proof}
+
+\begin{proposition}
+    Suppose
+    \begin{align}
+        X_{p \times 1} = \begin{pmatrix}
+            X_{k \times 1}^{(1)} \\
+            X_{(p-k) \times 1}^{(2)}
+        \end{pmatrix} \sim N_{p}\left(\begin{pmatrix}
+            \mu_{k \times 1}^{(1)} \\
+            \mu_{(p-k) \times 1}^{(2)}
+        \end{pmatrix}, \begin{pmatrix}
+            \Sigma_{11} & \Sigma_{12} \\
+            \Sigma_{21} & \Sigma_{22}
+        \end{pmatrix}\right).
+    \end{align}
+    Then $X^{(1)}$ and $X^{(2)}$ are independent if and only if $\Sigma_{12} = 0$ (or equivalently $\Sigma_{21} = 0$).
+\end{proposition}
+\begin{proof}
+    To prove the result, we use the moment generating function (MGF) of $ X = (X^{(1)}, X^{(2)})^T $. The joint distribution of $ X^{(1)} $ and $ X^{(2)} $ is multivariate normal, so the MGF of $ X $ is given by:
+    \begin{align}
+        M_{(X^{(1)}, X^{(2)})}(s_1, s_2) = E[e^{s_1^T X^{(1)} + s_2^T X^{(2)}}].
+    \end{align}
+    This can be written as:
+    \begin{align}
+        M_{(X^{(1)}, X^{(2)})}(s_1, s_2) = E[e^{(s_1^T, s_2^T)^T X}] = e^{(s_1^T, s_2^T)^T \mu + \frac{1}{2}(s_1^T, s_2^T)^T \Sigma (s_1^T, s_2^T)}.
+    \end{align}
+    Expanding the quadratic form:
+    \begin{align}
+        (s_1^T, s_2^T)^T \Sigma (s_1^T, s_2^T) = s_1^T \Sigma_{11} s_1 + s_1^T \Sigma_{12} s_2 + s_2^T \Sigma_{21} s_1 + s_2^T \Sigma_{22} s_2.
+    \end{align}
+    So the MGF becomes:
+    \begin{align}
+        M_{(X^{(1)}, X^{(2)})}(s_1, s_2) = e^{s_1^T \mu^{(1)} + s_2^T \mu^{(2)} + \frac{1}{2} \left( s_1^T \Sigma_{11} s_1 + s_1^T \Sigma_{12} s_2 + s_2^T \Sigma_{21} s_1 + s_2^T \Sigma_{22} s_2 \right)}.
+    \end{align}
+    Now, recall that $ X^{(1)} $ and $ X^{(2)} $ are independent if and only if their joint distribution factors, i.e., the cross terms involving both $ X^{(1)} $ and $ X^{(2)} $ vanish. For the MGF to factorize into a product of two functions (one depending only on $ s_1 $ and the other only on $ s_2 $), the cross terms must disappear. These cross terms are given by:
+    \begin{align}
+        s_1^T \Sigma_{12} s_2 + s_2^T \Sigma_{21} s_1.
+    \end{align}
+    Since $ \Sigma_{12} $ is a $ k \times (p-k) $ matrix and $ \Sigma_{21} = \Sigma_{12}^T $, we have:
+    \begin{align}
+        s_1^T \Sigma_{12} s_2 + s_2^T \Sigma_{21} s_1 = 2 s_1^T \Sigma_{12} s_2.
+    \end{align}
+    For the MGF to factor, we need this term to vanish for all $ s_1 $ and $ s_2 $. This occurs if and only if:
+    \begin{align}
+        \Sigma_{12} = 0.
+    \end{align}
+    Therefore, $ X^{(1)} $ and $ X^{(2)} $ are independent if and only if $ \Sigma_{12} = 0 $. Since $ \Sigma_{12} = \Sigma_{21}^T $, this condition is equivalent to $ \Sigma_{21} = 0 $.
+\end{proof}
+
+\begin{theorem}
+    Suppose $X \sim N_{p}(\mu,\Sigma)$ with $\Sigma$ positive definite. Then the probability density function of $X$ is given by
+    \begin{align}
+        f_{X}(x) = \frac{1}{(2\pi)^{\frac{p}{2}}} \abs{\Sigma}^{-\frac{1}{2}} e^{-\frac{1}{2}(x-\mu)^{t}\Sigma^{-1}(x-\mu)} \text{ for all } x \in \R^{p}.
+    \end{align}
+\end{theorem}
+\begin{proof}
+    Let $\Sigma = CC^{t}$ with $C = \Sigma^{\frac{1}{2}}$ is non-singular. Then $X = CZ+\mu$ where $Z \sim N_{r}(0,I_{r})$. Thus,
+    \begin{align}
+        f_{Z}(z) = (2\pi)^{-\frac{r}{2}} e^{-\frac{1}{2}z^{t}z} \implies f_{X}(x) = f_{Z}(C^{-1}(x-\mu))\abs{\det(C^{-1})} = \frac{(2\pi)^{-\frac{r}{2}}}{\abs{\det(C)}} e^{-\frac{1}{2}(x-\mu)^{t}(CC^{t})^{-1}(x-\mu)}.
+    \end{align}
+\end{proof}
+
+\begin{theorem}
+    Let $X \sim N_{p}(\mu,\Sigma)$ with $\Sigma$ positive definite, and let $X = (X_{1},X_{2})^{t}$, $\mu = (\mu_{1},\mu_{2})^{t}$, and $\Sigma = \begin{pmatrix}
+        \Sigma_{11} & \Sigma_{12} \\
+        \Sigma_{21} & \Sigma_{22}
+    \end{pmatrix}$ where $X_{1}$ and $\mu_{1}$ are of length $k$. Let $\Sigma_{11\cdot 2} = \Sigma_{11} - \Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}$.
+    \begin{enumerate}
+        \item If $\Sigma_{11\cdot 2}$ is positive definite, then $X_{1}-\Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21} \sim N_{k}(\mu_{1}-\Sigma_{12}\Sigma_{22}^{-1}\Sigma_{21}\mu_{2},\Sigma_{11\cdot 2})$ and is independent of $X_{2}$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    \begin{enumerate}
+        \item Let $X \sim N_{p}(\mu,\Sigma)$, $A \in \R^{m \times p}$ and $b \in \R^{m}$. Then $AX+b \sim N_{m}(A\mu+b,A\Sigma A^{t})$. Set $C = \begin{pmatrix}
+            I_{k} & -\Sigma_{12}\Sigma_{22}^{-1} \\
+            0 & I_{p-k}
+        \end{pmatrix}$. Then
+        \begin{align}
+            CX = \begin{pmatrix}
+                I_{k} & -\Sigma_{12}\Sigma_{22}^{-1} \\
+                0 & I_{p-k}
+            \end{pmatrix} \begin{pmatrix}
+                X_{1} \\
+                X_{2}
+            \end{pmatrix} = \begin{pmatrix}
+                X_{1} - \Sigma_{12}\Sigma_{22}^{-1}X_{2} \\
+                X_{2}
+            \end{pmatrix}
+        \end{align}
+    \end{enumerate}
+\end{proof}
