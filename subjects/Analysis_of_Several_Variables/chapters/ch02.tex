@@ -1,5 +1,7 @@
 \chapter{INTEGRATION: RIEMANN AND DARBOUX}
 
+\textit{September 15th.}
+
 For the one-dimensional integration, we studied how to compute the length of curves, the area under a curve, and even antiderivatives. Our aim, now, is to extend these concepts to higher dimensions; given a function $f:O_{n} \to \R$, we want to give meaning to $\int_{O_{n}} f d\ast$, and fill the $\ast$ too.
 
 \begin{definition}
@@ -122,3 +124,64 @@ Using the above, the concept of mesh can be extended.
     where $c(P) = \sum_{\alpha \in \Lambda(P)} f(a_{\alpha}) v(B_{\alpha}^{n})$. Thus $U(f,P) - L(f,P) < \varepsilon$, showing that $f \in \cR(B^{n})$.
 \end{proof}
 
+\noindent\textit{September 19th.}
+
+We question whether the use of one-variable integration can help us in evaluating $\int_{B^{n}} f dv$ for $f \in \cR(B^{n})$. The answer is yes, and we will see how. Consider $B^{2} = [a_{1},b_{1}] \times [a_{2},b_{2}] \subseteq \R^{2}$.Given $f:B^{2} \to \R$, we consider slice functions $f_{x}:[a_{2},b_{2}] \to \R$ defined as $f_{x}(y) = f(x,y)$ for each fixed $x \in [a_{1},b_{1}]$. Similarly, one defines $f_{y}(x) = f(x,y)$ over $[a_{2},b_{2}]$. Let $P$ be a partition of $B^{2} = B_{1}^{1} \times B_{2}^{1}$, where $P = P_{1} \times P_{2}$, and $P_{i}$ is a partition of $B_{i}^{1}$ for $i=1,2$. Moreover, $\Lambda(P) = \Lambda(P_{1}) \times \Lambda(P_{2})$.
+
+\begin{example}
+    Look at $B^{2} = [0,1] \times [0,1]$ and $f(x,y) = \1_{1/2}(x) \cdot \1_{\Q}(y)$. If we consider the slice function $f_{x}:[0,1] \to \R$, then for $x = \frac{1}{2}$, $f_{\frac{1}{2}}$ is the Dirichlet function, which is not Riemann integrable. Thus, $\int_{0}^{1} \int_{0}^{1} f(x,y) dy dx$ is not defined. However, if we consider $f_{y}:[0,1] \to \R$, then for each fixed $y \in [0,1]$, $f_{y}(x)$ is $0$ except a single point, where it is $1$. Thus, $f_{y}$ is Riemann integrable for each $y \in [0,1]$, and $\int_{0}^{1} f_{y}(x) dx = 0$ along with $\int_{0}^{1} \int_{0}^{1} f(x,y) dx dy = 0$. Thus, the order of integration does not commute.
+
+    We, however, will show that $f \in \cR(B^{2})$ and $\int_{B^{2}} f dv = 0$. Pick $\varepsilon > 0$. Pick partition $\Lambda(P_{1}) = \{0,\frac{1}{2}-\varepsilon,\frac{1}{2}+\varepsilon,1\}$ and $\Lambda(P_{2}) = \{0,1\}$. Then, $P = P_{1} \times P_{2}$ is a partition of $B^{2}$. The sub-boxes are $B_{1} = [0,\frac{1}{2}-\varepsilon] \times [0,1]$, $B_{2} = [\frac{1}{2}-\varepsilon,\frac{1}{2}+\varepsilon] \times [0,1]$, and $B_{3} = [\frac{1}{2}+\varepsilon,1] \times [0,1]$. The supremum over these boxes are $M_{1} = 0$, $M_{2} = 1$, and $M_{3} = 0$. The infimum over these boxes are $m_{1} = 0$, $m_{2} = 0$, and $m_{3} = 0$. Thus, we have
+    \begin{align}
+        U(f,P) - L(f,P) = \sum_{j=1}^{3} (M_{j} - m_{j}) v(B_{j}) = 2\varepsilon \to 0.
+    \end{align}
+    This tells us that $f \in \cR(B^{2})$and $\int_{B^{2}} f dv = 0$.
+\end{example}
+
+Now suppose $B^{m} \times B^{n} = B^{m + n} \subseteq \R^{m+n}$, and let $x \in B^{m}$ and $y \in B^{n}$. Fix $P \in \cP(B^{m+n})$ and let $P = P^{m} \times P^{n}$, where $P^{m} \in \cP(B^{m})$ and $P^{n} \in \cP(B^{n})$. Subsequently, $\Lambda(P) = \Lambda(P^{m}) \times \Lambda(P^{n})$ and for all $\alpha(P) \in \Lambda(P)$, $\alpha = (\alpha(P^{m}),\alpha(P^{n}))$. The sub-boxes are $B_{\alpha(P)}^{m+n} = B_{\alpha(P^{m})}^{m} \times B_{\alpha(P^{n})}^{n}$. Let $f:B^{m+n} \to \R$ be a bounded function, and let $f_{x} :B^{n} \to \R$ be the slice function in $x$. We then define
+\begin{align}
+    \underline{f}(x) \defeq \underline{\int_{B^{n}}} f_{x}(y) dv(y) \;\text{ and }\; \overline{f}(x) \defeq \overline{\int_{B^{n}}} f_{x}(y) dv(y) \;\text{ for all } x \in B^{m}.
+\end{align}
+which are both functions as $\underline{f},\overline{f}:B^{m} \to \R$.
+
+\begin{theorem}[\eax{Fubini's theorem}]
+    Let $f \in \cR(B^{m+n})$. Then $\underline{f},\overline{f} \in \cR(B^{m})$. Moreover,
+    \begin{align}
+        \int_{B^{m+n}} f dv = \int_{B^{m}} \underline{f}(x) dv(x) = \int_{B^{m}} \overline{f}(x) dv(x).
+    \end{align}
+\end{theorem}
+
+\begin{proof}
+    Fix $P \in \cP(B^{m} \times B^{n})$ and let $P = P^{m} \times P^{n}$, where $P^{m} \in \cP(B^{m})$ and $P^{n} \in \cP(B^{n})$. Now
+    \begin{align}
+        L(f,P) = \sum_{\alpha \in \Lambda(P)} m_{\alpha} v(B_{\alpha}^{m+n}) = \sum_{\alpha(P^{m}) \in \Lambda(P^{m})} \left( \sum_{\alpha(P^{n}) \in \Lambda(P^{n})} m_{(\alpha(P^{m}),\alpha(P^{n}))} v(B_{\alpha(P^{n})}^{n}) \right) v(B_{\alpha(P^{m})}^{m})
+    \end{align}
+    where we broke down $v(B_{\alpha}^{m+n})$ as $v(B_{\alpha(P^{m})}^{m}) v(B_{\alpha(P^{n})}^{n})$. Let us call the summation inside the parenthesis as $(\ast)$. For each $x \in B^{m}$, $\alpha(P^{n}) \in \Lambda(P^{n})$, set $m_{\alpha(P^{n})}(x) = \inf_{y \in B_{\alpha(P^{n})}^{n}} f_{x}(y)$ Thus,
+    \begin{align}
+        m_{\alpha(P^{n})}(x) &\geq m_{(\alpha(P^{m}),\alpha(P^{n}))} \text{ for all } x \in B_{\alpha(P^{m})}^{m} \\ \implies (\ast) &\leq \sum_{\alpha(P^{n}) \in \Lambda(P^{n})} m_{\alpha(P^{n})}(x) v(B_{\alpha(P^{n})}^{n}) = L(f_{x},P^{n}) \leq \underline{\int_{B^{n}}}f_{x}dv(x) = \underline{f}(x) \text{ for all } x \in B_{\alpha(P^{m})}^{m}.
+    \end{align}
+    Note, that $\underline{m}_{B_{\alpha(P^{m})}^{m}} = \inf_{x \in B_{\alpha(P^{m})}^{m}} \underline{f}(x)$ is also an upper bound for the above. Therefore, we obtain
+    \begin{align}
+        L(f,P) \leq \sum_{\alpha(P^{m}) \in \Lambda(P^{m})} \underline{m}_{B_{\alpha(P^{m})}^{m}} v(B_{\alpha(P^{m})}^{m}) = L(\underline{f},P^{m}).
+    \end{align}
+    Similarly, one obtains
+    \begin{align}
+        U(f,P) \geq U(\underline{f},P^{m}).
+    \end{align}
+    Finally, we obtain $\underline{f} \in \cR(B^{m})$. One may do the same work to obtain $\overline{f} \in \cR(B^{m})$. The equality in the theorem also follows.
+\end{proof}
+
+\begin{corollary}
+    Let $f \in \cR(B^{m+n})$. If $f_{x} \in \cR(B^{n})$ for all $x \in B^{m}$ then 
+    \begin{align}
+        \int_{B^{m+n}} f dv = \int \int f(x,y) dv(y) dv(x).
+    \end{align}
+\end{corollary}
+
+\begin{corollary}
+    Let $f \in \cC(B^{n})$. Then 
+    \begin{align}
+        \int_{B^{n}} f dv = \int_{a_{1}}^{b_{1}} \cdots \int_{a_{n}}^{b_{n}} f(x_{1},\ldots,x_{n}) dx_{n} \cdots dx_{1}
+    \end{align}
+    where $B^{n} = \prod_{i=1}^{n} [a_{i},b_{i}]$, and the order of integration can be interchanged.
+\end{corollary}
