@@ -1,5 +1,7 @@
 \chapter{INTEGRATION: RIEMANN AND DARBOUX}
 
+\section{Intuition}
+
 \textit{September 15th.}
 
 For the one-dimensional integration, we studied how to compute the length of curves, the area under a curve, and even antiderivatives. Our aim, now, is to extend these concepts to higher dimensions; given a function $f:O_{n} \to \R$, we want to give meaning to $\int_{O_{n}} f d\ast$, and fill the $\ast$ too.
@@ -185,3 +187,48 @@ which are both functions as $\underline{f},\overline{f}:B^{m} \to \R$.
     \end{align}
     where $B^{n} = \prod_{i=1}^{n} [a_{i},b_{i}]$, and the order of integration can be interchanged.
 \end{corollary}
+
+\textit{September 22nd.}
+\begin{example}
+    Let us integrate $f(x,y) = xy$ over $B^{2} = [0,1] \times [0,1]$. Since $f$ is continuous, we have
+    \begin{align}
+        \int_{[0,1]^{2}} f(x,y) dv = \int_{0}^{1} x\left( \int_{0}^{1}ydy \right)dx = \int_{0}^{1} x \cdot \frac{1}{2} dx = \frac{1}{4}.
+    \end{align}
+\end{example}
+
+\section{Generalization}
+
+So far, we have only discussed integration over boxes. We now extend this to more general sets; if $\Omega \subseteq \R^{n}$ is bounded, we wish to define $\int_{\Omega} f dv$ for $f \in \cB(\Omega)$. Here onwards, most proofs will be omitted since they involve measure theoretic arguments beyond the scope of this course. Where an idea of a proof is needed, we will provide it.
+
+\begin{definition}
+    Given $f \in \cB(\Omega)$, for some bounded $\Omega \subseteq \R^{n}$, take a box $B^{n} \supseteq \Omega$ and define $\tilde{f}:B^{n} \to \R$ as
+    \begin{align}
+        \tilde{f}(x) = \begin{cases}
+            f(x) &\text{ if } x \in \Omega \\
+            0 &\text{ if } x \in B^{n} \setminus \Omega.
+        \end{cases}.
+    \end{align}
+    We say $f \in \cR(\Omega)$ if $\tilde{f} \in \cR(B^{n})$, and define the integral as $\int_{\Omega} f dv \defeq \int_{B^{n}} \tilde{f} dv$.
+\end{definition}
+
+\begin{theorem}
+    Let $B_{1}^{n}, B_{2}^{n} \supseteq \Omega \subseteq \R^{n}$ be two boxes, with $\Omega$ bounded. Let $f \in \cB(\Omega)$ and define $\tilde{f}_{i}:B_{i}^{n} \to \R$ as above for each $i$. Then $\tilde{f}_{1} \in \cR(B_{1}^{n})$ if and only if $\tilde{f}_{2} \in \cR(B_{2}^{n})$, and in that case, $\int_{B_{1}^{n}} \tilde{f}_{1} dv = \int_{B_{2}^{n}} \tilde{f}_{2} dv$.
+\end{theorem}
+
+\begin{definition}
+    A set $S \subseteq \R^{n}$ is said to be of \eax{content zero} if for every $\varepsilon > 0$ there exists a finite collection of boxes $\{B_{j}^{n}\}_{j = 1}^{m}$ such that $S \subseteq \bigcup_{j=1}^{m} B_{j}^{n}$ and $\sum_{j=1}^{m} v(B_{j}^{n}) < \varepsilon$.
+\end{definition}
+
+Note that content zero sets are \textit{not} the same as measure zero sets. For example, $\Q \cap [0,1]$ is a measure zero set but not a content zero set in $\R^{1}$. Before we discuss the consequences, let us look at two special domains.
+
+\begin{enumerate}
+    \item A set $\Omega \subseteq \R^{2}$ is $y$-simple (type-I) if there exist $\varphi_{1},\varphi_{2} \in \cB[a,b]$ such that $\Omega = \{(x,y) \mid \varphi_{1}(x) \leq y \leq \varphi_{2}(x),\; a \leq x \leq b\}$. 
+    \item Similarly, $\Omega$ is $x$-simple (type-II) if there exist $\psi_{1},\psi_{2} \in \cB[c,d]$ such that $\Omega = \{(x,y) \mid \psi_{1}(y) \leq x \leq \psi_{2}(y),\; c \leq y \leq d\}$.
+\end{enumerate}
+
+\begin{theorem}
+    Let $f \in \cR(\Omega)$, where $\Omega = \{(x,y) \mid \varphi_{1}(x) \leq y \leq \varphi_{2}(x),\;a \leq x \leq b\}$ for some $\varphi_{1},\varphi_{2} \in \cB[a,b]$. Suppose $\int_{\varphi_{1}(x)}^{\varphi_{2}(x)} f(x,y) dy$ exists for all $x \in [a,b]$. Then
+    \begin{align}
+        \int_{\Omega} f(x,y) dv = \int_{a}^{b} \int_{\varphi_{1}(x)}^{\varphi_{2}(x)} f(x,y) dy dx.
+    \end{align}
+\end{theorem}
