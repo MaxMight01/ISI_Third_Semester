@@ -523,3 +523,65 @@ One can easily see that $R(m,2) = m$ and $R(m,n) = R(n,m)$, and $R(m,n) < \infty
     \end{align}
     
 \end{proof}
+
+\subsection{de Bruijn Sequences and Graphs}
+
+\textit{September 23rd.}
+
+Suppose we have a circular rotating drum with a `window' of length $n$. The rotating drum has a tape of $l$ symbols on it coming from a finite alphabet $\Sigma$ with $\abs{\Sigma} = q$. The drum rotates one position at a time, and at each position, we can see the $n$ symbols in the window. We want to design a circular tape (sequence) of length $l$ such that as the drum rotates, every possible sequence of length $n$ appears in the window at least once.
+
+Clearly, the number of `words' that the tape must cover is $q^{n}$. For our best case scenario, we can have that every window is distinct, giving us a lower bound of $q^{n}$ for $l$. An upper bound is $nq^{n}$, which can be achieved by concatenating all possible words of length $n$ together. Thus we obtain
+\begin{align}
+    q^{n} \leq l \leq nq^{n}.
+\end{align}
+
+\begin{definition}
+    A \eax{de Bruijn sequence} of order $n$ over an alphabet $\Sigma$ of size $q$ is a cycle sequence of length $q^{n}$ in which every possible word of length $n$ over $\Sigma$ appears exactly once as a contiguous subsequence.
+\end{definition}
+
+We show that the lower bound can be achieved.
+
+\begin{theorem}
+    For every alphabet $\Sigma$ of size $q$ and $n \geq 1$, there exists a de Bruijn sequence of order $n$ over $\Sigma$. In particular, there are $\dfrac{(q!)^{q^{n-1}}}{q^{n}}$ distinct de Bruijn sequences of order $n$ over $\Sigma$.
+\end{theorem}
+
+Before we show this theorem, we introduce the \eax{de Bruijn graph}, which is a directed graph defined as follows. The vertex set is $\Sigma^{n-1}$, the set of all words of length $n-1$ over $\Sigma$. There is a directed edge from vertex $v = a_{1}a_{2}\cdots a_{n-1}$ to vertex $w = b_{1}b_{2}\cdots b_{n-1}$ if and only if $a_{2} = b_{1}, a_{3} = b_{2}, \ldots, a_{n-1} = b_{n-2}$; that is, the last $n-2$ symbols of $v$ are the same as the first $n-2$ symbols of $w$. In this case, we label the edge $vw$ with the symbol $b_{n-1}$, the last symbol of $w$. Note that each vertex has exactly $q$ outgoing edges and exactly $q$ incoming edges. Thus the graph has $q^{n-1}$ vertices and $q^{n}$ edges. The in-degree and the out-degree of each vertex is $q$. Let $B(q,n)$ denote the de Bruijn graph with alphabet size $q$ and vertices consisting of words of length $n-1$.
+
+\begin{theorem}
+    There exists a bijection between Eulerian cycles in $B(q,n)$ and de Bruijn sequences of order $n$ over an alphabet of size $q$.
+\end{theorem}
+
+One can show that if $G$ is a connected digraph then $G$ has an Eulerian cycle if and only if the in-degree of each vertex is equal to its out-degree.
+
+\begin{proof}
+    Let $\cE$ denote the set of Eulerian cycles in $B(q,n)$ and let $\cD$ denote the set of de Bruijn sequences of order $n$ over an alphabet of size $q$. Also let $m = q^{n}$ be the number of directed edges in the graph $B(q,n)$. Suppose $C = w_{0}w_{1}\cdots w_{m-1}w_{0}$ is an Eulerian cycle in $\cE$ of length $n$. Let $s(v)$ denote the suffix of the word $v$, and let $p(v)$ denote the prefix of the word $v$. Then $s(w_{i}) = p(w_{i+1})$ for all $0 \leq i \leq m-1$, where indices are taken modulo $m$. Define a sequence $S = a_{1}a_{2}\cdots a_{m}$, where $a_{i}$ is the label of the edge $w_{i}w_{i+1}$ in $B(q,n)$, or $a_{i} = s(w_{i+1})$. Since $C$ is an Eulerian cycle, every edge in $B(q,n)$ is traversed exactly once, and thus every word of length $n$ appears exactly once as a contiguous subsequence of $S$. Therefore, $S$ is a de Bruijn sequence of order $n$ over $\Sigma$.
+
+    Conversely, given a de Bruijn sequence $S = a_{1}a_{2}\cdots a_{m}$ of order $n$, construct a cycle $C = w_{0}w_{1}\cdots w_{m-1}w_{0}$ in $B(q,n)$, where $w_{i} = a_{i}a_{i+1}\cdots a_{i+n-2}$ (indices taken modulo $m$). Since $S$ is a de Bruijn sequence, every word of length $n$ appears exactly once, and thus every edge in $B(q,n)$ is traversed exactly once. Therefore, $C$ is an Eulerian cycle in $B(q,n)$.
+\end{proof}
+
+\begin{corollary}
+    de Bruijn sequences exist.
+\end{corollary}
+
+\subsubsection{Pythagorous}
+If the legs of a right triangle are $a$ and $b$, and the hypotenuse is $c$, then $a^{2} + b^{2} = c^{2}$. This is the Pythagorean theorem. THe converse, that if a triangle's sides satisfy $a^{2} + b^{2} = c^{2}$, then the triangle is a right triangle, is known as Carpenter's theorem. We provide a generalization of the Pythagorean theorem.
+
+\begin{theorem}
+    Let $P$ be an orthogonal projection in $M_{n}(\R)$, that is, $P^{2} = P = P^{T}$. If $k$ is the rank of the projection, then $\tr P = k$.
+\end{theorem}
+
+An analogous generalization of the Carpenter's theorem is as follows.
+
+\begin{theorem}
+    Let $a_{1},\ldots,a_{n}$ be numbers such that $0 \leq a_{i} \leq 1$ for all $i$ and $\sum_{i=1}^{n} a_{i} = k$, where $k$ is an integer. Then there exists an orthogonal projection $P$ in $M_{n}(\R)$ such that $\tr P = k$ and the diagonal entries of $P$ are $a_{1},\ldots,a_{n}$.
+\end{theorem}
+
+Let $(\lambda_{1},\ldots,\lambda_{n}) \in \R^{n}$. Then the permutation polytope of $(\lambda_{1},\ldots,\lambda_{n})$ is defined as the convex hull of $\{(\lambda_{\sigma(1)},\ldots,\lambda_{\sigma(n)}) \mid \sigma \in S_{n}\}$. Majorization: we define a pre-order on $\R^{n}$ as follows. For $(\lambda_{1},\ldots,\lambda_{n}), (\mu_{1},\ldots,\mu_{n}) \in \R^{n}$, we say that $(\lambda_{1},\ldots,\lambda_{n})$ is majorized by $(\mu_{1},\ldots,\mu_{n})$, denoted $(\lambda_{1},\ldots,\lambda_{n}) \preceq (\mu_{1},\ldots,\mu_{n})$, if
+\begin{align}
+    \sum_{i=1}^{k} \lambda_{i} \leq \sum_{i=1}^{k} \mu_{i} \quad \text{ for all } 1 \leq k \leq n.
+\end{align}
+For example, $(\frac{1}{n},\ldots,\frac{1}{n}) \preceq (1,0,\ldots,0)$.
+
+\begin{theorem}
+    $(\lambda_{1},\ldots,\lambda_{n}) \preceq (\mu_{1},\ldots,\mu_{n})$ if and only if the permutation polytope of $(\lambda_{1},\ldots,\lambda_{n})$ is contained in the permutation polytope of $(\mu_{1},\ldots,\mu_{n})$. Equivalently, there exists a sequence of transpositions such that $(\mu_{1},\ldots,\mu_{n}) \geq \cdots \geq (\lambda_{1},\ldots,\lambda_{n})$ where consecutive vectors differ only in two vectors.
+\end{theorem}
