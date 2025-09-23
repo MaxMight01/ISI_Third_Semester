@@ -1,4 +1,7 @@
-\chapter{FREE GROUPS}
+\chapter{PRESENTATION OF GROUPS}
+
+
+\section{Free Groups}
 
 \textit{September 16th.}
 
@@ -94,3 +97,42 @@ Note that there is a natural mapping $i:S \to F_{S}$ given by $a \mapsto \bar{a}
     \end{align}
     showing $\psi \circ \phi|_{i(S)} = \id_{i(S)}$ or $\psi \circ \phi = \id_{F_{S}}$. Similarly, $\phi \circ \psi = \id_{F_{T}}$.
 \end{proof}
+
+\section{Automorphisms}
+
+Recall that an automorphism of a group $G$ is simply an isomorphism from $G$ to itself. The set of all automorphisms of $G$ is denoted by $\Aut(G)$, which also forms a group under composition. Moreover, $\emptyset \neq \Aut(G) \leq \Bij(G)$, where $\Bij(G)$ is the group of all bijections from $G$ to itself.
+
+\begin{example}
+    \begin{enumerate}
+        \item One may show that $\Aut(\Z/n\Z) \cong (\Z/n\Z)^{\ast}$, the group of units in $\Z/n\Z$, by sending an automorphism $\phi$ to $\phi(\bar{1})$.
+        \item Let $G = (\Z/p\Z)^{n}$, for a prime $p$. Then $\Aut(G) \cong GL_{n}(\Z/p\Z)$, the group of invertible $n \times n$ matrices over $\Z/p\Z$ since $G$ can be viewed as an $n$-dimensional vector space over the field $\Z/p\Z$, and any automorphism of $G$ is a linear transformation.
+    \end{enumerate}
+\end{example}
+
+\begin{proposition}
+    Let $G$ be a group and $H \nsbg G$ a normal subgroup. Given $g \in G$, the map $\varphi_{g}:H \to H$ given by $\varphi_{g}(h) = ghg^{-1}$ is an automorphism of $H$. Moreover, the map $X:G \to \Aut(G)$ given by $g \mapsto \varphi_{g}$ is a group homomorphism. The kernel of $X$ is $\ker X = C_{G}(H)$, the centraliser of $H$ in $G$.
+\end{proposition}
+\begin{proof}
+    The proof is left as an exercise to the reader.
+\end{proof}
+
+\begin{corollary}
+    Let $H \nsbg G$. Then the map $G/C_{G}(H) \to \Aut(H)$ given by $gC_{G}(H) \mapsto \varphi_{g}$ is an injective group homomorphism.
+\end{corollary}
+\begin{proof}
+    This is easy to see by the first isomorphism theorem applied on the previous proposition. Hence, the map $gC_{G}(H) \mapsto \varphi_{g}$ is an injective group homomorphism from $G/C_{G}(H)$ to $\Aut(H)$.
+\end{proof}
+In particular, taking $H = G$, we obtain $G/Z(G) \to \Aut(G)$, an injective homomorphism, where $Z(G)$ is the centre of $G$.
+
+\begin{definition}
+    Let $G$ be a group. An automorphism of $G$ given by $\varphi_{g}$ for some $g \in G$ is called an \eax{inner automorphism} of $G$. The set of all inner automorphisms of $G$ is denoted by $\Inn(G)$.
+\end{definition}
+This set is precisely the image of the map $X:G \to \Aut(G)$ defined in the previous proposition. Note that $\Inn(G) \leq \Aut(G)$. Moreover, it is normal in $\Aut(G)$. An automorphism $\psi \in \Aut(G)\setminus \Inn(G)$ is called an \eax{outer automorphism}. We define $\Out(G) = \Aut(G)/\Inn(G)$ to be the group of outer automorphisms of $G$. Note that if $G$ is abelian, then $\Inn(G)$ is trivial, and $\Out(G) = \Aut(G)$.
+
+\begin{example}
+    \begin{enumerate}
+        \item For $n \geq 3$, $\Inn(S_{n}) \cong S_{n}$.
+        \item For the quaternions, $\Inn(Q_{8}) \cong (Z/2Z)^{2}$.
+        \item The dihedral group also gives $\Inn(D_{8}) \cong (Z/2Z)^{2}$.
+    \end{enumerate}
+\end{example}
