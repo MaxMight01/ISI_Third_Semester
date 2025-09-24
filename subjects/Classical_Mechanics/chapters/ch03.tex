@@ -1,6 +1,7 @@
-\chapter{THE CENTRAL FORCE PROBLEM}
+\chapter{CENTRAL FORCE MOTION AND ROTATIONAL PHYSICS}
 
-\section{One Body Problem}
+\section{The Central Force Problem}
+\subsection{One Body Problem}
 \textit{September 15th.}
 
 Consider two particles of masses lying $m_{1}$ and $m_{2}$ lying at positions $\vec{r}_{1}$ and $\vec{r}_{2}$ respectively. If $\vec{r} = \vec{r}_{2}-\vec{r}_{1}$ is the relative position vector, and $\vec{R}$ is the position vector of the centre of mass, then the kinetic energy may be given as
@@ -85,4 +86,58 @@ or just simply
 \begin{align}
     \frac{1}{r} = C\left( 1 + e \cos(\phi - \phi_{0}) \right),\quad C = \frac{\mu k}{\ell^{2}},\; e = \sqrt{1 + \frac{2E \ell^{2}}{\mu k^{2}}}.
 \end{align}
-The above is simply the equation of a general conic section with one focus at the origin. Note that if $E > 0$, then $e > 1$ resulting in the shape of a hyperbola. If $E = 0$, then $e = 1$ resulting in the shape of a parabola. If $E < 0$ such that $0 < e < 1$ then the orbit is elliptical. To get a circle, the eccentricity must be zero, which means that the energy is \textit{fixed}, as $E = -\frac{\mu k^{2}}{2\ell^{2}}$. Coming in with this energy results in a circular orbit. 
+The above is simply the equation of a general conic section with one focus at the origin. Note that if $E > 0$, then $e > 1$ resulting in the shape of a hyperbola. If $E = 0$, then $e = 1$ resulting in the shape of a parabola. If $E < 0$ such that $0 < e < 1$ then the orbit is elliptical. To get a circle, the eccentricity must be zero, which means that the energy is \textit{fixed}, as $E = -\frac{\mu k^{2}}{2\ell^{2}}$. Coming in with this energy results in a circular orbit.
+
+\section{Rotational Motion}
+
+\textit{September 24th.}
+
+In two dimensional motion, rotational motion can simply be thought of as the group action of the unitary group of matrices $U(1)$ on $\R^{2}$. This is an abelian group, and is simple to work with. In three dimensions, however, one must consider the group action of special orthogonal matrices $SO(3)$ on $\R^{3}$. This is a non-abelian group, and hence the order of rotations matters.
+
+For rotation on a plane, the direction of $\vec{L}$ is fixed, and we simply have
+\begin{align}
+    \vec{L} = \abs{\vec{L}} \hat{e}_{L},\quad \frac{d\vec{L}}{dt} = \frac{d\abs{\vec{L}}}{dt} \hat{e}_{L}.
+\end{align}
+Note that since $\vec{L} = \vec{r} \times \vec{p}$, the angular momentum depends on the choice of the origin. Taking the time derivative of the total angular momentum of a system of particles gives
+\begin{align}
+    \frac{d\vec{L}_{\text{tot}}}{dt} = \frac{d}{dt} \sum_{i=1}^{N} \vec{r}_{i} \times \vec{p}_{i} = \sum_{i=1}^{N} \left(\frac{d \vec{r}_{i}}{dt} \times \vec{p}_{i}+ \vec{r}_{i} \times \frac{d \vec{p}_{i}}{dt} \right) = \sum_{i=1}^{N} \vec{r}_{i} \times \vec{F}_{i} = \vec{\tau}_{\text{tot}}.
+\end{align}
+
+Let us consider rotation only about a fixes axis, say about $\hat{e}_{z}$. The angular velocity may be denoted by $\vec{\omega} = \omega \hat{e}_{z}$. The velocity of a particle at position $\vec{r}_{i}$ is given by $\vec{v}_{i} = \vec{\omega} \times \vec{r}_{i}$. In the simplest case, there is only one particle of mass $m$ at position $\vec{r}$ and velocity $\vec{v}$; its angular momentum will simply be $\vec{L} = \vec{r} \times m \vec{v}$. For a continuous body $S$, with $\vec{p} = (dm) \vec{v}$, the angular momentum is given by
+\begin{align}
+    \vec{L} = \int_{S} \vec{r} \times \vec{p} = \int_{S} (\vec{r} \times \vec{v}) dm = \int_{S} (\vec{r} \times (\vec{\omega} \times \vec{r})) dm.
+\end{align}
+Recalling the identity $\vec{a} \times (\vec{b} \times \vec{c}) = (\vec{a} \cdot \vec{c}) \vec{b} - \vec{c} (\vec{a} \cdot \vec{b})$, we obtain
+\begin{align}
+    \vec{L} = \int_{S} (\vec{r} \cdot \vec{r}) \vec{\omega} dm = \left( \int_{S} r^{2} dm \right) \omega \hat{e}_{z} = I_{zz} \omega \hat{e}_{z}
+\end{align}
+where the quantity $I_{zz} = \int_{S} r^{2} dm$ is termed the \eax{moment of inertia} about the $z$-axis. The subscript $zz$ is used is lieu of future generalizations. Thus, the relation gives $L = I \omega$ for rotation about a fixes axis. For a discrete case, $I_{zz} = \sum_{i=1}^{N} m_{i} r_{i}^{2}$. The kinetic energy of the rotating body, using $dT = \frac{1}{2}v^{2}(dm)$, is given by
+\begin{align}
+    T = \int_{S} dT = \int_{S} \frac{1}{2} (\omega r)^{2} dm = \frac{\omega^{2}}{2} \int_{S} r^{2} dm = \frac{1}{2} I_{zz} \omega^{2}.
+\end{align}
+The continuous version of the center of mass formula is
+\begin{align}
+    \left( \frac{\sum_{i} m_{i} \vec{r}_{i}}{\sum_{i} m_{i}} = \right)\; \vec{r}_{CM} = \frac{\int_{S} \vec{r} dm}{\int_{S} dm}.
+\end{align}
+We, earlier, obtained the equations $\vec{r} = \vec{r}_{CM} + \vec{r}'$ and $\vec{v} = \vec{v}_{CM} + \vec{v}'$, where the primed quantities are relative to the center of mass. Working as we did before in chapter 1, and using $\vec{p}_{CM} = M\vec{v}_{CM}$ and $\vec{v}' = \vec{\omega}' \times \vec{r}'$, we obtain
+\begin{align}
+    \vec{L} = \vec{r}_{CM} \times \vec{p}_{CM} + \left( \int_{S} r'^{2} dm \right) \omega' \hat{e}_{z}\; \text{ or }\; \vec{L} = \vec{L}_{CM} + I_{CM}^{zz} \omega' \hat{e}_{Z}.
+\end{align}
+The kinetic energy, when the center of mass transates and the rotations is $\vec{\omega}' = \omega' \hat{e}_{z}$, is given by
+\begin{align}
+    T = \frac{1}{2} M v_{CM}^{2} + \frac{1}{2} I_{CM}^{zz} \omega'^{2}.
+\end{align}
+
+If we consider rotation about an origin at another point $O$ with axis parallel to the rotation axis through the center of mass, then the kinetic energy gives
+\begin{align}
+    T = \frac{1}{2} M r_{CM}^{2} \omega^{2} + \frac{1}{2} I_{CM}^{zz} \omega^{2} = \frac{1}{2} (I_{CM}^{zz} + M r_{CM}^{2}) \omega^{2} = \frac{1}{2} I_{O}^{zz} \omega^{2}.
+\end{align}
+This is called the \eax{parallel axis theorem}, giving $I_{O}^{zz} = I_{CM}^{zz} + M r_{CM}^{2}$. The torque about $O$ is given by
+\begin{align}
+    \vec{L}_{O} = \sum_{i=1}^{N} m_{i}(\vec{r}_{i} - \vec{r}_{O}) \times (\dot{\vec{r}}_{i} - \dot{\vec{r}}_{O}) \implies \frac{d \vec{L}_{O}}{dt} = \sum_{i=1}^{N} (\vec{r}_{i} - \vec{r}_{O}) \times (\vec{F}_{i}^{\text{ext}} + \vec{F}_{i}^{\text{int}}).
+\end{align}
+One can show that the internal force vanishes for forces acting along $\vec{r}_{i} - \vec{r}_{j}$. Thus, we have
+\begin{align}
+    \frac{d \vec{L}_{O}}{dt} = \vec{\tau}_{\text{tot},O}^{\text{ext}} = \sum_{i=1}^{N} m_{i}(\vec{r}_{i}-\vec{r}_{O}) \times (-\ddot{\vec{r}}_{O}) = \vec{\tau}_{\text{tot},O}^{\text{ext}} + (\vec{r}_{CM} - \vec{r}_{O}) \times (-M \ddot{\vec{r}}_{O}).
+\end{align}
+This last term, $-M\ddot{\vec{r}}_{O}$, is called the \eax{fictitious force} or the \eax{pseudoforce}.
