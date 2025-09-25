@@ -563,7 +563,7 @@ One can show that if $G$ is a connected digraph then $G$ has an Eulerian cycle i
     de Bruijn sequences exist.
 \end{corollary}
 
-\subsubsection{Pythagorous}
+\subsubsection{Linear Algebra Interlude}
 If the legs of a right triangle are $a$ and $b$, and the hypotenuse is $c$, then $a^{2} + b^{2} = c^{2}$. This is the Pythagorean theorem. THe converse, that if a triangle's sides satisfy $a^{2} + b^{2} = c^{2}$, then the triangle is a right triangle, is known as Carpenter's theorem. We provide a generalization of the Pythagorean theorem.
 
 \begin{theorem}
@@ -576,12 +576,85 @@ An analogous generalization of the Carpenter's theorem is as follows.
     Let $a_{1},\ldots,a_{n}$ be numbers such that $0 \leq a_{i} \leq 1$ for all $i$ and $\sum_{i=1}^{n} a_{i} = k$, where $k$ is an integer. Then there exists an orthogonal projection $P$ in $M_{n}(\R)$ such that $\tr P = k$ and the diagonal entries of $P$ are $a_{1},\ldots,a_{n}$.
 \end{theorem}
 
-Let $(\lambda_{1},\ldots,\lambda_{n}) \in \R^{n}$. Then the permutation polytope of $(\lambda_{1},\ldots,\lambda_{n})$ is defined as the convex hull of $\{(\lambda_{\sigma(1)},\ldots,\lambda_{\sigma(n)}) \mid \sigma \in S_{n}\}$. Majorization: we define a pre-order on $\R^{n}$ as follows. For $(\lambda_{1},\ldots,\lambda_{n}), (\mu_{1},\ldots,\mu_{n}) \in \R^{n}$, we say that $(\lambda_{1},\ldots,\lambda_{n})$ is majorized by $(\mu_{1},\ldots,\mu_{n})$, denoted $(\lambda_{1},\ldots,\lambda_{n}) \preceq (\mu_{1},\ldots,\mu_{n})$, if
+Let $(\lambda_{1},\ldots,\lambda_{n}) \in \R^{n}$. Then the \eax{permutation polytope} of $(\lambda_{1},\ldots,\lambda_{n})$ is defined as the convex hull of $\{(\lambda_{\sigma(1)},\ldots,\lambda_{\sigma(n)}) \mid \sigma \in S_{n}\}$. Majorization: we define a pre-order on $\R^{n}$ as follows. For $(\lambda_{1},\ldots,\lambda_{n}), (\mu_{1},\ldots,\mu_{n}) \in \R^{n}$, we say that $(\lambda_{1},\ldots,\lambda_{n})$ is majorized by $(\mu_{1},\ldots,\mu_{n})$, denoted $(\lambda_{1},\ldots,\lambda_{n}) \preceq (\mu_{1},\ldots,\mu_{n})$, if
 \begin{align}
-    \sum_{i=1}^{k} \lambda_{i} \leq \sum_{i=1}^{k} \mu_{i} \quad \text{ for all } 1 \leq k \leq n.
+    \sum_{i=1}^{k} \lambda_{(i)} \leq \sum_{i=1}^{k} \mu_{(i)} \quad \text{ for all } 1 \leq k \leq n.
 \end{align}
 For example, $(\frac{1}{n},\ldots,\frac{1}{n}) \preceq (1,0,\ldots,0)$.
 
 \begin{theorem}
     $(\lambda_{1},\ldots,\lambda_{n}) \preceq (\mu_{1},\ldots,\mu_{n})$ if and only if the permutation polytope of $(\lambda_{1},\ldots,\lambda_{n})$ is contained in the permutation polytope of $(\mu_{1},\ldots,\mu_{n})$. Equivalently, there exists a sequence of transpositions such that $(\mu_{1},\ldots,\mu_{n}) \geq \cdots \geq (\lambda_{1},\ldots,\lambda_{n})$ where consecutive vectors differ only in two vectors.
 \end{theorem}
+
+\textit{September 25th.}
+
+Let $G = (V_{1} \sqcup V_{2}, E)$ be a finite bipartite graph. A \eax{perfect matching} from $V_{1}$ to $V_{2}$ is a one-to-one function $f:V_{1} \to V_{2}$ such that $vf(v) \in E$ for all $v \in V_{1}$. A \eax{matching} from $V_{1}$ to $V_{2}$ is a one-to-one function $f:U \to V_{2}$, where $U \subseteq V_{1}$, such that $vf(v) \in E$ for all $v \in U$. A matching is \eax{maximum} if there is no matching with a larger domain.
+
+\begin{theorem}[\eax{Hall's marriage theorem}]
+    Let $G = (V_{1} \sqcup V_{2}, E)$ be a finite bipartite graph. A perfect matching from $V_{1}$ to $V_{2}$ exists if and only if for every subset $S \subseteq V_{1}$, we have $\# N(S) \geq \#S$, where $N(S)$ it the set of all neighbours of $S$ in $V_{2}$.
+\end{theorem}
+\begin{proof}
+    The forward implication is easy to see. For the converse implication, let us perform induction on $n = \#V_{1}$. The base case $n = 1$ is trivial. Assume the result holds for all bipartite graphs with $\#V_{1} < n$. We do casework.
+    
+    Case I: $\#N(S) \geq \#S + 1$ for all non-empty $S \subsetneq V_{1}$. Fix $v \in V_{1}$ and let $w \in N(\{v\})$. Remove $v$ from $V_{1}$ and $w$ from $V_{2}$ to form a new bipartite graph $G'$. If $w \in N_{G}(S')$, then for any non-empty $S' \subseteq V_{1} \setminus \{v\}$, we have $\#N_{G'}(S') = \#N_{G}(S') - 1 \geq \#S' + 1 - 1 = \#S'$. Thus, by the induction hypothesis, there exists a perfect matching from $V_{1} \setminus \{v\}$ to $V_{2} \setminus \{w\}$ in $G'$. Adding the pair $(v,w)$ gives a perfect matching from $V_{1}$ to $V_{2}$ in $G$. If $w \notin N_{G}(S')$, then $\#N_{G'}(S') = \#N_{G}(S') \geq \#S'$. Again, by the induction hypothesis, there exists a perfect matching from $V_{1} \setminus \{v\}$ to $V_{2} \setminus \{w\}$ in $G'$. Adding the pair $(v,w)$ gives a perfect matching from $V_{1}$ to $V_{2}$ in $G$.
+
+    Case II: There exists a non-empty $S \subsetneq V_{1}$ such that $\#N(S) = \#S$. Look at the subgraph $G'$ induced by the vertex subset $S \cup N(S)$. For any non-empty $S' \subseteq S$, we have $\#N_{G'}(S') = \#N_{G}(S') \geq \#S'$. Thus, by the induction hypothesis, there exists a perfect matching from $S$ to $N(S)$ in $G'$. We now show that the subgraph $G''$ induced by the vertex set $(V_{1}\setminus S) \cup (V_{2} \setminus N(S))$ also satisfies Hall's condition. Assuming the contrary, there exists a subset $S' \subseteq V_{1} \setminus S$ such that $\#N_{G''}(S') < \#S'$. Then $N_{G''}(S') = N_{G}(S') \cap (V_{2}\setminus N_{G}(S))$. Since $N_{G}(S' \cup S) = N_{G''}(S') \cup N_{G}(S)$, we have
+    \begin{align}
+        \# N_{G}(S' \cup S) \leq \#N_{G''}(S') + \#N_{G}(S) < \#S' + \#S = \#(S' \cup S).
+    \end{align}
+    Hall's condition for $G$ suggests otherwise $(\#N_{G}(S' \cup S) \geq \#(S' \cup S))$, a contradiction. Thus, by the induction hypothesis, there exists a perfect matching from $V_{1} \setminus S$ to $V_{2} \setminus N(S)$ in $G''$. Combining this with the perfect matching from $S$ to $N(S)$ in $G'$ gives a perfect matching from $V_{1}$ to $V_{2}$ in $G$.
+\end{proof}
+
+\begin{definition}
+    A matrix $A \in M_{n}(\R)$ is said to be doubly stochastic if $a_{ij} \geq 0$ for all $i,j$, and $\sum_{i=1}^{n} a_{ij} = 1$ for all $j$ and $\sum_{j=1}^{n} a_{ij} = 1$ for all $i$.
+\end{definition}
+
+\begin{theorem}[The \eax{Birkhoff-von Neumann theorem}]
+    The set of doubly stochastic matrices $DS_{n}(\R)$ is the convex hull of the set of $n \times n$ permutation matrices.
+\end{theorem}
+\begin{proof}
+    Let $A$ be a doubly stochastic matrix. Let $V_{1} = \{r_{1},\ldots,r_{n}\}$ be the row indices and $V_{2} = \{c_{1},\ldots,c_{n}\}$ be the column indices. Consider the bipartite graph $G = (V_{1} \sqcup V_{2}, E)$, where $r_{i}c_{j} \in E$ if and only if $a_{ij} > 0$. We claim that $G$ satisfies Hall's condition. For any non-empty $S \subseteq V_{1}$, we have
+    \begin{align}
+        \sum_{i \in S} \sum_{j=1}^{n} a_{ij} = \#S.
+    \end{align}
+    Each (strictly) positive entry in the rows corresponding to $S$ lies in one of the columns of $N(S)$. Thus,
+    \begin{align}
+        \# S = \sum_{i \in S} \sum_{j=1}^{n} a_{ij} \leq \sum_{j \in N(S)} \sum_{i=1}^{n} a_{ij} = \# N(S),
+    \end{align}
+    By Hall's marriage theorem, there exists a perfect matching from $V_{1}$ to $V_{2}$ in $G$ corresponding to a permutation $\sigma$ of $\{1,2,\ldots,n\}$ such that $a_{i,\sigma(i)} > 0$ for all $i$. Let $P$ be the permutation matrix corresponding to $\sigma$. Let $\epsilon = \min_{1 \leq i \leq n} a_{i,\sigma(i)} > 0$. Then $(\epsilon P)_{ij} \leq a_{ij}$ for all $i,j$. If $\epsilon = 1$, then $A = P$ and we are done. So assume that $\epsilon < 1$. Then
+    \begin{align}
+        A = (A-\epsilon P) + \epsilon P = (1-\epsilon)\left(\frac{A-\epsilon P}{1-\epsilon}\right) + \epsilon P.
+    \end{align}
+    Note that the number of zero entries in $\frac{A-\epsilon P}{1-\epsilon}$ is strictly greater than the number of zero entries in $A$. We perform induction on the number of non-zero entries of $A$. If $A$ has exactly $n$ non-zero entries, then $A$ is a permutation matrix and we are done. Assume the result holds for all doubly stochastic matrices with up to $k$ non-zero entries. Let $A$ be a doubly stochastic matrix with $k+1$ non-zero entries. Then $\frac{A-\epsilon P}{1-\epsilon}$ is a doubly stochastic matrix with at most $k$ non-zero entries, and by the induction hypothesis, it can be written as a convex combination of permutation matrices. Thus, $A$ can also be written as a convex combination of permutation matrices.
+\end{proof}
+
+\begin{definition}
+    A linear mapping $T:\R^{n} \to \R^{n}$ is called a \eax{T-transform} if there exist $0 \leq t \leq 1$ and $1 \leq j < k \leq n$ such that
+    \begin{align}
+        T \begin{pmatrix}
+            y_{1} \\ \vdots \\ y_{j-1} \\ y_{j} \\ \vdots \\ y_{k} \\ \vdots \\ y_{n}
+        \end{pmatrix} = \begin{pmatrix}
+            y_{1} \\ \vdots \\ y_{j-1} \\ ty_{j}+(1-t)y_{k} \\ \vdots \\ (1-t)y_{j}+ty_{k} \\ \vdots \\ y_{n}
+        \end{pmatrix}.
+    \end{align}
+\end{definition}
+
+\begin{theorem}
+    The following are equivalent for $x,y \in \R^{n}$.
+    \begin{enumerate}
+        \item $x \preceq y$.
+        \item $x$ is obtained from $y$ by a finite sequence of T-transforms.
+        \item $x$ is in the permutation polytope of $y$.
+        \item $x = Ay$ for a doubly stochastic matrix $A$.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    1.~implies 2.: We perform induction on $n$. We have assumed $x_{1} \geq \cdots \geq x_{n}$ and $y_{1} \geq \cdots \geq y_{n}$. This shows that $y_{n} \leq x_{1} \leq y_{1}$. Chosse $k$ such that $y_{k} \leq x_{1} \leq y_{k-1}$. Rewrite $x_{1} = ty_{1} + (1-t)y_{k}$ for some $0 \leq t \leq 1$. Define a T-transform $T_{1}$ by
+    \begin{align}
+        T_{1}z = (tz_{1} + (1-t)z_{k},z_{2},\ldots,z_{k-1},(1-t)z_{1}+tz_{k},z_{k+1},\ldots,z_{n}).
+    \end{align}
+    We claim that $x \preceq T_{1}y$. We have
+    \begin{align}
+        \sum_{j=1}^{m} y_{j}' = \sum_{j=2}^{k-1} y_{j} + (1-t)y_{1} + ty_{k} + \sum_{j=k+1}^{m} y_{j} = \left(\sum_{j=1}^{m} y_{j}\right)-ty_{1}+(t-1)y_{k} \geq \sum_{j=1}^{m} x_{j} - x_{1} = \sum_{j=2}^{m} x_{j}
+    \end{align}
+\end{proof}
