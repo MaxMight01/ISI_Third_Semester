@@ -1,4 +1,4 @@
-\chapter{PRESENTATION OF GROUPS}
+\chapter{FREE GROUPS AND PRODUCTS}
 
 
 \section{Free Groups}
@@ -98,7 +98,9 @@ Note that there is a natural mapping $i:S \to F_{S}$ given by $a \mapsto \bar{a}
     showing $\psi \circ \phi|_{i(S)} = \id_{i(S)}$ or $\psi \circ \phi = \id_{F_{S}}$. Similarly, $\phi \circ \psi = \id_{F_{T}}$.
 \end{proof}
 
-\section{Automorphisms}
+\section{Products}
+
+\subsection{Automorphisms}
 
 Recall that an automorphism of a group $G$ is simply an isomorphism from $G$ to itself. The set of all automorphisms of $G$ is denoted by $\Aut(G)$, which also forms a group under composition. Moreover, $\emptyset \neq \Aut(G) \leq \Bij(G)$, where $\Bij(G)$ is the group of all bijections from $G$ to itself.
 
@@ -136,3 +138,96 @@ This set is precisely the image of the map $X:G \to \Aut(G)$ defined in the prev
         \item The dihedral group also gives $\Inn(D_{8}) \cong (Z/2Z)^{2}$.
     \end{enumerate}
 \end{example}
+
+\subsection{The Direct Product}
+\textit{September 25th.}
+
+Recall that if $G_{1},\ldots,G_{n}$ are groups, then $G = G_{1} \times \cdots \times G_{n} = \{(x_{1},\ldots,x_{n}) \mid x_{i} \in G_{i}\}$ is a group under the operation $(x_{1},\ldots,x_{n})(y_{1},\ldots,y_{n}) = (x_{1}y_{1},\ldots,x_{n}y_{n})$. The identity element is $e = (e_{1},\ldots,e_{n})$ where $e_{i}$ is the identity of $G_{i}$, and the inverse of $(x_{1},\ldots,x_{n})$ is $(x_{1}^{-1},\ldots,x_{n}^{-1})$. The group $G$ is called the \eax{direct product} of $G_{1},\ldots,G_{n}$; more specifically, it's the \eax{external direct product} of groups.
+
+The map $p_{i}:G \to G_{i}$ sending $(x_{1},\ldots,x_{n}) \mapsto x_{i}$ is an epimorphism. One may also consider the map $i_{j}:G_{j} \to G$ sending $x \mapsto (e_{1},\ldots,e_{j-1},x,e_{j+1},\ldots,e_{n})$, which is a monomorphism. We also have
+\begin{align}
+    \hat{G}_{j} \defeq \Img i_{j} = \{(e_{1},\ldots,e_{j-1},x,e_{j+1},\ldots,e_{n}) \mid x \in G_{j}\} \nsbg G \text{ for all } 1 \leq j \leq n.
+\end{align}
+Let $\underline{x} \in \hat{G}_{j}$ and $\underline{y} \in \hat{G}_{k}$ for some $j \neq k$. Then $\underline{x}\underline{y} = \underline{y}\underline{x}$ since they differ in distinct coordinates. Thus, $\hat{G}_{j}$ and $\hat{G}_{k}$ commute element-wise for all $j \neq k$. Since all these subgroups are normal, we have
+\begin{align}
+    \hat{G}_{j} \cap \hat{G}_{1} \hat{G}_{j-1} \hat{G}_{j+1} \cdots \hat{G}_{n} = \{e_{G}\} \text{ for all } 1 \leq j \leq n.
+\end{align}
+Thus, $G$ is completely determined by the subgroups $\hat{G}_{1},\ldots,\hat{G}_{n}$.
+
+We move on to the \eax{internal direct product}; we start with two groups for simplicity. Let $G$ be a group and $G_{1},G_{2}$ be two normal subgroups of $G$ such that $G_{1} \cap G_{2} = \{e_{G}\}$ and $G_{1}G_{2} = G$. Then $G$ is called the internal direct product of $G_{1}$ and $G_{2}$.
+
+\begin{proposition}
+    Let $G$ be an internal direct product of $G_{1}$ and $G_{2}$. Then for $x_{1} \in G_{1}$ and $x_{2} \in G_{2}$, $x_{1}x_{2} = x_{2}x_{1}$. Moreover, the map $\phi:G_{1} \times G_{2} \to G$ given by $(x_{1},x_{2}) \mapsto x_{1}x_{2}$ is a group isomorphism.
+\end{proposition}
+\begin{proof}
+    Let $x_{1} \in G_{1}$ and $x_{2} \in G_{2}$. Look at the product $x_{1}x_{2}x_{1}^{-1}x_{2}^{-1}$. Since $G_{1} \nsbg G$, $x_{1}x_{2}x_{1}^{-1}x_{2}^{-1} \in G_{1}$. Similarly, since $G_{2} \nsbg G$, $x_{1}x_{2}x_{1}^{-1}x_{2}^{-1} \in G_{2}$. Thus, $x_{1}x_{2}x_{1}^{-1}x_{2}^{-1} \in G_{1} \cap G_{2} = \{e\}$, or $x_{1}x_{2} = x_{2}x_{1}$, showing that $x_{1}$ and $x_{2}$ commute. Showing that $\phi$ is a group homomorphism is easy; to show it is bijective, note that if $\phi(x_{1},x_{2}) = e$, then $x_{1}x_{2} = e$ or $x_{2} = x_{1}^{-1} \in G_{1}$. Since $x_{2} \in G_{2}$, we have $x_{2} = e$ and $x_{1} = e$. Thus, $\phi$ is injective. For surjectivity, let $g \in G$. Then $g = x_{1}x_{2}$ for some $x_{1} \in G_{1}$ and $x_{2} \in G_{2}$ since $G = G_{1}G_{2}$, showing that $\phi$ is surjective.
+\end{proof}
+
+\begin{proposition}
+    Let $G$ be a group and $G_{1},G_{2},\ldots,G_{n}$ be normal subgroups of $G$ such that
+    \begin{align}
+        G_{j} \cap G_{1}G_{2} \cdots G_{j-1}G_{j+1} \cdots G_{n} = \{e\} \text{ for all } 1 \leq j \leq n,
+    \end{align}
+    and $G_{1}G_{2} \cdots G_{n} = G$. Then $G_{1} \times \cdots \times G_{n} \cong G$ via the mapping $(x_{1},\ldots,x_{n}) \mapsto x_{1}x_{2} \cdots x_{n}$.
+\end{proposition}
+
+The above proposition is the generalization of the inner direct product to more than 2 normal subgroups. However, note that the pairwise trivial intersection condition is not sufficient for more than 2 normal subgroups, as shown in the following example.
+
+\begin{example}
+    For the group $G = (\R^{2},+)$, the subgroups $G_{1} = \R \times \{0\}$ and $G_{2} = \{0\} \times \R$ are normal with $G_{1} \cap G_{2} = \{(0,0)\}$, and their internal direct product is the whole group. Thus, $(\R^{2},+) \cong (\R,+) \times (\R,+)$. Note that if $G_{3} = \{(x,x) \mid x \in \R\}$, then $G_{3}$ is also a normal subgroup of $G$ with $G_{1} \cap G_{3} = G_{2} \cap G_{3} = \{(0,0)\}$, and we have $G_{1}G_{2}G_{3} = G$, but $G_{3} \cap G_{1}G_{2} \neq \{(0,0)\}$, so $G$ is \textit{not} the internal direct product of $G_{1},G_{2},G_{3}$. Thus, a pairwise trivial intersection condition is not sufficient for more than two normal subgroups.
+\end{example}
+
+\begin{example}
+    If $G$ is any group, then $G$ is the inner direct product of $G$ and $\{e\}$, or $\{e\}$ and $G$.
+\end{example}
+
+Let $\phi:G_{1} \times G_{2} \to G$ be an isomorphism of groups. Then $G$ is the internal direct product of $\phi(\hat{G}_{1})$ and $\phi(\hat{G}_{2})$, where $\hat{G}_{1} = G_{1} \times \{e_{2}\}$ and $\hat{G}_{2} = \{e_{1}\} \times G_{2}$. The proof of this is left as an exercise to the reader.
+
+\begin{example}
+    Since $\Z/6\Z \cong \Z/2\Z \times \Z/3\Z$, $\Z/6\Z$ is the internal direct product of the subgroups $\{0,3\}$ and $\{0,2,4\}$, via the above statement.
+\end{example}
+
+\begin{example}
+    For the permutation group $S_{3}$, the alternating group $A_{3} = \{e,(123),(132)\} \nsbg S_{3}$ but there is not other normal subgroup $H$ such that $S_{3}$ is the internal direct product of $A_{3}$ and $H$. This is because the only other normal subgroup of $S_{3}$ is $\{e\}$, which does not satisfy $A_{3}\{e\} = S_{3}$, or $S_{3}$, which does not satisfy $S_{3} \cap A_{3} = \{e\}$. Thus, $S_{3}$ is not an internal direct product of any two of its normal subgroups, unless one of them is trivial.
+\end{example}
+
+We will see, however, that $S_{3}$ is can be written as something termed an internal sermidirect product.
+
+\begin{theorem}[The \eax{structure theorem for finitely generated abelian groups}]
+    Let $G$ be a finitely generated abelian group. Then
+    \begin{align}
+        G \cong \Z^{r} \times \Z/n_{1}\Z \times \Z/n_{2}\Z \times \cdots \times \Z/n_{s}\Z
+    \end{align}
+    for some $r \geq 0$, $s \geq 0$, and integers $n_{1},\ldots,n_{s} \geq 2$ such that $n_{i} \mid n_{i+1}$ for all $1 \leq i < s$. This decomposition is unique up to isomorphism.
+\end{theorem}
+\begin{proof}
+    The proof is normally done using the theory of modules over a principal ideal domain, which will be covered in a later course.
+\end{proof}
+
+
+\subsection{The Semidirect Product}
+
+\begin{definition}
+    Let $G$ be a group with $N,H \sbg G$ such that $N \nsbg G$, $N \cap H = \{e\}$, and $NH = G$. Then $G$ is called the \eax{internal semidirect product} of $N$ and $H$.
+\end{definition}
+
+$S_{3}$ is such an example.
+
+\begin{example}
+    With $G = S_{3}$, take $N = A_{3}$ and $H = \{e,(1\;2)\}$. Then $N \nsbg G$, $N \cap H = \{e\}$, and $NH = G$, so $S_{3}$ is the internal semidirect product of $A_{3}$ and $\{e,(1\;2)\}$.
+\end{example}
+
+One may take the following proposition as the definition of the external semidirect product.
+
+\begin{proposition}
+    Let $H,N$ be groups and $\varphi:H \to \Aut(N)$ be a group homomorphism. Define a binary operation on the set $N \times H$ by
+    \begin{align}
+        (n_{1},h_{1}) \cdot (n_{2},h_{2}) = (n_{1}\varphi(h_{1})(n_{2}),h_{1}h_{2}) \text{ for all } n_{1},n_{2} \in N \text{ and } h_{1},h_{2} \in H.
+    \end{align}
+    Then $N \times H$ is a group under this operation, called the \eax{external semidirect product} of $N$ and $H$ with respect to $\varphi$, and is denoted by $N \ltimes_{\varphi} H$.
+
+    Moreover, the maps $i_{H}:H \to N \ltimes_{\varphi} H$ given by $h \mapsto (e_{N},h)$, $i_{N}:N \to N \ltimes_{\varphi} H$ given by $n \mapsto (n,e_{H})$, and $p_{2}:N \ltimes_{\varphi} H \to H$ given by $(n,h) \mapsto h$ are group homomorphisms. $\Img i_{N}$ is a normal subgroup of $N \ltimes_{\varphi} H$ isomorphic to $N$. Finally, $N \ltimes_{\varphi} H$ is the internal semidirect product of $\Img i_{N} = i_{N}(N)$ and $\Img i_{H} = i_{H}(H)$.
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
