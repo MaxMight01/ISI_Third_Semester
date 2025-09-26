@@ -1,0 +1,183 @@
+\chapter{CONVERGENCE}
+
+\section{Types of Convergence}
+
+\textit{September 26th.}
+
+Let $\{X_{n}\}_{n \geq 1}$ be a sequence of random variables defined on a probability space $(\Omega, \cF, P)$ and let $X$ be another random variable defined on the same probability space. 
+
+\begin{definition}
+    Notion of \eax{convergence in probability}: We say that $X_{n}$ converges to $X$, $X_{n} \xrightarrow{P} X$, if for every $\varepsilon > 0$,
+    \begin{align}
+        P(\abs{X_{n}-X} \geq \varepsilon) \to 0 \text{ as } n \to \infty.
+    \end{align}
+\end{definition}
+
+An example is the \eax{weak law of large numbers} which states that if $X_{1}, X_{2}, \ldots$ are independent and identically distributed random variables with mean $\mu$, then the sample average $\overline{X}_{n} = \frac{1}{n} \sum_{i=1}^{n} X_{i}$ converges in probability to $\mu$.
+
+\begin{definition}
+    Notion of \eax{almost sure convergence}: We say that $X_{n}$ converges to $X$ almost surely, $X_{n} \xrightarrow{a.s.} X$, if 
+    \begin{align}
+        P\left(\{\omega \in \Omega \mid \lim_{n \to \infty} X_{n}(\omega) = X(\omega)\}\right) = 1.
+    \end{align}
+\end{definition}
+
+An example is the \eax{strong law of large numbers} which states that if $X_{1}, X_{2}, \ldots$ are independent and identically distributed random variables with mean $\mu$, then the sample average $\overline{X}_{n} = \frac{1}{n} \sum_{i=1}^{n} X_{i}$ converges almost surely to $\mu$.
+
+\begin{definition}
+    Notion of \eax{convergence in distribution}: We say that $X_{n}$ converges to $X$ in distribution, $X_{n} \xrightarrow{d} X$, if
+    \begin{align}
+        F_{X_{n}}(x) \to F_{X}(x) \text{ at all points } x \text{ where } F_{X} \text{ is continuous},
+    \end{align}
+    where $F_{X_{n}}$ and $F_{X}$ are the cumulative distribution functions of $X_{n}$ and $X$ respectively.
+\end{definition}
+
+An example is the \eax{central limit theorem} which states that if $X_{1}, X_{2}, \ldots$ are independent and identically distributed random variables with mean $\mu$ and variance $\sigma^{2}$, then the standardized sum $\frac{\sum_{i=1}^{n} (X_{i} - \mu)}{\sigma \sqrt{n}}$ converges in distribution to a standard normal random variable as $n \to \infty$.
+
+\begin{lemma}[\eax{Borel-Cantelli lemma}]
+    Let $A_{1},A_{2},\ldots$ be a sequence of events in a probability space $(\Omega, \cF, P)$.
+    \begin{enumerate}
+        \item If the sum of the probability of the events $A_{n}$ is finite, i.e., $\sum_{n=1}^{\infty} P(A_{n}) < \infty$, then the probability that infinitely many of the events $A_{n}$ occur is zero, i.e., $P(\limsup_{n \to \infty} A_{n}) = 0$.
+        \item If $\sum_{n=1}^{\infty} P(A_{n}) = \infty$ and the events $A_{n}$ are independent, then the probability that infinitely many of the events $A_{n}$ occur is one, i.e., $P(\limsup_{n \to \infty} A_{n}) = 1$.
+    \end{enumerate}
+\end{lemma}
+
+\begin{theorem}[\eax{Slutsky's theorem}]
+    Suppose $X_{n} \xrightarrow{d} X$ and $Y_{n} \xrightarrow{P} c$, where $c$ is a constant. Then
+    \begin{enumerate}
+        \item $X_{n} + Y_{n} \xrightarrow{d} X + c$,
+        \item $X_{n}Y_{n} \xrightarrow{d} Xc$, and
+        \item $\frac{X_{n}}{Y_{n}} \xrightarrow{d} \frac{X}{c}$, provided $c \neq 0$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    With the conditions, one can show that the joint vector $(X_{n}, Y_{n})$ converges in distribution to $(X, c)$. The results then follow from the continuous mapping theorem, which states that for a continuous function $g$, $Z_{n} \xrightarrow{d} Z$ implies $g(Z_{n}) \xrightarrow{d} g(Z)$.
+\end{proof}
+
+\begin{corollary}
+    If $X_{n} - Y_{n} \xrightarrow{P} 0$ and $X_{n} \xrightarrow{d} X$, then $Y_{n} \xrightarrow{d} X$.
+\end{corollary}
+\begin{proof}
+    Work similarly as before, looking at the joint vector $(X_{n}-Y_{n},X_{n})$ and using the continuous mapping theorem with the function $g(x,y) = y - x$.
+\end{proof}
+
+Recall \eax{Markov's inequality} where for any random variable $X$ and $a > 0$, we have
+\begin{align}
+    P(X \geq a) \leq \frac{EX}{a}.
+\end{align}
+Replacing $X$ by $X^{2}$ and $a$ with $a^{2}$ gives
+\begin{align}
+    P(\abs{X} \geq a) \leq \frac{E[X^{2}]}{a^{2}}.
+\end{align}
+Finally, replacing $X$ by $\abs{X - E[X]}$ gives \eax{Chebyshev's inequality}:
+\begin{align}
+    P(\abs{X - EX} \geq a) \leq \frac{\Var(X)}{a^{2}}.
+\end{align}
+
+\begin{theorem}[\eax{Kinchin's weak law of large numbers}]
+    Let $X_{1}, X_{2}, \ldots$ be a sequence of independent and indentically distributed random variables such that $EX_{i} = \mu$ exists and $\overline{X}_{n} = \frac{1}{n} \sum_{i=1}^{n} X_{i}$. Then $\overline{X}_{n} \xrightarrow{P} \mu$.
+\end{theorem}
+
+\begin{theorem}[\eax{Chebyshev's weak law of large numbers}]
+    Let $X_{1}, X_{2}, \ldots$ be a sequence of random variables with $EX_{i} = \mu_{i}$ and $\Var(X_{i}) = \sigma_{i}^{2} < \infty$. Moreover, suppose $\Cov(X_{i},X_{j}) = 0$ for $i \neq j$. Then
+    \begin{align}
+        \frac{1}{n} \sum_{i=1}^{n} \sigma_{i}^{2} \to 0 \text{ as } n \to \infty \implies \overline{X}_{n} - \overline{\mu}_{n} \xrightarrow{P} 0,
+    \end{align}
+    where $\overline{\mu}_{n} = \frac{1}{n} \sum_{i=1}^{n} \mu_{i}$.
+\end{theorem}
+
+\begin{theorem}[\eax{Kolmogorov's strong law of large numbers}]
+    Let $X_{1}, X_{2}, \ldots$ be a sequence of independent and identically distributed random variables such that $EX_{i} = \mu$ exists. Then $\overline{X}_{n} \xrightarrow{a.s.} \mu$.
+\end{theorem}
+
+\begin{theorem}[\eax{Lindeberg-levy central limit theorem}]
+    Let $X_{1},X_{2},\ldots$ be a sequence of independent and identically distributed random variables with $EX_{i} = \mu$ and $\Var(X_{i}) = \sigma^{2} < \infty$. Then
+    \begin{align}
+        \frac{\overline{X}_{n} - \mu}{\sigma/\sqrt{n}} \xrightarrow{d} N(0,1).
+    \end{align}
+\end{theorem}
+
+\subsection{Consistency}
+
+Let $X_{1},X_{2},\ldots$ be independent and identically distributed $P_{\theta}$ random variables with $\theta \in \Theta \subseteq \R$. An estimator $T_{n}(X_{1},\ldots,X_{n})$ of $q(\theta)$ is said to be a \eax{consistent estimator} if
+\begin{align}
+    T_{n} \xrightarrow{P} q(\theta) \text{ for all } \theta \in \Theta.
+\end{align}
+
+\begin{theorem}
+    If $\{T_{n}\}_{n \geq 1}$ is a sequence of estimators such that $E_{\theta}[T_{n}] \to q(\theta)$ and $\Var_{\theta}(T_{n}) \to 0$ as $n \to \infty$ for all $\theta \in \Theta$, then $T_{n}$ is a consistent estimator of $q(\theta)$.
+\end{theorem}
+
+\begin{theorem}[The \eax{invariance theorem}]
+    If $T_{n}$ is consistent for $\theta$ and $h$ is a continuous function, then $h(T_{n})$ is consistent for $h(\theta)$.
+\end{theorem}
+
+It also follows that if $a_{n} \to 1$ and $b_{n} \to 0$, then $a_{n}T_{n} + b_{n}$ is consistent for $\theta$ for when $T_{n}$ is consistent for $\theta$. A few more properties may be noted:
+\begin{enumerate}
+    \item An unbiased estimator may not be consistent. A counterexample is $X_{1}$ as an estimator of $\mu$ where $X_{1},X_{2},\ldots$ are independent and identically distributed $N(\mu,1)$ random variables. Clearly, $E[X_{1}] = \mu$, but $X_{1}$ is not consistent.
+    \item A method of moments estimator is always consistent if the first moment exists.
+    \item A maximum likelihood estimator may not be consistent.
+    \item A consistent estimator may not be unique.
+\end{enumerate}
+
+\begin{example}
+    Suppose $X_{1},X_{2},\ldots$ are independent and identically distributed $U[0,\theta]$ random variables. Then the estimator $T_{n} = 2\overline{X}_{n}$ is consistent for $\theta$ since the first moment is $\theta/2$ and $E[\overline{X}] = \theta/2$; via method of moments, the result follows.
+\end{example}
+
+\begin{proposition}
+    Suppose $\{a_{n}\}_{n \geq 1}$ diverges to infinity and $b$ is a constant. Also suppose that $a_{n}(X_{n}-b) \xrightarrow{d} X$ and $g$ be a continuously differentiable function such that $g'(b)$ is non-zero. Then
+    \begin{align}
+        a_{n}(g(X_{n}) - g(b)) \xrightarrow{d} g'(b)X.
+    \end{align}
+\end{proposition}
+
+\begin{proof}
+    $X_{n} - b = \frac{1}{a_{n}} a_{n}(X_{n}-b) \xrightarrow{P} 0$ since $a_{n} \to \infty$ and $a_{n}(X_{n}-b) \xrightarrow{d} X$. By Slutsky's theorem, $X_{n} \xrightarrow{d} b$. Now there exists a random variable $X_{n} < X_{n}^{\ast} < b$ such that
+    \begin{align}
+       a_{n} (g(X_{n}) - g(b)) = g'(X_{n}^{\ast})(X_{n}-b),
+    \end{align}
+    by the mean value theorem. Since $X_{n}^{\ast} \xrightarrow{P} b$, $g'(X_{n}^{\ast}) \xrightarrow{P} g'(b)$.
+\end{proof}
+
+\subsection{Asymptotic Notion and Efficiency}
+
+\begin{definition}
+    Suppose $T_{n}(X_{1},\ldots,X_{n})$ is an unbiased estimator of $q(\theta)$ for all $\theta \in \Theta$. Then $T_{n}$ is said to be \eax{asymptotically normal} if
+    \begin{align}
+        \sqrt{n}(T_{n}-q(\theta)) \xrightarrow{d} N(0,\sigma^{2}(\theta)) \text{ for all } \theta \in \Theta.
+    \end{align}
+    A consistent sequence of estimators is said to be \eax{consistent and asymptotically normal} if
+    \begin{align}
+        T_{n} \sim AN(q(\theta),\frac{v(\theta)}{n}) \text{ for all } \theta \in \Theta,
+    \end{align}
+    where $v(\theta) = \frac{1}{I(\theta)}$ is the inverse of the Fisher information matrix. $T_{n}$ is termed the \eax{best asymptotically normal estimator} if $v(\theta)$ is the minimum variance among all consistent and asymptotically normal estimators.
+\end{definition}
+
+\begin{definition}
+    A sequence of estimators $T_{n}(X_{1},\ldots,X_{n})$ is said to be \eax{asymptotically unbiased} if $E_{\theta}[T_{n}] \to q(\theta)$.
+\end{definition}
+
+\begin{definition}
+    Let $T_{1},T_{2}$ be two unbiased estimators for a parameter $\theta$. Suppose that $E[T_{1}^{2}],E[T_{2}^{2}] < \infty$. The \eax{relative efficiency} of $T_{1}$ relative to $T_{2}$ is defined as
+    \begin{align}
+        \eff_{\theta} (T_{1} \mid T_{2}) = \frac{\Var T_{2}}{\Var T_{1}}
+    \end{align}
+    and we call $T_{1}$ more efficient than $T_{2}$ if $\eff_{\theta}(T_{1} \mid T_{2}) > 1$ for all $\theta \in \Theta$.
+\end{definition}
+
+\begin{definition}
+    Assume that the regularity conditions of the FRC inequality are satisfied by the family of distributions $\{F_{\theta} \mid \theta \in \Theta\}$. We say that an unbiased estimator $T$ for the parameter $\theta$ is \eax{most efficient} if
+    \begin{align}
+        \Var T = \left( E_{\theta} \left[ \frac{\partial \log f_{\theta}(x)}{\partial \theta} ^{2}\right] \right)^{-1} = \frac{1}{I_{\eta}(\theta)}.
+    \end{align}
+\end{definition}
+
+\begin{definition}
+    Let $T$ be the most efficient estimator for the regular family of distributions $\{F_{\theta} \mid \theta \in \Theta\}$. Then the \eax{efficiency} of an unbiased estimator $T_{1}$ of $\theta$ is defined as
+    \begin{align}
+        \eff_{\theta}(T_{1}) = \eff_{\theta}(T_{1} \mid T) = \frac{\Var T}{\Var T_{1}}.
+    \end{align}
+    If $\lim_{n \to \infty} \eff_{\theta}(T_{n}) = 1$, then $T_{n}$ is said to be \eax{asymptotically efficient}.
+\end{definition}
+
