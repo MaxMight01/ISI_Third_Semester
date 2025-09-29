@@ -196,7 +196,7 @@ which are both functions as $\underline{f},\overline{f}:B^{m} \to \R$.
     \end{align}
 \end{example}
 
-\section{Generalization}
+\subsection{Generalization}
 
 So far, we have only discussed integration over boxes. We now extend this to more general sets; if $\Omega \subseteq \R^{n}$ is bounded, we wish to define $\int_{\Omega} f dv$ for $f \in \cB(\Omega)$. Here onwards, most proofs will be omitted since they involve measure theoretic arguments beyond the scope of this course. Where an idea of a proof is needed, we will provide it.
 
@@ -232,3 +232,71 @@ Note that content zero sets are \textit{not} the same as measure zero sets. For 
         \int_{\Omega} f(x,y) dv = \int_{a}^{b} \int_{\varphi_{1}(x)}^{\varphi_{2}(x)} f(x,y) dy dx.
     \end{align}
 \end{theorem}
+
+\textit{September 29th.}
+
+\begin{example}
+    Let $\Omega$ be the region bounded by $y = 1$ and $y = x^{2}$. We ask to compute the integral $\int_{\Omega} x^{2}y dA$. Here, we have
+    \begin{align}
+        \int_{\Omega} x^{2}y dA = \int_{-1}^{1} \int_{y=x^{2}}^{1} x^{2}y dy dx = \int_{-1}^{1} \frac{1}{2}(x^{2}-x^{6}) dx = \frac{4}{21}.
+    \end{align}
+\end{example}
+
+\begin{example}
+    Look at $\Omega = [0,1]^{2}$ and $f(x,y) = x$ if $y \leq x^{2}$ and $y$ if $y > x^{2}$. We wish to compute $\int_{\Omega} f(x,y) dA$. We split apart region $\Omega$ into two parts, $\Omega_{1} = \{(x,y) \mid 0 \leq x \leq 1, 0 \leq y \leq x^{2}\}$ and $\Omega_{2} = \{(x,y) \mid 0 \leq x \leq 1, x^{2} < y \leq 1\}$. Then, $f|_{\Omega_{1}}(x,y) = x$ and $f|_{\Omega_{2}}(x,y) = y$. Thus,
+    \begin{align}
+        \int_{\Omega} f dA = \int_{\Omega_{1}} f + \int_{\Omega_{2}} f = \int_{0}^{1} \int_{y=0}^{x^{2}} x dy dx + \int_{0}^{1} \int_{y=x^{2}}^{1} y dy dx = \frac{13}{20}.
+    \end{align}
+\end{example}
+
+\section{Change of Variables}
+
+Recall the $n = 1$ case. Let $\varphi: O \to \R$ be a $C^{1}$-function with $O \subseteq \R$ open. Also suppose $\varphi'(x) \neq 0$ for all $x \in O$. If we let $f \in C(\varphi[a,b])$, where $[a,b] \subseteq O$, then
+\begin{align}
+    \int_{\varphi[a,b]} f = \int_{a}^{b} f \circ \varphi \abs{\varphi'}
+\end{align}
+We generalize this to higher dimensions.
+
+\begin{theorem}
+    Let $\varphi:O_{n} \to \R^{n}$ be an injective $C^{1}$-function. Suppose $\det J_{\varphi}(x) \neq 0$ for all $x \in O_{n}$. Let $\Omega \subseteq O_{n}$ be a bounded set such that $\Omega \cup \partial \Omega \subseteq O_{n}$ and $\partial \Omega$ is content zero. If $f \in \cR(\varphi(\Omega))$, then
+    \begin{align}
+        \int_{\varphi(\Omega)} f = \int_{\Omega} f \circ \varphi \abs{\det J_{\varphi}}.
+    \end{align}
+\end{theorem}
+The proof of this theorem is beyond the scope of the course.
+
+\begin{example}
+    Let $(r,\theta) \in \R^{2}$. Set $x = r \cos \theta$ and $y = r \sin \theta$. Let $\varphi:\R^{2} \to \R^{2}$ be defined as $\varphi(r,\theta) = (x(r,\theta),y(r,\theta)) = (r\cos\theta,r\sin\theta)$. Here, the Jacobian is
+    \begin{align}
+        J_{\varphi} = \begin{bmatrix}
+            \frac{\partial x}{\partial r} & \frac{\partial x}{\partial \theta} \\
+            \frac{\partial y}{\partial r} & \frac{\partial y}{\partial \theta}
+        \end{bmatrix} = \begin{bmatrix}
+            \cos \theta & -r \sin \theta \\
+            \sin \theta & r \cos \theta
+        \end{bmatrix}.
+    \end{align}
+    Thus, $\det J_{\varphi} = r$. Set $O_{2} = \{(r,\theta) \mid r > 0, 0 < \theta < 2\pi\}$. Then, $\varphi:O_{2} \to \R^{2}$ with the same definition as above is injective and $C^{1}$ with $\det J_{\varphi}(r,\theta) \neq 0$ for all $(r,\theta) \in O_{2}$. We shall apply this in the next example.
+\end{example}
+
+\begin{example}
+    We wish to compute $\int_{x^{2}+y^{2} < 1} e^{-(x^{2}+y^{2})} dA$. Set $\Omega = \{(x,y) \mid x^{2}+y^{2} < 1\}$ and $\tilde{\Omega} = \{(r,\theta) \mid 0 \leq r < 1, 0 \leq \theta < 2\pi\}$. Then, $\varphi(\tilde{\Omega}) = \Omega$. Since $\partial \tilde{\Omega}$ is content zero, we can apply the change of variables theorem. Thus,
+    \begin{align}
+        \int_{x^{2}+y^{2}<1} e^{-(x^{2}+y^{2})} dA = \int_{\theta = 0}^{2\pi} \int_{r=0}^{1} e^{-r^{2}} \abs{r} dr d\theta = \pi(1-e^{-1}).
+    \end{align}
+\end{example}
+
+\begin{example}
+    We wish to compute the area of $\Omega = \{(x,y) \mid x^{2/3} + y^{2/3} \leq 1\}$. We use the transformation $x = s \cos^{3}t$ and $y = s \sin^{3}t$. Define $\varphi:\R^{2} \to \R^{2}$ by $\varphi(s,t) = (s\cos^{3} t, s \sin^{3} t)$. Then $\Omega = \varphi([0,1] \times [0,2\pi])$. The determinant of the Jacobian is $\det J_{\varphi}(s,t) = 3s \cos^{2} t \sin^{2} t$. Thus, the area is simply
+    \begin{align}
+        \int_{\varphi([0,1] \times [0,2\pi])} 1 dA = \int_{0}^{2\pi} \int_{0}^{1} 3s \cos^{2} t \sin^{2} t ds dt = \frac{3\pi}{8}.
+    \end{align}
+    Here, even though $\det J_{\varphi}(s,t) = 0$ when $s=0$ or $t = k\pi/2$ for some integer $k$, the change of variables theorem is still applicable since these points form a content zero set.
+\end{example}
+
+\begin{example}
+    We discuss spherical coordinates. In this case, we have $(x,y,z) = (r\sin\phi \cos \theta, r \sin \phi \sin \theta, r \cos \phi)$. We consider the set $O_{3} = \{(r,\theta,\phi) \mid r > 0,\; 0 < \phi < \pi,\;0 < \theta < 2\pi\}$. Define $\varphi:O_{3} \to \R^{3}$ as $\varphi(r,\theta,\phi) = (r\sin\phi \cos \theta, r \sin \phi \sin \theta, r \cos \phi)$. This $\varphi$ is a one-to-one $C^{1}$-function. The determinant of the Jacobian is $\det J_{\varphi} = r^{2} \sin \phi$, which is non-zero in $O_{3}$. Therefore, for $f \in C(\varphi([r_{1},r_{2}] \times [\phi_{1},\phi_{2}] \times [\theta_{1},\theta_{2}])) = C(\varphi(O))$ where $0 < r_{1} < r_{2}$, $0 \phi_{1} < \phi_{2} < \pi$, and $0 < \theta_{1} < \theta_{2} < 2\pi$. We then have
+    \begin{align}
+        \int_{\varphi(O)} f = \int_{O} f \circ \phi \cdot r^{2} \sin \phi dr d\phi d\theta.
+    \end{align}
+\end{example}
