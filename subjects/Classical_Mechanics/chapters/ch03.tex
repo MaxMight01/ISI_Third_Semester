@@ -141,3 +141,88 @@ One can show that the internal force vanishes for forces acting along $\vec{r}_{
     \frac{d \vec{L}_{O}}{dt} = \vec{\tau}_{\text{tot},O}^{\text{ext}} = \sum_{i=1}^{N} m_{i}(\vec{r}_{i}-\vec{r}_{O}) \times (-\ddot{\vec{r}}_{O}) = \vec{\tau}_{\text{tot},O}^{\text{ext}} + (\vec{r}_{CM} - \vec{r}_{O}) \times (-M \ddot{\vec{r}}_{O}).
 \end{align}
 This last term, $-M\ddot{\vec{r}}_{O}$, is called the \eax{fictitious force} or the \eax{pseudoforce}.
+
+\subsection{Rotation in Three Dimensions}
+\textit{September 29th.}
+
+We will restrict ourselves to rigid bodies, where the distance between any two particles is a constant. We start by discussing the \eax{Mozzi-Chasles theorem}, which states that the most general motion of a rigid body can be represented as a rotation about an axis and a translation along the same axis. So, if we consider a point $P$ of the body, the entire motion can be inferred from the translation of $P$ and a single rotation about an axis through $P$. Thus the required quantities are $\vec{r}_{P}$, $\vec{v}_{P}$, and $\vec{\omega}$. For any other point $Q$ of the body, we have
+\begin{align}
+    \vec{r}_{Q} = \vec{r}_{P} + \vec{r}_{Q/P}, \quad \dot{\vec{r}}_{Q} = \dot{\vec{r}}_{P} + \dot{\vec{r}}_{Q/P}, \quad \ddot{\vec{r}}_{Q} = \ddot{\vec{r}}_{P} + \ddot{\vec{r}}_{Q/P}.
+\end{align}
+If $P$ is fixed and we perform an infinitesimal motion of any other point with no turning back, the \eax{Borsuk-Ulam theorem} states that there must be two antipodal points which do not move at all under this infinitesimal motion.
+
+The quantities above are related as $\vec{v}_{p} = \vec{\omega} \times \vec{r}_{P}(t)$, with $\abs{\vec{v}_{P}} = \abs{\vec{\omega}} \abs{\vec{r}_{P}} \sin \theta$, where $\theta$ is the angle between $\vec{\omega}$ and $\vec{r}_{P}$. Suppose we have three bodies $S_{1}$, $S_{2}$, and $S_{3}$, with the relative angular velocity of $S_{1}$ with respect to $S_{2}$ being $\vec{\omega}_{12}$, and so on. Then the angular velocity of $S_{1}$ with respect to $S_{3}$ is given by
+\begin{align}
+    \vec{\omega}_{13} = \vec{\omega}_{12} + \vec{\omega}_{23}.
+\end{align}
+
+Now suppose we have a rigid body $S$ rotating about an axis, with $\vec{\omega} = \omega_{1} \hat{e}_{x} + \omega_{2} \hat{e}_{y} + \omega_{3} \hat{e}_{z}$. For an infinitesimal mass element of a point on the body, $dm = \rho(x,y,z) dx dy dz$, the angular momentum of the entire body is given as
+\begin{align}
+    \vec{L} = \int_{S} \vec{r} \times \vec{v} dm = \int_{S} dm(\vec{r} \times (\vec{\omega} \times \vec{r})) = \int_{S} dm \left( r^{2} \vec{\omega} - (\vec{r} \cdot \vec{\omega}) \vec{r} \right).
+\end{align}
+We now introduce the \eax{inertia tensor} $\tensor{I}$ as the linear transformation such that $\vec{L} = \tensor{I} \vec{\omega}$. We have
+\begin{align}
+    \vec{L} = \int_{S} dm \left( (x^{2}+y^{2}+z^{2})(\omega_{1} \hat{e}_{x} + \omega_{2} \hat{e}_{y} + \omega_{3} \hat{e}_{z}) - (x\omega_{1} + y\omega_{2} + z\omega_{3})(x\hat{e}_{x} + y\hat{e}_{y} + z\hat{e}_{z}) \right).
+\end{align}
+The $x$ component of $\vec{L}$ is
+\begin{align}
+    L_{x} = \vec{L} \cdot \hat{e}_{x} = \int_{S} dm \left( (y^{2}+z^{2}) \omega_{1} - yx \omega_{2} - xz \omega_{3} \right).
+\end{align}
+Similarly, we obtain $L_{y}$ and $L_{z}$. Rewriting this in matrix form, we see that
+\begin{align}
+    \begin{pmatrix}
+        L_{x} \\ L_{y} \\ L_{z}
+    \end{pmatrix} = \begin{pmatrix}
+        \int dm (y^{2}+z^{2}) & - \int dm xy & - \int dm zx \\
+        -\int dm xy & \int dm (z^{2}+x^{2}) & - \int dm yz \\
+        -\int dm zx & - \int dm yz & \int dm (x^{2}+y^{2})
+    \end{pmatrix} \begin{pmatrix}
+        \omega_{1} \\ \omega_{2} \\ \omega_{3}
+    \end{pmatrix}
+\end{align}
+where the matrix thus formed is called the inertia tensor $\tensor{I}$. The matrix here is symmetric, and is more often written as
+\begin{align}
+    I = \begin{pmatrix}
+        I_{xx} & I_{xy} & I_{xz} \\
+        I_{yx} & I_{yy} & I_{yz} \\
+        I_{zx} & I_{zy} & I_{zz}
+    \end{pmatrix}
+\end{align}
+where $I_{\mu \nu} = I_{\nu \mu}$.
+
+\begin{example}
+    Consider a uniform cube of side $a$ and mass $M$. The density of the cube is $\rho = \frac{M}{a^{3}}$. The moment of inertia about the $x$-axis is given by
+    \begin{align}
+        I_{xx} = \int_{S} (y^{2}+z^{2}) dm = \int_{0}^{a} \int_{0}^{a} \int_{0}^{a} (y^{2}+z^{2}) \rho dx dy dz = \frac{2}{3} Ma^{2}.
+    \end{align}
+    By symmetry, we have $I_{yy} = I_{zz} = \frac{2}{3} Ma^{2}$. The off-diagonal terms are given by
+    \begin{align}
+        I_{xy} = I_{yx} = -\int_{S} xy dm = -\int_{0}^{a} \int_{0}^{a} \int_{0}^{a} xy \rho dx dy dz = -\frac{1}{4}Ma^{2}.
+    \end{align}
+    By symmetry, we have $I_{xz} = I_{zx} = I_{yz} = I_{zy} = -\frac{1}{4}Ma^{2}$. Thus, the inertia tensor is given by
+    \begin{align}
+        \tensor{I} = Ma^{2} \begin{pmatrix}
+            2/3 & -1/4 & -1/4 \\
+            -1/4 & 2/3 & -1/4 \\
+            -1/4 & -1/4 & 2/3
+        \end{pmatrix}.
+    \end{align}
+    Let us look at the $x$-component of the moment of inertia. From the tensor relation above, we obtain
+    \begin{align}
+        L_{x} = \frac{2}{3}Ma^{2}\omega_{1} - \frac{1}{4} ML^{2} \omega_{2} - \frac{1}{4} Ma^{2} \omega_{3}.
+    \end{align}
+    Note that even if we set $\omega_{1} = \omega_{2} = 0$, that is, the cube only rotates about the $z$-axis, we still have $L_{x} = -\frac{1}{4} Ma^{2} \omega_{3} \neq 0$. Thus, $\vec{L}$ and $\vec{\omega}$ are not parallel in general.
+\end{example}
+
+We now move to further generalized motion. Here, the best idea is to choose $P$ to be the centre of mass. In such a case, we know that the angular momentum is
+\begin{align}
+    \vec{L} = M(\vec{r}_{CM} \times \vec{v}_{CM}) + \int_{S} dm (\vec{r}' \times (\vec{\omega}' \times \vec{r}'))
+\end{align}
+For any arbitrary point $Q$, note that $\vec{\omega}_{CM/O} = \vec{\omega}' = \vec{\omega}_{Q/CM}$. Thus we have
+\begin{align}
+    M \vec{r}_{CM} \times (\vec{\omega}' \times \vec{r}_{CM}) = M\left( (r_{CM}^{2}) \vec{\omega}' - (\vec{r}_{CM} \cdot \vec{\omega}') \vec{r}_{CM} \right)
+\end{align}
+We can then work as before to get relations such as $I_{xx}^{CM/O} = M(y_{CM}^{2}+z_{CM}^{2})$ and so on. We then obtain the \eax{generalized parallel axis theorem} as
+\begin{align}
+    \vec{L} = (\tensor{I}_{CM/O} + \tensor{I}_{S/CM}) \vec{\omega}' = \tensor{I}_{S/O} \vec{\omega}'.
+\end{align}
