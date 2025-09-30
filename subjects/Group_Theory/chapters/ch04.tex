@@ -1,4 +1,4 @@
-\chapter{FREE GROUPS AND PRODUCTS}
+\chapter{THE STRUCTURE OF GROUPS}
 
 
 \section{Free Groups}
@@ -207,6 +207,8 @@ We will see, however, that $S_{3}$ is can be written as something termed an inte
 
 \subsection{The Semidirect Product}
 
+\textit{September 30th.}
+
 \begin{definition}
     Let $G$ be a group with $N,H \sbg G$ such that $N \nsbg G$, $N \cap H = \{e\}$, and $NH = G$. Then $G$ is called the \eax{internal semidirect product} of $N$ and $H$.
 \end{definition}
@@ -229,5 +231,82 @@ One may take the following proposition as the definition of the external semidir
     Moreover, the maps $i_{H}:H \to N \ltimes_{\varphi} H$ given by $h \mapsto (e_{N},h)$, $i_{N}:N \to N \ltimes_{\varphi} H$ given by $n \mapsto (n,e_{H})$, and $p_{2}:N \ltimes_{\varphi} H \to H$ given by $(n,h) \mapsto h$ are group homomorphisms. $\Img i_{N}$ is a normal subgroup of $N \ltimes_{\varphi} H$ isomorphic to $N$. Finally, $N \ltimes_{\varphi} H$ is the internal semidirect product of $\Img i_{N} = i_{N}(N)$ and $\Img i_{H} = i_{H}(H)$.
 \end{proposition}
 \begin{proof}
-    
+    Let us show that the group axioms are, first, satisfied.
+    \begin{enumerate}
+        \item \textit{Closure}: It is a direct consequence of the definition of the operation.
+        \item \textit{Associativity}: Let $(n_{1},h_{1}),(n_{2},h_{2}),(n_{3},h_{3}) \in N \ltimes_{\varphi} H$. Then
+        \begin{align}
+            ((n_{1},h_{1})\cdot(n_{2},h_{2}))\cdot(n_{3},h_{3}) &= (n_{1}\varphi(h_{1})(n_{2}),h_{1}h_{2})\cdot(n_{3},h_{3}) = (n_{1}\varphi(h_{1})(n_{2})\varphi(h_{1}h_{2})(n_{3}),h_{1}h_{2}h_{3}) \notag \\
+            &= (n_{1} \varphi(h_{1})(n_{2}\varphi(h_{2})(n_{3})),h_{1}h_{2}h_{3}) = (n_{1},h_{1})\cdot(n_{2}\varphi(h_{2})(n_{3}),h_{2}h_{3}) \notag \\
+            &= (n_{1},h_{1})\cdot((n_{2},h_{2})\cdot(n_{3},h_{3})).
+        \end{align}
+        \item \textit{Identity}: Let $e = (e_{N},e_{H})$. Then for all $(n,h) \in N \ltimes_{\varphi} H$,
+        \begin{align}
+            e \cdot (n,h) = (e_{N}\varphi(e_{H})(n),e_{H}h) = (n,h) = (n\varphi(h)(e_{N}),he_{H}) = (n,h) \cdot e.
+        \end{align}
+        \item \textit{Inverse}: Let $(n,h) \in N \ltimes_{\varphi} H$. Then $(\varphi(h^{-1})(n^{-1}),h^{-1})$ is the inverse of $(n,h)$ since
+        \begin{align}
+            (n,h) \cdot (\varphi(h^{-1})(n^{-1}),h^{-1}) = (n\varphi(h)(\varphi(h^{-1})(n^{-1})),hh^{-1}) = (n \varphi(e_{H})(n^{-1}),e_{H}) = e.
+        \end{align}
+    \end{enumerate}
+    The rest of the proposition is left as an exercise to the reader.
 \end{proof}
+
+\begin{proposition}
+    Let $G$ be a group which is the internal semidirect product of subgroups $N$ and $H$ with $N \nsbg G$. Set $\varphi:H \to \Aut(N)$ by $\varphi(h)(n) hnh^{-1}$ for all $h \in H$ and $n \in N$. Then $G \cong N \ltimes_{\varphi} H$.
+\end{proposition}
+\begin{proof}
+    Simply look at the mapping $\theta:N \ltimes_{\varphi} H \to G$ given by $(n,h) \mapsto nh$. Let $(n_{1},h_{1}),(n_{2},h_{2}) \in N \ltimes_{\varphi} H$. Then
+    \begin{align}
+        (n_{1},h_{1}) \cdot (n_{2},h_{2}) = (n_{1}\varphi(h_{1})(n_{2}),h_{1}h_{2}) = (n_{1}h_{1}n_{2}h_{1}^{-1},h_{1}h_{2}) \mapsto n_{1}h_{1}n_{2}h_{2} = \theta(n_{1},h_{1})\theta(n_{2},h_{2}).
+    \end{align}
+    Thus $\theta$ is a homomorphism. To show that it is bijective, note that if $\theta(n,h) = e_{G}$, then $nh = e_{G}$ or $h = n^{-1} \in N$. Since $h \in H$, we have $h = e_{G}$ and $n = e_{G}$, showing that $\theta$ is injective. For surjectivity, let $g \in G$. Then $g = nh$ for some $n \in N$ and $h \in H$ since $G = NH$; use $(n,h)$ which maps to $nh = g$, showing that $\theta$ is surjective.
+\end{proof}
+
+
+\begin{example}
+    Suppose $G$ is a group with $\abs{G} = 10$. Then $G$ has only two possible group structures; either $G \cong \Z/5\Z \times \Z/2\Z$ or $G \cong \Z/5\Z \ltimes_{\varphi} \Z/2\Z$. We need a non-trivial homomorphism $\varphi:\Z/2\Z \to \Aut(\Z/5\Z) \cong (\Z/5\Z)^{\ast}$. The only other non-trivial homomorphism is given by $\varphi([1]_{2}) = m_{[4]_{5}}$, where $m_{[4]_{5}}$ is the multiplication by $4$ map on $\Z/5\Z$. Thus, the group $G \cong \Z/5\Z \ltimes_{\varphi} \Z/2\Z$ works as
+    \begin{align}
+        ([a]_{5},[b]_{2}) \cdot ([c]_{5},[d]_{2}) &= ([a]_{5} + \varphi([b]_{2})([c]_{5}),[b+d]_{2}) = \begin{cases}
+            ([a+c]_{5},[0]_{2}) &\text{ if } [b]_{2} = [0]_{2},\\
+            ([a+4c]_{5},[1]_{2}) &\text{ if } [b]_{2} = [1]_{2}
+        \end{cases} \notag \\ &= ([a + (-1)^{b}c]_{5},[b+d]_{2}).
+    \end{align}
+    We claim that $G$ is actually the dihedral group $D_{10}$. To see this, let the map $\psi:G \to D_{10}$ be given by $\psi([1]_{5},[0]_{2}) = r$ and $\psi([0]_{5},[1]_{2}) = s$. One can show that $\psi$ is, indeed, a bijective homomorphism. More generally, one may show that $D_{2n} \cong C_{n} \ltimes_{\varphi} C_{2}$ where $\varphi:C_{2} \to \Aut(C_{n})$ is given by $\varphi(x)(y) = y^{-1}$ for all $x \in C_{2}$ and $y \in C_{n}$.
+\end{example}
+
+\begin{example}
+    Let us analyze groups of order $8$. If such a $G$ were abelian, then the fundamental theorem of finitely generated abelian groups tells us that $G$ is isomorphic to one of $\Z/8\Z$, $\Z/4\Z \times \Z/2\Z$, or $(\Z/2\Z)^{3}$. Suppose $G$ is non-abelian. The centre $Z(G)$ cannot be of order $8$ or $4$; it woudld be abelian otherwise. Hence $Z(G) \cong \Z/2\Z$ for $G$ to be non-abelian. Thus $G/Z(G)$ is isomorphic to either $\Z/4\Z$ or $(\Z/2\Z)^{2}$.
+\end{example}
+
+\section{Normal Series and Solvability}
+
+\begin{definition}
+    Let $G$ be a group. A chain of subgroups
+    \begin{align}
+        \{e\} = G_{n} \nsbg G_{n-1} \nsbg \cdots \nsbg G_{2} \nsbg G_{1} \nsbg G_{0} = G
+    \end{align}
+    is called a \eax{normal series} for $G$ if $G_{i+1} \nsbg G_{i}$ for all $0 \leq i \leq n-1$. A normal series is called a \eax{composition series} if each quotient $G_{i}/G_{i+1}$ is simple for all $0 \leq i \leq n-1$. Moreover, $G_{i}/G_{i+1}$ are called \eax{composition factors} of $G$.
+\end{definition}
+
+\begin{example}
+    A normal series for the cycle group $C_{12}$ is simply
+    \begin{align}
+        \{e\} \cong 12\Z/12\Z \nsbg 4\Z/12\Z \nsbg 2\Z/12\Z \nsbg \Z/12\Z \cong C_{12}.
+    \end{align}
+    Here, the composition factors are $\Z/3\Z$, $\Z/2\Z$, and $\Z/2\Z$. Another possible normal series is
+    \begin{align}
+        \{e\} \cong 12\Z/12\Z \nsbg 6\Z/12\Z \nsbg 3\Z/12\Z \nsbg \Z/12\Z \cong C_{12},
+    \end{align}
+    where the composition factors are $\Z/2\Z$, $\Z/2\Z$, and $\Z/3\Z$.
+\end{example}
+
+Surprisingly, two different normal (composition) series resulted in the same composition factors, up to isomorphism and order. This is not a coincidence, as shown by the following proposition.
+
+\begin{proposition}
+    For a finite group $G$, a composition series always exists. Moreover, any two composition series of $G$ have the same length and the same composition factors, up to isomorphism and order.
+\end{proposition}
+
+\begin{definition}
+    A group $G$ is termed a \eax{solvable group} if all its composition factors are abelian.
+\end{definition}
