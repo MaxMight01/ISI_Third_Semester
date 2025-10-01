@@ -249,7 +249,7 @@ Note that content zero sets are \textit{not} the same as measure zero sets. For 
     \end{align}
 \end{example}
 
-\section{Change of Variables}
+\subsection{Change of Variables}
 
 Recall the $n = 1$ case. Let $\varphi: O \to \R$ be a $C^{1}$-function with $O \subseteq \R$ open. Also suppose $\varphi'(x) \neq 0$ for all $x \in O$. If we let $f \in C(\varphi[a,b])$, where $[a,b] \subseteq O$, then
 \begin{align}
@@ -300,3 +300,44 @@ The proof of this theorem is beyond the scope of the course.
         \int_{\varphi(O)} f = \int_{O} f \circ \phi \cdot r^{2} \sin \phi dr d\phi d\theta.
     \end{align}
 \end{example}
+
+\section{Curves and Surfaces}
+
+\textit{October 1st.}
+
+\begin{definition}
+    Given an interval $I = [a,b] \subseteq \R$, a parametrized \eax{curve} in $\R^{n}$ is a continuous function $\gamma:I \to \R^{n}$. We call $\{\gamma(t) \mid t \in I\}$ to be the \eax{path} of $\gamma$.
+\end{definition}
+
+For example, one may define the curve $\gamma:[0,2\pi] \to \R^{2}$ as $\gamma(t) = (\cos t, \sin t)$, which is the unit circle in $\R^{2}$. If we had chosen $\tilde{\gamma}:[0,2\pi] \to \R^{2}$ as $\tilde{\gamma}(t) = (\cos 2t, \sin 2t)$, then the path of $\tilde{\gamma}$ is still the unit circle, but it is traversed twice as fast. Thus given the path of a curve, there are infinitely many parametrizations of the same path.
+
+\begin{definition}
+    Let $\gamma:I \to \R^{n}$ be a curve. $\gamma$ is termed a $C^{1}$-function if each component function $\gamma_{i}:I \to \R$ is a $C^{1}$-function for all $i = 1,2,\ldots,n$. A differentiable $\gamma$ is called \eax{smooth} if $\gamma$ is $C^{1}$ and $\gamma'(t) \neq 0$ for all $t \in I$.
+\end{definition}
+
+\begin{definition}
+    A parametrized curve $\gamma:I \to \R^{n}$ is said to be \eax{piecewise smooth} if there exists a partition of $I = [a,b]$, say, $P:a = x_{0}<x_{1}<\cdots<x_{n}=b$ such that $\gamma|_{[x_{j-1},x_{j}]}$ is smooth for all $j = 1,2,\ldots,n$.
+\end{definition}
+
+\begin{definition}
+    Two parametrized curves $\gamma:[a,b] \to \R^{n}$ and $\tilde{\gamma}:[\tilde{a},\tilde{b}] \to \R^{n}$ are equivalent if there exists a strictly increasing parametrized curve $\varphi:[\tilde{a},\tilde{b}] \to [a,b]$, which is also surjective and continuously differentiable, such that $\tilde{\gamma} = \gamma \circ \varphi$.
+\end{definition}
+
+\begin{definition}
+    Let $\gamma:I \to \R^{n}$ be a $C^{1}$-curve. The \eax{speed of the curve} $\gamma$ at $t \in I$ is defined as $\norm{\gamma'(t)}$. The \eax{length of the curve} $\gamma$ between $t_{1}$ and $t_{2}$ is defined as
+    \begin{align}
+        \int_{t_{1}}^{t_{2}} \norm{\gamma'(t)} dt
+    \end{align}
+    for any $[t_{1},t_{2}] \subseteq I$.
+\end{definition}
+
+Most of these definitions seem more physical rather than mathematical. A more natural way to compute the length of a curve is as follows. Given a curve $\gamma:I \to \R^{n}$, we consider a partition $P:a=t_{0} < t_{1} < t_{2} < \cdots < t_{n} = b$ of $I$. Then, we define the length of $\gamma$ with respect to $P$ as
+\begin{align}
+    \ell(\gamma,P) = \sum_{i=1}^{n} \norm{\gamma(t_{i})-\gamma(t_{i-1})}.
+\end{align}
+
+\begin{definition}
+    A curve $\gamma:I \to \R^{n}$ is said to be \eax{rectifiable} if $\ell(\gamma) \defeq \lim_{\norm{P} \to 0} \ell(\gamma,P)$ exists.
+\end{definition}
+
+Note that for a piecewise smooth curve $\gamma:[a,b] \to \R^{n}$, the curve is rectifiable and $\ell(\gamma) = \int_{a}^{b} \norm{\gamma'(t)} dt$. However, a recetifiable curve need not be piecewise smooth. A popular example is the Cantor function.
