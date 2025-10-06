@@ -340,4 +340,61 @@ Most of these definitions seem more physical rather than mathematical. A more na
     A curve $\gamma:I \to \R^{n}$ is said to be \eax{rectifiable} if $\ell(\gamma) \defeq \lim_{\norm{P} \to 0} \ell(\gamma,P)$ exists.
 \end{definition}
 
-Note that for a piecewise smooth curve $\gamma:[a,b] \to \R^{n}$, the curve is rectifiable and $\ell(\gamma) = \int_{a}^{b} \norm{\gamma'(t)} dt$. However, a recetifiable curve need not be piecewise smooth. A popular example is the Cantor function.
+Note that for a piecewise smooth curve $\gamma:[a,b] \to \R^{n}$, the curve is rectifiable and $\ell(\gamma) = \int_{a}^{b} \norm{\gamma'(t)} dt$. However, a recetifiable curve need not be piecewise smooth. A popular example is the Cantor function.\\ \\
+\textit{October 6th.}
+
+\begin{example}
+    Note that the curves $\gamma(t) = (t^{3},t^{6})$ and $\tilde{\gamma}(t) = (t,t^{2})$ for $t \in [0,1]$ have the same trace. However, one may note that $\gamma(t)$ is not smooth since $\gamma'(0) = 0$, but $\tilde{\gamma}(t)$ is smooth. Note that we had seen $\gamma = \tilde{\gamma} \circ \varphi$ is the condition for equivalent curves. But here $\varphi(t) = t^{1/3}$ is not differentiable at $t=0$. Thus, $\gamma$ and $\tilde{\gamma}$ are not equivalent.
+\end{example}
+
+\begin{example}
+    Let $\gamma(t) = (\alpha t, \beta t - 16t^{2})$ with $\alpha,\beta \in \R \setminus \{0\}$. In this case, $\gamma'(t) = (\alpha,\beta-32t)$. Thus the length of $\gamma$ is $\ell(\gamma) = \int \sqrt{\alpha^{2} + (\beta-32t)^{2}} dt$ with suitable limits.
+\end{example}
+
+\begin{example}
+    We look at the graph of a function $f \in \C^{1}[a,b]$. Define $\gamma:[a,b] \to \R^{2}$ as $\gamma(t) = (t,f(t))$. Then, $\gamma'(t) = (1,f'(t))$, and the length of the curve is $\ell(\gamma) = \int_{a}^{b} \sqrt{1+(f'(t))^{2}} dt$.
+\end{example}
+
+\subsection{Line Integrals}
+
+To begin, a \eax{scalar field} is simply a function of the form $f:\R^{n} \to \R$ and a \eax{vector field} is a function of hte form $f:\R^{n} \to \R^{n}$.
+
+Let $\gamma:[a,b] \to \R^{n}$ be a smooth (or rectifiable) curve with $C$ the trace of $\gamma$. Let $f \in \cB(C)$ be a scalar field. Given a partition $P:a = t_{0} < t_{1} < \cdots < t_{m} = b$ of $[a,b]$, we define $s_{i} \defeq \norm{\gamma(t_{i}) - \gamma(t_{i-1})}$ for all $i = 1,2,\ldots,m$. We also define $C_{i} \defeq \gamma([t_{i-1},t_{i}])$ and $M_{i} = \sup_{x \in C_{i}} f(x)$ and $m_{i} = \inf_{x \in C_{i}} f(x)$. We then define the upper and lower sums as
+\begin{align}
+    U(f,P) = \sum_{i=1}^{m} M_{i} s_{i} \;\text{ and }\; L(f,P) = \sum_{i=1}^{m} m_{i} s_{i}.
+\end{align}
+
+\begin{definition}
+    We say that the above $f$ is integrable if
+    \begin{align}
+        \sup_{P \in \cP([a,b])} L(f,P) = \inf_{P \in \cP([a,b])} U(f,P) \; \left( = \int_{C} f ds\right).
+    \end{align}
+    The last notation is termed the \eax{line integral} of $f$ over $C$ with respect to arc length.
+\end{definition}
+
+\begin{theorem}
+    The following hold.
+    \begin{enumerate}
+        \item If $f$ is a constant function, then $f$ is integrable over $C$.
+        \item $f$ is integrable over $C$ if and only if $\lim_{\norm{P} \to 0} \sum_{i \in \Lambda(P),\;\zeta_{i} \in C_{i}} f(\zeta_{i}) s_{i}$ exists. In such a case, the limit is always equal to $\int_{C} f ds$.
+        \item Let $\gamma$ be a $C^{1}$-curve and $f \in \cR(C)$. Then $f$ is integrable over $C$ and
+        \begin{align}
+            \int_{C} f ds = \int_{a}^{} f(\gamma(t)) \norm{\gamma'(t)} dt.
+        \end{align}
+    \end{enumerate}
+\end{theorem}
+
+For two equivalent parametrized curves $\gamma$ and $\tilde{\gamma} = \gamma \circ \varphi$,with $\varphi:[c,d] \to [a,b]$ differentiable, strictly increasing, and surjective, we have
+\begin{align}
+    \int_{c}^{d} f(\tilde{\gamma}(s)) \norm{\tilde{\gamma}'(s)} ds = \int_{c}^{d} f(\gamma(\varphi(s))) \norm{\gamma'(\varphi(s))} \varphi'(s) ds = \int_{a}^{b} f(\gamma(t)) \norm{\gamma'(t)} dt
+\end{align}
+where we made the change of variable $\varphi(s) \mapsto t$. Thus, the line integral is independent of the (equivalent) parametrization of the curve. We may rewrite the line integral as $\int_{\gamma} f$, for any equivalent parametrization $\gamma$ of $C$.
+
+Let $\gamma:[a,b] \to \R^{n}$ be a piecewise smooth curve with $C$ the trace of $\gamma$. Let $f$ and $g$ be continuous scalar fields over $C$. Then, the following hold.
+\begin{enumerate}
+    \item $\int_{\gamma} f + \alpha g = \int_{\gamma} f + \alpha \int_{\gamma} g$ for all $\alpha \in \R$.
+    \item If $f \geq g$, then $\int_{\gamma} f \geq \int_{\gamma} g$.
+    \item Let $a < c < b$, and let $\gamma_{1} = \gamma|_{[a,c]}$ and $\gamma_{2} = \gamma|_{[c,b]}$. Then, $\int_{\gamma} f = \int_{\gamma_{1}} f + \int_{\gamma_{2}} f$.
+    \item $\abs{\int_{\gamma} f} \leq \int_{\gamma} \abs{f}$.
+    \item Given $\varepsilon > 0$, there exists $\delta > 0$ such that for all $0 < t - \tilde{t} < \delta$, we have $\int_{\gamma|_{[\tilde{t},t]}} f < \varepsilon$.
+\end{enumerate}
