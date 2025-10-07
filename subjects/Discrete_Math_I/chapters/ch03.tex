@@ -639,6 +639,8 @@ Let $G = (V_{1} \sqcup V_{2}, E)$ be a finite bipartite graph. A \eax{perfect ma
     \end{align}
 \end{definition}
 
+\textit{October 7th.}
+
 \begin{theorem}
     The following are equivalent for $x,y \in \R^{n}$.
     \begin{enumerate}
@@ -657,4 +659,50 @@ Let $G = (V_{1} \sqcup V_{2}, E)$ be a finite bipartite graph. A \eax{perfect ma
     \begin{align}
         \sum_{j=1}^{m} y_{j}' = \sum_{j=2}^{k-1} y_{j} + (1-t)y_{1} + ty_{k} + \sum_{j=k+1}^{m} y_{j} = \left(\sum_{j=1}^{m} y_{j}\right)-ty_{1}+(t-1)y_{k} \geq \sum_{j=1}^{m} x_{j} - x_{1} = \sum_{j=2}^{m} x_{j}
     \end{align}
+    We use induction hypothesis to give us $(y_{2}',\ldots,y_{n}') \preceq (x_{2},\ldots,x_{n})$. Thus, $x$ is obtained from $y$ by a finite sequence of T-transforms.
+
+    For 2.~implies 3., we assume $T_{r} \cdots T_{1} y = x$ for $y \in \R^{n}$ and each $T$ a T-transform. Note that the permutation polytope of $y$ contains the permutation polytope of $Ty$ for a T-transform $T$. This is becuase for any $\sigma \in S_{n}$, one can show that $\sigma(Ty)$ is in the permutation polytope of $y$. Thus, by induction, $x$ is in the permutation polytope of $y$.
+
+    For 3.~implies 4., let $x$ be in the permutation polytope of $y$. Then $x = \sum_{\sigma \in S_{n}} t_{\sigma}(\sigma y)$ for some $t_{\sigma} \geq 0$ with $\sum_{\sigma} t_{\sigma} = 1$. Letting $A = \sum_{\sigma \in S_{n}} t_{\sigma} P_{\sigma}$, where $P_{\sigma}$ is the permutation matrix corresponding to $\sigma$, we have $x = Ay$. Note that $A$ is doubly stochastic.
+
+    For 4.~implies 3., since any doubly stochastic matrix is a convex combination of permutation matrices, the result follows.
+
+    For 4.~implies 1., let $x = Ay$ for a doubly stochastic matrix $A$. We have
+    \begin{align}
+        \sum_{j=1}^{k} x_{j} = \sum_{j=1}^{k} \sum_{i=1}^{n} a_{ij} y_{i}
+    \end{align}
+    where $t_{i} = \sum_{j=1}^{k} a_{ij}$. Thus
+    \begin{align}
+        \sum_{j=1}^{k} x_{j} - \sum_{j=1}^{k} y_{j} = \sum_{i=1}^{n} t_{i} y_{i} - \sum_{j=1}^{k} y_{j} + (k-\sum_{i=1}^{n} t_{i}) y_{k} = \sum_{i=1}^{n} (t_{i}-1)(y_{i}-y_{k}) + \sum_{i=k+1}^{n} t_{i}(y_{i}-y_{k}) \leq 0.
+    \end{align}
 \end{proof}
+
+\begin{theorem}[\eax{Schur-Horn theorem}]
+    Let $A \in H_{n}(\R)$, the set of real symmetric matrices, with eigenvalues $\lambda_{1} \geq \cdots \geq \lambda_{n}$. Then $\diag(A) \preceq (\lambda_{1},\ldots,\lambda_{n})$. Conversely, if $x \preceq (\lambda_{1},\ldots,\lambda_{n})$, then there exists $A \in H_{n}(\R)$ with eigenvalues $\lambda_{1},\ldots,\lambda_{n}$ and diagonal entries $x_{1},\ldots,x_{n}$.
+\end{theorem}
+
+\begin{proof}
+    For the forward implication, let $A = U \diag(\lambda_{1},\ldots,\lambda_{n}) U^{t}$ be the spectral decomposition of $A$. Then simply take $D = (\abs{U_{ij}}^{2})$, which is doubly stochastic, and note that $\diag(A) = D(\lambda_{1},\ldots,\lambda_{n})$. For the converse implication, let us show for a $2 \times 2$ matrix first. For $A = \begin{pmatrix}
+        a & b \\ b & a
+    \end{pmatrix}$, a $2 \times 2$ doubly stochastic matrix with $0 \leq a,b \leq 1$ and $a+b = 1$, note that $\begin{pmatrix}
+        \sqrt{a} & -\sqrt{b} \\ \sqrt{b} & \sqrt{a}
+    \end{pmatrix}$ is an orthogonal matrix. Let $(r_{1},\ldots,r_{k})$ be majorized by $(\lambda_{1},\ldots,\lambda_{k})$ via the sequence of T-transforms $T_{k} \cdots T_{1}$, where each $T_{i}$ is an orthostochastic matrix, say $O_{i}$. Then $r = (O_{k} \cdots O_{1})(\lambda_{1},\ldots,\lambda_{k})$. 
+\end{proof}
+
+The linear mapping $\phi:M_{n}(\R) \to D_{n}(\R)$ defined by $\phi(A) = \diag(A_{11},A_{22},\ldots,A_{nn})$ is a positive linear map. Moreover, for a diagonal matrix $D$, $\phi(DA) = D\phi(A)$ and $\phi(AD) = \phi(A)D$. Note that $\phi(I) = I$.
+
+\begin{theorem}[\eax{Hadamard's determinant inequality}]
+    If $A$ is a positive semidefinite real matrix, then $\det A \leq \det \phi(A)$, with equality if and only if $A$ is diagonal, or $\phi(A) = 0$.
+\end{theorem}
+\begin{proof}
+    Assume $A$ is positive definite. If we look at $\tr (\phi(A)^{-1/2} A \phi(A)^{-1/2})$, we have
+    \begin{align}
+        \tr ( \phi(A)^{-1/2} A \phi(A)^{-1/2}) = \tr (\phi(\phi(A)^{-1/2} A \phi(A)^{-1/2})) = \tr (I) = n.
+    \end{align}
+    Thus, if we denote $X = \phi(A)^{-1/2} A \phi(A)^{-1/2}$, then $\frac{1}{n} \tr X = 1$. By the AM-GM inequality, $\det X \leq (\frac{1}{n} \tr X)^{n} = 1$. Therefore, $\det A \leq \det \phi(A)$, with equality if and only if $X = I$, or $A = \phi(A)$.
+\end{proof}
+
+
+
+
+
