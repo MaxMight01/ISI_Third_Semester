@@ -310,3 +310,57 @@ Surprisingly, two different normal (composition) series resulted in the same com
 \begin{definition}
     A group $G$ is termed a \eax{solvable group} if all its composition factors are abelian.
 \end{definition}
+
+\textit{October 7th.}
+
+\begin{example}
+    Consider $S_{n}$ for $n \geq 5$. Then $\{e\} \nsbg A_{n} \nsbg S_{n}$ is a composition series since $A_{n}$ is simple for all $n \geq 5$. The composition factors are $A_{n}$ and $\Z/2\Z$, so $S_{n}$ is not solvable. We show that this is the only possible composition series for $n \geq 5$. Consider $\{e\} \neq N \nsbg S_{n}$ for some normal subgroup $N$. Then $N \cap A_{n} \nsbg A_{n}$, so either $N \cap A_{n} = \{e\}$ or $N \supseteq A_{n}$ since $A_{n}$ is simple. If $N \cap A_{n} = \{e\}$, then the second isomorphism theorem gives $NA_{n}/N \cong A_{n}$, or $\abs{N} \leq 2$. Since $N$ is non-trivial, there exists a unique $\sigma \in N$ such that $\sigma \neq e$. $N$ is normal, so $g \sigma g^{-1} = \sigma$ for all $g \in S_{n}$, or $\sigma$ is in the centre of $S_{n}$. However, the centre of $S_{n}$ is trivial for all $n \geq 3$, so $\sigma = e$, a contradiction. Thus, $N \supseteq A_{n}$, and the only possible normal subgroups of $S_{n}$ are $\{e\}$, $A_{n}$, and $S_{n}$. Hence, the only possible composition series is $\{e\} \nsbg A_{n} \nsbg S_{n}$.
+\end{example}
+
+We now prove the above proposition, which says that a finite group always has a composition series.
+\begin{proof}
+    We proceed by induction on $\abs{G}$. If $G$ is simple then $\{e\} \nsbg G$ is a composition series. Thus assume $G$ is not simple. There then exists a non trivial proper normal subgroup $N \nsbg G$. Since $\abs{G/N} < \abs{G}$, the induction hypothesis guarantees a composition series for both $G/N$ and $N$, say,
+    \begin{align}
+        \{e\} = \overline{G}_{n} \nsbg \cdots \nsbg \overline{G}_{1} \nsbg \overline{G}_{0} = G/N
+    \end{align}
+    and
+    \begin{align}
+        \{e\} = N_{m} \nsbg \cdots \nsbg N_{1} \nsbg N_{0} = N
+    \end{align}
+    such that $\overline{G}_{i}/\overline{G}_{i+1}$ and $N_{i}/N_{i+1}$ are simple for all $i$. Note that subgroups of $G/N$ are in bijection with subgroups of $G$ containing $N$, that is, if $N \subseteq H \nsbg G$, then $H/N \sbg G/N$. For $\overline{H} \sbg G/N$, the mapping is given as $q^{-1}(\overline{H})$ where $q:G \to G/N$ is the natural quotient mapping. So set $G_{i} = q^{-1}(\overline{G}_{i})$ with, in particular, $G_{n} = q^{-1}(\{e\}) = N$ to get the first part of the composition series. Here, $G_{i}/G_{i+1} \cong (G_{i}/N)/(G_{i+1}/N) \cong \overline{G}_{i}/\overline{G}_{i+1}$ which is simple, so this checks out. We now simply append the composition series of $N$ to get
+    \begin{align}
+        \{e\} &= G_{n+m} \nsbg \cdots \nsbg G_{n+1} \nsbg G_{n} \nsbg \cdots \nsbg G_{1} \nsbg G_{0} = G,\notag \\ \{e\} &= N_{m} \nsbg \cdots \nsbg N_{1} \nsbg N \nsbg \cdots \nsbg q^{-1}(\overline{G}_{1}) \nsbg q^{-1}(\overline{G}_{0}) = G.
+    \end{align}
+\end{proof}
+
+\begin{proposition}
+    Let $G$ be a finite group. The following are equivalent.
+    \begin{enumerate}
+        \item $G$ is solvable.
+        \item The composition factors of $G$ are all isomorphic to $\Z/p\Z$ for some prime $p$.
+        \item $G$ has a normal series $\{e\} = G_{n} \nsbg G_{n-1} \nsbg \cdots \nsbg G_{1} \nsbg G_{0} = G$ such that each quotient $G_{i}/G_{i+1}$ is abelian for all $i$.
+        \item If $C(G) = (G:G)$ denotes the commutator subgroup of $G$, then there exists some $n \geq 0$ such that $C^{n}(G) = \{e\}$, where $C^{0}(G) = G$ and $C^{i}(G) = C(C^{i-1}(G))$ for all $i \geq 1$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    For 1.~implies 2., the composition factors are abelian. But abelian simple groups are isomorphic to $\Z/p\Z$ for some prime $p$, so 2.~immediately follows. The converse is also trivial. For 2.~implies 3., simply take the composition series. For 4.~implies 3., note that $\{e\} = C^{n}(G) \nsbg C^{n-1}(G) \nsbg \cdots \nsbg C(G) \nsbg G$ is a normal series. Moreover, $G_{i}/G_{i+1} = G_{i}/C(G_{i})$ is abelian for all $i$.
+
+    For 3.~implies 1., let $\{e\} \nsbg G_{n} \nsbg \cdots \nsbg G_{1} \nsbg G_{0} = G$ be a normal series such that each quotient $G_{i}/G_{i+1}$ is abelian for all $i$. It is left as exercise to the reader to show that every normal series can be refined to a composition series. Using this fact, $G$ has a composition series whose composition factors are sub-quotients of $G_{i}/G_{i+1}$, that is, if $F$ is a composition factor then $F \cong H/K$ where $H \sbg G_{i}/G_{i+1}$ for some $i$ and $K \nsbg H$. So $G_{1} \nsbg G_{0}$ or $G_{1} = G_{0,n_{0}} \nsbg \cdots \nsbg G_{0,2} \nsbg G_{0,1} \nsbg G_{0}$ where $G_{0,i}/G_{1} \sbg G_{0}/G_{1}$ for all $i$. Moreover, $G_{0,i}/G_{0,i+1} = (G_{0,i}/G_{1})/(G_{0,i+1}/G_{1})$. But $G_{i}/G_{i+1}$ is abelian, so every composition factor is abelian, showing that $G$ is solvable.
+
+    For 1.~implies 4., we claim that $C(G) \neq G$. Consider a composition series where $G/G_{1}$ is non-trivial abelian. This implies that $C(G) \subseteq G_{1} \neq G$ since the commutator of $G$ is the smallest subgroup of $G$ such that $G/C(G)$ is abelian. Let $C_{1} = C(G)$. Then $C_{1}$ is also solvable since $C_{1} \sbg G$. Thus, $C_{2} = C(C_{1}) \nsbg C_{1}$ and is not equal. Since $G$ is finite, this process must terminate, so $C^{n}(G) = \{e\}$ for some $n$.
+\end{proof}
+
+\begin{lemma}
+    If $G$ is solvable, then every subgroup of $G$ is also solvable.
+\end{lemma}
+\begin{proof}
+    Let $\{e\} = G_{n} \nsbg \cdots \nsbg G_{0} = G$, and let $H$ be a subgroup of $G$. Since $G_{1} \nsbg G_{0}$, $H \cap G_{i} \nsbg H$. Thus, $\{e\} = H \cap G_{n} \nsbg \cdots \nsbg H \cap G_{0} = H$ is a normal series for $H$. Moreover, $H_{i}/H_{i+1} \cong (G_{i} \cap H)/(G_{i+1} \cap H)$ is a subgroup of $G_{i}/G_{i+1}$; if we look at the natural map $q:G_{i} \to G_{i}/G_{i+1}$, then applying the first isomorphism theorem to $q|_{G_{i} \cap H}:G_{i} \cap H \to G_{i}/G_{i+1}$ gives the result. Since $G_{i}/G_{i+1}$ is abelian, so is $(G_{i} \cap H)/(G_{i+1} \cap H)$, showing that $H$ is solvable. 
+\end{proof}
+
+\begin{example}
+    Let us look at $S_{4}$ and find a normal series for it. If $N = \{(1\;2)(3\;4),(1\;3)(2\;4),(1\;4)(2\;3),e\}$, then a valid composition series is
+    \begin{align}
+        \{e\} \nsbg \{e,(1\;2)(3\;4)\} \nsbg N \nsbg A_{4} \nsbg S_{4}.
+    \end{align}
+    The composition factors are $\Z/2\Z$, $\Z/2\Z$, $\Z/3\Z$, and $\Z/2\Z$, so $S_{4}$ is solvable.
+\end{example}

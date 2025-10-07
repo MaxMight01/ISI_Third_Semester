@@ -1,0 +1,11 @@
+\chapter{MATRIX GROUPS}
+
+We begin with $GL_{n}(\R) \subseteq M_{n}(\R)$, the set of all invertible $n \times n$ matrices with real entries. If we instead look at $M_{n}(\R)$ as $\R^{n^{2}}$ instead, then $GL_{n}(\R)$ is the set of all matrices such that the polynomial $\det(A) \neq 0$. Thus $GL_{n}(\R)$ is the complement of the zero set of a polynomial, and hence is open in $\R^{n^{2}}$. Note that $GL_{n}$ acts on $M_{n}$ via matrix conjugation as
+\begin{align}
+    GL_{n} \times M_{n} \to M_{n}, \quad (P,A) \mapsto PAP^{t}.
+\end{align}
+Let us find the stabilizer of the identity. We have
+\begin{align}
+    \Stab (I_{n}) = \{P \in GL_{n} \mid PP^{t} = I_{n}\} = O_{n},
+\end{align}
+the \eax{orthogonal group}. Sylvester's law of inertia states that $GL_{n}(\R)$ orbits of real symmetric matrices consist of a unique matrix of the form $\diag(I_{p},-I_{m},0_{z})$ where $p+m+z = n$. One may also look at $O_{n-1,1}(\R)$ is defined as $\Stab (I_{n-1,1})$ where $I_{n-1,1} = \diag(I_{n-1},-1)$. The group $O_{3,1}(\R)$ is also called the \eax{Lorentz group}. 
