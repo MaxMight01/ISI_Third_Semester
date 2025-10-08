@@ -398,3 +398,74 @@ Let $\gamma:[a,b] \to \R^{n}$ be a piecewise smooth curve with $C$ the trace of 
     \item $\abs{\int_{\gamma} f} \leq \int_{\gamma} \abs{f}$.
     \item Given $\varepsilon > 0$, there exists $\delta > 0$ such that for all $0 < t - \tilde{t} < \delta$, we have $\int_{\gamma|_{[\tilde{t},t]}} f < \varepsilon$.
 \end{enumerate}
+
+\textit{October 8th.}
+
+Let $F:O_{n} \to \R^{n}$ be a vector field, where $O_{n} \subseteq \R^{n}$ is open, and let $\gamma:[a,b] \to O_{n}$ be a curve. Consider a partition $P:a = t_{0} < t_{1} < \cdots < t_{m} = b$ of $[a,b]$. For each $i$, set $\gamma_{i} = \gamma(t_{i})$, and $\delta \gamma_{i} = \gamma(i) - \gamma_{i-1}$. We then define the Riemann sum as
+\begin{align}
+    R(F,P) = \sum_{i=1}^{m} F(\gamma_{i})\cdots \delta \gamma_{i}.
+\end{align}
+Finally, the line integral of $F$ over the curve $C$, the trace of $\gamma$, is defined as
+\begin{align}
+    \int_{C} F \cdot d\gamma = \lim_{\norm{P} \to 0} R(F,P)
+\end{align}
+If $\gamma$ is $C^{1}$ and $\int_{C} F \cdot d\gamma$ exists, then
+\begin{align}
+    \int_{C} F \cdot d\gamma = \int_{a}^{b} F(\gamma(t)) \cdot \gamma'(t) dt.
+\end{align}
+
+We now provide an analogue of the fundamental theorem of calculus for line integrals.
+
+\begin{theorem}
+    Let $f:O_{n} \to \R$ be a $C^{1}$-scalar field, and let $\gamma$ be a piecewise smooth curve joining $A$ and $B$, with $C$ the trace of $\gamma$. Then,
+    \begin{align}
+        \int_{C} \nabla f \cdot d\gamma = f(B) - f(A).
+    \end{align}
+\end{theorem}
+
+\begin{proof}
+    We have
+    \begin{align}
+        \int_{C} \nabla f \cdot d\gamma = \int_{a}^{b} \nabla f(\gamma(t)) \cdot \gamma'(t) dt = \int_{a}^{b} \frac{d}{dt}(f(\gamma(t))) dt = f(\gamma(b)) - f(\gamma(a)) = f(B) - f(A).
+    \end{align}
+\end{proof}
+
+We move on to dealing with surfaces.
+
+\begin{definition}
+    A \eax{region} $R$ in $\R^{n}$ is a bounded open subset such that $\partial R$ is of content zero.
+\end{definition}
+\begin{definition}
+    Let $R \subseteq \R^{2}$ be a region. A $C^{1}$-function $r:R \to \R^{3}$ is called a surface parametrization if
+    \begin{enumerate}
+        \item $\left\{ \frac{\partial r}{\partial u}, \frac{\partial r}{\partial v}\right\}$ is a a bounded set on $R$,
+        \item $r$ is one-to-one,
+        \item $r_{u} \times r_{v}|_{(u,v)} \neq 0$ for all $(u,v) \in R$.
+    \end{enumerate}
+    The range $S$ of $r$ is termed a parametrized \eax{surface} in $\R^{3}$.
+\end{definition}
+
+A standard example is the equation of a plane in $\R^{3}$ through $(x_{0},y_{0},z_{0})$ with normal vector $N = (a,b,c)$. This equation is given by
+\begin{align}
+    a(x-x_{0}) + b(y-y_{0}) + c(z-z_{0}) = 0.
+\end{align}
+If $c \neq 0$, then we may rewrite this as $z = z_{0} - \frac{a}{c}(x-x_{0}) - \frac{b}{c}(y-y_{0})$. Thus, we may parametrize this plane as $r(u,v) = (u,v,z_{0} - \frac{a}{c}(u-x_{0}) - \frac{b}{c}(v-y_{0}))$ for $(u,v) \in \R^{2}$.
+
+Let us talk about the third property in the definition os a surface. Fix $(u_{0},v_{0}) \in R$. Since $R$ is open, there exists $\varepsilon > 0$ such that
+\begin{align}
+    (u_{0}-\varepsilon,u_{0}+\varepsilon) \times \{v_{0}\},\;\{u_{0}\} \times (v_{0}-\varepsilon,v_{0}+\varepsilon) \subseteq R.
+\end{align}
+Thus, we can define a map over $\varphi:(-\varepsilon,\varepsilon) \to R$ by $t \mapsto (u_{0}+t,v_{0})$, and then look at the mapping $\gamma = r \circ \varphi$, which sends $t \in (-\varepsilon,\varepsilon)$ to $r(u_{0}+t,v_{0})$. This makes $\gamma$ a curve. Therefore,
+
+\begin{align}
+    \gamma' = \frac{\partial r}{\partial u} \frac{\partial u}{\partial t} + \frac{\partial r}{\partial v} \frac{\partial v}{\partial t} = r_{u}
+\end{align}
+and $\gamma'(t_{0}) = r_{u}|_{(u_{0},v_{0})}$. If we work similarly for $r_{v}$, we obtain $\gamma'(t_{0}) = r_{v}|_{(u_{0},v_{0})}$. Thus, $r_{u}$ and $r_{v}$ are tangent vectors to the surface at the point $r(u_{0},v_{0})$. Since $r_{u} \times r_{v} \neq 0$, we see that $r_{u}$ and $r_{v}$ are linearly independent, and hence span the tangent plane to the surface at $r(u_{0},v_{0})$. The third property ensures that a tangent plane (and a normal vector) exists at every point on the surface.
+
+\begin{example}
+    Let $O_{2} \subseteq \R^{2}$ be a region, and let $f \in C^{1}(O_{2})$ with bounded partials. Consider the graph of $f$, which is the set $\cG(f) = \{(x,y,f(x,y)) \mid (x,y) \in O_{2}\}$. Define $r:O_{2} \to \R^{3}$ as $r(u,v) = (u,v,f(u,v))$. Then $r_{u} = (1,0,f_{u})$ and $r_{v} = (0,1,f_{v})$. Clearly, $r_{u}$ and $r_{v}$ are bounded on $O_{2}$, and $r$ is one-to-one. Finally, $r_{u} \times r_{v} = (-f_{u},-f_{v},1) \neq 0$ for all $(u,v) \in O_{2}$. Thus, $r$ is a surface parametrization and $\cG(f)$ is a parametrized surface.
+\end{example}
+
+\begin{example}
+    Look at the equation of the torus given as $(x^{2}+y^{2}-a^{2})^{2}+z^{2} = b^{2}$ for some $a > b > 0$. It is left as an exercise to the reader to show that this is a parametrized surface.
+\end{example}
