@@ -226,3 +226,55 @@ We can then work as before to get relations such as $I_{xx}^{CM/O} = M(y_{CM}^{2
 \begin{align}
     \vec{L} = (\tensor{I}_{CM/O} + \tensor{I}_{S/CM}) \vec{\omega}' = \tensor{I}_{S/O} \vec{\omega}'.
 \end{align}
+
+\section{Rigid Body Rotation}
+
+\textit{October 8th.}
+
+When we start with a rigid body comprising of $N$ particles, we are dealing with $3N$ degrees of freedom. However, a rigid body is defined by constraints of the form $\abs{\vec{r}_{i}-\vec{r}_{j}} = r_{ij} = c_{ij}$ and still these constraints are not independent. The general idea is to choose three non-collinear points $P_{1},P_{2},P_{3}$ in the rigid body, which gives us $9$ degrees of freedom, and the distances between then give $3$ constraints, giving the final number as $6$ independent degrees of freedom at any given moment.
+
+Thus first establish position of $P_{1}$ via $x_{P_{1}},y_{P_{1}},z_{P_{1}}$ as a function of time, and then specify the position of $P_{2}$ via $\theta,\phi$ as functions of time on the sphere centred at $P_{1}$ with radius $r = c_{1}$. Finally, specify the position of $P_{3}$ via $\lambda$ as a function of time on the intersecting curve. Of course, this is just a general idea, and we usually use any 6 independent coordinates which are the most convenient to the problem at hand.
+
+Suppose we have a rigid body $S$ with which we have associated a coordinate system $O'$ and $x',y',z'$ which is fixed with respect to the body. We wish to relate this coordinate system with the standard one (an inertial frame) and derive our 6 generalized coordinates as so. We will location the position of $O'(t)$ and then the orientation of $(x',y',z')(t)$ with respect to $(x,y,z)$.
+
+If we denote $\cos \theta_{ij} = \hat{e}_{x_{i}'} \cdot \hat{e}_{x_{j}}$, (these are functions of time and are not fixed), we obtain
+\begin{align}
+    \hat{e}_{x'} &= (\hat{e}_{x'} \cdot \hat{e}_{x}) \hat{e}_{x} + (\hat{e}_{x'} \cdot \hat{e}_{y}) \hat{e}_{y} + (\hat{e}_{x'} \cdot \hat{e}_{z}) \hat{e}_{z} = \cos \theta_{11} \hat{e}_{x} + \cos \theta_{12} \hat{e}_{y} + \cos \theta_{13} \hat{e}_{z}, \\
+    \hat{e}_{y'} &= \cos \theta_{21} \hat{e}_{x} + \cos \theta_{22} \hat{e}_{y} + \cos \theta_{23} \hat{e}_{z}, \\
+    \hat{e}_{z'} &= \cos \theta_{31} \hat{e}_{x} + \cos \theta_{32} \hat{e}_{y} + \cos \theta_{33} \hat{e}_{z}.
+\end{align}
+If we write $\vec{r} = x \hat{e}_{x} + y \hat{e}_{y} + z \hat{e}_{z} = x' \hat{e}_{x'} + y' \hat{e}_{y'} + z' \hat{e}_{z'}$, utilising the above relations gives us
+\begin{align}
+    x' &= x \cos \theta_{11} + y \cos \theta_{12} + z \cos \theta_{13},\\
+    y' &= x \cos \theta_{21} + y \cos \theta_{22} + z \cos \theta_{23},\\
+    z' &= x \cos \theta_{31} + y \cos \theta_{32} + z \cos \theta_{33}.
+\end{align}
+Using the fact that $\hat{e}_{x_{i}} \cdot \hat{e}_{x_{j}} = \delta_{ij}$, we obtain the relation
+\begin{align}
+    \sum_{l=1}^{3} \cos \theta_{lm} \cos \theta_{ln} = \delta_{mn}.
+\end{align}
+Note that we have written $x_{i}' = \sum_{j} a_{ij} x_{j}$, where $a_{ij} = \cos \theta_{ij}$. It is crucial to note that what we have written down is a linear combination. The relation $\sum_{i} a_{ij} a_{ik} = \delta_{jk}$ implies that the matrix $A = (a_{ij})_{3 \times 3}$ is an orthogonal matrix, i.e., $A^{T}A = AA^{T} = I_{3}$. Let us consider rotation in a plane; in such a case, we have $\hat{e}_{x'} = \cos \phi \hat{e}_{x} + \sin \phi \hat{e}_{y}$, $\hat{e}_{y'} = -\sin \phi \hat{e}_{x} + \cos \phi \hat{e}_{y}$, and $\hat{e}_{z'} = \hat{e}_{z}$. The matrix $A$, in the case of rotation in the $xy$-plane, is given by
+\begin{align}
+    A_{xy} = \begin{bmatrix}
+        \cos \phi & \sin \phi & 0 \\
+        -\sin \phi & \cos \phi & 0 \\
+        0 & 0 & 1
+    \end{bmatrix}.
+\end{align}
+About the other orthogonal axes, we find $A$ to be of the form
+\begin{align}
+    A_{yz} = \begin{bmatrix}
+        1 & 0 & 0 \\
+        0 & \cos \phi & \sin \phi \\
+        0 & -\sin \phi & \cos \phi
+    \end{bmatrix},\quad A_{zx} = \begin{bmatrix}
+        \cos \phi & 0 & -\sin \phi \\
+        0 & 1 & 0 \\
+        \sin \phi & 0 & \cos \phi
+    \end{bmatrix}.
+\end{align}
+Of course, one may verify that if $A$ and $B$ are orthogonal, then so is $AB$. Moreover, $A^{-1} = A^{T}$ and the identity matrix $I$ is also orthogonal. Thus, the set of all orthogonal matrices (of order $n$) forms a group $O(n)$ under matrix multiplication. Note that $\det(A) = \pm 1$. The orthogonal matrices with determinant $-1$ do not represent pure rotations, but rather a combination of a rotation and a reflection. The set of orthogonal matrices with determinant $+1$ form a subgroup termed the special orthogonal group $SO(n)$, and we deal with $SO(3)$ for three dimensional rotations. A special property of $SO(3)$ is that any $A \in SO(3)$ can be built up as a tranformation from infinitesimal rotations. This is what makes $SO(3)$ something known as a Lie group.
+
+\subsection{Euler Angles}
+
+We now deal with the standard convention of the choice of 3 angles to build up a rotation. In this convention, we use 3 subsequent rotations to build up a general (final) rotation. 
