@@ -8,4 +8,71 @@ Let us find the stabilizer of the identity. We have
 \begin{align}
     \Stab (I_{n}) = \{P \in GL_{n} \mid PP^{t} = I_{n}\} = O_{n},
 \end{align}
-the \eax{orthogonal group}. Sylvester's law of inertia states that $GL_{n}(\R)$ orbits of real symmetric matrices consist of a unique matrix of the form $\diag(I_{p},-I_{m},0_{z})$ where $p+m+z = n$. One may also look at $O_{n-1,1}(\R)$ is defined as $\Stab (I_{n-1,1})$ where $I_{n-1,1} = \diag(I_{n-1},-1)$. The group $O_{3,1}(\R)$ is also called the \eax{Lorentz group}. 
+the \eax{orthogonal group}. Sylvester's law of inertia states that $GL_{n}(\R)$ orbits of real symmetric matrices consist of a unique matrix of the form $\diag(I_{p},-I_{m},0_{z})$ where $p+m+z = n$. One may also look at $O_{n-1,1}(\R)$ is defined as $\Stab (I_{n-1,1})$ where $I_{n-1,1} = \diag(I_{n-1},-1)$. The group $O_{3,1}(\R)$ is also called the \eax{Lorentz group}.\\ \\
+\textit{October 9th.}
+
+\begin{definition}
+    A (complex) matrix $A$ is termed a \eax{normal matrix} if $AA^{\ast} = A^{\ast}A$. It is termed a \eax{Hermitian matrix} if $A = A^{\ast}$, and a \eax{unitary matrix} if $AA^{\ast} = I$.
+\end{definition}
+
+\begin{theorem}[The \eax{spectral theorem}]
+    If $A$ is a normal matrix, then there exists a unitary matrix $P$ such that $PAP^{\ast}$ is diagonal.
+\end{theorem}
+
+Let $A$ be a $n \times n$ real matrix. Then $A$ defines a bilinear form on $\R^{n}$, that is, a map $\R^{n} \times \R^{n} \to \R$ is given as $(x,y) \mapsto x^{t}Ay$. The map is typically denoted by $\ip{\cdot,\cdot}_{A}$. If $A$ is symmetric, then $\ip{\cdot,\cdot}_{A}$ is a symmetric bilinear form. If $A$ is skew-symmetric, then $\ip{\cdot,\cdot}_{A}$ is a skew-symmetric bilinear form. Moreover if $A$ is non-singular, then $\ip{\cdot,\cdot}_{A}$ is non-degenerate. 
+
+Just like before, $GL_{n}(\C)$ acts on $M_{n}(\C)$ via $PAP^{\ast}$, the conjugation action. In this case, we have
+\begin{align}
+    \Stab(I_{n}) = \{P \in GL_{n}(\C) \mid PP^{\ast} = I_{n}\} = U_{n},
+\end{align}
+the \eax{unitary group}. We also have $SL_{n} = \{A \mid \det A = 1\}$, the special linear group.
+
+\begin{definition}
+    A subset $X \subseteq \R^{N}$ is called a $n$-dimensional \eax{manifold} if for every $x \in X$, there exists an open neighbourhood $U \subseteq \R^{N}$ of $x$, which is homeomorphic to $\R^{n}$. That is, there exists a map $\varphi : U \to \R^{n}$ such that $\varphi$ is continuous, bijective, and $\varphi^{-1}$ is also continuous.
+\end{definition}
+
+The group $SO_{n} = SL_{n} \cap O_{n}$ is termed the special orthogonal group. The group $SU_{n} = SL_{n} \cap U_{n}$ is termed the special unitary group.
+
+\begin{example}
+    We have $GL_{1}(\R) = \R^{\ast}$, $GL_{1}(\C) = \C^{\ast} \cong \R^{2} \setminus \{0\}$. One can also infer
+    \begin{align}
+        SL_{1}(\R) = \{1\} = SL_{1}(\C), \quad O_{1}(\R) = \{1,-1\} = O_{1}(\C),\quad U_{1}(\C) = S_{1},\quad SO_{1}(\R) = SU_{1}(\C) = \{1\}.
+    \end{align}
+\end{example}
+
+\begin{example}
+    $GL_{2}(\R)$ is a $4$-dimensional manifold since it is an open subset of $\R^{4}$. $SL_{2}(\R)$ is a $3$-dimensional manifold since it is the zero set of the polynomial $\det(A) - 1$. $SO_{2}(\R) = SL_{2}(\R) \cap O_{2}(\R)$ is the set of matrices of the form
+    \begin{align}
+        SO_{2}(\R) = \left\{ \begin{pmatrix}
+            a & b \\ c & d
+        \end{pmatrix} \Big| AA^{t} = A^{t}A = I_{2},\; \det A = 1 \right\} = \left\{ \begin{pmatrix}
+            x_{1} & -x_{2} \\ x_{2} & x_{1}
+        \end{pmatrix} \Big| (x_{1},x_{2}) \in S^{1}\right\}
+    \end{align}
+\end{example}
+
+\begin{proposition}
+    There is an isomorphism $U_{1}(\C) \to SO_{2}(\R)$, which is also a homeomorphism.
+\end{proposition}
+\begin{proof}
+    Simply send $z = x_{1}+ix_{2} \in U_{1}(\C)$ to the matrix $\begin{pmatrix}
+        x_{1} & -x_{2} \\ x_{2} & x_{1}
+    \end{pmatrix} \in SO_{2}(\R)$. One may verify that this map is bijective, continuous, homomorphic, with a continuous inverse as well.
+\end{proof}
+
+As above, linear groups of dimension $3$ include $SU_{2}(\C)$, $SO_{3}(\R)$, and $SL_{3}(\R)$. One can show that $SU_{2}(\C)$ is exactly the set of matrices $\begin{pmatrix}
+    a & b \\ -\bar{b} & \bar{a}
+\end{pmatrix}$ with $\abs{a}^{2} + \abs{b}^{2} = 1$. From here, we get
+\begin{align}
+    SU_{2}(\C) \cong \{(a,b) \in \C^{2} \mid \abs{a}^{2} + \abs{b}^{2} = 1\} \cong \{(x_{1},x_{2},x_{3},x_{4}) \in \R^{4} \mid x_{1}^{2} + x_{2}^{2} + x_{3}^{2} + x_{4}^{2} = 1\} = S^{3}.
+\end{align}
+Thus, $S^{3}$ can be given a group structure via relating by $SU_{2}(\C)$. Note that the binary operator induced is also continuous. $S^{2}$, however, cannot be given such a continuous group structure. There is a conjecture that $S^{n}$ for $n \geq 4$ cannot be given a continuous group structure.
+
+\begin{definition}
+    In $S^{3}$, we define latitudes, for $-1 < c < 1$, to be the surface cut out by $x_{1} = c$ on $x_{1}^{2} + x_{2}^{2} + x_{3}^{2} + x_{4}^{2} = 1$. This surface turns out to be a sphere of radius $1-c^{2}$.
+\end{definition}
+Thus the latitudes of $S^{3}$ are homeomorphisms of $S^{2}$. The north pole $x_{1} = 1$ tells us $I \in SU_{2}$, and the south pole $x_{1} = -1$ tells us $-I \in SU_{2}$.
+
+\begin{proposition}
+    The latitudes of $S^{3}$ are conjugancy classes in $SU_{2}$. Conversely, other than $\pm I$, all conjugacy classes are latitudes.
+\end{proposition}
