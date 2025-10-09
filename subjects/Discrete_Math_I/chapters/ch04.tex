@@ -1,0 +1,71 @@
+\chapter{EXTREMAL SET THEORY}
+
+How large or small a family of sets can be if we require that it satisfies certain restrictions? This is the basic question in extremal set theory. Given a finite set $X$, how large can a family $\cF \subseteq \cP(X)$ be if it has to avoid certain configurations.
+
+\section{Sperner's Problem}
+Pick as many subsets of an $n$-element set $X$ such that no one subset contains another. The problem asks what the maximum possible number of sets is. It's all sets of size $\floor{\frac{n}{2}}$. For all sets of size $k$ with $1 \leq k \leq n$ denote it by $\cF_{k}$. Then $\# \cF_{k} = \binom{n}{k}$. We have
+\begin{align}
+    \max_{1 \leq k \leq n} \# \cF_{k} = \binom{n}{\floor{\frac{n}{2}}}.
+\end{align}
+The assertion of Sperner's theorem is that $\binom{n}{\floor{\frac{n}{2}}}$ is also the maximum size of a family of subsets of $X$ such that no one subset contains another.
+
+\begin{theorem}[\eax{Dilworth's theorem}]
+    Let $(P, \leq)$ be a finite poset. Then the maximum size of an antichain in $P$ is equal to the minimum number of chains into which $P$ can be partitioned. That is,
+    \begin{align}
+        \max \{\#A \mid A \text{ is an antichain in } P\} = \min \{k \mid P = C_{1} \cup C_{2} \cup \cdots \cup C_{k}, C_{i} \text{ are chains}\}.
+    \end{align}
+\end{theorem}
+Note that $S \subseteq P$ is termed a chain if all elements in $S$ are comparable, and an antichain if no two elements in $S$ are comparable. Note that, by definition, singletons are both chains and antichains.
+
+If $P$ was totally ordered, then the maximum size of an antichain is $1$, and the minimum number of chains into which $P$ can be partitioned is $1$ since $P$ itself is a chain. If $P$ was an antichain, then the maximum size of an antichain is $\#P$, and the minimum number of chains into which $P$ can be partitioned is $\#P$ since each element of $P$ is a singleton chain.
+
+\begin{proof}
+    Let $M = \max\{\#A \mid A \text{ is an antichain in } P\}$ and $m = \min \{k \mid P = C_{1} \cup C_{2} \cup \cdots \cup C_{k}, C_{i} \text{ are chains}\}$. We want to show that $M = m$. We first show that $m \geq M$. Let $\{a_{1},\ldots,a_{M}\}$ be an antichain in $P$ of size $M$. Let $P = C_{1} \cup C_{2} \cup \cdots \cup C_{m}$ be a partition of $P$ into $m$ chains. Since no two elements of the antichain are comparable, each $a_{i}$ must belong to a different chain. Thus, $m \geq M$.
+
+    Now we show $M \geq m$. We proceed with induction on $\# P$. We showed the base case $\# P = 1$ above. Assume the result holds for all posets of size less than $\# P$. Let $C$ be a maximal chain in $P$, that is, a chain which is not properly contained in any other chain. Let $A'$ be an antichain in $P \setminus C$ of maximum size $M(A')$. We consider cases.
+    \begin{itemize}
+        \item Case I; $M(A') \leq M - 1$. Then, by the induction hypothesis, there is a partition of $P \setminus C$ which has at most $M-1$ chains $C_{1},\ldots,C_{M-1}$. Then $P = C \cup C_{1} \cup \cdots \cup C_{M-1}$ is a partition of $P$ into at most $M$ chains, giving us $m \leq M(A') + 1 \leq M$.
+        \item Case II; There is an antichain $A = \{a_{1},\ldots,a_{M}\}$ in $P \setminus C$ of size $M$. Construct two sets as follows:
+        \begin{align}
+            S^{-} \defeq \{x \in P \mid x \leq a_{i} \text{ for some } 1 \leq i \leq M\}, \quad S^{+} \defeq \{x \in P \mid x \geq a_{i} \text{ for some } 1 \leq i \leq M\}.
+        \end{align}
+        Note that $A$ is an antichain of size $M$ in $S^{-}$ and $S^{+}$, both of which are strictly contained in $P$. $S^{+}$ and $S^{-}$ can both be decomposed as unions of $M$ disjoint chains as $S^{-} = \bigcup_{i=1}^{M} S_{i}^{-}$ and $S^{+} = \bigcup_{i=1}^{M} S_{i}^{+}$. Let $b_{i}$ denote the maximum element in $S_{i}^{-}$. Then $b_{i}$ can only be one of the $a_{j}$'s, otherwise we can add $b_{i}$ to $A$ to get a larger antichain in $P$. By this logic, $\max(S_{i}^{-}) = a_{i}$ and $\min(S_{i}^{+}) = a_{i}$ for $1 \leq i \leq M$. Now construct chains as
+        \begin{align}
+            C_{i} = S_{i}^{-} \cup S_{i}^{+}, \text{ where } S_{i}^{-} \cap S_{i}^{+} = \{a_{i}\}, 1 \leq i \leq M.
+        \end{align}
+        One can show that the $C_{i}$'s are really chains, and $P = \bigcup_{i=1}^{M} C_{i}$, with $C_{i} \cap C_{j} = \emptyset$ for $i \neq j$. Thus, $m \leq M$.
+    \end{itemize}
+\end{proof}
+
+
+\begin{theorem}[\eax{Sperner's theorem}]
+    Let $X$ be an $n$-element set and $\cF$ be a family of subsets of $X$ such that none of the sets in $\cF$ contain each other. Then $\# \cF \leq \binom{n}{\floor{\frac{n}{2}}}$. In fact, this is the maximum size of such a family.
+\end{theorem}
+\begin{proof}
+    We look at the poset $(\cP(X),\subseteq)$; $\cF$ is then an antichain in this poset. By Dilworth's theorem, the maximum size of an antichain is equal to the minimum number of chains into which $\cP(X)$ can be partitioned. We will show that $\cP(X)$ can be partitioned into at most $\binom{n}{\floor{\frac{n}{2}}}$ chains. This will prove the theorem. We proceed by induction on $n$. A symmetric chain is a chain of the form $A_{a} \subseteq A_{a+1} \subseteq \cdots \subseteq A_{n-a}$ where $\# A_{i} = i$ for $a \leq i \leq n-a$. Note that the chain is symmetric about the middle layer of the poset, so a symmetric chain must contain a set of size $\floor{\frac{n}{2}}$. We claim that there is a symmetric chain partition of $\cP([n])$ into $\binom{n}{\floor{\frac{n}{2}}}$ components. The based case $n=1$ is easy to see since the only symmetric chain in $\cP([1])$ is $\emptyset \subseteq \{1\}$. Assume that the resul is true for $\cP([n-1])$, with symmetric chain partition $\bigcup \cC$ where each chain $\cC$ is of the form
+    \begin{align}
+        A_{a} \subseteq A_{a+1} \subseteq \cdots \subseteq A_{n-1-a}, \quad \# A_{i} = i, a \leq i \leq n-1-a.
+    \end{align}
+    For a symmetric chain $\cC$ of the above form, define
+    \begin{align}
+        L(\cC) = A_{a+1} \subseteq \cdots \subseteq A_{n-1-a},\quad U(\cC) = A_{a} \cup \{n\} \subseteq A_{a+1} \cup \{n\} \subseteq \cdots \subseteq A_{n-1-a} \cup \{n\}.
+    \end{align}
+    Note that for two different symmetric chains $\cC$ and $\cC'$ in $\cP([n-1])$, $L(\cC) \cap L(\cC') = \emptyset$ and $U(\cC) \cap U(\cC') = \emptyset$, and $L(\cC) \cap U(\cC) = \emptyset$ and $L(\cC) \cap U(\cC') = \emptyset$. Note that $A_{\floor{\frac{n}{2}}}$ is a set of size $\floor{\frac{n}{2}}$. Each chain has a distinct middle element $A_{\floor{\frac{n}{2}}}$ and all sets of size $\floor{\frac{n}{2}}$ appear in some symmetric chain in the partition (as a middle element). Thus, the number of symmetric chains in the partition is $\binom{n}{\floor{\frac{n}{2}}}$.
+\end{proof}
+
+To show the above theorem, one may also make use of the YLM inequality which states that if $\cF$ is a family of subsets of an $n$-element set $X$ such that no one subset contains another, and $a_{k}$ denotes the number of $k$-element sets in $\cF$ for $0 \leq k \leq n$, then
+\begin{align}
+    \sum_{k=0}^{n} \frac{a_{k}}{\binom{n}{k}} \leq 1.
+\end{align}
+This can be used as
+\begin{align}
+    \frac{1}{\binom{n}{k}} \geq \frac{1}{\binom{n}{\floor{\frac{n}{2}}}} \implies \frac{1}{\binom{n}{\floor{\frac{n}{2}}}}\sum_{k=0}^{n} a_{k} \leq \sum_{k=0}^{n} \frac{a_{k}}{\binom{n}{k}} \leq 1 \implies \# \cF = \sum_{k=0}^{n} a_{k} \leq \binom{n}{\floor{\frac{n}{2}}}.
+\end{align}
+
+To show the YLM inequality, we `record' certain permutations of $X$. Note that for some $S \in \cF$, the number of permutations of $[n]$ such that the first $\# S$ elements of the permutation are exactly the elements of $S$ is $\# S! (n-\#S)!$. Since no two sets in $\cF$ contain each other, each permutation of $[n]$ can be recorded at most once. Thus, if $a_{k}$ denotes the number of $k$-element sets in $\cF$ for $0 \leq k \leq n$, then
+\begin{align}
+    \sum_{k=0}^{n} a_{k} k!(n-k)! \leq n!.
+\end{align}
+The inequality follows.
+
+There exists a third proof and it follows from K\"onig's theorem. If we have a bipartite graph $G = (V_{1} \sqcup V_{2},E)$, the \eax`{matching number} is defined as the maximum number of pairwise disjoint edges. A \eax{vertex cover} is a subset of the vertices such that every edge has at least one vertex in the subset. The \eax{vertex cover number} is the minimum size of a vertex cover. K\"onig's theorem states that in a bipartite graph, the matching number is equal to the vertex cover number.
