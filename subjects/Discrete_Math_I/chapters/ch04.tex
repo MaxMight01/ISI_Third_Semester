@@ -66,6 +66,24 @@ To show the YLM inequality, we `record' certain permutations of $X$. Note that f
 \begin{align}
     \sum_{k=0}^{n} a_{k} k!(n-k)! \leq n!.
 \end{align}
-The inequality follows.
+The inequality follows.\\ \\
+\textit{October 10th.}
 
-There exists a third proof and it follows from K\"onig's theorem. If we have a bipartite graph $G = (V_{1} \sqcup V_{2},E)$, the \eax`{matching number} is defined as the maximum number of pairwise disjoint edges. A \eax{vertex cover} is a subset of the vertices such that every edge has at least one vertex in the subset. The \eax{vertex cover number} is the minimum size of a vertex cover. K\"onig's theorem states that in a bipartite graph, the matching number is equal to the vertex cover number.
+There exists a third proof and it follows from \eax{K\"onig-Egevary theorem}. If we have a bipartite graph $G = (V_{1} \sqcup V_{2},E)$, the \eax{matching number} is defined as the maximum number of pairwise disjoint edges. A \eax{vertex cover} is a subset of the vertices such that every edge has at least one vertex in the subset. The \eax{vertex cover number} is the minimum size of a vertex cover. The K\"onig-Egevary theorem states that in a bipartite graph, the matching number is equal to the vertex cover number. For the proof, let us label $L = V_{1}$, $R = V_{2}$.
+\begin{proof}
+    Take a maximum matching $M \subseteq E$. A \eax{free vertex} is a vertex in $G$ which does not appear in any edge in $M$. Let $U$ be the set of free vertices in $L$; note that $U$ may be empty. If $U$ were empty, then $M$ would be a perfect matching and the vertex cover number would be less than or equal to $\# L$. Thus, one could get both values equal to $\# L$. Assume $U \neq \emptyset$. We look at an \eax{alternating path}, starting from a vertex in $U$ and alternating between edges in the matching $M$ and edges not in $M$. An \eax{augmented path} is an alternating path starting and ending at a free vertex. In such an augmented path, the number of edges in the path not in $M$ is one more than the number of edge in the path in $M$. If $P$ is the path, then $M' = M \Delta P = (M \setminus P) \cup (P \setminus M)$ is a matching larger than $M$, contradicting the maximality of $M$. Thus, there are no augmented paths in $G$, and an alternating path cannot end in $U$.
+
+    Let $Z$ be the set of vertices in $G$ reachable from $U \subseteq L$ via alternating paths. If we define $Z_{L} = Z \cap L$ and $Z_{R} = Z \cap R$. Letting $C = (L \setminus Z_{L}) \cup Z_{R}$, we claim that $C$ is a vertex cover. To see this, we need to show that if $xy \in E$, then at least one of $x,y$ is in $C$. Without the loss of generality, assume $x \in L$ and $y \in R$. We do cases.
+    \begin{itemize}
+        \item Case I: $x \notin Z_{L}$. Then $x \in L \setminus Z_{L}$, and thus $x \in C$.
+        \item Case II: $x \in Z_{L}$. Then either $xy \notin M$, in which case $y \in Z_{R}$ and thus $y \in C$, or $xy \in M$ in which case the alternating path must pass through $y$ to reach $x$, and thus $y \in Z_{R}$ and $y \in C$.
+    \end{itemize}
+    Thus, $C$ is a vertex cover. We now show that $\# C = \# M$. Since the size of any vertex cover is at least the size of any matching, this equality will prove the theorem. The number of matching edges with both endpoints in $Z$ is $\# Z_{R}$ since each vertex in $Z_{R}$ is matched to a vertex in $Z_{L}$. The number of matching edges where one (neither) endpoint(s) is reachable from $U$ is $\#(L\setminus Z_{L})$. Thus $\# M = \#(L \setminus Z_{L}) + \# Z_{R} = \# C$.
+\end{proof}
+
+\begin{corollary}
+    Dilworth's theorem.
+\end{corollary}
+\begin{proof}
+    Let $(P,\leq)$ be a finite poset. We construct a bipartite graph $G = (L \sqcup R,E)$ where both $L$ and $R$ are copies of $P$, and $x \in L$ is connected to $y \in R$ if and only if $x \lneq y$ in $P$. We claim that the minimum number of chains into which $P$ can be partitioned is $\# P -$ the maximum matching in $G$, and that the maximum cardinality of an antichain in $P$ is $\# P -$ the minimum vertex cover in $G$. This claim is left as an exercise to the reader. By K\"onig-Egevary theorem, the cardinality of the maximum matching in $G$ is equal to the cardinality of the minimum vertex cover in $G$, and thus Dilworth's theorem follows.
+\end{proof}
