@@ -1,0 +1,67 @@
+\chapter{HYPOTHESIS TESTING AND INTERVAL ESTIMATION}
+
+\section{Hypothesis Testing}
+
+Recall that given a null hypothesis $H_{0}$, then the \eax{significance level} $\alpha$ is the probability of a Type I error; that is,
+\begin{align}
+    \alpha = P(\text{reject } H_{0} \mid H_{0} \text{ is true}).
+\end{align}
+$\beta$ is defiend as the probability of a Type II error; that is,
+\begin{align}
+    \beta = P(\text{accept } H_{0} \mid H_{0} \text{ is false}).
+\end{align}
+
+
+We start with an example.
+
+\begin{example}
+    A pack of a certain brand of cigarettes displays the statement, `1.5 mg nicotine on average per cigarette'. Let $\mu$ be the actual nictone content per cigarette for this brand. It is required to test if the actual average is higher than what is claimed. Suppose a sample of cigarettes is selected and the nicotine content per cigarette is measured. Let $X_{1}, X_{2}, \ldots, X_{n}$ be the nicotine content of the $n$ cigarettes in the sample. We assume that $X_{1}, X_{2}, \ldots, X_{n}$ are i.i.d. $N(\mu, \sigma^{2})$. We consider the null hypothesis $H_{0}:\mu = 1.5$ and the alternate $H_{1}:\mu > 1.5$. In this case, we consider the test statistic
+    \begin{align}
+        T = \frac{\overline{X} - 1.5}{s/\sqrt{n}}
+    \end{align}
+    If $H_{0}$ is true, then $T \sim t_{n-1}$. We reject $H_{0}$ if $T > t_{n-1,\alpha}$, where $t_{n-1,\alpha}$ is the $100(1-\alpha)$ percentile of the $t$-distribution with $n-1$ degrees of freedom.
+\end{example}
+
+\subsection{Neyman Pearson Theory of Testing}
+
+Let $X \sim P_{\theta}$, $\theta \in \Theta$. Let $\cX$ be the sample space of $X$, that is, $\cX = X(\Omega)$. We wish to test $H_{0}:\theta \in \Theta_{0}$ against $H_{1}:\theta \in \Theta_{1}$, where $\Theta_{0},\Theta_{1} \subseteq \Theta$ and $\Theta_{0} \cap \Theta_{1} = \emptyset$. A simple hypothesis is one where $\Theta_{0}$ is a singleton.
+
+In a non randomized test, find a subset of $S$ of $\cX$ and reject $H_{0}$ of the observed value $x \in S$. $S \subset \cX$ is called the critical region or the rejection region. The test function $\phi$ for randomized tests is defined as
+$\phi(x) = \1_{S}(x)$. For a level of $\alpha$ test, we require that
+\begin{align}
+    \sup_{\theta \in \Theta_{0}} P_{\theta}(X \in S) \leq \alpha.
+\end{align}
+If $\Theta_{0} = \{\theta_{0}\}$, then we simply require $P_{\theta_{0}}(X \in S) \leq \alpha$. For a randomized test, any $\phi$ with $0 \leq \phi(x) \leq 1$ for all $x \in \cX$ and at any $x$, $\phi(x)$ is the probability of rejecting $H_{0}$ when $X = x$. A non randomized test is a subset of a randomized test. The power function of the test is defined as
+\begin{align}
+    P_{\theta}(\text{reject} H_{0}) = E_{\theta}(P(\text{reject } H_{0} \mid X)) = E_{\theta}[\phi(X)] = \int_{\cX} \phi(x) f(x \mid \theta) dx.
+\end{align}
+The problem is to find $\phi$ such that $E_{\theta}[\phi(X)]$ is maximized when $\theta \in \Theta_{1}$ subject to the condition that $\sup_{\theta \in \Theta_{0}} E_{\theta}[\phi(X)] \leq \alpha$. Such a test, if it exists, is called the \eax{uniformly most powerful} (UMP) test of level $\alpha$.
+
+\begin{lemma}
+    \eax{Neyman-Pearson lemma}. Suppose $\Theta_{0} = \{\theta_{0}\}$ and $\Theta_{1} = \{\theta_{1}\}$. Let $P_{\theta_{1}}$ and $P_{\theta_{2}}$ be the respective densities. Then
+    \begin{enumerate}
+        \item there exists a test $\phi$ and a constant $\alpha \geq 0$ such that $E_{\theta}[\phi(X)] = \alpha$.
+        \item If a test satisfies the above and below:
+        \begin{align}
+            \phi(x) = \begin{cases}
+                1 &\text{if } P_{\theta_{1}}(x) > k P_{\theta_{0}}(x), \\
+                0 &\text{if } P_{\theta_{1}}(x) < k P_{\theta_{0}}(x).
+            \end{cases}
+        \end{align}
+        for some $k \geq 0$, then it is the most powerful for testing $H_{0}:P_{\theta} = P_{\theta_{0}}$ against $H_{1}:P_{\theta} = P_{\theta_{1}}$ at level $\alpha$.
+
+        \item Conversely, if $\phi$ is a most powerful test at level $\alpha$ for testing, then it satisfies the above for some $k \geq 0$.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    Pg no.~80 of Mohan Delampady's notes.
+\end{proof}
+
+\subsection{Likelihood Ratio Test}
+
+\begin{definition}
+    $P_{\theta}$, $\theta \in \Theta \subseteq \R$ with density $f(x \mid \theta)$ is said to have \eax{monotone likelihood ratio} (MLR) if there exists a real valued function $T(x)$ such that for any $\theta < \theta'$, $P_{\theta} \neq P_{\theta'}$, and the likelihood ratio $\frac{f(x \mid \theta')}{f(x \mid \theta)}$ is a non decreasing function of $T(x)$, that is,
+    \begin{align}
+        \frac{f(x \mid \theta')}{f(x \mid \theta)} = h_{\theta,\theta'}(T(x)), \text{ where } h_{\theta,\theta'} \text{ is non decreasing}.
+    \end{align}
+\end{definition}

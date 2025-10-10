@@ -176,8 +176,71 @@ It also follows that if $a_{n} \to 1$ and $b_{n} \to 0$, then $a_{n}T_{n} + b_{n
 \begin{definition}
     Let $T$ be the most efficient estimator for the regular family of distributions $\{F_{\theta} \mid \theta \in \Theta\}$. Then the \eax{efficiency} of an unbiased estimator $T_{1}$ of $\theta$ is defined as
     \begin{align}
-        \eff_{\theta}(T_{1}) = \eff_{\theta}(T_{1} \mid T) = \frac{\Var T}{\Var T_{1}}.
+        \eff_{\theta}(T_{1}) = \eff_{\theta}(T_{1} \mid T) = \frac{\Var T}{\Var T_{1}} = \frac{I_{n}^{-1}(\theta)}{\Var T_{1}}.
     \end{align}
     If $\lim_{n \to \infty} \eff_{\theta}(T_{n}) = 1$, then $T_{n}$ is said to be \eax{asymptotically efficient}.
 \end{definition}
 
+\section{Asymptotically Normal}
+
+\textit{October 10th.}
+
+In the notion of asymptotic normality, if we take $T_{n}(\underline{X}) = \overline{X}_{n} = \frac{1}{n} \sum_{i=1}^{n} X_{i}$, and $q(\theta) = \mu$ and $\sigma^{2}(\theta) = \sigma^{2}$, then we have
+\begin{align}
+    \sqrt{n}(\overline{X}_{n} - \mu) \xrightarrow{d} N(0,\sigma^{2}),
+\end{align}
+which is the central limit theorem. The delta method says that if we have a sequence of random variables $X_{n}$ such that $\sqrt{n}(X_{n} - \mu) \xrightarrow{d} N(0,\sigma^{2})$, and $h$ is continuous and differentiable at $\mu$ with $h'(\mu) \neq 0$, then
+\begin{align}
+    \sqrt{n}(h(X_{n}) - h(\mu)) \xrightarrow{d} N(0,h'(\mu)^{2}\sigma^{2}).
+\end{align}
+
+\begin{example}
+    Let $X_{1},X_{2},\ldots$ be independent and identically distributed $\Exp(\theta)$ random variables, $\theta > 0$. We wish to check $\hat{\theta} = \frac{1}{\overline{X}_{n}}$ is asymptotically normal. We have $EX = \frac{1}{\theta}$, and $\Var X = \frac{1}{\theta^{2}}$. Since $\overline{X}_{n} \xrightarrow{P} \frac{1}{\theta}$, we can apply the central limit theorem to get
+    \begin{align}
+        \sqrt{n}(\overline{X}_{n} - \frac{1}{\theta}) \xrightarrow{d} N(0,\frac{1}{\theta^{2}}).
+    \end{align}
+    We can apply the delta method via the function $h(x) = \frac{1}{x}$, which is continuous at $\frac{1}{\theta}$. Thus,
+    \begin{align}
+        \sqrt{n}(\frac{1}{\overline{X}}-\theta) \xrightarrow{d} N(0,\theta^{2}).
+    \end{align}
+\end{example}
+
+$T_{n} = T_{n}(\underline{X})$ is said to be asympotically efficient for estimating $q(\theta)$ if its asymptotic variance is
+\begin{align}
+    \sigma^{2}(\theta) = \frac{(q'(\theta))^{2}}{I_{n}(\theta)}.
+\end{align}
+
+\begin{definition}
+    Suppose $T_{n}^{(1)}$ and $T_{n}^{(2)}$ are two estimators of $q(\theta)$ such that
+    \begin{align}
+        \sqrt{n}(T_{n}^{(1)} - q(\theta)) &\xrightarrow{d} N (0,\sigma_{1}^{2}(\theta)),\\
+        \sqrt{n}(T_{n}^{(2)} - q(\theta)) &\xrightarrow{d} N(0,\sigma_{2}^{2}(\theta)).
+    \end{align}
+    Then the \eax{asymptotic relative efficiency} of $T_{n}^{(1)}$ with respect to $T_{n}^{(2)}$ is define to be \begin{align}
+        e_{\theta}(T_{n}^{(1)},T_{n}^{(2)}) = \frac{\sigma_{2}^{2}(\theta)}{\sigma_{1}^{2}(\theta)}.
+    \end{align}
+    $T_{n}^{(1)}$ is better if $\sigma_{2}^{2} > \sigma_{1}^{2}$.
+\end{definition}
+
+\begin{example}
+    Let $X_{1},X_{2},\ldots$ be independent and identically distributed $N(0,\sigma^{2})$ random variables. Consider two estimators for $\sigma$:
+    \begin{align}
+        \hat{\sigma}_{1} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} X_{i}^{2}},\quad \hat{\sigma}_{2} = \sqrt{\frac{\pi}{2}} \frac{1}{n} \sum_{i=1}^{n} \abs{X_{i}}.
+    \end{align}
+    Note that $X_{i}^{2} \sim \sigma^{2} \chi^{2}_{1}$, so $E[X_{i}^{2}] = \sigma^{2}$ and $\Var(X_{i}^{2}) = 2\sigma^{4}$. By the central limit theorem,
+    \begin{align}
+        \sqrt{n}(\hat{\sigma}_{1}^{2} - \sigma^{2}) \xrightarrow{d} N(0,2\sigma^{4}).
+    \end{align}
+    Via the function $h(x) = \sqrt{x}$, we have $h'(\sigma^{2}) = \frac{1}{2\sigma}$, the delta method gives
+    \begin{align}
+        \sqrt{n}(\hat{\sigma}_{1} - \sigma) \xrightarrow{d} N(0,\frac{\sigma^{2}}{2}).
+    \end{align}
+    Since $Z_{i} = \frac{X_{i}}{\sigma} \sim N(0,1)$, $E[\abs{Z_{i}}] = \sqrt{\frac{2}{\pi}}$ and $\Var(\abs{Z_{i}}) = 1 - \frac{2}{\pi}$. Thus, $E[\abs{X_{i}}] = \sigma \sqrt{\frac{2}{\pi}}$ and $\Var(\abs{X_{i}}) = \sigma^{2}(1-\frac{2}{\pi})$. By the central limit theorem,
+    \begin{align}
+        \sqrt{n}(\hat{\sigma}_{2}^{2} - \sigma^{2}) \xrightarrow{d} N(0,\sigma^{2}(\frac{\pi}{2}-1)).
+    \end{align}
+    Delta method via $h(x) = \sqrt{x}$ gives
+    \begin{align}
+        \sqrt{n}(\hat{\sigma}_{2} - \sigma) \xrightarrow{d} N(0,(\frac{\pi}{2}-1)\sigma^{2}).
+    \end{align}
+\end{example}
