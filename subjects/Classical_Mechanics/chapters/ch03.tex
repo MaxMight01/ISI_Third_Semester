@@ -277,4 +277,111 @@ Of course, one may verify that if $A$ and $B$ are orthogonal, then so is $AB$. M
 
 \subsection{Euler Angles}
 
-We now deal with the standard convention of the choice of 3 angles to build up a rotation. In this convention, we use 3 subsequent rotations to build up a general (final) rotation. 
+We now deal with the standard convention of the choice of 3 angles to build up a rotation. In this convention, we use 3 subsequent rotations to build up a general (final) rotation.\\
+
+\textit{October 13th.}
+\begin{theorem}[\eax{Euler's theorem of rigid body motion}]
+    If a rigid body moves with one point fixed, the motion is a rotation.
+\end{theorem}
+
+Our goal, then becomes, is given $A(t)$, we wish to find $\hat{n}$ and $\Phi$ such that $A(t)$ is a rotation about $\hat{n}$ by an angle $\Phi$. We start with the fact that $A \in SO(3)$, and hence $A^{T}A = I$ and $\det(A) = 1$. Note that if $\vec{R}$ is the rotation axis, then $A\vec{R} = \vec{R}$ tells us that $\vec{R}$ is an eigenvector of $A$ with eigenvalue $1$. For three eigenvalues $\lambda_{1},\lambda_{2},\lambda_{3}$, we have $\lambda_{1}\lambda_{2}\lambda_{3} = \det(A) = 1$. Also,
+\begin{align}
+    (A-I)A^{T} = I - A^{T} \implies \det(A-I) = \det(I-A^{T}) = \det(I-A) \implies \det(A-I) = 0.
+\end{align}
+Thus, one of the eigenvalues is $1$, and such a $\vec{R}$ exists. The other two eigenvalues $\lambda_{1}$ and $\lambda_{2}$ are multiplicative inverses of each other. Note that $A$ is real; if $\lambda$ is an eigenvalue, then so is $\lambda^{*}$. Thus, the other two eigenvalues are complex conjugates of each other, and hence of the form $e^{i\Phi}$ and $e^{-i\Phi}$.
+
+In the case of all eigenvalues begin unity, the rotation is simply the identity. In the case of $\lambda_{1} = \lambda_{2} = -1 = e^{-i\Phi}$, we have $\Phi = \pi$, and the rotation is a rotation by $\pi$ about some axis. In the general case where $A_{ij} = a_{ij}$, and $\vec{R} = (x,y,z)^{t}$, we have
+\begin{align}
+    \begin{pmatrix}
+        a_{11}-1 & a_{12} & a_{13} \\
+        a_{21} & a_{22}-1 & a_{23} \\
+        a_{31} & a_{32} & a_{33}-1
+    \end{pmatrix} \begin{pmatrix}
+        x \\ y \\ z
+    \end{pmatrix} = 0.
+\end{align}
+This gives us two independent equations, and we can add the constraint $x^{2}+y^{2}+z^{2} = 1$ to obtain $\vec{R}$. There exists a similarity transformation $A' = X^{-1}AX$ such that
+\begin{align}
+    A' = \begin{pmatrix}
+        \cos \Phi & \sin \Phi & 0 \\
+        -\sin \Phi & \cos \Phi & 0 \\
+        0 & 0 & 1
+    \end{pmatrix}.
+\end{align}
+The advantage of a similarity transformation is that it preserves eigenvalues, and hence the trace. Thus, $\tr A = 1 + 2\cos \Phi$, giving
+\begin{align}
+    \Phi = \cos^{-1} \left( \frac{1}{2}(\tr A - 1) \right), \quad 0 \leq \Phi \leq 2\pi.
+\end{align}
+Thus, given $A$, we can find $\Phi$. Finding $\vec{R}$, however, is not as straightforward. The matrix equation above subject to the unit vector constraint gives us $\vec{R}$. There is, of course, an ambiguity in the sense that $-\vec{R}$ and $-\Phi$ are also valid solutions. 
+
+There exist two representations of $A$, one in terms of $\hat{e}_{n}$ and $\Phi$, and the other in terms of Euler angles $R_{\psi},R_{\theta},R_{\phi}$. For $\vec{r} \mapsto \vec{r}' = A\vec{r}$ we wish to write $\vec{r}'$ in terms of $\vec{r},\hat{e}_{n}$, and $\Phi$. To this end, let $\vec{r}' = \vec{OQ}$ and $\vec{R} = \vec{OP}$. Let $N$ be the point on the rotation axis such that $ON \perp NP,NQ$, and let $V$ be the projection of $Q$ onto the line $NP$. Then
+\begin{align}
+    \vec{r}' = \vec{ON} + \vec{NV} + \vec{VQ}.
+\end{align}
+By definition of $N$, $\vec{ON} = (\vec{r} \cdot \hat{e}_{n}) \hat{e}_{n}$. Also,
+\begin{align}
+    \abs{\vec{NV}} = \abs{\vec{NQ}} \cos \Phi = \abs{\vec{NP}} \cos \Phi = \abs{\vec{r} - (\vec{r} \cdot \hat{e}_{n}) \hat{e}_{n}} \cos \Phi \implies \vec{NV} = (\vec{r} - \hat{e}_{n}(\hat{e}_{n} \cdot \vec{r})) \cos \Phi.
+\end{align}
+Moreover, $\abs{\vec{VQ}} = \abs{\vec{NQ}} \sin \Phi = \abs{\vec{NP}} \sin \Phi = \abs{\vec{r}} \sin \psi \sin \Phi$, where $\psi$ is the angle between $\vec{r}$ and $\hat{e}_{n}$. But this is just $\abs{\vec{r} \times \hat{e}_{n}} \sin \Phi$, and hence 
+\begin{align}
+    \vec{VQ} = (\vec{r} \times \hat{e}_{n}) \sin \Phi.
+\end{align}
+Thus, we substitute into $\vec{r}'$ to get
+\begin{align}
+    \vec{r}' = (\vec{r} \cdot \hat{e}_{n}) \hat{e}_{n} + (\vec{r} - (\vec{r} \cdot \hat{e}_{n}) \hat{e}_{n}) \cos \Phi + (\vec{r} \times \hat{e}_{n}) \sin \Phi = \vec{r} \cos \Phi + (\vec{r} \cdot \hat{e}_{n}) \hat{e}_{n} ( 1-\cos\Phi) + (\vec{r} \times \hat{e}_{n}) \sin \Phi.
+\end{align}
+Note that the vector $\vec{r}$ isn't special, and can be replaced by any vector undergoing the same rotational transformation for a finite angle. It is left as an exercise to the reader to find a relationship between $(\hat{e}_{n},\Phi)$ and the Euler angle rotations $(R_{\psi},R_{\theta},R_{\phi})$. Thus a `rotation formula' has been obtained.
+
+\section{Composition of Rotations}
+
+For an infinitesimal rotation, we have $x_{i}' = x_{i} + \sum_{j \neq i}\epsilon_{ij} x_{j}$, where $(\epsilon_{ij})$ is an infinitesimal matrix (a tensor). Writing in vector form,
+\begin{align}
+    \vec{r}' = \vec{r} + \tensor{\epsilon} \vec{r}.
+\end{align}
+We will drop the $\tensor{\epsilon}$ and use $\epsilon$ to denote the infinitesimal rotation tensor. For two such infinitesimal rotations, we have
+\begin{align}
+    (I+\epsilon_{1})(I+\epsilon_{2}) = I + \epsilon_{1} + \epsilon_{2} + \epsilon_{1}\epsilon_{2}, \quad (I+\epsilon_{2})(I+\epsilon_{1}) = I + \epsilon_{1} + \epsilon_{2} + \epsilon_{2}\epsilon_{1}.
+\end{align}
+Since a rotation is orthogonal, we have $(I+\epsilon)^{T} = (I+\epsilon)^{-1}$. Thus, up to first order, we have
+\begin{align}
+    (I+\epsilon)^{-1} = I - \epsilon, \quad (I+\epsilon)^{T} = I + \epsilon^{T} \implies \epsilon^{T} = -\epsilon.
+\end{align}
+Thus, $\epsilon$ is an antisymmetric tensor, and hence has only 3 independent components. We can write
+\begin{align}
+    \epsilon = \begin{pmatrix}
+        0 & d\Omega_{3} & -d\Omega_{2} \\
+        -d\Omega_{3} & 0 & d\Omega_{1} \\
+        d\Omega_{2} & -d\Omega_{1} & 0
+    \end{pmatrix}.
+\end{align}
+
+The infinitesimal change in position is
+\begin{align}
+    d\vec{r} = \vec{r}' - \vec{r} = \epsilon \vec{r} = \begin{pmatrix}
+        0 & d\Omega_{3} & -d\Omega_{2} \\
+        -d\Omega_{3} & 0 & d\Omega_{1} \\
+        d\Omega_{2} & -d\Omega_{1} & 0
+    \end{pmatrix} \begin{pmatrix}
+        x_{1} \\ x_{2} \\ x_{3}
+    \end{pmatrix}.
+\end{align}
+Thus we obtain $dx_{1} = x_{2}(d\Omega_{3}) - x_{3}(d\Omega_{2})$. Similarly, we obtain $dx_{2}$ and $dx_{3}$. Note that this is just the cross product of $\vec{r}$ with $\vec{d\Omega} = (d\Omega_{1},d\Omega_{2},d\Omega_{3})^{T}$ (note that $\vec{d\Omega} \neq d\vec{\Omega}$; it is not the infinitesimal change in a vector, but rather just notation). Thus, we have
+\begin{align}
+    d \vec{r} = \vec{r} \times \vec{d\Omega}, \quad \text{ or } \quad \vec{r}' = \vec{r} + \vec{r} \times \vec{d\Omega}.
+\end{align}
+This formula is only true for infinitesimal rotations. Let us verify this using the rotation formula. Recall
+\begin{align}
+    \vec{r}' = \vec{r} \cos \Phi + \hat{e}_{n}(\hat{e}_{n} \cdot \vec{r}) (1-\cos \Phi) + (\vec{r} \times \hat{e}_{n}) \sin \Phi.
+\end{align}
+For an infinitesimal rotation, we have $\Phi = d\Phi$, $\cos d\Phi = 1$ and $\sin d\Phi = d\Phi$. Thus, we have
+\begin{align}
+    \vec{r}' = \vec{r} + (\vec{r} \times \hat{e}_{n}) d \Phi = \vec{r} + \vec{r} \times \vec{d\Omega},
+\end{align}
+where we have taken $\vec{d\Omega} = \hat{e}_{n} d\Phi$. Thus, the two formulae agree. From this relation if we write $\hat{e}_{n} = (n_{1},n_{2},n_{3})^{T}$, we obtain
+\begin{align}
+    \epsilon = \begin{pmatrix}
+        0 & n_{3} & -n_{2} \\
+        -n_{3} & 0 & n_{1} \\
+        n_{2} & -n_{1} & 0
+    \end{pmatrix}d\Phi.
+\end{align}
