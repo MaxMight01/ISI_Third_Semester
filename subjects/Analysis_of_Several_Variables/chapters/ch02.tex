@@ -469,3 +469,88 @@ and $\gamma'(t_{0}) = r_{u}|_{(u_{0},v_{0})}$. If we work similarly for $r_{v}$,
 \begin{example}
     Look at the equation of the torus given as $(x^{2}+y^{2}-a^{2})^{2}+z^{2} = b^{2}$ for some $a > b > 0$. It is left as an exercise to the reader to show that this is a parametrized surface.
 \end{example}
+
+\textit{October 13th.}
+
+\begin{example}
+    A general example of a surface is \eax{surface of revolution}. Consider a $C^{1}$-curve $t \mapsto (0,f(t),g(t)) \in \R^{3}$ for $t \in [a,b]$. Rotate this curve about the $z$-axis. The resulting surface is given as
+    \begin{align}
+        r(u,v) = (f(u)\cos v, f(u) \sin v, g(u))
+    \end{align}
+    for all $(u,v) \in [a,b] \times [0,2\pi)$. Here, $r_{u} \times r_{v} = f(u)(-g'(u) \cos v, -g'(u) \sin v, f'(u))$. To make this non-zero, one can impose several constraints; for example, $f(u) \neq 0$ for all $u \in [a,b]$.
+\end{example}
+
+\begin{example}
+    The surface of a finite cylinder is parametrized as $r(u,v) = (a\cos v, a \sin v, u)$ for $(u,v) \in [0,b] \times [0,2\pi)$ for some $a,b > 0$. One can verify that $r_{u} \times r_{v} \neq 0$ for all $(u,v)$. Note that this is a surface of revolution with $f(u) = a$ and $g(u) = u$.
+\end{example}
+
+\subsection{Tangent Plane and Normal}
+
+Let $r:R \to \R^{3}$ be a parametrized surface and let $S$ be the range of $r$. Fix a point $P = r(u_{0},v_{0}) \in S$.
+
+\begin{definition}
+    $T_{P}S$ is defined to be the vector space `generated' by $r_{u}(P)$ and $r_{v}(P)$. This is termed the \eax{tangent plane} of $S$ at $P$. Formally,
+    \begin{align}
+        T_{P}S = \{ \vec{r}_{0} + t_{1}r_{u}(P) + t_{2}r_{v}(P) \mid t_{1},t_{2} \in \R\}
+    \end{align}
+\end{definition}
+
+\begin{example}
+    Consider the graph function $z = f(x,y)$ for $(x,y) \in O_{2} \subseteq \R^{2}$ open. Then $r(u,v) = (u,v,f(u,v))$ is the graph function. Here, $r_{u} \times r_{v} = (-f_{u},-f_{v},1)$. Fix $P = (a,b,f(a,b))$. Then the tangent plane at $P$ is given by
+    \begin{align}
+        -f_{u}(a,b)(x-a) - f_{v}(a,b)(y-b) + (z-f(a,b)) = 0
+    \end{align}
+    and the equation of the normal is
+    \begin{align}
+        \frac{x-a}{-f_{u}(a,b)} = \frac{y-b}{-f_{v}(a,b)} = \frac{z-f(a,b)}{1}.
+    \end{align}
+\end{example}
+
+\begin{example}
+    Equation of the tangent plane and normal to $z = \frac{2x}{y} - x^{2}$ at $(1,1,1)$; here the partials are
+    \begin{align}
+        \frac{\partial z}{\partial x} = \frac{2}{y} - 2x,\; \text{ and }\; \frac{\partial z}{\partial y} = -\frac{2x}{y^{2}}.
+    \end{align}
+    The normal vector at $(1,1,1)$ is $(0,2,1)$. Thus the equation of the normal is
+    \begin{align}
+        \frac{x-1}{0} = \frac{y-1}{2} = \frac{z-1}{1}
+    \end{align}
+    and the equation of the tangent plane is $2(y-1) + (z-1) = 0$.
+\end{example}
+
+\begin{remark}
+    Consider the graph function $\{(x,y,f(x,y)) \mid (x,y) \in O_{2}\}$. Recalling the tangent plane from before, we can approximate $f(x,y)$ near $(a,b)$ as
+    \begin{align}
+        f(x,y) \approx f(a,b) + f_{x}(a,b)(x-a) + f_{y}(a,b)(y-b).
+    \end{align}
+\end{remark}
+
+\begin{example}
+    Let us approximate $(1.99)^{2} - \frac{1.99}{1.01}$ using the above method. Clearly a suitable function is $z = x^{2}-\frac{x}{y}$ and a suitable point is $(2,1)$. Here, $f(2,1) = 2$, $f_{x}(x,y) = 2x - \frac{1}{y}$ and $f_{y}(x,y) = \frac{x}{y^{2}}$. Thus, $f_{x}(2,1) = 3$ and $f_{y}(2,1) = 2$. Therefore,
+    \begin{align}
+        f(x,y) \approx 2 + 3(x-2) + 2(y-1)
+    \end{align}
+    for points $(x,y)$ near $(2,1)$. Setting $x = 1.99$ and $y = 1.01$, we get $f(1.99,1.01) \approx 1.99$. The actual value is $1.9898$.
+\end{example}
+
+Our goal, now, is to compute the area of surfaces. In the most simple case, a parallelogram in $\R^{3}$ with sides $\vec{u}_{0}$ and $\vec{v}_{0}$. The area of such a surface is simply $\norm{\vec{u}_{0} \times \vec{v}_{0}}$. Now consider the surface $\{(x,y,ax+by+c) \mid (x,y) \in B^{2}\}$. The area of this surface is simply $\sqrt{1+a^{2}+b^{2}} \cdot \text{area}(B^{2}) = \norm{r_{x} \times r_{y}} \cdot \text{area}(B^{2})$. This is because the normal vector to this surface is $(-a,-b,1)$, and hence the area of the parallelogram formed by $(1,0,a)$ and $(0,1,b)$ is $\sqrt{1+a^{2}+b^{2}}$.
+
+Let $S$ be the range of $r$ where $r:B^{2} \to \R^{3}$ is a parametrized surface. Write
+\begin{align}
+    B^{2} = \bigcup_{\alpha \in \Lambda(P)} B_{\alpha}^{2}
+\end{align}
+where $P$ is a partition of $B_{2}$ and $B_{\alpha}^{2}$ are small rectangles. Pick $x_{\alpha} \in \intr(B_{\alpha}^{2})$ for all $\alpha \in \Lambda(P)$. Then the approximate are of $S$ induced by $P$ is given as
+\begin{align}
+    \sum_{\alpha \in \Lambda(P)} \norm{r_{u}(x_{\alpha}) \times r_{v}(x_{\alpha})} \cdot \text{area}(B_{\alpha}^{2}).
+\end{align}
+The area of the surface $S$ is then defined to be the limit of the above expression as $\norm{P} \to 0$, provided the limit exists. Thus this limit, for a parametrized curve $r:R \to \R^{3}$, is equal to
+\begin{align}
+    \int_{R} \norm{r_{u} \times r_{v}} dA.
+\end{align}
+\begin{example}
+    Let $f \in C^{1}(R)$, for $R \subseteq \R^{2}$ a region.
+    Consider $r:R \to \R^{3}$ defined as $r(u,v) = (u,v,f(u,v))$. Therefore the area of the graph of $f$ over $R$ is given as
+    \begin{align}
+        \int_{R}\sqrt{f_{u}^{2} + f_{v}^{2} + 1} dA.
+    \end{align}
+\end{example}
