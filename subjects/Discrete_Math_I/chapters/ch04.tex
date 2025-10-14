@@ -1,89 +1,83 @@
-\chapter{EXTREMAL SET THEORY}
+\chapter{LATIN SQUARES}
 
-How large or small a family of sets can be if we require that it satisfies certain restrictions? This is the basic question in extremal set theory. Given a finite set $X$, how large can a family $\cF \subseteq \cP(X)$ be if it has to avoid certain configurations.
+\section{Introduction}
 
-\section{Sperner's Problem}
-Pick as many subsets of an $n$-element set $X$ such that no one subset contains another. The problem asks what the maximum possible number of sets is. It's all sets of size $\floor{\frac{n}{2}}$. For all sets of size $k$ with $1 \leq k \leq n$ denote it by $\cF_{k}$. Then $\# \cF_{k} = \binom{n}{k}$. We have
-\begin{align}
-    \max_{1 \leq k \leq n} \# \cF_{k} = \binom{n}{\floor{\frac{n}{2}}}.
-\end{align}
-The assertion of Sperner's theorem is that $\binom{n}{\floor{\frac{n}{2}}}$ is also the maximum size of a family of subsets of $X$ such that no one subset contains another.
+\begin{definition}
+    A \eax{latin square} of order $n$ is an $n \times n$ array filled with $n$ distinct symbols, each occuring exactly once in each row and exactly once in each column.
+\end{definition}
 
-\begin{theorem}[\eax{Dilworth's theorem}]
-    Let $(P, \leq)$ be a finite poset. Then the maximum size of an antichain in $P$ is equal to the minimum number of chains into which $P$ can be partitioned. That is,
-    \begin{align}
-        \max \{\#A \mid A \text{ is an antichain in } P\} = \min \{k \mid P = C_{1} \cup C_{2} \cup \cdots \cup C_{k}, C_{i} \text{ are chains}\}.
-    \end{align}
+\eax{Euler's generals problem} in latin squares is as follows. Given $n^{2}$ military personnel, each with a rank and regiment of possible $n$ and $n$ options respectively, the problem is to arrange them in an $n \times n$ array such that any choice of a row or a column gives a group of $n$ personnel with $n$ distinct ranks. If we also require that any choice of a row or a column gives a group of $n$ personnel with $n$ distinct regiments, then it is \textit{not} possible to do so for $n = 6$.
+
+\begin{definition}
+    Two latin squares $L_{1},L_{2}$ of order $n$, on the same set of row and column indices, are said to be \eax{orthogonal latin squares} if the $n^{2}$ ordered pairs $(l_{ij}^{(1)},l_{ij}^{(2)})$ for $1 \leq i,j \leq n$ are all distinct.
+\end{definition}
+
+Euler's generals problem then becomes to find two orthogonal latin squares of order $6$.
+
+\begin{theorem}
+    For integer $n \geq 1$, the maximum number $N(n)$ of pairwise mutually orthogonal latin squares of order $n$ satisfies $N(n) \leq n-1$.
 \end{theorem}
-Note that $S \subseteq P$ is termed a chain if all elements in $S$ are comparable, and an antichain if no two elements in $S$ are comparable. Note that, by definition, singletons are both chains and antichains.
-
-If $P$ was totally ordered, then the maximum size of an antichain is $1$, and the minimum number of chains into which $P$ can be partitioned is $1$ since $P$ itself is a chain. If $P$ was an antichain, then the maximum size of an antichain is $\#P$, and the minimum number of chains into which $P$ can be partitioned is $\#P$ since each element of $P$ is a singleton chain.
 
 \begin{proof}
-    Let $M = \max\{\#A \mid A \text{ is an antichain in } P\}$ and $m = \min \{k \mid P = C_{1} \cup C_{2} \cup \cdots \cup C_{k}, C_{i} \text{ are chains}\}$. We want to show that $M = m$. We first show that $m \geq M$. Let $\{a_{1},\ldots,a_{M}\}$ be an antichain in $P$ of size $M$. Let $P = C_{1} \cup C_{2} \cup \cdots \cup C_{m}$ be a partition of $P$ into $m$ chains. Since no two elements of the antichain are comparable, each $a_{i}$ must belong to a different chain. Thus, $m \geq M$.
-
-    Now we show $M \geq m$. We proceed with induction on $\# P$. We showed the base case $\# P = 1$ above. Assume the result holds for all posets of size less than $\# P$. Let $C$ be a maximal chain in $P$, that is, a chain which is not properly contained in any other chain. Let $A'$ be an antichain in $P \setminus C$ of maximum size $M(A')$. We consider cases.
-    \begin{itemize}
-        \item Case I; $M(A') \leq M - 1$. Then, by the induction hypothesis, there is a partition of $P \setminus C$ which has at most $M-1$ chains $C_{1},\ldots,C_{M-1}$. Then $P = C \cup C_{1} \cup \cdots \cup C_{M-1}$ is a partition of $P$ into at most $M$ chains, giving us $m \leq M(A') + 1 \leq M$.
-        \item Case II; There is an antichain $A = \{a_{1},\ldots,a_{M}\}$ in $P \setminus C$ of size $M$. Construct two sets as follows:
-        \begin{align}
-            S^{-} \defeq \{x \in P \mid x \leq a_{i} \text{ for some } 1 \leq i \leq M\}, \quad S^{+} \defeq \{x \in P \mid x \geq a_{i} \text{ for some } 1 \leq i \leq M\}.
-        \end{align}
-        Note that $A$ is an antichain of size $M$ in $S^{-}$ and $S^{+}$, both of which are strictly contained in $P$. $S^{+}$ and $S^{-}$ can both be decomposed as unions of $M$ disjoint chains as $S^{-} = \bigcup_{i=1}^{M} S_{i}^{-}$ and $S^{+} = \bigcup_{i=1}^{M} S_{i}^{+}$. Let $b_{i}$ denote the maximum element in $S_{i}^{-}$. Then $b_{i}$ can only be one of the $a_{j}$'s, otherwise we can add $b_{i}$ to $A$ to get a larger antichain in $P$. By this logic, $\max(S_{i}^{-}) = a_{i}$ and $\min(S_{i}^{+}) = a_{i}$ for $1 \leq i \leq M$. Now construct chains as
-        \begin{align}
-            C_{i} = S_{i}^{-} \cup S_{i}^{+}, \text{ where } S_{i}^{-} \cap S_{i}^{+} = \{a_{i}\}, 1 \leq i \leq M.
-        \end{align}
-        One can show that the $C_{i}$'s are really chains, and $P = \bigcup_{i=1}^{M} C_{i}$, with $C_{i} \cap C_{j} = \emptyset$ for $i \neq j$. Thus, $m \leq M$.
-    \end{itemize}
+    The key is to convert this problem into a linear algebra one; Let $L_{1},\ldots,L_{t}$ be mutually orthogonal latin squares of order $n$. Let $S$ be their common symbol set. For $s \in S$ and $1 \leq i \leq t$, define $L_{i,s}$ to be the indicator matrix of the symbol $s$ in the latin square $L_{i}$. Then $L_{i,s}$ is a permutation matrix. If $J$ denotes the matrix will all entries $1$, then
+    \begin{align}
+        A_{i,s} = L_{i,s} - \frac{1}{n} J
+    \end{align}
+    has row and column sums $0$. As a small lemma, if $V$ denotes the set of matrices with row sum and column sum $0$, then $\dim(V) = (n-1)^{2}$. This is because we can choose the first $n-1$ rows and $n-1$ columns freely, and the last row and column are determined by the previous ones. Consider the Frobenius inner product on $M_{n}(\R)$ defined by $\ip{A,B} = \tr(A^{T}B)$. Note that $\ip{A_{i,s},J} = 0$. Taking two matrices $A_{i,s}$ and $A_{j,s'}$, we have
+    \begin{align}
+        \ip{A_{i,s},A_{j,s'}} = \ip{L_{i,s} - \frac{1}{n}J, L_{j,s'} - \frac{1}{n}J} = \ip{L_{i,s},L_{j,s'}} - \frac{1}{n}\ip{J,L_{j,s'}} = 1-1 = 0 \text{ for } i \leq j,\; s,s' \in S.
+    \end{align}
+    Moreover, $\sum_{s \in S} A_{i,s} = 0$ for each $i$. Thus $A_{i,s} \in V$. For a fixed $i$, we get
+    \begin{align}
+        \dim (\spanof_{s \in S} \{A_{i,s}\}) = n-1
+    \end{align}
+    by comparing inner products for both $i = j$ and $i \neq j$. So for $1 \leq i \leq t$, the $\spanof_{s \in S} \{A_{i,s}\}$ form mutually orthogonal subspaces of $V$. Therefore,
+    \begin{align}
+        \sum_{i=1}^{t} \dim(\spanof_{s \in S} \{A_{i,s}\}) \leq \dim V = (n-1)^{2} \implies t(n-1) \leq (n-1)^{2}.
+    \end{align}
+    We then have $\ip{\sum_{s \in S} \alpha_{s} A_{i,s}, \sum_{s \in S} \alpha_{s} A_{i,s'}} = n\alpha_{s'} - \sum_{s \in S} \alpha_{s} = 0$ which forces $\alpha_{s} = \alpha_{s'}$ for all $s,s' \in S$.
 \end{proof}
 
-
-\begin{theorem}[\eax{Sperner's theorem}]
-    Let $X$ be an $n$-element set and $\cF$ be a family of subsets of $X$ such that none of the sets in $\cF$ contain each other. Then $\# \cF \leq \binom{n}{\floor{\frac{n}{2}}}$. In fact, this is the maximum size of such a family.
+\begin{theorem}
+    If $q$ is a prime power then there exists a projective plane of order $q$.
 \end{theorem}
+
+\subsection{Projective Planes and Fields}
+
+We move our discussion on to projective planes.
+
+\begin{definition}
+    A \eax{finite projective plane} of order $n$ is an incidence structure of points and lines satisfying
+    \begin{enumerate}
+        \item any two distinct points lie on exactly one line,
+        \item any two distinct lines meet at exactly one points,
+        \item there exist four points with no three collinear.
+    \end{enumerate}
+\end{definition}
+
+\begin{lemma}
+    Each line in a finite projective plane contains the same number of points $(n+1)$. Each point is on $(n+1)$ lines. The total number of points is equal to the total number of lines $n^{2}+n+1$.
+\end{lemma}
 \begin{proof}
-    We look at the poset $(\cP(X),\subseteq)$; $\cF$ is then an antichain in this poset. By Dilworth's theorem, the maximum size of an antichain is equal to the minimum number of chains into which $\cP(X)$ can be partitioned. We will show that $\cP(X)$ can be partitioned into at most $\binom{n}{\floor{\frac{n}{2}}}$ chains. This will prove the theorem. We proceed by induction on $n$. A symmetric chain is a chain of the form $A_{a} \subseteq A_{a+1} \subseteq \cdots \subseteq A_{n-a}$ where $\# A_{i} = i$ for $a \leq i \leq n-a$. Note that the chain is symmetric about the middle layer of the poset, so a symmetric chain must contain a set of size $\floor{\frac{n}{2}}$. We claim that there is a symmetric chain partition of $\cP([n])$ into $\binom{n}{\floor{\frac{n}{2}}}$ components. The based case $n=1$ is easy to see since the only symmetric chain in $\cP([1])$ is $\emptyset \subseteq \{1\}$. Assume that the resul is true for $\cP([n-1])$, with symmetric chain partition $\bigcup \cC$ where each chain $\cC$ is of the form
-    \begin{align}
-        A_{a} \subseteq A_{a+1} \subseteq \cdots \subseteq A_{n-1-a}, \quad \# A_{i} = i, a \leq i \leq n-1-a.
-    \end{align}
-    For a symmetric chain $\cC$ of the above form, define
-    \begin{align}
-        L(\cC) = A_{a+1} \subseteq \cdots \subseteq A_{n-1-a},\quad U(\cC) = A_{a} \cup \{n\} \subseteq A_{a+1} \cup \{n\} \subseteq \cdots \subseteq A_{n-1-a} \cup \{n\}.
-    \end{align}
-    Note that for two different symmetric chains $\cC$ and $\cC'$ in $\cP([n-1])$, $L(\cC) \cap L(\cC') = \emptyset$ and $U(\cC) \cap U(\cC') = \emptyset$, and $L(\cC) \cap U(\cC) = \emptyset$ and $L(\cC) \cap U(\cC') = \emptyset$. Note that $A_{\floor{\frac{n}{2}}}$ is a set of size $\floor{\frac{n}{2}}$. Each chain has a distinct middle element $A_{\floor{\frac{n}{2}}}$ and all sets of size $\floor{\frac{n}{2}}$ appear in some symmetric chain in the partition (as a middle element). Thus, the number of symmetric chains in the partition is $\binom{n}{\floor{\frac{n}{2}}}$.
+    There is a one-to-one correspondence between lines passing through $p_{2}$ and points on $l$ other than $p_{1}$. The number of lines passing through $p_{2}$ equals the number of lines passing through $p_{3}$. There is a one-to-one correspondence between points on $l_{1}$, lines passing through $p$, and points on $l_{2}$. The number of points on $l_{1}$ equals the number of points on $l_{2}$, or $n+1$. The total number of points is $(n+1)^{2}-n = (n+1)n + 1$.
 \end{proof}
 
-To show the above theorem, one may also make use of the YLM inequality which states that if $\cF$ is a family of subsets of an $n$-element set $X$ such that no one subset contains another, and $a_{k}$ denotes the number of $k$-element sets in $\cF$ for $0 \leq k \leq n$, then
-\begin{align}
-    \sum_{k=0}^{n} \frac{a_{k}}{\binom{n}{k}} \leq 1.
-\end{align}
-This can be used as
-\begin{align}
-    \frac{1}{\binom{n}{k}} \geq \frac{1}{\binom{n}{\floor{\frac{n}{2}}}} \implies \frac{1}{\binom{n}{\floor{\frac{n}{2}}}}\sum_{k=0}^{n} a_{k} \leq \sum_{k=0}^{n} \frac{a_{k}}{\binom{n}{k}} \leq 1 \implies \# \cF = \sum_{k=0}^{n} a_{k} \leq \binom{n}{\floor{\frac{n}{2}}}.
-\end{align}
+\begin{theorem}
+    There exists a projective plane of order $n$ if and only if there exists a set of $n-1$ mutually orthogonal latin squares of order $n$.
+\end{theorem}
 
-To show the YLM inequality, we `record' certain permutations of $X$. Note that for some $S \in \cF$, the number of permutations of $[n]$ such that the first $\# S$ elements of the permutation are exactly the elements of $S$ is $\# S! (n-\#S)!$. Since no two sets in $\cF$ contain each other, each permutation of $[n]$ can be recorded at most once. Thus, if $a_{k}$ denotes the number of $k$-element sets in $\cF$ for $0 \leq k \leq n$, then
-\begin{align}
-    \sum_{k=0}^{n} a_{k} k!(n-k)! \leq n!.
-\end{align}
-The inequality follows.\\ \\
-\textit{October 10th.}
-
-There exists a third proof and it follows from \eax{K\"onig-Egevary theorem}. If we have a bipartite graph $G = (V_{1} \sqcup V_{2},E)$, the \eax{matching number} is defined as the maximum number of pairwise disjoint edges. A \eax{vertex cover} is a subset of the vertices such that every edge has at least one vertex in the subset. The \eax{vertex cover number} is the minimum size of a vertex cover. The K\"onig-Egevary theorem states that in a bipartite graph, the matching number is equal to the vertex cover number. For the proof, let us label $L = V_{1}$, $R = V_{2}$.
 \begin{proof}
-    Take a maximum matching $M \subseteq E$. A \eax{free vertex} is a vertex in $G$ which does not appear in any edge in $M$. Let $U$ be the set of free vertices in $L$; note that $U$ may be empty. If $U$ were empty, then $M$ would be a perfect matching and the vertex cover number would be less than or equal to $\# L$. Thus, one could get both values equal to $\# L$. Assume $U \neq \emptyset$. We look at an \eax{alternating path}, starting from a vertex in $U$ and alternating between edges in the matching $M$ and edges not in $M$. An \eax{augmented path} is an alternating path starting and ending at a free vertex. In such an augmented path, the number of edges in the path not in $M$ is one more than the number of edge in the path in $M$. If $P$ is the path, then $M' = M \Delta P = (M \setminus P) \cup (P \setminus M)$ is a matching larger than $M$, contradicting the maximality of $M$. Thus, there are no augmented paths in $G$, and an alternating path cannot end in $U$.
-
-    Let $Z$ be the set of vertices in $G$ reachable from $U \subseteq L$ via alternating paths. If we define $Z_{L} = Z \cap L$ and $Z_{R} = Z \cap R$. Letting $C = (L \setminus Z_{L}) \cup Z_{R}$, we claim that $C$ is a vertex cover. To see this, we need to show that if $xy \in E$, then at least one of $x,y$ is in $C$. Without the loss of generality, assume $x \in L$ and $y \in R$. We do cases.
-    \begin{itemize}
-        \item Case I: $x \notin Z_{L}$. Then $x \in L \setminus Z_{L}$, and thus $x \in C$.
-        \item Case II: $x \in Z_{L}$. Then either $xy \notin M$, in which case $y \in Z_{R}$ and thus $y \in C$, or $xy \in M$ in which case the alternating path must pass through $y$ to reach $x$, and thus $y \in Z_{R}$ and $y \in C$.
-    \end{itemize}
-    Thus, $C$ is a vertex cover. We now show that $\# C = \# M$. Since the size of any vertex cover is at least the size of any matching, this equality will prove the theorem. The number of matching edges with both endpoints in $Z$ is $\# Z_{R}$ since each vertex in $Z_{R}$ is matched to a vertex in $Z_{L}$. The number of matching edges where one (neither) endpoint(s) is reachable from $U$ is $\#(L\setminus Z_{L})$. Thus $\# M = \#(L \setminus Z_{L}) + \# Z_{R} = \# C$.
+    Let $P$ be a projective plane of order $n$. Choose a line $L_{\infty}$ and label its $n+1$ points $p_{0},p_{1},\ldots,p_{n}$. There are $n$ lines passing through $p_{0}$ and $p_{1}$ apart from $L_{\infty}$. $P \setminus L_{\infty}$ has $n^{2}$ points. Let $R_{1},\ldots,R_{n}$ be the $n$ lines passing through $p_{0}$ apart from $L_{\infty}$, and let $C_{1},\ldots,C_{n}$ be the $n$ lines passing through $p_{1}$ apart from $L_{\infty}$. Note that $R_{i} \cap C_{j}$ is always a single point. The $n$ lines $l_{1},\ldots,l_{n}$ passing through $p_{2}$ apart from $L_{\infty}$ determine the symbol set $\{s_{1},\ldots,s_{n}\}$. Every point in $l_{1} \setminus \{p_{2}\} = p_{i} \cap c_{i}$ for a unique pair $(i,j)$. So put $r_{1}$ in those $(i,j)$. All points in $R_{1}$ are exhaustively labelled by $\{s_{1}^{(2)},\ldots,s_{n}^{(2)}\}$. We do the same for the $n$ lines passing through $p_{3},\ldots,p_{n}$. This gives $\{s_{1}^{(2)},\ldots,s_{n}^{(2)}\} = \{s_{1}^{(3)},\ldots,s_{n}^{(3)}\}$.
 \end{proof}
 
-\begin{corollary}
-    Dilworth's theorem.
-\end{corollary}
+
+Let $\K$ be a finite field, with $\Z \hookrightarrow \K$. Note that since this field it finite, for all $a \in \K$ there exists an integer $k$ such that $a = ka$ or $(k-1)a = 0$. The \eax{characteristic} of $\K$ is the smallest $n \in \N$ such that $na = 0$ for all $a \in \K$. The characteristic is always a prime.
+
+If $na = 0$ for $a \neq 0$, then $na a^{-1} = (a + a + \cdots + a) a^{-1} = (1 + 1 + \cdots + 1) = 0$. If we let $n = pq$, then $p(qa) = 0$ for all $a \in \K$ implies either $qa = 0$ for all $a \in \K$ or $p 1 = 0$. In either case, a factor of $n$ is a `smaller' characteristic. This process only ends if $n$ is prime.
+
+\begin{proposition}
+    The order of a finite field is a prime power.
+\end{proposition}
 \begin{proof}
-    Let $(P,\leq)$ be a finite poset. We construct a bipartite graph $G = (L \sqcup R,E)$ where both $L$ and $R$ are copies of $P$, and $x \in L$ is connected to $y \in R$ if and only if $x \lneq y$ in $P$. We claim that the minimum number of chains into which $P$ can be partitioned is $\# P -$ the maximum matching in $G$, and that the maximum cardinality of an antichain in $P$ is $\# P -$ the minimum vertex cover in $G$. This claim is left as an exercise to the reader. By K\"onig-Egevary theorem, the cardinality of the maximum matching in $G$ is equal to the cardinality of the minimum vertex cover in $G$, and thus Dilworth's theorem follows.
+    Let $p$ be the characteristic of $\K$ and $q$ be another prime factor of $\# \K$. Then $qa = 0$ for some $a \neq 0$. By Cauchy's theorem, $pa = 0$ for some $a \neq 0$. So $p = q$. Thus the order of $\K$ is $p^{k}$ for some $k \in \N$.
 \end{proof}
