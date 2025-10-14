@@ -554,3 +554,56 @@ The area of the surface $S$ is then defined to be the limit of the above express
         \int_{R}\sqrt{f_{u}^{2} + f_{v}^{2} + 1} dA.
     \end{align}
 \end{example}
+
+\textit{October 14th.}
+
+\begin{example}
+    We compute the area of the surface parametrized by $r(x,y) = (\cos x, \sin x, y)$ on the region $0 \leq x \leq \pi/2$ and $0 \leq y \leq 1$. Here $r_{x} = (-\sin x, \cos x, 0)$ and $r_{y} = (0,0,1)$. Thus $r_{x} \times r_{y} = (\cos x, \sin x, 0)$ and $\norm{r_{x} \times r_{y}} = 1$. Therefore the area is simply $\int_{0}^{\pi/2} \int_{0}^{1} 1 dy dx = \pi/2$.
+\end{example}
+
+\begin{example}
+    We compute the area of the unit hemisphere. In spherical coordinates, the region we're dealing with is $R = \{(u,v) \in \R^{2} \mid 0 < u,v < \pi\}$ and the parametrization is $r(u,v) = (\sin u \cos v, \sin u \sin v, \cos u)$ for all $(u,v) \in R$. Here $\norm{r_{u} \times r_{v}} = \abs{\sin u}$. Thus the area of the surface is
+    \begin{align}
+        \int_{R} \sin u dA = 2\pi.
+    \end{align}
+\end{example}
+
+So far, we have computed the line integral of both scalar and vector fields. We have also computed the area of surfaces. We now move on to computing the surface integral of scalar and vector fields.
+
+\begin{definition}
+    Let $S \subseteq O_{3}$ be a surface in an open set $O_{3} \subseteq \R^{3}$. Let $f \in C(O_{3})$. As in the area computation,
+    \begin{align}
+        \lim_{\norm{P} \to 0} \sum_{\alpha \in \Lambda(P),\;x_{\alpha} \in B_{\alpha}^{2}} f(r(x_{\alpha})) \norm{r_{u}(x_{\alpha}) \times r_{v}(x_{\alpha})} \cdot \text{area}(B_{\alpha}^{2}) = \int_{R} f \circ r \norm{r_{u} \times r_{v}} dA.
+    \end{align}
+    The \eax{surface integral} of $f$ over $S$ is defined to be the above limit, provided it exists. The notation for this is
+    \begin{align}
+        \int_{S} f ds = \int_{R} f \circ r \norm{r_{u} \times r_{v}} dA.
+    \end{align}
+\end{definition}
+
+One can verify that for a reparametrization $\tilde{r}$ such that $r = \tilde{r} \circ \varphi$ for a continuously differentiale bijective $\varphi$, the surface integral remains unchanged over the new region $\tilde{R}$ and
+\begin{align}
+    \int_{R} f \circ r \norm{r_{u} \times r_{v}} dA = \int_{\tilde{R}} f \circ \tilde{r} \norm{\tilde{r}_{u} \times \tilde{r}_{v}} dA.
+\end{align}
+
+\begin{example}
+    For a surface given by $z = \sqrt{x^{2}+y^{2}}$ for $0 \leq z \leq 1$, let us compute $\int_{S} (x^{2}+y^{2}+z^{2}) ds$. A parametrization is $r(x,y) = (x,y,\sqrt{x^{2}+y^{2}})$ for $(x,y) \in R = \{(x,y) \mid x^{2}+y^{2} \leq 1\}$. Noting that $r_{u} = \frac{x}{\sqrt{x^{2}+y^{2}}}$ and $r_{v} = \frac{y}{\sqrt{x^{2}+y^{2}}}$, we have
+    \begin{align}
+        \int_{S} (x^{2}+y^{2}+z^{2}) ds = \int_{R} (x^{2}+y^{2}+(x^{2}+y^{2})) \norm{r_{u} \times r_{v}} dA = 2\sqrt{2} \int_{R} \sqrt{x^{2}+y^{2}} dA = \sqrt{2} \pi.
+    \end{align}
+\end{example}
+
+We now define the surface integral of a vector field.
+
+\begin{definition}
+    A surface $S \subseteq \R^{3}$ is oriented if there exists a continuous vector field $\vec{n}:S \to \R^{3}$ such that $\vec{n}(x)$ is a unit normal vector to the tangent plane $T_{x}S$ for all $x \in S$.
+\end{definition}
+
+As an example, the M\"obis strip is not orientable, but the sphere is orientable.
+
+\begin{definition}
+    The surface integral of a vector field $\vec{F}:S \to \R^{3}$ over an oriented surface $S$ with orientatio $\vec{n}$ is defined as
+    \begin{align}
+        \int_{S} \vec{F} \cdot d\vec{s} = \int_{S} \vec{F} \cdot \vec{n} ds
+    \end{align}
+\end{definition}
