@@ -73,6 +73,44 @@ Thus, $S^{3}$ can be given a group structure via relating by $SU_{2}(\C)$. Note 
 \end{definition}
 Thus the latitudes of $S^{3}$ are homeomorphisms of $S^{2}$. The north pole $x_{1} = 1$ tells us $I \in SU_{2}$, and the south pole $x_{1} = -1$ tells us $-I \in SU_{2}$.
 
+\textit{October 14th.}
+
 \begin{proposition}
     The latitudes of $S^{3}$ are conjugancy classes in $SU_{2}$. Conversely, other than $\pm I$, all conjugacy classes are latitudes.
 \end{proposition}
+
+\begin{proof}
+    The centre of $SU_{2}$ is $\{\pm I\}$. Let $P = \begin{pmatrix}
+        a & b \\ -\bar{b} & \bar{a}
+    \end{pmatrix} \in SU_{2}$, that is, $\abs{a}^{2} + \abs{b}^{2} = 1$. The characteristic polynomial of $P$ is given as
+    \begin{align}
+        \chi_{P}(t) = (t-a)(t-\bar{a}) + b \bar{b} = t^{2} - 2\Re(a) t + 1.
+    \end{align}
+    This is a real polynomial; if $\lambda$ is a root, then so is $\bar{\lambda}$. By spectral theorem, $P$ is conjugate to $\begin{pmatrix}
+        \lambda & 0 \\ 0 & \bar{\lambda}
+    \end{pmatrix}$ where $\lambda + \bar{\lambda} = 2\Re(a)$, via a unitary $Q$. If $Q \in SU_{2}$, then done. Otherwise, let $\delta = \det Q$ and let $\epsilon = \sqrt{\delta}$. Then one can verify that $\bar{\epsilon} Q \in SU_{2}$, and \begin{align}
+        (\bar{\epsilon} Q) P (\bar{\epsilon} Q)^{\ast} = Q P Q^{\ast} = \begin{pmatrix}
+            \lambda & 0 \\ 0 & \bar{\lambda}
+        \end{pmatrix}.
+    \end{align}
+    Note that $\tr P = \lambda + \bar{\lambda} = 2\Re(a)$, so $\Re(a)$ determines the conjugacy class. The latitudes are also determined by $x_{1} = c$, which is also $\Re(a)$. Thus the latitudes are exactly the conjugacy classes.
+\end{proof}
+
+\begin{definition}
+    In $S^{3}$, we define longitudes to be the intersection of $S^{3}$ with the hyperplanes containing the $x_{1}$-axis (specifically, containing $\pm I_{3}$). These are `circles' going through the north and south poles.
+\end{definition}
+
+Let $P \in SU_{2}$ be different from $\pm I$. Then $P$ and $I$ are linearly independent vectors in $\R^{4}$. Then they span a $2$-dimensional subspace $V$ of $\R^{4}$ and $V \cap S^{3}$ is the unique longitude containing $P$. Consider the longitude $S^{3} \cap W$ where $W = \{(x_{1},x_{2},x_{3},x_{4}) \mid x_{3} = x_{4} = 0\}$. That is, $T = SU_{2} \cap W = \left\{ \begin{pmatrix}
+    a & 0 \\ 0 & \bar{a}
+\end{pmatrix} \Big| \abs{a}^{2} = 1 \right\}$. Note that $T$ is a subgroup of $SU_{2}$ and $T \cong U_{1}(\C)$.
+
+\begin{proposition}
+    $T \sbg SU_{2}$. Moreover, longitudes of $SU_{2}$ are exactly the conjugates of the subgroup $T$.
+\end{proposition}
+\begin{proof}
+    $T$ being a subgroup is clear. Let $T'$ be a different longitude with $P' \in T'$ and $P' \neq \pm I$. Then $-1 < \tr P' < 1$. Let $P \in T$ such that $\tr P = \tr P'$. By the previous proposition, there exists $Q \in SU_{2}$ such that $QPQ^{\ast} = P'$. We now show that $QTQ^{\ast}$ is a longitude containing $P'$. Let $Q = \begin{pmatrix}
+        a & b \\ -\bar{b} & \bar{a}
+    \end{pmatrix}$ for some $a,b \in \C$ with $\abs{a}^{2} + \abs{b}^{2} = 1$, and let $T = \left\{ \begin{pmatrix}
+        w_{1} + iw_{2} & 0 \\ 0 & w_{1} - iw_{2}
+    \end{pmatrix} \Big| w_{1},w_{2} \in \R, w_{1}^{2} + w_{2}^{2} = 1 \right\}$. If we take such a matrix $W \in T$ with $z = w_{1}+iw_{2}$, then computing $QWQ^{\ast}$ gives a plane viewed in $\R^{4}$. Thus, $QTQ^{\ast} = SU_{2} \cap QWQ^{\ast}$ since $T = SU_{2} \cap W$.
+\end{proof}
