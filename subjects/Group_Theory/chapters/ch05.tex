@@ -114,3 +114,25 @@ Let $P \in SU_{2}$ be different from $\pm I$. Then $P$ and $I$ are linearly inde
         w_{1} + iw_{2} & 0 \\ 0 & w_{1} - iw_{2}
     \end{pmatrix} \Big| w_{1},w_{2} \in \R, w_{1}^{2} + w_{2}^{2} = 1 \right\}$. If we take such a matrix $W \in T$ with $z = w_{1}+iw_{2}$, then computing $QWQ^{\ast}$ gives a plane viewed in $\R^{4}$. Thus, $QTQ^{\ast} = SU_{2} \cap QWQ^{\ast}$ since $T = SU_{2} \cap W$.
 \end{proof}
+
+\textit{October 15th.}
+
+\begin{proposition}
+    There exists a surjective continuous homomorphic map $\varphi : SU_{2} \to SO_{3}(\R)$ with kernel $\{\pm I\}$.
+\end{proposition}
+
+\begin{proof}
+    We have already recognized the action of $SU_{2}$ on latitudes via conjugacy; in particular on $L = \{(0,x_{2},x_{3},x_{4}) \mid x_{2}^{2} + x_{3}^{2} + x_{4}^{2} = 1\} = \left\{ \begin{pmatrix}
+        ix_{2} & x_{3} + ix_{4} \\ -x_{3} + ix_{4} & -ix_{2}
+    \end{pmatrix} \Big| x_{2}^{2} + x_{3}^{2} + x_{4}^{2} = 1 \right\}$. Without the spherical condition, a basis for this 3-dimensional vector space is given as
+    \begin{align}
+        \cB = \left\{ A_{1} = \begin{pmatrix}
+            i & 0 \\ 0 & -i
+        \end{pmatrix},\; A_{2} = \begin{pmatrix}
+            0 & 1 \\ -1 & 0
+        \end{pmatrix},\; A_{3} = \begin{pmatrix}
+            0 & i \\ i & 0
+        \end{pmatrix} \right\}.
+    \end{align}
+    Let $V = \spanof \cB$, and let $P \in SU_{2}$ (note that $SU_{2}$ is a subset of $V$, but \textit{not} a linear subspace). Then $P$ acts on $V$ via $A \mapsto PAP^{\ast}$. Note that for $A \in V$, $\tr A = 0$ and $A^{\ast} = -A$; these two conditions characterise $V \subseteq M_{2}(\C)$. One can verify that $\tr (PAP^{\ast}) = \tr A = 0$ and $(PAP^{\ast})^{\ast} = -PAP^{\ast}$, so $PAP^{\ast} \in V$. Hence we obtain a group homomorphism $\varphi : SU_{2} \to \Bij V$. Let $P \in SU_{2}$ and suppose $\varphi(P):V \to V$ maps $A \mapsto PAP^{\ast}$. One can verify that $\varphi(P)$ is linear, so $\varphi(P) \in GL(V) \cong GL_{3}(\R)$. We now claim that $\varphi(P) \in SO_{3}(\R)$. If $\varphi(P)$ preserves an inner product on $V$, then it is orthogonal. One can verify that $\ip{A,B} = -\frac{1}{2}\tr(AB)$ is an inner product on $V$, and $\ip{\varphi(P)(A),\varphi(P)(B)} = \ip{A,B}$ for all $A,B \in V$. Thus $\varphi(P) \in O_{3}(\R)$. We are now left with showing that $\det \varphi(P) = 1$. Let us call the composition map $SU_{2} \xrightarrow{\varphi} GL_{3} \xrightarrow{\det} \R$ as $f = \det \circ \varphi$. Note that $f$ is a continuous homomorphism. The only possible image of $f$ are $\{1,-1\}$. So $f^{-1}(-1)$ and $f^{-1}(1)$ are both open in $SU_{2}$. If $f^{-1}(1)$ is a non-empty proper (open) subset of $S^{3}$, then $S_{3}\setminus f^{-1}(1) = f^{-1}(-1)$ is not open, which is a contradiction. Hence $f^{-1}(1)$ is either empty or $S^{3}$. Since $f(I) = 1$, we have $f^{-1}(1) = S^{3}$, so $\det \varphi(P) = 1$ for all $P \in SU_{2}$. Thus $\varphi(P) \in SO_{3}(\R)$ for all $P \in SU_{2}$.
+\end{proof}
