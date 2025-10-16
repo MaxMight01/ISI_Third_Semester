@@ -1,5 +1,7 @@
 \chapter{MATRIX GROUPS}
 
+\section{Spheres and Linear Groups}
+
 We begin with $GL_{n}(\R) \subseteq M_{n}(\R)$, the set of all invertible $n \times n$ matrices with real entries. If we instead look at $M_{n}(\R)$ as $\R^{n^{2}}$ instead, then $GL_{n}(\R)$ is the set of all matrices such that the polynomial $\det(A) \neq 0$. Thus $GL_{n}(\R)$ is the complement of the zero set of a polynomial, and hence is open in $\R^{n^{2}}$. Note that $GL_{n}$ acts on $M_{n}$ via matrix conjugation as
 \begin{align}
     GL_{n} \times M_{n} \to M_{n}, \quad (P,A) \mapsto PAP^{t}.
@@ -135,4 +137,59 @@ Let $P \in SU_{2}$ be different from $\pm I$. Then $P$ and $I$ are linearly inde
         \end{pmatrix} \right\}.
     \end{align}
     Let $V = \spanof \cB$, and let $P \in SU_{2}$ (note that $SU_{2}$ is a subset of $V$, but \textit{not} a linear subspace). Then $P$ acts on $V$ via $A \mapsto PAP^{\ast}$. Note that for $A \in V$, $\tr A = 0$ and $A^{\ast} = -A$; these two conditions characterise $V \subseteq M_{2}(\C)$. One can verify that $\tr (PAP^{\ast}) = \tr A = 0$ and $(PAP^{\ast})^{\ast} = -PAP^{\ast}$, so $PAP^{\ast} \in V$. Hence we obtain a group homomorphism $\varphi : SU_{2} \to \Bij V$. Let $P \in SU_{2}$ and suppose $\varphi(P):V \to V$ maps $A \mapsto PAP^{\ast}$. One can verify that $\varphi(P)$ is linear, so $\varphi(P) \in GL(V) \cong GL_{3}(\R)$. We now claim that $\varphi(P) \in SO_{3}(\R)$. If $\varphi(P)$ preserves an inner product on $V$, then it is orthogonal. One can verify that $\ip{A,B} = -\frac{1}{2}\tr(AB)$ is an inner product on $V$, and $\ip{\varphi(P)(A),\varphi(P)(B)} = \ip{A,B}$ for all $A,B \in V$. Thus $\varphi(P) \in O_{3}(\R)$. We are now left with showing that $\det \varphi(P) = 1$. Let us call the composition map $SU_{2} \xrightarrow{\varphi} GL_{3} \xrightarrow{\det} \R$ as $f = \det \circ \varphi$. Note that $f$ is a continuous homomorphism. The only possible image of $f$ are $\{1,-1\}$. So $f^{-1}(-1)$ and $f^{-1}(1)$ are both open in $SU_{2}$. If $f^{-1}(1)$ is a non-empty proper (open) subset of $S^{3}$, then $S_{3}\setminus f^{-1}(1) = f^{-1}(-1)$ is not open, which is a contradiction. Hence $f^{-1}(1)$ is either empty or $S^{3}$. Since $f(I) = 1$, we have $f^{-1}(1) = S^{3}$, so $\det \varphi(P) = 1$ for all $P \in SU_{2}$. Thus $\varphi(P) \in SO_{3}(\R)$ for all $P \in SU_{2}$.
+\end{proof}
+We shall show the surjectivity and the kernel of $\varphi$ in the next section.
+
+\section{Basic Topology}
+
+Note that in the above, we have used the subspace topological definition.
+
+\begin{definition}
+    For $X \subseteq \R^{n}$, an \eax{open set} in $X$ is a set of the form $U \cap X$ where $U$ is open in $\R^{n}$.
+\end{definition}
+
+\begin{definition}
+    $X \subseteq \R^{n}$ is said to be \eax{disconnected} if there exist non-empty open set $U,V \subseteq X$ such that $U \cap V = \emptyset$ and $U \cup V = X$. If $X$ is not disconnected, then it is said to be \eax{connected}.
+\end{definition}
+
+We show that $S^{3}$ is connected. Let $U \subsetneq S^{3}$ be open and non-empty. Let $x \in V = S^{3}\setminus U$ such that $x$ is the limit of a sequence $\{x_{n}\} \subseteq U$. Since $x \in V$, which we assume to be open for the sake of contradiction, there exists an open set $B$ such that $x \in B \subseteq V$. But since $x_{n} \to x$, there are infinitely many $x_{i}$'s contained in $B$ and hence in $U_{2}$. But then this shows $U \cap V \neq \emptyset$, which is a contradiction. Thus $S^{3}$ is connected.
+
+\begin{proposition}
+    Let $f:X \to Y$ be a continuous map where $X \subseteq \R^{n}$ and $Y \subseteq \R^{m}$. If $X$ is connected, then $f(X)$ is also connected.
+\end{proposition}
+
+Note that $A \in SO_{3}$ implies that it fixes a non-zero vector in $\R^{3}$. One can show that $1$ is an eigenvalue of $A$. Let $v$ be a corresponding eigenvector, that is, $Av = v$, and let $\{v,v_{1},v_{2}\}$ be an orthogonal basis of $\R^{3}$. Then $A$ with respect to this basis is given as $\begin{pmatrix}
+    1 & 0 & 0 \\ 0 & \cos \theta & \sin \theta \\ 0 & -\sin \theta & \cos \theta
+\end{pmatrix}$ for some $\theta$. Thus, $SO_{3}(\R)$ is the set of all such matrices.
+
+We now continue the proof of \textbf{Proposition 5.11}.
+
+\begin{proof}[Proof, continued.]
+    We had shown $\varphi: SU_{2} \to SO_{3}(\R)$ is a continuous homomorphism. Trivially, $\varphi(I) = I$ and $\varphi(-I) = I$, so $\{\pm I\} \subseteq \ker \varphi$. Conversely, if $P \in \ker \varphi$, then $PAP^{\ast} = A$ for all $A \in V$. In particular, for $A = A_{1}$, we have
+    \begin{align}
+        \begin{pmatrix}
+            a & b \\ -\bar{b} & \bar{a}
+        \end{pmatrix} \begin{pmatrix}
+            i & 0 \\ 0 & -i
+        \end{pmatrix} \begin{pmatrix}
+            \bar{a} & -b \\ \bar{b} & a
+        \end{pmatrix} = \begin{pmatrix}
+            i & 0 \\ 0 & -i
+        \end{pmatrix}.
+    \end{align}
+    We get $b = 0$. Similarly, for $A = A_{2}$, we get $a = \bar{a}$. Together with $\abs{a}^{2} + \abs{b}^{2} = 1$, we get $a = \pm 1$. Thus $\ker \varphi = \{\pm I\}$. We now show surjectivity. Let $H \in SO_{3}(\R)$, and let its matrix form be given as above with respect to the basis $\{v,v_{1},v_{2}\}$. We want to show that there exists $P \in SU_{2}$ such that $\varphi(P) = H$. Letting $P = \begin{pmatrix}
+        a & 0 \\ 0 & \bar{a}
+    \end{pmatrix}$, we have $\varphi(P)(A_{1}) = A_{1}$, and a linear combination of $A_{2}$ and $A_{3}$ given as $\begin{pmatrix}
+        0 & z \\ -\bar{z} & 0
+    \end{pmatrix}$ is mapped as $\varphi(P) \begin{pmatrix}
+        0 & z \\ -\bar{z} & 0
+    \end{pmatrix} = \begin{pmatrix}
+        0 & a^{2} z \\ -\bar{a}^{2} \bar{z} & 0
+    \end{pmatrix}$. Since $\varphi(P)$ is special orthogonal, we have $\abs{a}^{2} = 1$ or $a = e^{-i\theta}$ or $a^{2} = e^{-2i\theta}$. Thus, $\varphi(P)$ is exactly the rotation by angle $\theta$ fixing $v$ given as
+    \begin{align}
+        \varphi(P) = \begin{pmatrix}
+            1 & 0 & 0 \\ 0 & \cos 2\theta & \sin 2\theta \\ 0 & -\sin 2\theta & \cos 2\theta
+        \end{pmatrix}.
+    \end{align}
+    Thus, $H \in \Img \varphi$.
 \end{proof}
