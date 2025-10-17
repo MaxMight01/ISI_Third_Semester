@@ -65,3 +65,88 @@ The problem is to find $\phi$ such that $E_{\theta}[\phi(X)]$ is maximized when 
         \frac{f(x \mid \theta')}{f(x \mid \theta)} = h_{\theta,\theta'}(T(x)), \text{ where } h_{\theta,\theta'} \text{ is non decreasing}.
     \end{align}
 \end{definition}
+
+\textit{October 17th.}
+
+
+\begin{theorem}
+    Let $\theta$ be a real parameter and let $X$ have density $f(x \mid \theta)$ with MLR in $T(x)$. Then
+    \begin{enumerate}
+        \item for every $H_{0}:\theta \leq \theta_{0}$ and $H_{1}:\theta > \theta_{0}$, there exists a UMP test of level $\alpha$ given by
+        \begin{align}
+            \phi(x) = \begin{cases}
+                1 &\text{ if } T(x) > c,\\
+                \gamma &\text{ if } T(x) = c,\\
+                0 &\text{ if } T(x) < c,
+            \end{cases}
+        \end{align}
+        where $c$ and $\gamma$ are determined by $E_{\theta_{0}}[\phi(X)] = \alpha$.
+
+        \item The power function $E_{\theta}[\phi(X)]$ of this test is strictly increasing for all $\theta$ satisfying $E_{\theta}[\phi(X)] < 1$.
+        \item For all $\theta'$, the test given by part 1.~is the UMP for testing $H_{0}:\theta \leq \theta'$ and $H_{1}:\theta > \theta'$ at level $\alpha' = E_{\theta'}[\phi(X)]$.
+        \item For any $\theta < \theta_{0}$, the test given by part 1.~minimizes $E_{\theta}(\phi(X))$ among all test satisfying $E_{\theta_{0}}[\phi(X)] = \alpha$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{example}
+    We have $X_{1},\ldots,X_{n} \sim N(\mu,\sigma^{2})$, where $\sigma^{2}$ is known. We wish to test $H_{0}:\mu \leq \mu_{0}$ against $H_{1}:\mu > \mu_{0}$. With $T(X) = \overline{X}$, we have MLR. Thus, the UMP test of level $\alpha$ is given by
+    \begin{align}
+        \phi(X) = \begin{cases}
+            1 &\text{ if } \overline{X} > c,\\
+            \gamma &\text{ if } \overline{X} = c,\\
+            0 &\text{ if } \overline{X} < c,
+        \end{cases}
+    \end{align}
+    where $\gamma$ does not matter since $P(\overline{X} = c) = 0$. To find $c$, we require that $E_{\mu_{0}}[\phi(X)] = \alpha$ when $\mu = \mu_{0}$. Thus,
+    \begin{align}
+        \alpha = E_{\theta}[\phi(X)] = P(\overline{X} > c) = P\left(Z > \frac{c - \mu_{0}}{\sigma/\sqrt{n}}\right) = z_{1-\alpha}.
+    \end{align}
+    Thus, $c = \mu_{0} + z_{1-\alpha} \frac{\sigma}{\sqrt{n}}$. We now wish to test $H_{0}:\sigma^{2} \leq \sigma_{0}^{2}$ against $H_{1}:\sigma^{2} > \sigma_{0}^{2}$. With $T(X) = \sum_{i=1}^{n}(X_{i} - \mu_{0})^{2}$, we have MLR. Thus, the UMP test of level $\alpha$ is given by $\phi(X) = \1_{\{T(X) > c\}}$, where $c$ is determined by a chi-squared distribution.
+\end{example}
+
+\subsection{Generalized Likelihood Ratio Test}
+
+Let $X \sim P_{\theta}$, $\theta \in \Theta$, have ddensity $f(x \mid \theta)$. Consider the test $H_{0}:\theta \in \Theta_{0}$ against $H_{1}:\theta \in \Theta_{1}$, where $\Theta_{0},\Theta_{1} \subseteq \Theta$ and $\Theta_{0} \cap \Theta_{1} = \emptyset$. The \eax{generalized likelihood ratio} (GLR) is defined as
+\begin{align}
+    L(x) = \frac{\sup_{\theta \in \Theta_{1}}f(x \mid \theta)}{\sup_{\theta \in \Theta_{0}}f(x \mid \theta)}.
+\end{align}
+Consider
+\begin{align}
+    \lambda(x) = \frac{\sup_{\theta \in \Theta}f(x \mid \theta)}{\sup_{\theta \in \Theta_{0}}f(x \mid \theta)}.
+\end{align}
+Note that $\lambda(x) = \max\{1, L(x)\}$. The GLR test rejects $H_{0}$ if $L(x) > k$ for some $k \geq 0$, or equivalently, if $\lambda(x) > c$ for some $c \geq 1$.
+
+\begin{example}
+    $X_{i} \sim N(\mu,\sigma^{2})$, with $\mu$ and $\sigma^{2}$ unknown. We wish to test $H_{0}:\mu = 0$ against $H_{1}:\mu \neq 0$. We have $\Theta_{0} = \{(0,\sigma^{2}):\sigma^{2} > 0\}$ and $\Theta_{1} = \{(\mu,\sigma^{2}):\mu \neq 0, \sigma^{2} > 0\}$. The MLE are needed to compute the GLR statistic. We have
+    \begin{align}
+        \lambda(\underline{x}) = \frac{f(x \mid \hat{\theta}_{1})}{f(x \mid \hat{\theta}_{0})} = \frac{(2\pi)^{-n/2} (-\frac{1}{n} \sum (x_{i}-\overline{x})^{2})^{-n/2} \exp(-\frac{1}{2\hat{\sigma_{1}}^{2}}(\sum (x_{i}-\overline{x}^{2})+n(\overline{x}-\hat{\mu}_{1}^{2})))}{(2\pi)^{-n/2} (-\frac{1}{n} \sum (x_{i}-\overline{x})^{2})^{-n/2} \exp(-\frac{1}{2\hat{\sigma_{0}^{2}}}(\sum (x_{i}-\overline{x})^{2}+n(\overline{x}-0)^{2}))}.
+    \end{align}
+\end{example}
+
+\section{Confidence Set}
+
+For a \eax{confidence set}, we want $S(X) \subseteq \Theta$ such that $P(\theta \in S(X)) \geq 1 - \alpha$ for all $\theta \in \Theta$. $S(X)$ is then said to be a $100(1-\alpha)\%$ confidence set for $\theta$. Here we test $H_{0}:\theta = \theta'$ against $H_{1}:\theta \neq \theta'$ for any $\theta' \in \Theta$. Let $A(\theta') \subseteq \cX$ be the acceptance region of level $\alpha$ test for this hypothesis. Define $S(X) = \{\theta' \in \Theta \mid X \in A(\theta')\}$.
+
+\begin{example}
+    Suppose $X_{1},\ldots,X_{n} \sim N(\mu,\sigma^{2})$, where $\sigma^{2}$ is known. $\overline{X}$ here is sufficient for $\mu$. We wish to find a $100(1-\alpha)\%$ confidence interval for $\mu$. For any $\mu' \in \R$, we test $H_{0}:\mu = \mu'$ against $H_{1}:\mu \neq \mu'$. The level $\alpha$ test has acceptance region $A(\mu') = \{x : |\overline{x} - \mu'| < z_{\alpha/2} \frac{\sigma}{\sqrt{n}}\}$. Thus the confidence set (interval in our case) is
+    \begin{align}
+        S(\overline{X}) = \left[ \overline{X} - z_{1-\alpha/2} \frac{\sigma}{\sqrt{n}}, \overline{X} + z_{1-\alpha/2} \frac{\sigma}{\sqrt{n}} \right].
+    \end{align}
+\end{example}
+
+\subsection{Interval Estimation}
+
+Let $X \sim P_{\theta}$, $\theta \in \Theta$.
+
+\begin{definition}
+    An interval $(\underline{T}(x),\overline{T}(x))$, with $\underline{T}(x) < \overline{T}(x)$ for all $x \in \cX$, is said to be a \eax{confidence interval} for $q(\theta)$ if
+    \begin{align}
+        \inf_{\theta \in \Theta} P_{\theta}(\underline{T}(X) < q(\theta) < \overline{T}(X)) \geq 1 - \alpha.
+    \end{align}
+    A closed interval may also be termed so.
+\end{definition}
+
+To define confidence intervals, we use the concept of \eax{pivotal quantity}. It is simply a real valued function $T(\underline{X},\theta)$ such that the distribution of $T(\underline{X},\theta)$ does not depend on $\theta$. Suppose we choose two numbers $t_{1}$ and $t_{2}$ such that $P_{\theta}(t_{1} \leq T(\underline{x},\theta) \leq t_{2}) = 1-\alpha$. If, for each $\underline{x}$, $T(\underline{x},\theta)$ is monotone in $\theta$, then we can solve the inequalities $t_{1} \leq T(\underline{x},\theta) \leq t_{2}$ for $\theta$ to get the confidence interval.
+
+
+For example, if $X_{1},\ldots,X_{n} \sim N(\mu,\sigma^{2})$, with both parameters unknown, then $T(\underline{X}) = \frac{\sum (X_{i}-\overline{X})^{2}}{\sigma^{2}} \sim \chi^{2}_{n-1}$ is a pivotal quantity for $\sigma^{2}$. Choosing $t_{1}$ and $t_{2}$ such that $P(t_{1} \leq \chi^{2}_{n-1} \leq t_{2}) = 1-\alpha$, we have as desired.
