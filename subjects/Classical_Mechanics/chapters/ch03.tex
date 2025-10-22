@@ -332,7 +332,7 @@ Thus, we substitute into $\vec{r}'$ to get
 \end{align}
 Note that the vector $\vec{r}$ isn't special, and can be replaced by any vector undergoing the same rotational transformation for a finite angle. It is left as an exercise to the reader to find a relationship between $(\hat{e}_{n},\Phi)$ and the Euler angle rotations $(R_{\psi},R_{\theta},R_{\phi})$. Thus a `rotation formula' has been obtained.
 
-\section{Composition of Rotations}
+\subsection{Composition of Rotations}
 
 For an infinitesimal rotation, we have $x_{i}' = x_{i} + \sum_{j \neq i}\epsilon_{ij} x_{j}$, where $(\epsilon_{ij})$ is an infinitesimal matrix (a tensor). Writing in vector form,
 \begin{align}
@@ -385,3 +385,62 @@ where we have taken $\vec{d\Omega} = \hat{e}_{n} d\Phi$. Thus, the two formulae 
         n_{2} & -n_{1} & 0
     \end{pmatrix}d\Phi.
 \end{align}
+
+\section{Rate of Change}
+\textit{October 22nd.}
+
+COnsider the infinitesimal change $\vec{dG}$ of any vector $\vec{G}$ under an infinitesimal rotation $\vec{d\Omega}$. We have
+\begin{align}
+    (\vec{dG})_{\text{space}} = (\vec{dG})_{\text{body}} + \vec{d\Omega} \times \vec{G}.
+\end{align}
+Taking the time derivative, we obtain
+\begin{align}
+    \frac{d\vec{G}}{dt}\Big|_{\text{space}} = \frac{d\vec{G}}{dt}\Big|_{\text{body}} + \vec{\omega} \times \vec{G}
+\end{align}
+where $\vec{\omega}$ is the instantaneous angular velocity vector. This is a sort of hand-wavy derivation, but it can be made more rigorous. Suppose the body-set is rotated with respect to the space-set by an orthogonal matrix $A(t)$. Let $[A(t)]_{ij} = a_{ij}$. Then without the loss of generality, let at time $t$ ($G_{i}'=G_{i}$), we have
+\begin{align}
+    G_{i} = \sum_{j} (A^{-1})_{ij} G_{j}' = \sum_{j} a_{ji} G_{j}' \implies dG_{i} = \sum_{j} a_{ji} dG_{j}' + \sum_{j} G_{j}' da_{ji} = dG_{i}' + \sum_{j} G_{j}' da_{ji}.
+\end{align}
+With $-\epsilon = \begin{pmatrix}
+    0 & -d\Omega_{3} & d\Omega_{2} \\
+    d\Omega_{3} & 0 & -d\Omega_{1} \\
+    -d\Omega_{2} & d\Omega_{1} & 0
+\end{pmatrix}$, we have
+\begin{align}
+    -\epsilon_{ij} = -\epsilon_{ijk} d\Omega_{k} = \epsilon_{ikj} d\Omega_{k} \implies da_{ji} = \epsilon_{ikj} d\Omega_{k}
+\end{align}
+since $da_{ji} = (\epsilon^{T})_{ij} = (-\epsilon)_{ij}$. Note that $\epsilon_{ij}$ denotes the components of the antisymmetric tensor, while $\epsilon_{ijk}$ is the Levi-Civita symbol. Thus,
+\begin{align}
+    dG_{i} = dG_{i}' + \sum_{j,k} G_{j}' \epsilon_{ikj} d\Omega_{k} = dG_{i}' + (\vec{d\Omega} \times \vec{G}')_{i}.
+\end{align}
+Note that the vector $\vec{G}$ did not really play a role; any vector would have worked. Taking the time derivative, we obtain the desired result. For example, putting in the position vector $\vec{r}$, we have
+\begin{align}
+    \vec{v}_{s} = \vec{v}_{b} + \vec{\omega} \times \vec{r}.
+\end{align}
+We take it a step further to derive the accelration---
+\begin{align}
+    \vec{a}_{s} = \frac{d\vec{v}_{s}}{dt}\Big|_{s} = \frac{d\vec{v}_{s}}{dt}\Big|_{b} + \vec{\omega} \times \vec{v}_{s} = \frac{d\vec{v}_{b}}{dt}\Big|_{b} + \vec{\omega} \times (\vec{v}_{b} + \vec{\omega} \times \vec{r}) = \vec{a}_{b} + 2\vec{\omega} \times \vec{v}_{b} + \vec{\omega} \times (\vec{\omega} \times \vec{r}).
+\end{align}
+Define $\vec{F}_{s} = m\vec{a}_{s}$ and $\vec{F}_{b} = m\vec{a}_{b}$ to get
+\begin{align}
+    \vec{F}_{b} = \vec{F}_{s} - m(\vec{\omega} \times (\vec{\omega} \times \vec{r})) - 2m(\vec{\omega} \times \vec{v}_{b}).
+\end{align}
+The first of these addition terms is called the \eax{centrifugal force}, while the second is called the \eax{Coriolis force}. These are the only two pseudoforces that arise in a rotating frame with constant angular velocity. 
+
+Recall the angular momentum equation, $\vec{L} = \tensor{I} \vec{\omega} \implies \sum_{\beta} I_{\alpha \beta} \omega_{\beta} = L_{\alpha}$. The rotational kinetic energy takes the form $T = \frac{1}{2} \vec{\omega} \cdot (\tensor{I} \vec{\omega}) = \sum_{\alpha,\beta} \frac{1}{2} I_{\alpha \beta} \omega_{\alpha} \omega_{\beta}$. But note that the inertia tensor is symmetric, and hence can be diagonalized. Thus, there exists a coordinate system in which $\tensor{I}$ is diagonal, i.e., $I_{\alpha \beta} = 0$ for $\alpha \neq \beta$. The corresponding axes are called the \eax{principal axes of inertia}. Diagonalizing $\tensor{I}$ gives
+\begin{align}
+    S^{-1} \tensor{I} S = \begin{pmatrix}
+        I_{1} & 0 & 0 \\
+        0 & I_{2} & 0 \\
+        0 & 0 & I_{3}
+    \end{pmatrix}
+\end{align}
+where $I_{i}$'s are called the \eax{principal moments of inertia}. Corresponding to these principal axes are unit vectors $\hat{e}_{1},\hat{e}_{2},\hat{e}_{3}$. In this coordinate system, we simply have $L_{1} = I_{1}\omega_{1}$, and so on. Note that the principal axes are orthogonal, since $S$ is an orthogonal matrix. Here we have taken $\vec{\omega} = \omega_{1} \hat{e}_{1} + \omega_{2} \hat{e}_{2} + \omega_{3} \hat{e}_{3}$ and $\vec{L} = L_{1} \hat{e}_{1} + L_{2} \hat{e}_{2} + L_{3} \hat{e}_{3}$. Moving forward, if $\vec{L}$ plays the role of $\vec{G}$, we get
+\begin{align}
+    \vec{\tau}_{\text{ext}} = \frac{d\vec{L}}{dt}\Big|_{s} = \frac{d\vec{L}}{dt}\Big|_{b} + \vec{\omega} \times \vec{L} \implies \frac{dL_{i}}{dt}\Big|_{b} + \epsilon_{ijk} \omega_{j} L_{k} = \tau_{\text{ext},i}.
+\end{align}
+With $L_{i} = I_{i} \omega_{i}$, we have
+\begin{align}
+    \tau_{\text{ext},i} = I_{i} \frac{d\omega_{i}}{dt} + \epsilon_{ijk} (I_{k} \omega_{k}) \implies \tau_{\text{ext},1} = I_{1}\dot{\omega}_{1} + \omega_{2}\omega_{3}(I_{3}-I_{2}) \quad \text{ and cyclic permutations.}
+\end{align}
+
