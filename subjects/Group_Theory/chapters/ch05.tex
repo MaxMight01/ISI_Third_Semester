@@ -193,3 +193,163 @@ We now continue the proof of \textbf{Proposition 5.11}.
     \end{align}
     Thus, $H \in \Img \varphi$.
 \end{proof}
+
+\textit{October 23rd.}
+
+\begin{proposition}
+    Let $G$ be a closed and connected subgroup of $GL_{n}(\C)$. Let $H \sbg G$ such that it contains an open non-empty subset $U$ of $G$. Then $H = G$.
+\end{proposition}
+\begin{proof}
+    We claim that for any $g \in G$, the coset $gH$ is open in $G$. Since $U \subseteq H$ is non-empty and open, there exists some $y \in U$. For any $x \in gH$, we have $xH = gH$. Consider the set $xy^{-1}U$, which is an open subset of $xH$ (and hence of $gH$), and note that $x \in xy^{-1}U$. Thus, $gH$ is open in $G$. 
+    Now, if $H$ were a proper subgroup of $G$, the collection of cosets $\{ gH \mid g \in G \}$ would contain at least two distinct elements. The union $\bigcup_{g \in G} gH$ would then be a non-empty open set, and by connectedness of $G$, this union must be all of $G$. This leads to a contradiction, as a proper subgroup cannot cover the entire group. Therefore, $H = G$.
+\end{proof}
+
+\begin{theorem}
+    Let $N \nsbg SU_{2}$ be a normal subgroup, and let $A \in N$ be such that $A \neq \pm I$. Then $N = SU_{2}$. In particular, $SO_{3}$ is simple.
+\end{theorem}
+
+\begin{proof}
+    Let $P \in N \nsbg SU_{2}$ with $P \notin \{\pm I\}$. Then $-2 < \tr P < 2$. Then $N$ contains the latitude containing $P$; let $P_{0} \neq P$ be another elmenet of the latitude. Now consider the path $f:[0,1] \to SU_{2}$ such that $f(t) \in L$ for all $t$ and $f(0) = P_{0}$ and $f(1) = P$. Now define $\theta(t) = P_{0}^{-1}f(t)$ for $0 \leq t \leq 1$. Then $\theta(0) = I$ and $\theta(1) = P_{0}^{-1}P \neq I$. Note that $\theta(t)$ is a continuous path in $N$, with $\tr \theta(0) = 2$ and $(2-\varepsilon = ) \tr \theta(1) < 2$. Since the trace is continuous, $N$ contains some matrices of trace $[2-\varepsilon,2]$. But latitudes are conjugacy classes, so $N$ contains all matrices of $SU_{2}$ with trace in $[2-\varepsilon,2]$. Thus, $N$ contains an open neighbourhood of $I$ in $SU_{2}$. By the previous proposition, $N = SU_{2}$.
+
+    Moreover, if $N_{0} \nsbg SO_{3}(\R)$ and is non-trivial, then $\varphi^{-1}(N_{0}) \nsbg SU_{2}$ is non-trivial. By the above, $\varphi^{-1}(N_{0}) = SU_{2}$, so $N_{0} = SO_{3}(\R)$. Thus, $SO_{3}(\R)$ is simple.
+\end{proof}
+
+\subsection{More on Simple Linear Groups}
+
+We define $PSL_{n} = SL_{n}/Z(SL_{n})$, where $Z(SL_{n}) = \{\lambda I_{n} \mid \lambda^{n} = 1\}$ is the centre of $SL_{n}$.
+
+\begin{theorem}
+    The groups $PSL_{n}(\C)$ for $n \geq 2$, $SO_{n}(\C)/Z(SO_{n}(\C))$ for $n \geq 5$, and $\mathrm{sp}_{2n}(\C)/Z(\mathrm{sp}_{2n}(\C))$ for $n \geq 1$ are all simple.
+\end{theorem}
+
+\begin{theorem}
+    Let $F$ be a field of characteristic different from $p$, and let $\# F \geq 7$. Then $PSL_{2}(F)$ is simple.
+\end{theorem}
+
+\begin{proof}
+    Let $N \nsbg SL_{2}(F)$ such that $N$ contains $A \neq \pm I$. Note here that $Z(SL_{2}(F)) = \{\lambda I_{2} \mid \lambda^{2} = 1\} = \{\pm I_{2}\}$. We claim that $N$ contains an upper-triangular matrix different from $\pm I$. Let $A = \begin{pmatrix}
+        a & b \\ c & d
+    \end{pmatrix} \in N$ with $A \neq \pm I$. If $c = 0$, then done. Otherwise, consider
+    \begin{align}
+        \begin{pmatrix}
+            1 & x \\ 0 & 1
+        \end{pmatrix} \begin{pmatrix}
+            a & b \\ c & d
+        \end{pmatrix}
+        \begin{pmatrix}
+            1 & -x \\ 0 & 1
+        \end{pmatrix} = \begin{pmatrix}
+            a + cx & \ast \\ c & d - cx
+        \end{pmatrix} \in N.
+    \end{align}
+    There exists $x \in F$ such that $a + xc = 0$. Thus, a matrix of the from $A = \begin{pmatrix}
+        0 & b \\ c & d
+    \end{pmatrix} \in N$ exists (these $b,c,d$ are altered values). Then $\det A = 1$ implies $bc = -1$. Let $P = \begin{pmatrix}
+        u & 0 \\ 0 & u^{-1}
+    \end{pmatrix}$ for some $u \in F^{\times}$. Then
+    \begin{align}
+        N \ni P^{-1}A^{-1} P A = \begin{pmatrix}
+            u^{-1} & 0 \\ 0 & u
+        \end{pmatrix} \begin{pmatrix}
+            d & -b \\ -c & 0
+        \end{pmatrix} \begin{pmatrix}
+            u & 0 \\ 0 & u^{-1}
+        \end{pmatrix} \begin{pmatrix}
+            0 & b \\ c & d
+        \end{pmatrix} = \begin{pmatrix}
+            u^{-2} & bd(1-u^{-2}) \\ 0 & u^{2}
+        \end{pmatrix} = A' \in N.
+    \end{align}
+    We have to verify that this matrix is different from $\pm I$. If it were, we must have $u^{2} = \pm 1$ or $u^{4} = 1$. Since $\# F \geq 7$, there exists $u \in F^{\times}$ such that $u^{4} \neq 1$. Thus, we have found an upper-triangular matrix $A' \in N$ different from $\pm I$. Our next claim is that $N$ contains an upper-triangular matrix with $1$'s on the diagonal and some non-zero $u$ in the upper-right entry. We have already found a matrix $A = \begin{pmatrix}
+        a & b \\ 0 & d
+    \end{pmatrix} \in N$ different from $\pm I$. If $a = d$ then $a^{2} = 1$ implies $a = d = \pm 1$. If $a = d = 1$, then $A$ is of the desired form, and if $a = d = -1$, then $-A$ is of the desired form. If $a \neq d$, then consider
+    \begin{align}
+        N \ni A' = \begin{pmatrix}
+            1 & 1 \\ 0 & 1
+        \end{pmatrix} \begin{pmatrix}
+            a & b \\ 0 & d
+        \end{pmatrix}
+        \begin{pmatrix}
+            1 & -1 \\ 0 & 1
+        \end{pmatrix} = \begin{pmatrix}
+            a & b' \\ 0 & d
+        \end{pmatrix} \in N
+    \end{align}
+    where $b' = b + d - a$. Since $a \neq d$, we have $b' \neq b$. Then look at
+    \begin{align}
+        A'^{-1} A = \begin{pmatrix}
+            1 & ad-d^{2} \\ 0 & 1
+        \end{pmatrix} \in N
+    \end{align}
+    which is of the desired form since $a \neq d \implies ad-d^{2} \neq 0$.
+
+    We make another claim that the conjugacy classes of $\begin{pmatrix}
+        1 & u \\ 0 & 1
+    \end{pmatrix}$ in $SL_{2}(\F)$ for $u \in F^{\times}$ contains matrices of the form $\begin{pmatrix}
+        1 & a^{2}u \\ 0 & 1
+    \end{pmatrix}$ for all $a \in F^{\times}$ and $\begin{pmatrix}
+        1 & 0 \\ -u & 1
+    \end{pmatrix}$. The latter matrix is easily obtained by conjugating with $\begin{pmatrix}
+        0 & 1 \\ -1 & 0
+    \end{pmatrix}$. The former matrices are obtained by conjugating with $\begin{pmatrix}
+        a & 0 \\ 0 & a^{-1}
+    \end{pmatrix}$ for all $a \in F^{\times}$. Before proceeding further, we show a small lemma: that if $\mathrm{char} F \neq 2$, then $(F,+)$ is generated by $\{a^{2} \mid a \in F^{\times}\}$. Easy to see since for all $x \in F$, we can write $x = \frac{(x+1)^{2} - (x-1)^{2}}{4}$.
+
+    One last claim is that since $\mathrm{char} F \neq 2$, and there is a matrix of the form $\begin{pmatrix}
+        1 & u \\ 0 & 1
+    \end{pmatrix} \in N$ for some $u \neq 0$, then $N$ contains all matrices of the form $\begin{pmatrix}
+        1 & v \\ 0 & 1
+    \end{pmatrix}$ for all $v \in F$. Let $H = \{x \mid \begin{pmatrix}
+        1 & x \\ 0 & 1
+    \end{pmatrix} \in N\}$. Then $H$ is a subgroup of $(F,+)$ since if $x,y \in H$, then $x-y \in H$ (verify this). Also $0 \neq u \in H$ by assumption. By the previous claim, $a^{2}u \in H$ for all $a \in F$. But since $\{a^{2} \mid a \in F\}$ generates $(F,+)$, we have $H = F$. Similar to this claim, one can show that $N$ contains all matrices of the form $\begin{pmatrix}
+        1 & 0 \\ u & 1
+    \end{pmatrix}$ for all $u \in F$. We now show that $SL_{2}(F)$ is generated by these two types of matrices. Let $A = \begin{pmatrix}
+        a & b \\ c & d
+    \end{pmatrix} \in SL_{2}(F)$. Look at
+    \begin{align}
+        \begin{pmatrix}
+            1 & u \\ 0 & 1
+        \end{pmatrix} \begin{pmatrix}
+            a & b \\ c & d
+        \end{pmatrix} = \begin{pmatrix}
+            a+uc & b+ud \\ c & d
+        \end{pmatrix},\quad \begin{pmatrix}
+            1 & 0 \\ u & 1
+        \end{pmatrix} \begin{pmatrix}
+            a & b \\ c & d
+        \end{pmatrix} = \begin{pmatrix}
+            a & b \\ c + ua & d + ub
+        \end{pmatrix}.
+    \end{align}
+    If $c = 0$, then $A_{1} = \begin{pmatrix}
+        1 & 0 \\ 1 & 1
+    \end{pmatrix} A = \begin{pmatrix}
+        a_{1} & b_{1} \\ c_{1} & d_{1}
+    \end{pmatrix}$. Then $c_{1} \neq 0$. Now there exists $c' \in F$ such that $c_{1} c' = 1-a_{1}$, or $c' = c_{1}^{-1}(1-a_{1})$. Then
+    \begin{align}
+        A_{2} = \begin{pmatrix}
+            1 & c' \\ 0 & 1
+        \end{pmatrix} A_{1} = \begin{pmatrix}
+            a_{1} + c'c_{1} & b_{1} + c'd_{1} \\ c_{1} & d_{1}
+        \end{pmatrix} = \begin{pmatrix}
+            1 & b_{2} \\ c_{2} & d_{2}
+        \end{pmatrix}.
+    \end{align}
+    Similarly,
+    \begin{align}
+        A_{3} = \begin{pmatrix}
+            1 & 0 \\ -c_{2} & 1
+        \end{pmatrix} A_{2} = \begin{pmatrix}
+            1 & b_{3} \\ 0 & d_{3}
+        \end{pmatrix}, \quad A_{4} = A_{3} \begin{pmatrix}
+            1 & -b_{3} \\ 0 & 1
+        \end{pmatrix} = \begin{pmatrix}
+            1 & 0 \\ 0 & d_{4}
+        \end{pmatrix}.
+    \end{align}
+    Since $A_{1},A_{2},A_{3},A_{4} \in SL_{2}(F)$, we must have $d_{3} = d_{4} = 1$. Taking inverses and rearranging, we have expressed $A$ as a product of the two types of matrices. Thus, $N = SL_{2}(F)$.
+\end{proof}
+
+\begin{corollary}
+    $PSL_{2}(\F_{p})$ is simple for all primes $p \geq 5$.
+\end{corollary}
