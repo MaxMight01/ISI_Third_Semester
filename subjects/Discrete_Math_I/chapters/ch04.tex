@@ -1,6 +1,6 @@
-\chapter{LATIN SQUARES}
+\chapter{LATIN SQUARES \& DESIGNS}
 
-\section{Introduction}
+\section{Latin Squares}
 
 \begin{definition}
     A \eax{latin square} of order $n$ is an $n \times n$ array filled with $n$ distinct symbols, each occuring exactly once in each row and exactly once in each column.
@@ -91,3 +91,106 @@ If $na = 0$ for $a \neq 0$, then $na a^{-1} = (a + a + \cdots + a) a^{-1} = (1 +
 \begin{proof}
     Let $p$ be the characteristic of $\K$ and $q$ be another prime factor of $\# \K$. Then $qa = 0$ for some $a \neq 0$. By Cauchy's theorem, $pa = 0$ for some $a \neq 0$. So $p = q$. Thus the order of $\K$ is $p^{k}$ for some $k \in \N$.
 \end{proof}
+
+\section{Designs}
+\textit{October 23rd.}
+
+\begin{theorem}[\eax{Fisher's inequality}]
+    Let $A_{1},\ldots,A_{m} \subseteq \cP([n])$ be distinct subsets such that $\#(A_{i} \cap A_{j}) = k$ for all $i \neq j$. Then $m \leq n$.
+\end{theorem}
+
+\begin{proof}
+    The idea is to build an incidence vector for $A_{i}$ as follows: define $v_{A_{i}} \in \R^{n}$ such that $v_{A_{i}}(j) = 1$ if $j \in A_{i}$ and $0$ otherwise. The inner product $\ip{v_{A_{i}},v_{A_{j}}} = \#(A_{i} \cap A_{j}) = k$ for $i \neq j$. We claim that the set $\{v_{A_{1}},\ldots,v_{A_{m}}\}$ is linearly independent. Suppose; then there exist $\alpha_{1},\ldots,\alpha_{m} \in \R$ not all zero such that $\sum_{i=1}^{m} \alpha_{i} v_{A_{i}} = 0$. Taking inner product with itself gives
+    \begin{align}
+        \ip{\sum_{i=1}^{m} \alpha_{i} v_{A_{i}},\sum_{j=1}^{m} \alpha_{j} v_{A_{j}}} = \sum_{i=1}^{m} \alpha_{i}^{2} \# A_{i} + \sum_{1 \leq i < j \leq n} 2 \alpha_{i} \alpha_{j} k = \sum_{i=1}^{m} \alpha_{i}^{2} (\# A_{i} - k) + k(\sum_{i=1}^{m} \alpha_{i})^{2} = 0
+    \end{align}
+    If $\# A_{i} \gneq k$ for all $i$, then $\alpha_{i} = 0$ for all $i$, a contradiction. Now suppose $\# A_{1} = k$. Then there cannot exist another $A_{i}$ such that $\# A_{i} = k$ since $A_{1} \cap A_{i} = k$ implies $A_{1} = A_{i}$. Thus $\# A_{i} > k$ for all $i \neq 1$. Then from the above equation, we have $\alpha_{i} = 0$ for all $i \neq 1$. So $\alpha_{1} v_{A_{1}} = 0$ implies $\alpha_{1} = 0$, a contradiction. Thus the set $\{v_{A_{1}},\ldots,v_{A_{m}}\}$ is linearly independent, and so $m \leq n$.
+\end{proof}
+
+We discuss this problem: suppose $A \in M_{n}(\R)$ with entries $\abs{a_{ij}} \leq 1$ for all $i,j$. What is the maximum possible value of $\det(A)$? If all the columns of $A$ are orthogonal, that would be good. Since eigenvalues have to satisfy $Ax = \lambda x$, we have $\abs{\lambda} \leq n$ and we have a simple bound
+\begin{align}
+    \abs{\det(A)} = \abs{\prod_{i=1}^{n} \lambda_{i}} \leq n^{n}.
+\end{align}
+A better bound is
+\begin{align}
+    \abs{\det(A)} \leq \abs{\sum_{\sigma \in S_{n}} \mathrm{sgn}(\sigma) a_{1,\sigma(1)} a_{2,\sigma(2)} \cdots a_{n,\sigma(n)}} \leq n! < n^{n}.
+\end{align}
+The Hadamard inequality for general matrices states that if the columns of $A$ are $c_{1},c_{2},\ldots,c_{n} \in \R^{n}$, then
+\begin{align}
+    \abs{\det(A)} \leq \norm{c_{1}}_{2} \norm{c_{2}}_{2} \cdots \norm{c_{n}}_{2} \leq n^{n/2} < n! < n^{n}.
+\end{align}
+with equality if and only if there exists a matrix $H$ with all entries $\pm 1$ such that $HH^{t} = H^{t} H = nI_{n}$. This inequality can be shown via $A^{t}A$ being positive definite.
+
+\begin{definition}
+    A matrix $H \in M_{n}(\R)$ is said to be a \eax{Hadamard matrix} if all its entries are $\pm 1$ and $\frac{1}{\sqrt{n}} H$ is orthogonal.
+\end{definition}
+
+For $n = 1$, $H = \begin{pmatrix}
+    1
+\end{pmatrix}$ is a Hadamard matrix. For $n = 2$, $H = \begin{pmatrix}
+    1 & 1 \\
+    1 & -1
+\end{pmatrix}$ works. For $n$ odd, we may assume the first row is all $1$s. Then the inner product of the first row with second row $(x_{1},\ldots,x_{n})$ gives $x_{1} + x_{2} + \cdots + x_{n} = 0$, which is impossible since $n$ is odd. Thus no Hadamard matrix exists for odd $n > 1$. Note that if $H$ is a Hadamard matrix, then so is the block matrix $\begin{pmatrix}
+    H & H \\
+    H & -H
+\end{pmatrix}$ (verify). Thus if a Hadamard matrix exists for $n$, then one exists for $2n$. This gives us Hadamard matrices for all powers of $2$. This is known as \eax{Sylvester's construction}. 
+
+For a general Hadamard matrix, let the first row be all $1$s. Let $(x_{1},\ldots,x_{n})$ and $(y_{1},\ldots,y_{n})$ be the second and third rows respectively. Then the inner product of these two rows gives $x_{1}y_{1} + x_{2}y_{2} + \cdots + x_{n}y_{n} = 0$. The inner product with the first row gives $x_{1} + x_{2} + \cdots + x_{n} = 0$ and $y_{1} + y_{2} + \cdots + y_{n} = 0$. Let $I_{1} = \{i \mid x_{i} = 1, y_{i} = 1\}$, $I_{2} = \{i \mid x_{i} = 1, y_{i} = -1\}$, $I_{3} = \{i \mid x_{i} = -1, y_{i} = 1\}$, and $I_{4} = \{i \mid x_{i} = -1, y_{i} = -1\}$. We have
+\begin{align}
+    \# I_{1} + \# I_{2} + \# I_{3} + \# I_{4} &= n, \\
+    \# I_{1} + \# I_{2} - \# I_{3} - \# I_{4} &= 0, \\
+    \# I_{1} - \# I_{2} + \# I_{3} - \# I_{4} &= 0, \\
+    \# I_{1} - \# I_{2} - \# I_{3} + \# I_{4} &= 0.
+\end{align}
+Solving, we get $\# I_{1} = \# I_{2} = \# I_{3} = \# I_{4} = n/4$. Thus $n$ must be divisible by $4$. This gives us the \eax{Hadamard conjecture}: for all $n$ divisible by $4$, there exists a Hadamard matrix of order $n$.
+
+Let $q$ be a prime power congruent to $3 \bmod 4$. Recall that in the field $\F_{q}$, half of the non-zero elements are quadratic residues (or squares), and half are quadratic non-residues (or non-squares); in particular, $+1$ is a square and $-1$ is a non-square. 
+
+The \emph{quadratic character} of $\F_{q}$ is the function $\chi$ defined by
+\begin{align}
+\chi(x) =
+\begin{cases}
+0, & \text{if } x = 0, \\
++1, & \text{if } x \text{ is a quadratic residue}, \\
+-1, & \text{if } x \text{ is a quadratic non-residue}.
+\end{cases}
+\end{align}
+
+Now let $A$ be the matrix whose rows and columns are indexed by elements of $\F_{q}$, and whose $(x, y)$ entry is given by $a_{xy} = \chi(y - x)$. The matrix $A$ is skew-symmetric, with zero diagonal and $\pm 1$ elsewhere, and satisfies the equation $A^{2} = J - qI$, where $J$ is the all-ones matrix and $I$ is the identity matrix. Now, if we replace the diagonal zeros of $A$ by $-1$s and border $A$ with a row and column of $+1$s, we obtain a Hadamard matrix of order $q + 1$, called a \eax{Paley matrix}.
+
+
+We now consider complex Hadamard matrices of order $n$. Here, the entries come from the unit circle $S^{1}$. (The definition changes to $\frac{1}{\sqrt{n}} H$ being unitary). For $n = 3$, we already have a matrix as
+\begin{align}
+    \begin{pmatrix}
+        1 & 1 & 1 \\
+        1 & \omega & \omega^{2} \\
+        1 & \omega^{2} & \omega
+    \end{pmatrix}.
+\end{align}
+In fact, for any $n$ we can construct a Hadamard matrix with entries $a_{jk} = \exp(2\pi i (j-1)(k-1)/n)$ for $1 \leq j,k \leq n$. Let us look at the inner product of two rows $R_{j}$ and $R_{j'}$ in such a matrix:
+\begin{align}
+    \ip{R_{j},R_{j'}} = \sum_{k=1}^{n} a_{jk} \overline{a}_{j'k} = \sum_{k=1}^{n} \exp(2\pi i(j-j')(k-1)/n).
+\end{align}
+This summation is $n$ for $j = j'$. For $j \neq j'$, this summation is 0. Thus, $H = (a_{jk})_{n \times n}$ is a complex Hadamard matrix. $\frac{1}{\sqrt{n}} H_{n}$, for a $n \times n$ complex Hadamard matrix $H_{n}$, is a unitary matrix. Applying it to a vector $v \in \C^{n}$ gives a new vector $\hat{v} = \frac{1}{\sqrt{n}} H_{n} v$. This $\hat{v}$ is known as the \eax{discrete Fourier transform} of $v$. In this sense, complex Hadamard matrices are more analytic, and real Hadamard matrices are more combinatorial.
+
+\begin{definition}
+    Let $v,k,t,\lambda \in \Z_{\geq 0}$ be such that $v \geq k \geq t \geq 0$ and $\lambda \geq 1$. A \eax{$t$-$(v,k,\lambda)$ design} consists of
+    \begin{enumerate}
+        \item $v$ points forming the set $\cP$,
+        \item a collection of distinct $k$-subsets $\cB$ of $\cP$ (called \eax{blocks}),
+        \item such that every $t$-subset of $\cP$ is contained in exactly $\lambda$ blocks.
+    \end{enumerate}
+    In other words, $\# \cP = v$, $\# B = k$ for all $B \in \cB$, and for any $T \subseteq \cP$ with $\# T = t$, we have $\# \{B \in \cB \mid T \subseteq B\} = \lambda$.
+\end{definition}
+
+If $t = 2$, then we simply call it a $(v,k,\lambda)$ design. For the case $\lambda = 1$, a $t-(v,k,1)$ design is called a \eax{Steiner system}, denoted by $S(t,k,v)$. If $(\cB = ) b = v$, then the design is called a \eax{symmetric design}.
+
+\begin{example}
+    Suppose $q$ is a prime power. Then $S(2,q+1,q^{2}+q+1)$ is a design with $q^{2}+q+1$ points and blocks of size $q+1$. Moreover, for any two points, there is a unique block containing them. This design arises from the finite projective plane of order $q$. Moreover, this is a symmetric design since the number of blocks is equal to the number of points.
+\end{example}
+
+One can show that $b = \# \cB$ satisfies
+\begin{align}
+    b = \frac{\lambda \binom{v}{t}}{\binom{k}{t}}
+\end{align}
+in a $t-(v,k,\lambda)$ design, via double counting.
