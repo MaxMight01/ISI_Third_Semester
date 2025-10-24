@@ -123,7 +123,7 @@ Note that $\lambda(x) = \max\{1, L(x)\}$. The GLR test rejects $H_{0}$ if $L(x) 
     \end{align}
 \end{example}
 
-\section{Confidence Set}
+\subsection{Confidence Set and Interval Estimation}
 
 For a \eax{confidence set}, we want $S(X) \subseteq \Theta$ such that $P(\theta \in S(X)) \geq 1 - \alpha$ for all $\theta \in \Theta$. $S(X)$ is then said to be a $100(1-\alpha)\%$ confidence set for $\theta$. Here we test $H_{0}:\theta = \theta'$ against $H_{1}:\theta \neq \theta'$ for any $\theta' \in \Theta$. Let $A(\theta') \subseteq \cX$ be the acceptance region of level $\alpha$ test for this hypothesis. Define $S(X) = \{\theta' \in \Theta \mid X \in A(\theta')\}$.
 
@@ -133,8 +133,6 @@ For a \eax{confidence set}, we want $S(X) \subseteq \Theta$ such that $P(\theta 
         S(\overline{X}) = \left[ \overline{X} - z_{1-\alpha/2} \frac{\sigma}{\sqrt{n}}, \overline{X} + z_{1-\alpha/2} \frac{\sigma}{\sqrt{n}} \right].
     \end{align}
 \end{example}
-
-\subsection{Interval Estimation}
 
 Let $X \sim P_{\theta}$, $\theta \in \Theta$.
 
@@ -150,3 +148,89 @@ To define confidence intervals, we use the concept of \eax{pivotal quantity}. It
 
 
 For example, if $X_{1},\ldots,X_{n} \sim N(\mu,\sigma^{2})$, with both parameters unknown, then $T(\underline{X}) = \frac{\sum (X_{i}-\overline{X})^{2}}{\sigma^{2}} \sim \chi^{2}_{n-1}$ is a pivotal quantity for $\sigma^{2}$. Choosing $t_{1}$ and $t_{2}$ such that $P(t_{1} \leq \chi^{2}_{n-1} \leq t_{2}) = 1-\alpha$, we have as desired.
+
+
+\section{Bayesian Inference}
+\textit{October 24th.}
+
+
+Model: $X \mid \theta$ has density $f(x \mid \theta)$, $\theta \in \Theta$. The \eax{prior}: $\theta$ has density $\pi(\theta)$. The \eax{posterior}: the density is
+\begin{align}
+    \pi(\theta \mid \underline{x}) = \frac{f(\underline{x} \mid \theta) \pi(\theta)}{m(\underline{x})}
+\end{align}
+where $m(\underline{x}) = \int_{\Theta} f(\underline{x} \mid \theta) \pi(\theta) d\theta$ is the marginal density of $\underline{x}$. Given all the ingredients, the Bayesian calculates the conditional probability density of $\theta$ given $\underline{X} = \underline{x}$. The joint density of $x$ and $\theta$ is
+\begin{align}
+    h(x,\theta) = f(x \mid \theta) \pi(\theta).
+\end{align}
+
+\begin{theorem}
+    Suppose $T = T(\underline{X})$ is sufficient for $\theta$. Then the posterior distribution of $\theta$ given $X = x$ depends on $x$ only through $T(x)$.
+\end{theorem}
+
+We have $f(x \mid \theta) = g(T(x),\theta) h(x)$, thus for $T(x) = t$,
+\begin{align}
+    \pi(\theta \mid \underline{x}) = \frac{f(x \mid \theta)\pi(\theta)}{\int f(x \mid u)\pi(u) du} = \frac{g(T(x),\theta)\pi(\theta)}{\int g(T(x),u)\pi(u) du} = \frac{g(t,\theta)\pi(\theta)}{\int g(t,u)\pi(u) du}.
+\end{align}
+
+\begin{example}
+    Consider an urn with $Np$ red and $N(1-p)$ black balls. $p$ is unknown but $N$ is a known large number. Balls are drawn at random one by one with replacement, and the selection is stopped after $n$ draws. For $i = 1,2,\ldots,n$, let $Y_{i} = 1$ if the $i$-th ball drawn is red, and $0$ otherwise. Then the $Y_{i}$ are i.i.d.~$\Ber(p)$. The likelihood function is $p^{\sum y_{i}} (1-p)^{n - \sum y_{i}}$. Now $X = \sum Y_{i}$ is sufficient for $p$. Suppose the prior distribution of $p$ is $\mathrm{Beta}(\alpha,\beta)$, with density
+    \begin{align}
+        \pi(p) = \frac{1}{B(\alpha,\beta)} p^{\alpha - 1} (1-p)^{\beta - 1}, \quad 0 < p < 1.
+    \end{align}
+    Here, $h(x \mid \theta) = f(x \mid \theta) \pi(\theta)$
+    \begin{align}
+        = \binom{n}{x} \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)} p^{x + \alpha - 1} (1-p)^{n - x + \beta - 1}.
+    \end{align}
+    Integration gives
+    \begin{align}
+        \int_{0}^{1} h(x \mid p) dp = \binom{n}{x} \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)} \int_{0}^{1} p^{x + \alpha - 1} (1-p)^{n - x + \beta - 1} dp = \binom{n}{x} \frac{\Gamma(\alpha + \beta)}{\Gamma(\alpha)\Gamma(\beta)}\frac{\Gamma(\alpha + x) \Gamma(\beta + n - x)}{\Gamma(\alpha + \beta + n)}.
+    \end{align}
+    Thus the posterior density is
+    \begin{align}
+        \pi(p \mid x) = \frac{h(x \mid p)}{\int_{0}^{1} h(x \mid p) dp} = \frac{\Gamma(\alpha + \beta + n)}{\Gamma(\alpha + x) \Gamma(\beta + n - x)} p^{x + \alpha - 1} (1-p)^{n - x + \beta - 1}, \quad 0 < p < 1.
+    \end{align}
+    Thus, $p \mid X = x \sim \mathrm{Beta}(\alpha + x, \beta + n - x)$.
+\end{example}
+
+
+The HPD, \eax{highest posterior density estimate} $\hat{p}_{\text{hpd}}$ is the value of $p$ that maximizes the posterior density $\pi(p \mid x)$. In the example above, we have
+\begin{align}
+    \hat{p}_{\text{hpd}} = \frac{\alpha + x - 1}{\alpha + \beta + n - 2}.
+\end{align}
+The $\hat{p}_{\text{hpd}}$ is most probably the correct model, while the MLE is the parameter which most likely produced the data.
+
+
+\begin{definition}
+    Let $\cF$ denote a class of density functions $f(x \mid \theta)$. A class $\cP$ of prior distributions is said to be conjugate for $\cF$ if $\pi( \cdot \mid x) \in \cP$ for all $f \in \cF$ and $\pi \in \cP$.
+\end{definition}
+
+We discsuss \eax{Jeffreys' prior}; let $f(x \mid \theta)$ be the model of $X \mid \theta$ for which $I(\theta)$ is the Fisher information. Then the Jeffreys' prior is defined as
+\begin{align}
+    \pi(\theta) = (I(\theta))^{1/2} = \abs{I(\theta)}^{1/2}.
+\end{align}
+
+\begin{definition}
+    For $0 < \alpha < 1$, a $100(1-\alpha)\%$ \eax{credible set} for $\theta$ is a subset $C \subseteq \Theta$ such that
+    \begin{align}
+        P(C \mid X = x) = 1-\alpha.
+    \end{align}
+    For the discrete case, the condition is relaxed to $P(C \mid X = x) \geq 1-\alpha$.
+\end{definition}
+
+
+\subsection{Prediction of Future Observations}
+
+Suppose the data are $x_{1},\ldots,x_{n}$ when $X_{1},\ldots,X_{n}$ are i.i.d.~$f(x \mid \theta)$, for example, $N(\mu,\sigma^{2})$ with $\sigma^{2}$ known. We wish to predict the unobserved value of $X_{n+1}$.
+
+Prediction by a single number $t(x_{1},\ldots,x_{n})$ amounts to considering prediction loss---
+\begin{align}
+    E[(X_{n+1}-t)^{2} \mid \underline{x}] = E[(X_{n+1}-E[X_{n+1} \mid \underline{x}])^{2} \mid \underline{x}] + (t-E[X_{n+1} \mid \underline{x}])^{2}
+\end{align}
+which is minimum at $t = E[X_{n+1} \mid \underline{x}]$. To calculate the predictor we need to calculate the predictive distribution.
+\begin{align}
+    \pi(x_{n+1} \mid \underline{x}) = \int_{\Theta} \pi(x_{n+1} \mid \underline{x},\theta) \pi(\theta \mid \underline{x}) d\theta = \int f(x_{n+1} \mid \theta) \pi(\theta \mid \underline{x}) d\theta.
+\end{align}
+Let $\mu(\theta) = \int_{-\infty}^{\infty} x f(x \mid \theta) dx$. It can be shown that
+\begin{align}
+    E[X_{n+1} \mid \underline{x}] = E[\mu(\theta) \mid \underline{x}] = \int_{\Theta} \mu(\theta) \pi(\theta \mid \underline{x}) d\theta.
+\end{align}
