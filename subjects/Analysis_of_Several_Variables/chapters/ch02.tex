@@ -599,11 +599,95 @@ We now define the surface integral of a vector field.
     A surface $S \subseteq \R^{3}$ is oriented if there exists a continuous vector field $\vec{n}:S \to \R^{3}$ such that $\vec{n}(x)$ is a unit normal vector to the tangent plane $T_{x}S$ for all $x \in S$.
 \end{definition}
 
-As an example, the M\"obis strip is not orientable, but the sphere is orientable.
+Such an orientation is called a \eax{normal field}.As an example, the M\"obius strip is not orientable, but the sphere is orientable.
 
 \begin{definition}
-    The surface integral of a vector field $\vec{F}:S \to \R^{3}$ over an oriented surface $S$ with orientatio $\vec{n}$ is defined as
+    The surface integral of a vector field $\vec{F}:S \to \R^{3}$ over an oriented surface $S$ with orientation $\vec{n}$ is defined as
     \begin{align}
-        \int_{S} \vec{F} \cdot d\vec{s} = \int_{S} \vec{F} \cdot \vec{n} ds
+        \int_{S} \vec{F} \cdot d\vec{s} \defeq \int_{S} \vec{F} \cdot \vec{n} ds
     \end{align}
+\end{definition}
+
+\textit{October 24th.}
+
+\begin{example}
+    Let $S$ be the unit sphere $\{x \in \R^{3} \mid \norm{x} = 1\}$. Here, the normal field $\vec{n}(x) = x$ for all $x \in S$ works.
+\end{example}
+
+\begin{example}
+    Let $S$ be the graph of $f$ as $\{(x,y,f(x,y)) \mid (x,y) \in O_{2}\}$. Here $r:O_{2} \to \R^{3}$ given by $r(x,y) = (x,y,f(x,y))$ is a parametrization of $S$. Note that $r_{x} \times r_{y} = (-f_{x},-f_{y},1)$. Thus, a normal field is given by
+    \begin{align}
+        \eta = \frac{(-f_{x},-f_{y},1)}{\sqrt{1+f_{x}^{2}+f_{y}^{2}}}.
+    \end{align}
+    For this to be continuous, we need $f \in C^{1}(O_{2})$.
+\end{example}
+
+The integral defined as before is also termed as \eax{flux} of the vector field $\vec{F}$ across the surface $S$. In general, computing flux is difficult but we still have some special cases.
+
+\begin{remark}
+    Suppose $\vec{n} = \frac{r_{u} \times r_{v}}{\norm{r_{u} \times r_{v}}}$ is a normal field on $S$. Then, the integration is simplified as
+    \begin{align}
+        \int_{S} \vec{F} \cdot d\vec{s} = \int_{S} \vec{F} \cdot \vec{n} ds = \int_{R} \left( \vec{F} \cdot \frac{r_{x} \times r_{y}}{\norm{r_{x} \times r_{y}}} \right) \norm{r_{x} \times r_{y}} dA = \int_{R} \vec{F} \cdot (r_{x} \times r_{y}) dA.
+    \end{align}
+\end{remark}
+
+\begin{example}
+    Suppose the vector field is $\vec{F}(x,y,z) = (x,y,z)$ on $S$ which is the range of $r$ defined as $r(x,y) = (\cos x, \sin x, y)$ for $(x,y) \in [0,\pi/2] \times [0,1]$. This surface is the quarter unit cylinder as discussed before. In this case, $r_{x} \times r_{y} = (\cos x, \sin x, 0)$ and $\norm{r_{x} \times r_{y}} = 1$. Thus the normal field is $\vec{n} = (\cos x, \sin x, 0)$. Thus,
+    \begin{align}
+        \int_{S} \vec{F} \cdot d\vec{s} = \int_{R} (\cos x, \sin x, y) \cdot (\cos x, \sin x, 0) dA = \int_{R} dA = \frac{\pi}{2}.
+    \end{align}
+\end{example}
+
+Recall that in the line integral version of the fundamental theorem of calculus, we had
+\begin{align}
+    \int_{C} \nabla f \cdot d\gamma = f(B) - f(A)
+\end{align}
+where $f:O_{n} \to \R$ is a $C^{1}$-scalar field and $\gamma$ is a piecewise smooth curve joining $A$ and $B$ with $C$ the trace of $\gamma$. If $C$ is close, then $\int_{C} \nabla f \cdot d\gamma = 0$.
+
+\begin{definition}
+    A vector field $\vec{F}:O_{n} \to \R^{n}$ is \eax{conservative} if $\vec{F} = \nabla f$ for some $C^{1}$-scalar field $f:O_{n} \to \R$. The function $f$ is called a \eax{potential function} for $\vec{F}$.
+\end{definition}
+
+Let $F:O_{n} \to \R^{n}$ be a vector field, where $O_{n}$ is also connected. Then the following are equivalent.
+\begin{enumerate}
+    \item $F$ is conservative.
+    \item $\int_{C} \vec{F} \cdot d\vec{r} = 0$ for all closed piecewise smooth curves $C$ in $O_{n}$.
+    \item $\int_{C_{1}} \vec{F} \cdot d\vec{r} = \int_{C_{2}} \vec{F} \cdot d\vec{r}$ for all piecewise smooth curves $C_{1}$ and $C_{2}$ in $O_{n}$ with the same endpoints.
+\end{enumerate}
+
+We now ask whether given a vector field $\vec{F}:O_{n} \to \R^{n}$, is it always conservative? Input $F = (P,Q,R)$. If $F$ is conservative, then $F = \nabla f$ for, assume, some $C^{2}$-function $f$, or $(P,Q,R) = (f_{x},f_{y},f_{z})$. In this case,
+\begin{align}
+    \frac{\partial P}{\partial y} - \frac{\partial Q}{\partial x} = 0,\quad \frac{\partial P}{\partial z} - \frac{\partial R}{\partial x} = 0,\quad \frac{\partial Q}{\partial z} - \frac{\partial R}{\partial y} = 0.
+\end{align}
+These conditions are equivalent to saying that the \eax{curl} of $\vec{F}$ is zero, where the curl is defined as
+\begin{align}
+    \nabla \times F = \left( \frac{\partial}{\partial x}, \frac{\partial}{\partial y}, \frac{\partial}{\partial z} \right) \times (P,Q,R) = 0.
+\end{align}
+
+\begin{example}
+    Suppose $F(x,y) = (xy,1-x^{2})$. Extending to $\R^{3}$ as $F(x,y,z) = (xy,1-x^{2},0)$, we compute the curl as
+    \begin{align}
+        \nabla \times F = (0,0,-3x) \neq 0.
+    \end{align}
+    Thus, $F$ is not conservative.
+\end{example}
+
+\begin{example}
+    Let $F(x,y) = (y-3,x+2) = (P,Q)$ for all $(x,y) \in \R^{2}$. Here, $\frac{\partial P}{\partial y} - \frac{\partial Q}{\partial x} = 1 -1 = 0$. This implies that the curl is zero, but the vector field may still not be conservative. If possile, let $F$ be conservative with potential function $f:\R^{2} \to \R$ being $C^{2}$. Then $f_{x} = y-3$ and $f_{y} = x+2$. Integrating $f_{x}$ with respect to $x$, we get $f(x,y) = xy - 3x + \varphi(y)$. Differentiating with respect to $y$, we get $f_{y} = x + \varphi'(y)$. Equating this to $x+2$, we get $\varphi'(y) = 2$, or $\varphi(y) = 2y + c$ for some constant $c \in \R$. Thus, a potential function is given as $f(x,y) = xy - 3x + 2y + c$. Therefore, $F$ is conservative.
+\end{example}
+
+The above example can be generalized; a vector field $F$ defined on a convex domain with continuous partials and zero curl is always conservative.
+
+\begin{example}
+    Suppose $F(x,y) = (-\frac{y}{x^{2}+y^{2}}, \frac{x}{x^{2}+y^{2}})$ for all $(x,y) = \R^{2}\setminus (0,0)$. Then $\frac{\partial P}{\partial y} - \frac{\partial Q}{\partial x} = 0$. This domain is not convex. Consider the curve $C$ parametrized as $r(\theta) = (\cos \theta, \sin \theta)$ for $\theta \in [0,2\pi]$. Then,
+    \begin{align}
+        \int_{C} \vec{F} \cdot d\vec{r} = \int_{0}^{2\pi} \left( -\frac{\sin \theta}{1}, \frac{\cos \theta}{1} \right) \cdot (-\sin \theta, \cos \theta) d\theta = \int_{0}^{2\pi} 1 d\theta = 2\pi \neq 0.
+    \end{align}
+    This tells us that $F$ is not conservative. Note here that $C$ was a closed curve \textit{wrapping} around the origin, which was excluded from the domain of $F$.
+\end{example}
+
+A following theorem provides an answer to the question of when a vector field is conservative.
+
+\begin{definition}
+    Let $\cD$ be an open and connected subset of $\R^{2}$. We say $\cD$ is \eax{simply connected} if whenever $C \subseteq \cD$ is a simple closed curve, $C$ can be shrunk continuously to a point inside $\cD$.
 \end{definition}
