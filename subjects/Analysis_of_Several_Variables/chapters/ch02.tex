@@ -691,3 +691,90 @@ A following theorem provides an answer to the question of when a vector field is
 \begin{definition}
     Let $\cD$ be an open and connected subset of $\R^{2}$. We say $\cD$ is \eax{simply connected} if whenever $C \subseteq \cD$ is a simple closed curve, $C$ can be shrunk continuously to a point inside $\cD$.
 \end{definition}
+
+\textit{October 27th.}
+
+\begin{theorem}[\eax{Green's theorem}]
+    Let $R \subseteq \R^{2}$ be a simply connected domain with boundary curve $C$ (parametrized in such a way that $R$ is on `the left' of $C$). Let $(P,Q)$ be a $C^{1}$-vector field on an open set containing $R$. Then
+    \begin{align}
+        \int_{C} \vec{F} \cdot d\vec{r} = \int_{R} \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right) dA.
+    \end{align}
+\end{theorem}
+
+\begin{remark}
+    Let $C$ be the range of a curve $r(t)$ defined on $t \in [a,b]$. Then
+    \begin{align}
+        \int_{C} \vec{F} \cdot d\vec{r} &= \int_{a}^{b} F(r(t)) \cdot r'(t) dt = \int_{a}^{b} (P(r(t)),Q(r(t))) \cdot (x'(t),y'(t)) dt \notag \\ &= \int_{a}^{b} P(r(t)) x'(t) + Q(r(t)) y'(t) dt = \int_{C} P dx + Q dy.
+    \end{align}
+\end{remark}
+By the remark, Green's theorem can also be written as
+\begin{align}
+    \oint_{C} P dx + Q dy = \int_{R} \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right) dA.
+\end{align}
+The proof of this theorem is outside the scope of this course; however, a proof for rectangular regions may be obtained by the reader as an exercise.
+
+The theorem may be generalized to regions with $n$ `holes'. Consider a single-holed domain with outer boundary curve $C_{1}$ and inner boundary curve $C_{2}$ such that the region $R$ is on the left of each curve. Define $C = C_{1} \cup C_{2}$. We now perform a \textit{cut} trick, where we cut the region $R$ twice along two curves from $C_{1}$ to $C_{2}$. This results in two simple connected regions $R_{1}$ and $R_{2}$ with boundary curves $\tilde{C}_{1}$ and $\tilde{C}_{2}$, respectively. One notes that $\tilde{C}_{1} \cup \tilde{C}_{2} = C$ (with appropriate orientations). Thus, by applying Green's theorem to each of $R_{1}$ and $R_{2}$ and adding the results, we get
+\begin{align}
+    \int_{C} Pdx + Qdy = \sum_{i} \int_{\tilde{C}_{i}} P dx + Q dy = \sum_{i} \int_{R_{i}} \left(\frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right) dA = \int_{R} \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right) dA.
+\end{align}
+This argument may be extended to regions with $n$ holes, but not countably many holes.
+
+\begin{example}
+    Let us compute $\int_{C} \vec{F} \cdot d\vec{r}$ where $\vec{F}(x,y) = (x^{2}-y^{2},2xy)$ and $C = \partial ([0,1]^{2})$. By Green's theorem,
+    \begin{align}
+        \int_{C} \vec{F} \cdot d\vec{r} = \int_{(0,1)^{2}} \left( \frac{\partial (2xy)}{\partial x} - \frac{\partial (x^{2}-y^{2})}{\partial y} \right) dA = \int_{0}^{1} \int_{0}^{1} 4y dy dx = 2.
+    \end{align}
+\end{example}
+
+Let $C = \partial R$ be a simple, positively oriented curve bounding a region $R \subseteq \R^{2}$. The area of $R$ can be computed using Green's theorem as
+\begin{align}
+    \int_{R} 1 dA = \int_{C} x dy = -\int_{C} y dx = \frac{1}{2} \int_{C} xdy - ydx.
+\end{align}
+
+
+\begin{theorem}
+    Let $R \subseteq \R^{2}$ be a simply connected domain, and let $\vec{F}$ be a $C^{1}$-vector field on an open set containing $R$. Then $F$ is conservative if and only if $\nabla \times F = \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} = 0$ on $R$.
+\end{theorem}
+
+\begin{definition}
+    The \eax{divergence} of a vector field $(f_{1},\ldots,f_{n}):\R^{n} \to \R^{n}$ is defined as 
+    \begin{align}
+        \nabla \cdot \vec{F} = \frac{\partial f_{1}}{\partial x_{1}} + \cdots + \frac{\partial f_{n}}{\partial x_{n}}.
+    \end{align}
+\end{definition}
+
+\begin{theorem}[The \eax{divergence theorem}]
+    Let $\cD \subseteq \R^{3}$ be a `solid' such that $\partial \cD$ is an oriented surface. Let $\vec{F} = (P,Q,R)$ be a $C^{1}$-vector field defined on an open set containing $\cD \cup \partial \cD$. Then
+    \begin{align}
+        \int_{\partial \cD} \vec{F} \cdot d\vec{s} = \int_{\cD} \nabla \cdot \vec{F} dV.
+    \end{align}
+\end{theorem}
+The term on the left is termed the \eax{flux} of $\vec{F}$ across the surface $\partial \cD$.
+
+
+\begin{example}
+    Suppose $S$ is the hemisphere $x^{2}+y^{2}+z^{2} = 1$ for $z \geq 0$. Let $\vec{F} = (x+y,z^{2},x^{2})$. We compute the flux of $\vec{F}$ across $S$ with outward normal. Here, $\nabla \cdot \vec{F} = 1$. The divergence theorem cannot simply be applied since the hemisphere is not closed; it requires the bottom disc $S_{1}$ defined as $x^{2}+y^{2} \leq 1$ and $z = 0$. Thus,
+    \begin{align}
+        \int_{S \cup S_{1}} \vec{F} \cdot d\vec{s} = \int_{\cD} 1 dV = \frac{2\pi}{3} \implies \int_{S} \vec{F} \cdot d\vec{s} = \frac{2\pi}{3} + \int_{S_{1}} \vec{F} \cdot d\vec{s} = \frac{2\pi}{3} + \int_{S_{1}} x^{2} ds = \frac{11\pi}{12}.
+    \end{align}
+\end{example}
+
+
+\begin{theorem}[\eax{Stoke's theorem}]
+    Let $C$ be a piecewise smooth curve enclosing an oriented surface $S$. Let $F = (P,Q,R)$ be a $C^{1}$-vector field $S \cup S$. Then
+    \begin{align}
+        \int_{C} \vec{F} \cdot d\vec{r} = \int_{S} (\nabla \times \vec{F}) \cdot d\vec{s}.
+    \end{align}
+\end{theorem}
+
+\begin{example}
+    Let $C$ be the curve $x^{2}+y^{2} = 9$ with $z = 4$ oriented clockwise viewed from above. Let $\vec{F} = (-y,x,xyz)$. We compute $\int_{C} \vec{F} \cdot d\vec{r}$. A parametrization of $C$ is $r(t) = (3\cos t, 3\sin t, 4)$ for $t \in [0,2\pi]$ (this is oriented counter-clockwise). Thus,
+    \begin{align}
+        \int_{C} \vec{F} \cdot d\vec{r} = -\int_{0}^{2\pi} (-3\sin t, 3\cos t, 36 \cos t \sin t) \cdot (-3\sin t, 3\cos t, 0) dt = -\int_{0}^{2\pi} 9 dt = -18\pi.
+    \end{align}
+
+    Let $S$ be the surface $x^{2} + y^{2} + z^{2} = 25$ for $z \leq 4$. Stoke's theorem simply gives
+    \begin{align}
+        \int_{S} (\nabla \times \vec{F}) \cdot d\vec{s} = \int_{C} \vec{F} \cdot d\vec{r} = -18\pi.
+    \end{align}
+\end{example}
