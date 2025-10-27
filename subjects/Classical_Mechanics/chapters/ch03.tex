@@ -444,3 +444,60 @@ With $L_{i} = I_{i} \omega_{i}$, we have
     \tau_{\text{ext},i} = I_{i} \frac{d\omega_{i}}{dt} + \epsilon_{ijk} (I_{k} \omega_{k}) \implies \tau_{\text{ext},1} = I_{1}\dot{\omega}_{1} + \omega_{2}\omega_{3}(I_{3}-I_{2}) \quad \text{ and cyclic permutations.}
 \end{align}
 
+\noindent\textit{October 27th.}
+
+For a generalized coordinate $\theta$, oscillations are entirely described by the small angle approximation $\cos \theta \approx 1$ and $\sin \theta \approx \theta$, $\tan \theta \approx \theta$. One then relates the equation of motion as $\ddot{\theta} \approx - \alpha \theta$, where $\alpha > 0$ is a constant. The solution to this equation is $\theta(t) = \theta_{0} \cos(\sqrt{\alpha} t + \phi)$, where $\theta_{0}$ and $\phi$ are constants determined by initial conditions.
+
+\section{Heavy Spinning Top}
+
+Let $\phi,\theta,\psi$ be the Euler angles describing the orientation of the top. Then $\dot{\psi}$ represents the rotation of top about its own body $z_{b}$-axis (the instantaneous spin), $\dot{\phi}$ represents the precession of the body $z_{b}$-axis about the space $z_{s}$-axis, and $\dot{\theta}$ represents the nutation (the oscillation of the angle between the body $z_{b}$-axis and the space $z$-axis). In the body axes, clearly $I_{3} \neq I_{1} = I_{2} = I$ (say). We have assumed $\dot{\psi} \gg \dot{\phi}, \dot{\theta}$. The equations of motion are then
+\begin{align}
+    I_{1} \dot{\omega}_{1} - \omega_{2}\omega_{3} (I-I_{3}) &= \tau_{1}, \\
+    I_{2} \dot{\omega}_{2} - \omega_{3}\omega_{1} (I_{3}-I) &= \tau_{2}, \\
+    I_{3} \dot{\omega}_{3} &= \tau_{3}.
+\end{align}
+The kinetic energy is given by
+\begin{align}
+    T = \frac{1}{2}I(\omega_{1}^{2} + \omega_{2}^{2}) + \frac{1}{2} I_{3} \omega_{3}^{2}.
+\end{align}
+We proceed to relate these with the Euler angles. Note that $\vec{\omega}_{\phi}$ pointing along $z_{s}$ is given by the projection of $\dot{\phi} \hat{e}_{z_{s}}$ in the $x_{b}y_{b}$-plane, which is $\dot{\phi} \sin \theta$. So, $(\vec{\omega}_{\phi})_{x_{b}} = \dot{\phi} \sin \theta \sin \psi$, $(\vec{\omega}_{\phi})_{y_{b}} = \dot{\phi} \sin \theta \cos \psi$, and $(\vec{\omega}_{\phi})_{z_{b}} = \dot{\phi} \cos \theta$. A similar analysis for $\psi$ shows that $(\vec{\omega}_{\psi})_{x_{b}} = 0 = (\vec{\omega}_{\psi})_{y_{b}}$ and $(\vec{\omega}_{\psi})_{z_{b}} = \dot{\psi}$. Finally, for $\theta$, $\vec{\omega}_{\theta}$ points along $\xi$ (the line of nodes), so $(\vec{\omega}_{\theta})_{x_{b}} = \dot{\theta} \cos \psi$, $(\vec{\omega}_{\theta})_{y_{b}} = -\dot{\theta} \sin \psi$, and $(\vec{\omega}_{\theta})_{z_{b}} = 0$. Adding these up, we obtain
+
+\begin{align}
+    \omega_{x_{b}} &= \dot{\phi} \sin \theta \sin \psi + \dot{\theta} \cos \psi,\\
+    \omega_{y_{b}} &= \dot{\phi} \sin \theta \cos \psi - \dot{\theta} \sin \psi,\\
+    \omega_{z_{b}} &= \dot{\phi} \cos \theta + \dot{\psi}.
+\end{align}
+$z_{b}$ is an axis of symmetry, so it must be a principal axis. Since we are free to choose the other two axes, we choose them to be $y_{b}$ and $z_{b}$. Thus, we have $I_{1} = I_{2} = I$ and $I_{3}$ as before, with the indices corresponding to $x_{b},y_{b},z_{b}$. The kinetic energy is then
+\begin{align}
+    T = \frac{1}{2}I(\omega_{x_{b}}^{2} + \omega_{y_{b}}^{2}) + \frac{1}{2} I_{3} \omega_{z_{b}}^{2} = \frac{I}{2}(\dot{\theta}^{2} + \dot{\phi}^{2} \sin^{2} \theta) + \frac{I_{3}}{2} (\dot{\psi} + \dot{\phi} \cos \theta)^{2}.
+\end{align}
+The potential energy is given by $U = Mgl \cos \theta$, where $l$ is the distance of the center of mass from the fixed point $O$. Since $\phi$ and $\psi$ do not appear in $L = T-U$, they are cyclic coordinates, and their generalized momenta $p_{\phi}$ and $p_{\psi}$ are conserved. Thus,
+\begin{align}
+    p_{\psi} = \frac{\partial L}{\partial \dot{\psi}} = I_{3}(\dot{\psi} + \dot{\phi} \cos \theta) = I_{3} \omega_{z_{b}} = I_{1}a
+\end{align}
+where $a$ is a constant (this quantity $p_{\psi}$ is conserved, so is $\omega_{z_{b}}$; hence such an $a$ is possible). Similarly,
+\begin{align}
+    p_{\phi} = \frac{\partial L}{\partial \dot{\phi}} = (I \sin^{2}\theta + I_{3} \cos^{2} \theta) \dot{\phi} + (I_{3} \cos \theta) \dot{\psi} = I b.
+\end{align}
+where $b$ is a constant. Also, $E = T+U$ is also conserved, which is
+\begin{align}
+    E = \frac{I}{2}(\dot{\theta}^{2} + \dot{\phi}^{2} \sin^{2} \theta) + \frac{1}{2} I_{3} \omega_{z_{b}}^{2} + Mgl \cos \theta.
+\end{align}
+We eliminate the other two coordinates to get an equation in $\theta$ alone. To eliminate $\dot{\psi}$, using $I_{3}\omega_{z_{b}} = I_{1} a$, we have $\dot{\psi} = \frac{I}{I_{3}} a - \dot{\phi} \cos \theta$. Substituting this into the expression for $p_{\phi}$, we get $\dot{\phi} = \frac{b-a \cos \theta}{\sin^{2} \theta}$. $E' = E - \frac{1}{2} I_{3} \omega_{z_{b}}^{2}$ is also conserved, and is given by
+\begin{align}
+    E' = E - \frac{1}{2} I_{3} \omega_{z_{b}}^{2} = \frac{1}{2} I \dot{\theta}^{2} + \frac{1}{2} I \frac{(b-a\cos\theta)^{2}}{\sin^{2}\theta} + Mgl \cos \theta = T_{\theta} + V_{\theta}
+\end{align}
+where $T_{\theta} = \frac{1}{2} I \dot{\theta}^{2}$ and $V_{\theta} = \frac{1}{2} I \frac{(b-a\cos\theta)^{2}}{\sin^{2}\theta} + Mgl \cos \theta$. Thus,
+\begin{align}
+    \alpha &= \frac{2E'}{I} = \dot{\theta}^{2} + \frac{(b-a\cos\theta)^{2}}{\sin^{2}\theta} + \frac{2Mgl}{I} \cos \theta \\
+    \implies \alpha \sin^{2} \theta = \dot{\theta}^{2} \sin^{2} \theta + (b-a\cos\theta)^{2} + \beta \cos \theta \sin^{2} \theta,
+\end{align}
+where $\beta = \frac{2Mgl}{I}$. Setting $u = \cos \theta$ and $\dot{u}^{2} = \sin^{2} \theta \dot{\theta}^{2}$, we have
+\begin{align}
+    \alpha (1-u^{2}) = \dot{u}^{2} + (b-au)^{2} + \beta u (1-u^{2}) \implies \dot{u}^{2} = (1-u^{2})(\alpha-\beta u) - (b-au)^{2}.
+\end{align}
+The solution to this equation is given by the inverse function of the following:
+\begin{align}
+    t = \int_{0}^{t} dt = \int_{u(0)}^{u(t)} \frac{du}{((1-u^{2})(\alpha - \beta u) - (b-au)^{2})^{1/2}}.
+\end{align}
+This is the required equation, an elliptic integral which is unsolvable in elementary functions. Let us perform some analysis on this integral. Let $f(u) = \dot{u}^{2}$. Note that $-1 \leq u \leq 1$ since $u = \cos \theta$. In the limiting case, when $u = \pm 1$, we have $\dot{u}^{2} = f(u) = -(b \mp a)^{2}$ (we have assumed $\beta > 0$). But $f(u)$ must be a non-negative quantity, so this limiting case does not occur. We note down that $f(\pm 1) < 0$. The turning points of the motion occur when $\dot{u} = 0$, i.e., $f(u) = 0$. Thus, $f(u)$ has a non-physical root beyond $1$ but has two physical roots in $(-1,1)$, say $u_{1} < u_{2}$ (let us assume $\theta < \pi/2$ so that $u > 0$). This implies that the associated $\theta$s are $\theta_{2} < \theta_{1}$, and the motion is between these two angles. Note that at these turning points, $\dot{\theta} = 0$, so the top is momentarily stationary in the nutation angle. Since we require $f(u)$ to be non-negative, we have that $u$ must be between $u_{1}$ and $u_{2}$. Thus, the motion is oscillatory between these two angles, which is nutation.
