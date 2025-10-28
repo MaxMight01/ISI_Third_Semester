@@ -353,3 +353,79 @@ We define $PSL_{n} = SL_{n}/Z(SL_{n})$, where $Z(SL_{n}) = \{\lambda I_{n} \mid 
 \begin{corollary}
     $PSL_{2}(\F_{p})$ is simple for all primes $p \geq 5$.
 \end{corollary}
+
+\section{Exponentials}
+
+\textit{October 28th.}
+
+Let $A \in M_{n}(\R)$ (or $M_{n}(\C)$). We define the \eax{exponential} of $A$ as
+\begin{align}
+    e^{A} \defeq I + A + \frac{1}{2!} A^{2} + \frac{1}{3!} A^{3} + \cdots = \sum_{k=0}^{\infty} \frac{1}{k!} A^{k}.
+\end{align}
+Of course, the convergence of this series has to be verified. If $A$ is a diagonal matrix, then $e^{A}$ is also diagonal with diagonal entries $e^{a_{ii}}$. If $A$ is diagonalizable, say $A = PDP^{-1}$ where $D$ is diagonal, then $e^{A} = Pe^{D}P^{-1}$. We extend this to make sense for all $A$. Let us define, for a fixed $A$,
+\begin{align}
+    e^{tA} \defeq I + tA + \frac{t^{2}}{2!} A^{2} + \frac{t^{3}}{3!} A^{3} + \cdots = \sum_{k=0}^{\infty} \frac{t^{k}}{k!} A^{k}
+\end{align}
+for $t \in \R$.
+\begin{theorem}
+    The series $e^{A}$ converges absolutely and uniformly on bounded sets of complex matrices. The function $e^{tA}$ is a differentiable function of $t$ and its derivative is $Ae^{tA}$. If $AB = BA$, then $e^{A+B} = e^{A} e^{B}$.
+\end{theorem}
+
+\begin{corollary}
+    $e^{A} \in GL_{n}(\C)$ for all $A \in M_{n}(\C)$, and $(e^{A})^{-1} = e^{-A}$.
+\end{corollary}
+
+We define a norm on $M_{n}(\C)$ as $\norm{A} = \max_{i,j} \abs{a_{ij}}$. One can verify that this is indeed a norm.
+
+\begin{lemma}
+    Let $A,B \in M_{n}(\C)$. Then $\norm{AB} \leq n \norm{A} \norm{B}$. In particular, $\norm{A^{k}} \leq n^{k-1} \norm{A}^{k}$ for all $k \geq 1$.
+\end{lemma}
+
+\begin{proof}
+    Let $A = (a_{ij})$ and $B = (b_{ij})$. Then the $(i,j)$-th entry of $AB$ is given as $\sum_{k=1}^{n} a_{ik} b_{kj}$. Thus,
+    \begin{align}
+        \abs{\sum_{k=1}^{n} a_{ik} b_{kj}} \leq \sum_{k=1}^{n} \abs{a_{ik}} \abs{b_{kj}} \leq \sum_{k=1}^{n} \norm{A} \norm{B} = n \norm{A} \norm{B}.
+    \end{align}
+    Taking maximum over all $i,j$, we get $\norm{AB} \leq n \norm{A} \norm{B}$. The second part follows from induction.
+\end{proof}
+
+We now prove \textbf{Theorem 5.20}.
+
+\begin{proof}
+    Let $S \subseteq M_{n}(\C)$ be a bounded subset. Then there exists $a > 0$ such that $n \norm{A} < a$ for all $A \in S$. This also implies that $\norm{A^{k}} \leq a^{k}$. The $(i,j)$-th entry of $e^{A}$ is given as
+    \begin{align}
+        (e^{A})_{ij} = \sum_{k=0}^{\infty} \frac{1}{k!} (A^{k})_{ij} \implies \abs{(e^{A})_{ij}} \leq \sum_{k=0}^{\infty} \frac{1}{k!} \abs{(A^{k})_{ij}} \leq \sum_{k=0}^{\infty} \frac{1}{k!} \norm{A^{k}} \leq \sum_{k=0}^{\infty} \frac{a^{k}}{k!} = e^{a}.
+    \end{align}
+    This last convergence is uniform. Thus, $e^{A}$ converges absolutely and uniformly on bounded sets. Next, consider $e^{tA+B}$. We have
+    \begin{align}
+        e^{tA+B} = \sum_{k=0}^{\infty} \frac{(tA+B)^{k}}{k!}.
+    \end{align}
+    The derivative of the $k$-th term with respect to $t$ is given as
+    \begin{align}
+        \frac{d}{dt} \frac{(tA+B)^{k}}{k!} = \frac{1}{k!} \sum_{i=1}^{k} (tA+B)^{i-1} A (tA+B)^{k-i}.
+    \end{align}
+    If $AB = BA$, then this is $\frac{1}{k!} k A(tA+B)^{k-1} = \frac{A}{(k-1)!} (tA+B)^{k-1}$. Thus,
+    \begin{align}
+        \sum_{k=1}^{\infty} \frac{d}{dt} \frac{(tA+B)^{k}}{k!} = A \sum_{k=1}^{\infty} \frac{(tA+B)^{k-1}}{(k-1)!} = A e^{tA+B}.
+    \end{align}
+    The last equality is due to uniform convergence of the series, shown above. Thus, since $e^{tA+B}$ converges uniformly and the series of its derivatives also converges uniformly, we have $\frac{d}{dt} e^{tA+B} = A e^{tA+B}$. Setting $t = 1$, we get $\frac{d}{dt} e^{A+B} = A e^{A+B}$; further setting $B = 0$, we get $\frac{d}{dt} e^{tA} = A e^{tA}$.
+
+    Finally, consider $e^{-tA} e^{tA+B}$. Its derivative with respect to $t$ is given as
+    \begin{align}
+        \frac{d}{dt} (e^{-tA} e^{tA+B}) = -A e^{-tA} e^{tA+B} + e^{-tA} A e^{tA+B} = 0.
+    \end{align}
+    Here, we have assumed $AB = BA$ to make sense of the derivative. Thus, $e^{-tA} e^{tA+B} = C$ for some constant matrix $C$. Setting $t = 0$, we get $C = e^{B}$. Thus, $e^{tA+B} = e^{tA} e^{B}$. Setting $t = 1$, we get $e^{A+B} = e^{A} e^{B}$.
+\end{proof}
+
+
+\begin{theorem}
+    The columns of the matrix $e^{tA}$ form a bases for the space of solutions of the differential equation $\frac{dX(t)}{dt} = A X(t)$.
+\end{theorem}
+
+\begin{proof}
+    We already showed that $\frac{d}{dt} e^{tA} = A e^{tA}$. The $i$-th column of $e^{tA}$ is given as $e^{tA}e_{i}$. Note that we simply have $\frac{d}{dt} (e^{tA} e_{i}) = A e^{tA} e_{i}$. Thus, the columns of $e^{tA}$ satisfy the differential equation $\frac{dX(t)}{dt} = A X(t)$. So it is enough to show that every solution is a linear combination of these columns. Let $X(t)$ be any solution of the differential equation. Consider the matrix $Y(t) = e^{-tA} X(t)$. Then
+    \begin{align}
+        \frac{d}{dt} (e^{-tA}(X(t))) = -A e^{-tA} X(t) + e^{-tA} A X(t) = 0
+    \end{align}
+    which implies that $Y(t) = C$ for some constant vector $C$. Thus, $X(t) = e^{tA} C$, which is a linear combination of the columns of $e^{tA}$.
+\end{proof}
