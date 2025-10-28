@@ -183,7 +183,7 @@ This summation is $n$ for $j = j'$. For $j \neq j'$, this summation is 0. Thus, 
     In other words, $\# \cP = v$, $\# B = k$ for all $B \in \cB$, and for any $T \subseteq \cP$ with $\# T = t$, we have $\# \{B \in \cB \mid T \subseteq B\} = \lambda$.
 \end{definition}
 
-If $t = 2$, then we simply call it a $(v,k,\lambda)$ design. For the case $\lambda = 1$, a $t-(v,k,1)$ design is called a \eax{Steiner system}, denoted by $S(t,k,v)$. If $(\cB = ) b = v$, then the design is called a \eax{symmetric design}.
+If $t = 2$, then we simply call it a $(v,k,\lambda)$ design. For the case $\lambda = 1$, a $t-(v,k,1)$ design is called a \eax{Steiner system}, denoted by $S(t,k,v)$. If $(\#\cB = ) b = v$, then the design is called a \eax{symmetric design}.
 
 \begin{example}
     Suppose $q$ is a prime power. Then $S(2,q+1,q^{2}+q+1)$ is a design with $q^{2}+q+1$ points and blocks of size $q+1$. Moreover, for any two points, there is a unique block containing them. This design arises from the finite projective plane of order $q$. Moreover, this is a symmetric design since the number of blocks is equal to the number of points.
@@ -193,4 +193,26 @@ One can show that $b = \# \cB$ satisfies
 \begin{align}
     b = \frac{\lambda \binom{v}{t}}{\binom{k}{t}}
 \end{align}
-in a $t-(v,k,\lambda)$ design, via double counting.
+in a $t-(v,k,\lambda)$ design, via double counting.\\
+
+\textit{October 28th.}
+\begin{proof}
+    Consider $\{(T,B) \mid T \subseteq B, B \text{ is a block}, T \text{ is a } t\text{-subset of } B\}$. The number of $t$-subsets of $\cP$ is $\binom{v}{t}$. Each $t$-subset is contained in exactly $\lambda$ blocks. Thus the total number of such pairs is $\lambda \binom{v}{t}$. On the other hand, each block $B$ has $\binom{k}{t}$ $t$-subsets. Thus the total number of such pairs is also $b \binom{k}{t}$. Equating gives us the desired result.
+\end{proof}
+
+
+\begin{lemma}
+    In a $2-(v,k,\lambda)$ design, every point in $\cP$ is contained in exactly $r$ blocks, where $r$ satisfies both $r(k-1) = \lambda (v-1)$ and $bk = vr$.    
+\end{lemma}
+
+\begin{theorem}[\eax{Fisher's inequality for designs}]
+    For a $2-(v,k,\lambda)$ design with $b$ blocks and $v > k$, we have $b \geq v$.
+\end{theorem}
+
+\begin{proof}
+    Let $B_{1},\ldots,B_{b}$ be the blocks. Consider the set $S_{p} = \{i \mid p \in B_{i}\}$ for each point $p \in \cP$. Thus $\# (S_{p} \cap S_{q}) = \lambda$ for $p \neq q$. Note that $S_{p} = S_{q}$ is not possible since this would imply $r(k-1) = \lambda (v-1)$ fails. Thus, by Fisher's inequality, the number of such sets $S_{p}$ is at most $b$. Since there are $v$ points, we have $v \leq b$.
+\end{proof}
+
+\subsection{Hadamard Designs}
+
+In some sense, every Hadamard matrix of dimension $4n \times 4n$ gives rise to a symmetric $2-(4n-1,2n-1,n-1)$ design. Let $H$ be a Hadamard matrix of order $4n$. We may assume that, without the loss of generality, the first row and first column of $H$ are all $1$s. Replace every $-1$ in $H$ with $0$. Delete the first row and first column to obtain a $(4n-1) \times (4n-1)$ matrix $H'$ with entries $0$ and $1$. Let $\cP$, the points, be the set of row indices of $H'$ and let $\cB$, the blocks, be the set of column indices of $H'$. We define a block $B_{j} \in \cB$ to contain a point $p_{i} \in \cP$ if and only if the $(i,j)$-entry of $H'$ is $1$. Note that $\cP = 4n-1$. Each column corresponds to the rows which contain $1$ for that column. Each column of $H'$ has $2n-1 (=k)$ $1$s since each column of $H$ has $2n$ $1$s. For any choice of $2$ rows, there are exactly $n-1$ columns for which both rows have $1$s since the inner product of any two rows of $H$ is $0$. Thus, we have constructed a symmetric $2-(4n-1,2n-1,n-1)$ design, called a \eax{Hadamard design}.
