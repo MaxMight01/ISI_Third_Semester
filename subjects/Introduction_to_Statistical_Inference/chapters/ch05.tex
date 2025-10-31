@@ -234,3 +234,27 @@ Let $\mu(\theta) = \int_{-\infty}^{\infty} x f(x \mid \theta) dx$. It can be sho
 \begin{align}
     E[X_{n+1} \mid \underline{x}] = E[\mu(\theta) \mid \underline{x}] = \int_{\Theta} \mu(\theta) \pi(\theta \mid \underline{x}) d\theta.
 \end{align}
+
+
+
+\subsection{Testing of Hypothesis}
+
+\textit{October 31st.}
+
+We are given $X \sim P_{\theta}$, $\theta \in \Theta$ with density $f(x \mid \theta)$. We wish to test $H_{0}:\theta \in \Theta_{0}$ against $H_{1}:\theta \in \Theta_{1}$, where $\Theta_{0},\Theta_{1} \subseteq \Theta$ and $\Theta_{0} \cap \Theta_{1} = \emptyset$. The way to do this is to first ocmpute the posterior probability $\pi(\theta \mid X = x)$ and then calculate
+\begin{align}
+    P(\Theta_{0} \mid x) = \int_{\Theta_{0}} \pi(\theta \mid x) d\theta, \quad P(\Theta_{1} \mid x) = \int_{\Theta_{1}} \pi(\theta \mid x) d\theta = 1-P(\Theta_{0} \mid x).
+\end{align}
+
+If $P(\Theta_{0} \mid x) > \frac{1}{2}$ (or some suitable threshold), or alternately the posterior odd ratio $\frac{P(\Theta_{0} \mid x)}{P(\Theta_{1} \mid x)} > 1$, then we accept $H_{0}$.
+
+The \eax{Bayes factor} is defined as
+\begin{align}
+    \mathrm{BF}_{01} = \frac{P(\Theta_{0} \mid x)/P(\Theta_{1} \mid x)}{P(\Theta_{0})/P(\Theta_{1})} = \frac{m_{0}(x)}{m_{1}(x)}.
+\end{align}
+Let $\pi_{0}$ and $1-\pi_{0}$ be the prior probabilities of $\Theta_{0}$ and $\Theta_{1}$ respectively. Let $g_{i}(\theta)$ be the prior density of $\theta$ on $\Theta_{i}$ so that $\int_{\Theta_{i}} g_{i}(\theta) d\theta = 1$. Then the prior $\pi(\theta)$ is specified as
+\begin{align}
+    \pi(\theta) = \pi_{0} g_{0}(\theta) \1_{\{\theta = \theta_{0}\}} + (1-\pi_{0}) g_{1}(\theta) \1_{\{\theta \neq \theta_{0}\}}.
+\end{align}
+
+
